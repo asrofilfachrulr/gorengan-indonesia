@@ -103,7 +103,7 @@ public class Receipt implements Parcelable {
 
     protected Receipt(Parcel in) {
         title = in.readString();
-        category = in.readParcelable(Category.class.getClassLoader());
+        category = in.readString();
         minuteDuration = in.readInt();
         thumb = in.readInt();
         difficulty = in.readString();

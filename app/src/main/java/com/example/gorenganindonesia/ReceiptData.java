@@ -69,38 +69,6 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
-                        "Lemper Lezat Isi Ayam",
-                        "Ketan Isi",
-                        60,
-                        R.drawable.lemper,
-                        "Sedang",
-                        8,
-                        new String[]{
-                                "Bersihkan dan kukus beras ketan hingga matang dan lengket.",
-                                "Rebus ayam bersama bumbu hingga empuk dan bumbu meresap. Angkat ayam, dinginkan, dan suwir-suwir dagingnya.",
-                                "Panaskan minyak dalam wajan dan tumis bumbu halus hingga harum. Masukkan ayam suwir dan aduk rata.",
-                                "Ambil selembar daun pisang, letakkan sebagian ketan di atasnya, ratakan, tambahkan sebagian isi ayam, lalu tutup dengan ketan lagi.",
-                                "Bungkus rapat menggunakan daun pisang. Ulangi hingga bahan habis.",
-                                "Kukus lemper dalam kukusan panas selama 15-20 menit hingga matang.",
-                                "Sajikan lemper hangat dengan bumbu kacang."
-                        },
-                        new Ingredients[]{
-                                new Ingredients("500", "gram", "beras ketan"),
-                                new Ingredients("400", "gram", "ayam, potong-potong"),
-                                new Ingredients("2", "lembar", "daun pisang"),
-                                new Ingredients("2", "sdm", "minyak goreng"),
-                                new Ingredients("2", "batang", "serai, memarkan"),
-                                new Ingredients("3", "lembar", "daun jeruk, iris halus"),
-                                new Ingredients("1", "lembar", "daun salam"),
-                                new Ingredients("½", "sdt", "garam"),
-                                new Ingredients("¼", "sdt", "merica bubuk"),
-                                new Ingredients("", "secukupnya", "air")
-                        }
-                )
-        );
-
-        receipts.add(
-                new Receipt(
                         "Pisang Goreng Abang-Abang",
                         "Buah",
                         30,
@@ -185,7 +153,7 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
-                        "Bakwan Renyah dan Gurih",
+                        "Bakwan Kolesterol",
                         "Isian Sayur",
                         40,
                         R.drawable.bakwan,
@@ -328,6 +296,472 @@ public class ReceiptData {
                         }
                 )
         );
+
+        receipts.add(
+                new Receipt(
+                        "Cimol",
+                        "Aci",
+                        40, // estimated cooking duration in minutes
+                        R.drawable.cimol, // Ganti R.drawable.cimol dengan gambar yang sesuai
+                        "Mudah",
+                        5,  // portion
+                        new String[]{
+                                "Campurkan tepung terigu, garam, gula, bawang putih bubuk, bawang merah, daun bawang, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Ambil sebagian adonan dan bulatkan seperti bakso kecil. Ulangi hingga adonan habis.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng cimol hingga kecokelatan dan renyah, sekitar 3-5 menit.",
+                                "Angkat cimol dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("250", "gram", "tepung terigu"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1", "sdm", "gula"),
+                                new Ingredients("1/2", "sdt", "bawang putih bubuk"),
+                                new Ingredients("2", "butir", "bawang merah, cincang halus"),
+                                new Ingredients("1", "batang", "daun bawang, iris halus"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Cilor",
+                        "Aci",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.cilor, // Ganti R.drawable.cilor dengan gambar yang sesuai
+                        "Sedang",
+                        3,  // portion
+                        new String[]{
+                                "Campurkan tepung kanji, tepung terigu, garam, gula, bawang putih bubuk, bawang merah, daun bawang, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Bentuk adonan tipis seperti kulit lumpia.",
+                                "Letakkan sepotong telur ayam di atas kulit lumpia dan bungkus rapi.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng cilor hingga kecokelatan dan renyah, sekitar 3-5 menit.",
+                                "Angkat cilor dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("150", "gram", "tepung kanji"),
+                                new Ingredients("100", "gram", "tepung terigu"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1", "sdm", "gula"),
+                                new Ingredients("1/2", "sdt", "bawang putih bubuk"),
+                                new Ingredients("2", "butir", "bawang merah, cincang halus"),
+                                new Ingredients("1", "batang", "daun bawang, iris halus"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                                new Ingredients("", "secukupnya","telur ayam")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Tahu Bulat",
+                        "Kedelai",
+                        30, // estimated cooking duration in minutes
+                        R.drawable.tahu_bulat, // Ganti R.drawable.tahu_bulat dengan gambar yang sesuai
+                        "Sedang",
+                        3,  // portion
+                        new String[]{
+                                "Siapkan tahu putih bulat. Belah tahu menjadi dua bagian.",
+                                "Campurkan tepung terigu, bawang putih bubuk, garam, merica, dan air dalam mangkuk hingga membentuk adonan yang kental.",
+                                "Celupkan setengah bagian tahu ke dalam adonan tepung hingga rata.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng tahu hingga kecokelatan dan renyah, sekitar 3-5 menit.",
+                                "Angkat tahu bulat dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("4", "buah", "tahu putih bulat, belah dua"),
+                                new Ingredients("150", "gram", "tepung terigu"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1/4", "sdt", "merica"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Sukun Goreng",
+                        "Buah",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.sukun, // Ganti R.drawable.sukun_goreng dengan gambar yang sesuai
+                        "Mudah",
+                        2,  // portion
+                        new String[]{
+                                "Kupas sukun dan iris tipis-tipis.",
+                                "Campurkan tepung terigu, garam, merica, bawang putih bubuk, dan air dalam mangkuk hingga membentuk adonan yang kental.",
+                                "Celupkan irisan sukun ke dalam adonan tepung hingga rata.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng sukun hingga kecokelatan dan renyah, sekitar 5-7 menit.",
+                                "Angkat sukun goreng dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("500", "gram", "sukun, kupas dan iris tipis"),
+                                new Ingredients("150", "gram", "tepung terigu"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1/4", "sdt", "merica"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Apel Goreng",
+                        "Buah",
+                        30, // estimated cooking duration in minutes
+                        R.drawable.apel_goreng, // Ganti R.drawable.apel_goreng dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Kupas apel, buang bijinya, dan potong menjadi irisan setebal 1 cm.",
+                                "Campurkan tepung terigu, gula, garam, kayu manis, telur, dan air dalam mangkuk hingga membentuk adonan yang kental.",
+                                "Celupkan irisan apel ke dalam adonan tepung hingga rata.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng irisan apel hingga kecokelatan dan renyah, sekitar 2-3 menit di setiap sisi.",
+                                "Angkat apel goreng dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak.",
+                                "Taburkan gula bubuk atau kayu manis bubuk sebagai hiasan jika diinginkan."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("2", "buah", "apel, kupas, buang biji, dan potong menjadi irisan"),
+                                new Ingredients("150", "gram", "tepung terigu"),
+                                new Ingredients("1/4", "cup", "gula"),
+                                new Ingredients("1/4", "sdt", "garam"),
+                                new Ingredients("1/2", "sdt", "kayu manis"),
+                                new Ingredients("1", "butir", "telur"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                                new Ingredients("", "secukupnya", "gula bubuk atau kayu manis bubuk untuk hiasan (opsional)")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Roti Bantal",
+                        "Manis",
+                        30, // estimated cooking duration in minutes
+                        R.drawable.roti_bantal, // Ganti R.drawable.roti_bantal dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Potong roti tawar menjadi bentuk bantal atau sesuai selera.",
+                                "Campurkan telur, susu, gula, dan garam dalam mangkuk.",
+                                "Celupkan potongan roti ke dalam campuran telur.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng roti bantal hingga kecokelatan dan renyah, sekitar 2-3 menit di setiap sisi.",
+                                "Angkat roti bantal dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak.",
+                                "Taburkan gula bubuk atau topping sesuai selera sebelum disajikan."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("4", "potong", "roti tawar, potong menjadi bentuk bantal"),
+                                new Ingredients("2", "butir", "telur"),
+                                new Ingredients("50", "ml", "susu"),
+                                new Ingredients("2", "sdm", "gula"),
+                                new Ingredients("1/4", "sdt", "garam"),
+                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                                new Ingredients("", "secukupnya", "gula bubuk atau topping sesuai selera")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Donat Strawberry",
+                        "Manis",
+                        60, // estimated cooking duration in minutes
+                        R.drawable.donat_strawberry, // Ganti R.drawable.donat_strawberry dengan gambar yang sesuai
+                        "Sedang",
+                        12,  // portion
+                        new String[]{
+                                "Campurkan ragi dengan susu hangat dan 1 sendok makan gula. Biarkan ragi aktif selama 10-15 menit.",
+                                "Campurkan tepung terigu, gula, garam, telur, dan mentega dalam mangkuk besar.",
+                                "Tambahkan campuran ragi yang sudah aktif ke dalam mangkuk dan aduk hingga membentuk adonan kalis.",
+                                "Tutup adonan dengan kain lembab dan diamkan selama 1-2 jam hingga mengembang.",
+                                "Gulungkan adonan dan potong dengan cetakan donat atau gelas untuk membuat donat bundar.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng donat hingga kecokelatan, sekitar 2-3 menit di setiap sisi.",
+                                "Angkat donat dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak.",
+                                "Olesi donat dengan selai strawberry dan taburi gula bubuk sebelum disajikan."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("2 1/4", "sendok teh", "ragi instan"),
+                                new Ingredients("120", "ml", "susu hangat"),
+                                new Ingredients("2 1/2", "sendok makan", "gula"),
+                                new Ingredients("500", "gram", "tepung terigu"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("1", "butir", "telur"),
+                                new Ingredients("3", "sendok makan", "mentega"),
+                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                                new Ingredients("", "secukupnya", "selai strawberry sesuai selera"),
+                                new Ingredients("", "secukupnya", "gula bubuk untuk taburan")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Peyek Teri",
+                        "Ikan",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.peyek_teri, // Ganti R.drawable.peyek_teri dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Campurkan terigu, air, bawang merah, bawang putih, gula, garam, dan teri dalam mangkuk hingga membentuk adonan kalis.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Ambil sebagian adonan dengan sendok dan letakkan ke dalam minyak panas.",
+                                "Goreng hingga kecokelatan dan renyah, sekitar 2-3 menit di setiap sisi.",
+                                "Angkat peyek teri dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("150", "gram", "tepung terigu"),
+                                new Ingredients("100", "ml", "air"),
+                                new Ingredients("2", "butir", "bawang merah, cincang halus"),
+                                new Ingredients("2", "siung", "bawang putih, cincang halus"),
+                                new Ingredients("1", "sendok makan", "gula"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("200", "gram", "teri, sangrai"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Onde-Onde",
+                        "Manis",
+                        60, // estimated cooking duration in minutes
+                        R.drawable.onde_onde, // Ganti R.drawable.onde_onde dengan gambar yang sesuai
+                        "Mudah",
+                        20,  // portion
+                        new String[]{
+                                "Campurkan tepung ketan, gula, dan daun pandan dalam mangkuk hingga tercampur rata.",
+                                "Bentuk adonan menjadi bola-bola kecil dan letakkan sepotong gula merah di tengahnya. Bulatkan kembali hingga gula merah tertutup rapat.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng onde-onde hingga kecokelatan, sekitar 3-4 menit.",
+                                "Angkat onde-onde dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("250", "gram", "tepung ketan"),
+                                new Ingredients("100", "gram", "gula pasir"),
+                                new Ingredients("5", "lembar", "daun pandan, dihaluskan"),
+                                new Ingredients("100", "gram", "gula merah, potong kecil-kecil"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Ote-Ote",
+                        "Isian Sayur",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.ote_ote, // Ganti R.drawable.ote_ote dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Campurkan tepung terigu, bawang putih, garam, gula, merica, daun seledri, wortel, tauge, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Ambil sebagian adonan dengan sendok dan letakkan ke dalam minyak panas.",
+                                "Goreng ote-ote hingga kecokelatan dan renyah, sekitar 3-4 menit.",
+                                "Angkat ote-ote dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("150", "gram", "tepung terigu"),
+                                new Ingredients("2", "siung", "bawang putih, haluskan"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1", "sdt", "gula"),
+                                new Ingredients("1/4", "sdt", "merica"),
+                                new Ingredients("2", "batang", "daun seledri, iris halus"),
+                                new Ingredients("1", "buah", "wortel, parut halus"),
+                                new Ingredients("100", "gram", "tauge (kecambah)"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Risol Sayur",
+                        "Isian Sayur",
+                        60, // estimated cooking duration in minutes
+                        R.drawable.risol_sayur, // Ganti R.drawable.risol_sayur dengan gambar yang sesuai
+                        "Sedang",
+                        12,  // portion
+                        new String[]{
+                                "Siapkan kulit lumpia dan letakkan selembar di permukaan datar.",
+                                "Letakkan isian sayuran di tengah kulit lumpia.",
+                                "Lipat kedua sisi kulit lumpia ke atas, lalu gulung hingga membentuk risol.",
+                                "Campurkan tepung terigu, garam, dan air untuk membuat adonan lem tepung.",
+                                "Celupkan risol dalam adonan lem tepung, lalu gulingkan dalam tepung panir.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng risol hingga kecokelatan, sekitar 3-4 menit.",
+                                "Angkat risol dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("12", "lembar", "kulit lumpia"),
+                                new Ingredients("200", "gram", "sayuran (wortel, kentang, buncis), rebus dan potong kecil-kecil"),
+                                new Ingredients("1", "butir", "telur, rebus dan potong kecil-kecil"),
+                                new Ingredients("1", "sendok teh", "garam"),
+                                new Ingredients("100", "gram", "tepung panir"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Dadar Jagung",
+                        "Isian sayur",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.dadar_jagung, // Ganti R.drawable.dadar_jagung dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Campurkan tepung terigu, tepung beras, jagung pipil, gula, garam, daun bawang, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Ambil sebagian adonan dengan sendok dan letakkan ke dalam minyak panas.",
+                                "Goreng dadar jagung hingga kecokelatan, sekitar 2-3 menit di setiap sisi.",
+                                "Angkat dadar jagung dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("100", "gram", "tepung terigu"),
+                                new Ingredients("50", "gram", "tepung beras"),
+                                new Ingredients("200", "gram", "jagung pipil (manis atau biasa)"),
+                                new Ingredients("1", "sendok makan", "gula"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("2", "batang", "daun bawang, iris halus"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Peyek Kacang",
+                        "Buah",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.peyek_kacang, // Ganti R.drawable.peyek_kacang dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Campurkan tepung beras, tepung terigu, bawang putih, gula, garam, ketumbar, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Ambil sebagian adonan dengan sendok dan letakkan ke dalam minyak panas.",
+                                "Goreng peyek kacang hingga kecokelatan dan renyah, sekitar 2-3 menit di setiap sisi.",
+                                "Angkat peyek kacang dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("150", "gram", "tepung beras"),
+                                new Ingredients("50", "gram", "tepung terigu"),
+                                new Ingredients("2", "siung", "bawang putih, haluskan"),
+                                new Ingredients("1", "sendok makan", "gula"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("1/2", "sendok teh", "ketumbar bubuk"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Gehu Pedas",
+                        "Kedelai",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.gehu_pedas, // Ganti R.drawable.gehu_pedas dengan gambar yang sesuai
+                        "Sedang",
+                        4,  // portion
+                        new String[]{
+                                "Potong tahu (gehu) menjadi potongan-potongan kecil sesuai selera.",
+                                "Campurkan tepung terigu, bawang putih, garam, lada, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Celupkan potongan tahu ke dalam adonan tepung hingga rata.",
+                                "Goreng tahu hingga kecokelatan dan renyah, sekitar 3-4 menit di setiap sisi.",
+                                "Angkat tahu dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak.",
+                                "Sajikan tahu pedas dengan saus cabai atau saus sambal sebagai pelengkap."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("250", "gram", "tahu (gehu)"),
+                                new Ingredients("100", "gram", "tepung terigu"),
+                                new Ingredients("2", "siung", "bawang putih, haluskan"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("1/4", "sendok teh", "lada"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng"),
+                                new Ingredients("", "secukupnya","saus cabai atau saus sambal sebagai pelengkap")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Sempol",
+                        "Aci",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.sempol, // Ganti R.drawable.sempol dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Campurkan tepung terigu, bawang putih, bawang merah, daun seledri, garam, merica, telur, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Tambahkan potongan daging sosis ke dalam adonan.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Ambil sebagian adonan dengan sendok dan letakkan ke dalam minyak panas.",
+                                "Goreng sempol hingga kecokelatan dan matang, sekitar 3-4 menit.",
+                                "Angkat sempol dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("150", "gram", "tepung terigu"),
+                                new Ingredients("2", "siung", "bawang putih, haluskan"),
+                                new Ingredients("2", "siung", "bawang merah, haluskan"),
+                                new Ingredients("2", "batang", "daun seledri, iris halus"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("1/4", "sendok teh", "merica"),
+                                new Ingredients("1", "butir", "telur"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("2", "buah", "daging sosis, potong-potong"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
+        receipts.add(
+                new Receipt(
+                        "Combro",
+                        "Isian Sayur",
+                        45, // estimated cooking duration in minutes
+                        R.drawable.combro, // Ganti R.drawable.combro dengan gambar yang sesuai
+                        "Mudah",
+                        4,  // portion
+                        new String[]{
+                                "Campurkan tepung ketan, kelapa parut, daun bawang, daun kemangi, garam, merica, dan air dalam mangkuk hingga membentuk adonan kalis.",
+                                "Bentuk adonan menjadi bulatan pipih dan letakkan sepotong oncom di tengahnya. Bulatkan kembali hingga oncom tertutup rapat.",
+                                "Panaskan minyak dalam wajan hingga cukup panas.",
+                                "Goreng combro hingga kecokelatan, sekitar 3-4 menit di setiap sisi.",
+                                "Angkat combro dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
+                        },
+                        new Ingredients[]{
+                                new Ingredients("250", "gram", "tepung ketan"),
+                                new Ingredients("100", "gram", "kelapa parut"),
+                                new Ingredients("2", "batang", "daun bawang, iris halus"),
+                                new Ingredients("2", "batang", "daun kemangi, iris halus"),
+                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("1/4", "sendok teh", "merica"),
+                                new Ingredients("200", "ml", "air"),
+                                new Ingredients("", "secukupnya","sayur oncom"),
+                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                        }
+                )
+        );
+
 
         return receipts;
     }

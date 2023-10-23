@@ -14,7 +14,6 @@ public class CategoryData {
         categories.add("Ikan");
         categories.add("Isian Sayur");
         categories.add("Manis");
-        categories.add("Ketan Isi");
 
         return categories;
     }

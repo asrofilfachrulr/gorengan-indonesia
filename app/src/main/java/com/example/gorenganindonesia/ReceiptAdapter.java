@@ -53,13 +53,16 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
         holder.ivReceiptThumb.setImageResource(receipt.getThumb());
         holder.tvReceiptTitle.setText(receipt.getTitle().toString());
         holder.tvDifficulty.setText(receipt.getDifficulty().toString());
-        holder.tvPortion.setText(String.valueOf(receipt.getPortion()));
-        holder.tvDuration.setText(String.valueOf(receipt.getMinuteDuration()));
+        holder.tvPortion.setText(String.valueOf(receipt.getPortion()) + " Porsi");
+        holder.tvDuration.setText(String.valueOf(receipt.getMinuteDuration()) + "mnt");
 
         holder.cvReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Receipt " + receiptTitle + " pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+
+                intent.putExtra("receipt", receipt);
+                view.getContext().startActivity(intent);
             }
         });
     }
