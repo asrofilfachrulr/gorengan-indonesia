@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
+    <style name="RoundedOutlineBtn">
+        <item name="android:background">@drawable/button_outline</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="RoundedAccentBtn">
+        <item name="android:background">@drawable/button_accent_blue</item>
+        <item name="android:textColor">@color/app_accent_blue</item>
+    </style>
+</resources>
