@@ -11,31 +11,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="left|center">
 
         <ImageView
-            android:layout_width="96px"
-            android:layout_height="96px"
+            android:layout_width="120px"
+            android:layout_height="120px"
             android:layout_gravity="center"
             android:src="@drawable/icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginStart="4sp"
+            android:textSize="16sp"
             android:text="Gorengan\nCookbook"
             android:textColor="@color/black"
             android:textFontWeight="500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginVertical="14sp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_category"
             android:layout_width="match_parent"
@@ -48,6 +48,7 @@
         android:id="@+id/rv_receipt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/receipt_item"/>
+        tools:listitem="@layout/receipt_item"
+        tools:itemCount="10"/>
 
 </LinearLayout>
