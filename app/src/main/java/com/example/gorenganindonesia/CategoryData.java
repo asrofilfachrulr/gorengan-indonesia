@@ -6,6 +6,7 @@ public class CategoryData {
     public static ArrayList<String> generate(){
         ArrayList<String> categories = new ArrayList<>();
 
+        categories.add("Semua");
         categories.add("Aci");
         categories.add("Kedelai");
         categories.add("Buah");

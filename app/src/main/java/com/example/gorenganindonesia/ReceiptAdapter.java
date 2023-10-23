@@ -15,9 +15,26 @@ import java.util.ArrayList;
 
 public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHolder> {
     ArrayList<Receipt> dataList;
+    ArrayList<Receipt> originalList;
 
     public ReceiptAdapter(ArrayList<Receipt> dataList) {
         this.dataList = dataList;
+        this.originalList = dataList;
+    }
+
+    public void applyFilter(String category) {
+        ArrayList<Receipt> filteredList = new ArrayList<>();
+        if (category.toLowerCase().contains("semua")){
+            this.dataList = this.originalList;
+        } else {
+            for(Receipt receipt: originalList){
+                if(receipt.getCategory().toLowerCase().contains(category.toLowerCase())){
+                    filteredList.add(receipt);
+                }
+            }
+            this.dataList = filteredList;
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull

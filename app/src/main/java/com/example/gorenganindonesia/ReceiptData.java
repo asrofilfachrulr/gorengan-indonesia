@@ -245,7 +245,7 @@ public class ReceiptData {
         receipts.add(
                 new Receipt(
                         "Perkedel",
-                        "kentang",
+                        "Kentang",
                         40, // estimated cooking duration in minutes
                         R.drawable.perkedel,
                         "Sedang",
@@ -275,7 +275,7 @@ public class ReceiptData {
         receipts.add(
                 new Receipt(
                         "Tahu Isi",
-                        "kedelai",
+                        "Kedelai",
                         30, // estimated cooking duration in minutes
                         R.drawable.tahu_isi,
                         "Mudah",
@@ -303,7 +303,7 @@ public class ReceiptData {
         receipts.add(
                 new Receipt(
                         "Molen",
-                        "manis",
+                        "Manis",
                         40, // estimated cooking duration in minutes
                         R.drawable.molen,
                         "Sulit",

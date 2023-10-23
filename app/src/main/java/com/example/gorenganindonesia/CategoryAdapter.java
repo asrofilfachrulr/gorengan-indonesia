@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     ArrayList<String> dataList;
+    ReceiptAdapter receiptAdapter;
 
-    public CategoryAdapter(ArrayList<String> dataList) {
+    public CategoryAdapter(ArrayList<String> dataList, ReceiptAdapter receiptAdapter) {
         this.dataList = dataList;
+        this.receiptAdapter = receiptAdapter;
     }
 
     @NonNull
@@ -34,7 +36,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Category " + btnText + " pressed", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), "Category " + btnText + " pressed", Toast.LENGTH_SHORT).show();
+                receiptAdapter.applyFilter(btnText);
             }
         });
     }

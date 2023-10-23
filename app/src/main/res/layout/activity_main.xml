@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingVertical="10dp"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
         android:gravity="left|center">
 
         <ImageView
@@ -26,8 +27,8 @@
             android:layout_marginStart="4sp"
             android:textSize="16sp"
             android:text="Gorengan\nCookbook"
-            android:textColor="@color/black"
-            android:textFontWeight="500"
+            android:textColor="@color/app_accent_blue"
+            android:textFontWeight="700"
             />
     </LinearLayout>
 
@@ -35,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginVertical="14sp">
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="14sp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_category"
             android:layout_width="match_parent"
@@ -43,12 +45,26 @@
             tools:listitem="@layout/category_item"
             tools:itemCount="7" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider"
+        android:layout_marginTop="8sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_receipt"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/receipt_item"
-        tools:itemCount="10"/>
+        android:orientation="vertical"
+        android:background="#F1F1F1"
+        android:paddingTop="8sp"
+        android:paddingHorizontal="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_receipt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/receipt_item"
+            tools:itemCount="10"/>
+    </LinearLayout>
 
 </LinearLayout>
