@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.receipt_spacing);
         rvReceipt = (RecyclerView) findViewById(R.id.rv_receipt);
-        receiptAdapter = new ReceiptAdapter(receipts);
+        receiptAdapter = new ReceiptAdapter(receipts, rvReceipt);
         RecyclerView.LayoutManager receiptLayoutManager = new LinearLayoutManager(MainActivity.this);
         rvReceipt.setLayoutManager(receiptLayoutManager);
         rvReceipt.setAdapter(receiptAdapter);

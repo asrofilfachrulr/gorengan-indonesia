@@ -17,9 +17,12 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
     ArrayList<Receipt> dataList;
     ArrayList<Receipt> originalList;
 
-    public ReceiptAdapter(ArrayList<Receipt> dataList) {
+    RecyclerView rv;
+
+    public ReceiptAdapter(ArrayList<Receipt> dataList, RecyclerView rv) {
         this.dataList = dataList;
         this.originalList = dataList;
+        this.rv = rv;
     }
 
     public void applyFilterCategory(String category) {
@@ -34,7 +37,9 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
             }
             this.dataList = filteredList;
         }
+
         notifyDataSetChanged();
+        rv.scrollToPosition(0);
     }
 
     public void applyFilterTitle(String title) {
@@ -50,6 +55,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
             this.dataList = filteredList;
         }
         notifyDataSetChanged();
+        rv.scrollToPosition(0);
     }
 
     @NonNull

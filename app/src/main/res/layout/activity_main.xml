@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -23,6 +24,7 @@
             android:background="@drawable/rounded"
             android:drawableRight="@drawable/ic_search"
             android:hint="Tahu bulat..."
+            android:textColorHint="#778287"
             android:paddingHorizontal="14sp"
             android:textAlignment="center"
             android:textColor="#778287"
