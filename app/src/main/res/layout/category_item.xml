@@ -8,10 +8,10 @@
         android:id="@+id/btn_category"
         style="@style/RoundedAccentBtn"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:fontFamily="sans-serif-black"
         android:text="Test"
         android:textFontWeight="800"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textAllCaps="false" />
 </LinearLayout>
