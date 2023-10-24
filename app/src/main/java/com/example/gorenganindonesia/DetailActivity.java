@@ -6,26 +6,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
-    TextView tvTitle;
+    TextView tvTitle, tvCategory;
     ImageView ivThumb;
-    Button btnBack;
+    ImageButton btnBack, btnShare;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         tvTitle = (TextView) findViewById(R.id.tv_title_detail);
+        tvCategory = (TextView) findViewById(R.id.tv_category_detail);
         ivThumb = (ImageView) findViewById(R.id.iv_thumb_detail);
-        btnBack = (Button) findViewById(R.id.btn_back_detail);
+        btnBack = (ImageButton) findViewById(R.id.btn_close_detail);
+        btnShare = (ImageButton) findViewById(R.id.btn_share_detail);
 
         Intent intent = getIntent();
         Receipt receipt = intent.getParcelableExtra("receipt");
 
         tvTitle.setText(receipt.getTitle().toString());
+        tvCategory.setText("Kategori " + receipt.getCategory().toString());
         ivThumb.setImageResource(receipt.getThumb());
 
         btnBack.setOnClickListener(new View.OnClickListener() {
