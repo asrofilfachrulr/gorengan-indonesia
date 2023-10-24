@@ -54,27 +54,40 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent with the ACTION_SEND action
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+                shareIntent.setType("text/plain");
+
+                String shareText = receipt.toString();
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+                startActivity(Intent.createChooser(shareIntent, "Bagikan melalui"));
+
+            }
+        });
+
         tvTitleRingkasan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(vp.getCurrentItem() != 0)
-                    vp.setCurrentItem(0, true);
+                if (vp.getCurrentItem() != 0) vp.setCurrentItem(0, true);
             }
         });
 
         tvTitleBahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(vp.getCurrentItem() != 1)
-                    vp.setCurrentItem(1, true);
+                if (vp.getCurrentItem() != 1) vp.setCurrentItem(1, true);
             }
         });
 
         tvTitleLangkah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(vp.getCurrentItem() != 2)
-                    vp.setCurrentItem(2, true);
+                if (vp.getCurrentItem() != 2) vp.setCurrentItem(2, true);
             }
         });
 
@@ -86,25 +99,26 @@ public class DetailActivity extends AppCompatActivity {
         DetailFragmentAdapter detailFragmentAdapter = new DetailFragmentAdapter(getSupportFragmentManager(), fragments);
         vp.setAdapter(detailFragmentAdapter);
 
-        List<TextView> pagerTitles = new ArrayList<TextView>(){{
+        List<TextView> pagerTitles = new ArrayList<TextView>() {{
             add(tvTitleRingkasan);
             add(tvTitleBahan);
             add(tvTitleLangkah);
         }};
 
-        final int[] prevCurrPos = {0,0}; // {prev, curr}
+        final int[] prevCurrPos = {0, 0}; // {prev, curr}
 
         tvTitleRingkasan.setTextAppearance(R.style.HighlightedPagerTitle);
 
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
                 pagerTitles.get(position).setTextAppearance(R.style.HighlightedPagerTitle);
 
-                if(position != prevCurrPos[1]) {
+                if (position != prevCurrPos[1]) {
                     prevCurrPos[0] = prevCurrPos[1];
                     prevCurrPos[1] = position;
                     pagerTitles.get(prevCurrPos[0]).setTextAppearance(R.style.UnhighlightedPagerTitle);
@@ -112,7 +126,8 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrollStateChanged(int state) {
+            }
         });
     }
 

@@ -3,6 +3,8 @@ package com.example.gorenganindonesia.Model.Receipt;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.example.gorenganindonesia.Model.Ingredients.Ingredients;
 
 public class Receipt implements Parcelable {
@@ -131,4 +133,28 @@ public class Receipt implements Parcelable {
         return 0;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n\n" + "Bahan:";
+
+        for(int i = 0; i < getIngredients().length; i++){
+            text += "\n" + String.valueOf(i+1) + ". ";
+            if(!getIngredients()[i].getQty().equals(""))
+                text += getIngredients()[i].getQty() + " " + getIngredients()[i].getUnit() + " " + getIngredients()[i].getName();
+            else
+                text += "secukupnya";
+
+            text += " " + getIngredients()[i].getName();
+        }
+
+        text += "\n\nLangkah-Langkah:";
+
+        for(int i = 0; i < getSteps().length; i++){
+            text += "\n" + String.valueOf(i+1) + ". " + getSteps()[i];
+        }
+
+        text += "\n\n©Gorengan Indonesia 2023";
+        return text;
+    }
 }
