@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia;
+package com.example.gorenganindonesia.Model.Category;
 
 import java.util.ArrayList;
 

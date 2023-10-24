@@ -1,4 +1,7 @@
-package com.example.gorenganindonesia;
+package com.example.gorenganindonesia.Model.Receipt;
+
+import com.example.gorenganindonesia.Model.Ingredients.Ingredients;
+import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;
 
@@ -8,7 +11,7 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
-                        "Cireng Pedas Manis",
+                        "Cireng Pedas Nuklir",
                         "Aci",
                         30,
                         R.drawable.cireng,
@@ -44,7 +47,7 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
-                        "Tempe Mendoan Crispy",
+                        "Tempe Mendoan KFC",
                         "Kedelai",
                         30,
                         R.drawable.mendoan,
@@ -69,7 +72,7 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
-                        "Pisang Goreng Abang-Abang",
+                        "Pisang Goreng Starbucks",
                         "Buah",
                         30,
                         R.drawable.pisang_goreng,
@@ -89,14 +92,14 @@ public class ReceiptData {
                                 new Ingredients("½", "sdt", "garam"),
                                 new Ingredients("2", "sdm", "gula"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak goreng")
+                                new Ingredients("", "~", "minyak goreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Kentang Goreng Hot",
+                        "Kentang Goreng Istana Negara",
                         "Kentang",
                         45,
                         R.drawable.kentang_goreng_pedas,
@@ -117,15 +120,15 @@ public class ReceiptData {
                                 new Ingredients("½", "sdt", "merica bubuk"),
                                 new Ingredients("½", "sdt", "garam"),
                                 new Ingredients("½", "sdt", "bawang putih bubuk"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
-                                new Ingredients("", "secukupnya","saus pedas sebagai pelengkap")
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
+                                new Ingredients("", "~","saus pedas sebagai pelengkap")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Peyek Udang",
+                        "Rempeyek Udang Cak Owi",
                         "Ikan",
                         45,
                         R.drawable.peyek_udang,
@@ -146,14 +149,14 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1/2", "sdt", "gula"),
                                 new Ingredients("1/4", "sdt", "kaldu bubuk"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Bakwan Kolesterol",
+                        "Bakwan Sahabat Kolesterol",
                         "Isian Sayur",
                         40,
                         R.drawable.bakwan,
@@ -174,20 +177,20 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "gula"),
                                 new Ingredients("1/4", "sdt", "kaldu bubuk"),
                                 new Ingredients("1/2", "sdt", "garam"),
-                                new Ingredients("", "secukupnya", "tauge"),
-                                new Ingredients("", "secukupnya", "wortel, potong korek api"),
-                                new Ingredients("", "secukupnya", "kol, iris halus"),
-                                new Ingredients("", "secukupnya", "daun bawang, iris halus"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                                new Ingredients("", "~", "tauge"),
+                                new Ingredients("", "~", "wortel, potong korek api"),
+                                new Ingredients("", "~", "kol, iris halus"),
+                                new Ingredients("", "~", "daun bawang, iris halus"),
+                                new Ingredients("", "~", "minyak untuk menggoreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Gorengan Ubi Jalar",
+                        "Ubi Jalar yang diberi Tepung",
                         "Manis",
-                        40, // estimated cooking duration in minutes
+                        40,
                         R.drawable.ubi_jalar,
                         "Mudah",
                         5,
@@ -205,16 +208,16 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1/4", "sdt", "merica"),
                                 new Ingredients("150", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                                new Ingredients("", "~", "minyak untuk menggoreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Perkedel",
+                        "Perkedel (Persatuan Kentang dan Telur)",
                         "Kentang",
-                        40, // estimated cooking duration in minutes
+                        40,
                         R.drawable.perkedel,
                         "Sedang",
                         7,
@@ -230,21 +233,21 @@ public class ReceiptData {
                                 new Ingredients("500", "gram", "kentang, kupas dan rebus hingga empuk"),
                                 new Ingredients("200", "gram", "daging ayam cincang"),
                                 new Ingredients("2", "siung", "bawang putih, haluskan"),
-                                new Ingredients("4", "butir", "bawang merah, cincang halus"),
-                                new Ingredients("1", "butir", "telur"),
+                                new Ingredients("4", "btr", "bawang merah, cincang halus"),
+                                new Ingredients("1", "btr", "telur"),
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1/4", "sdt", "merica"),
-                                new Ingredients("", "secukupnya", "penyedap rasa secukupnya"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                                new Ingredients("", "~", "penyedap rasa ~"),
+                                new Ingredients("", "~", "minyak untuk menggoreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Tahu Isi",
+                        "Tahu Isi Harapan Rakyat",
                         "Kedelai",
-                        30, // estimated cooking duration in minutes
+                        30,
                         R.drawable.tahu_isi,
                         "Mudah",
                         8,
@@ -263,7 +266,7 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1/4", "sdt", "merica"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                                new Ingredients("", "~", "minyak untuk menggoreng")
                         }
                 )
         );
@@ -272,7 +275,7 @@ public class ReceiptData {
                 new Receipt(
                         "Molen",
                         "Manis",
-                        40, // estimated cooking duration in minutes
+                        40,
                         R.drawable.molen,
                         "Sulit",
                         10,
@@ -290,9 +293,9 @@ public class ReceiptData {
                                 new Ingredients("100", "gram", "mentega"),
                                 new Ingredients("50", "gram", "gula"),
                                 new Ingredients("1/2", "sdt", "garam"),
-                                new Ingredients("1", "butir", "telur"),
-                                new Ingredients("", "secukupnya", "selai nanas"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                                new Ingredients("1", "btr", "telur"),
+                                new Ingredients("", "~", "selai nanas"),
+                                new Ingredients("", "~", "minyak untuk menggoreng")
                         }
                 )
         );
@@ -301,8 +304,8 @@ public class ReceiptData {
                 new Receipt(
                         "Cimol",
                         "Aci",
-                        40, // estimated cooking duration in minutes
-                        R.drawable.cimol, // Ganti R.drawable.cimol dengan gambar yang sesuai
+                        40,
+                        R.drawable.cimol,
                         "Mudah",
                         5,  // portion
                         new String[]{
@@ -317,10 +320,10 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1", "sdm", "gula"),
                                 new Ingredients("1/2", "sdt", "bawang putih bubuk"),
-                                new Ingredients("2", "butir", "bawang merah, cincang halus"),
-                                new Ingredients("1", "batang", "daun bawang, iris halus"),
+                                new Ingredients("2", "btr", "bawang merah, cincang halus"),
+                                new Ingredients("1", "btg", "daun bawang, iris halus"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng")
+                                new Ingredients("", "~", "minyak untuk menggoreng")
                         }
                 )
         );
@@ -329,8 +332,8 @@ public class ReceiptData {
                 new Receipt(
                         "Cilor",
                         "Aci",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.cilor, // Ganti R.drawable.cilor dengan gambar yang sesuai
+                        45,
+                        R.drawable.cilor,
                         "Sedang",
                         3,  // portion
                         new String[]{
@@ -347,21 +350,21 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1", "sdm", "gula"),
                                 new Ingredients("1/2", "sdt", "bawang putih bubuk"),
-                                new Ingredients("2", "butir", "bawang merah, cincang halus"),
-                                new Ingredients("1", "batang", "daun bawang, iris halus"),
+                                new Ingredients("2", "btr", "bawang merah, cincang halus"),
+                                new Ingredients("1", "btg", "daun bawang, iris halus"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
-                                new Ingredients("", "secukupnya","telur ayam")
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
+                                new Ingredients("", "~","telur ayam")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Tahu Bulat",
+                        "Tahu Bulat Digoreng Dadakan",
                         "Kedelai",
-                        30, // estimated cooking duration in minutes
-                        R.drawable.tahu_bulat, // Ganti R.drawable.tahu_bulat dengan gambar yang sesuai
+                        30,
+                        R.drawable.tahu_bulat,
                         "Sedang",
                         3,  // portion
                         new String[]{
@@ -378,17 +381,17 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1/4", "sdt", "merica"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Sukun Goreng",
+                        "Sukun",
                         "Buah",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.sukun, // Ganti R.drawable.sukun_goreng dengan gambar yang sesuai
+                        45,
+                        R.drawable.sukun,
                         "Mudah",
                         2,  // portion
                         new String[]{
@@ -405,17 +408,17 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1/4", "sdt", "merica"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Apel Goreng",
+                        "Apel Goreng Pak Newton",
                         "Buah",
-                        30, // estimated cooking duration in minutes
-                        R.drawable.apel_goreng, // Ganti R.drawable.apel_goreng dengan gambar yang sesuai
+                        30,
+                        R.drawable.apel_goreng,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -433,20 +436,20 @@ public class ReceiptData {
                                 new Ingredients("1/4", "cup", "gula"),
                                 new Ingredients("1/4", "sdt", "garam"),
                                 new Ingredients("1/2", "sdt", "kayu manis"),
-                                new Ingredients("1", "butir", "telur"),
+                                new Ingredients("1", "btr", "telur"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
-                                new Ingredients("", "secukupnya", "gula bubuk atau kayu manis bubuk untuk hiasan (opsional)")
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
+                                new Ingredients("", "~", "gula bubuk atau kayu manis bubuk untuk hiasan (opsional)")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Roti Bantal",
+                        "Roti Bantal Tidur",
                         "Manis",
-                        30, // estimated cooking duration in minutes
-                        R.drawable.roti_bantal, // Ganti R.drawable.roti_bantal dengan gambar yang sesuai
+                        30,
+                        R.drawable.roti_bantal,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -460,12 +463,12 @@ public class ReceiptData {
                         },
                         new Ingredients[]{
                                 new Ingredients("4", "potong", "roti tawar, potong menjadi bentuk bantal"),
-                                new Ingredients("2", "butir", "telur"),
+                                new Ingredients("2", "btr", "telur"),
                                 new Ingredients("50", "ml", "susu"),
                                 new Ingredients("2", "sdm", "gula"),
                                 new Ingredients("1/4", "sdt", "garam"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
-                                new Ingredients("", "secukupnya", "gula bubuk atau topping sesuai selera")
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
+                                new Ingredients("", "~", "gula bubuk atau topping sesuai selera")
                         }
                 )
         );
@@ -474,8 +477,8 @@ public class ReceiptData {
                 new Receipt(
                         "Donat Strawberry",
                         "Manis",
-                        60, // estimated cooking duration in minutes
-                        R.drawable.donat_strawberry, // Ganti R.drawable.donat_strawberry dengan gambar yang sesuai
+                        60,
+                        R.drawable.donat_strawberry,
                         "Sedang",
                         12,  // portion
                         new String[]{
@@ -490,26 +493,26 @@ public class ReceiptData {
                                 "Olesi donat dengan selai strawberry dan taburi gula bubuk sebelum disajikan."
                         },
                         new Ingredients[]{
-                                new Ingredients("2 1/4", "sendok teh", "ragi instan"),
+                                new Ingredients("2 1/4", "sdt", "ragi instan"),
                                 new Ingredients("120", "ml", "susu hangat"),
-                                new Ingredients("2 1/2", "sendok makan", "gula"),
+                                new Ingredients("2 1/2", "sdm", "gula"),
                                 new Ingredients("500", "gram", "tepung terigu"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
-                                new Ingredients("1", "butir", "telur"),
-                                new Ingredients("3", "sendok makan", "mentega"),
-                                new Ingredients("", "secukupnya", "minyak untuk menggoreng"),
-                                new Ingredients("", "secukupnya", "selai strawberry sesuai selera"),
-                                new Ingredients("", "secukupnya", "gula bubuk untuk taburan")
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1", "btr", "telur"),
+                                new Ingredients("3", "sdm", "mentega"),
+                                new Ingredients("", "~", "minyak untuk menggoreng"),
+                                new Ingredients("", "~", "selai strawberry sesuai selera"),
+                                new Ingredients("", "~", "gula bubuk untuk taburan")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Peyek Teri",
+                        "Peyek Teri Ma Kasih",
                         "Ikan",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.peyek_teri, // Ganti R.drawable.peyek_teri dengan gambar yang sesuai
+                        45,
+                        R.drawable.peyek_teri,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -522,22 +525,22 @@ public class ReceiptData {
                         new Ingredients[]{
                                 new Ingredients("150", "gram", "tepung terigu"),
                                 new Ingredients("100", "ml", "air"),
-                                new Ingredients("2", "butir", "bawang merah, cincang halus"),
+                                new Ingredients("2", "btr", "bawang merah, cincang halus"),
                                 new Ingredients("2", "siung", "bawang putih, cincang halus"),
-                                new Ingredients("1", "sendok makan", "gula"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
+                                new Ingredients("1", "sdm", "gula"),
+                                new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("200", "gram", "teri, sangrai"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Onde-Onde",
+                        "Onde-Onde Jakarta",
                         "Manis",
-                        60, // estimated cooking duration in minutes
-                        R.drawable.onde_onde, // Ganti R.drawable.onde_onde dengan gambar yang sesuai
+                        60,
+                        R.drawable.onde_onde,
                         "Mudah",
                         20,  // portion
                         new String[]{
@@ -550,9 +553,9 @@ public class ReceiptData {
                         new Ingredients[]{
                                 new Ingredients("250", "gram", "tepung ketan"),
                                 new Ingredients("100", "gram", "gula pasir"),
-                                new Ingredients("5", "lembar", "daun pandan, dihaluskan"),
+                                new Ingredients("5", "lbr", "daun pandan, dihaluskan"),
                                 new Ingredients("100", "gram", "gula merah, potong kecil-kecil"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
@@ -561,8 +564,8 @@ public class ReceiptData {
                 new Receipt(
                         "Ote-Ote",
                         "Isian Sayur",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.ote_ote, // Ganti R.drawable.ote_ote dengan gambar yang sesuai
+                        45,
+                        R.drawable.ote_ote,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -578,11 +581,11 @@ public class ReceiptData {
                                 new Ingredients("1/2", "sdt", "garam"),
                                 new Ingredients("1", "sdt", "gula"),
                                 new Ingredients("1/4", "sdt", "merica"),
-                                new Ingredients("2", "batang", "daun seledri, iris halus"),
+                                new Ingredients("2", "btg", "daun seledri, iris halus"),
                                 new Ingredients("1", "buah", "wortel, parut halus"),
                                 new Ingredients("100", "gram", "tauge (kecambah)"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
@@ -591,8 +594,8 @@ public class ReceiptData {
                 new Receipt(
                         "Risol Sayur",
                         "Isian Sayur",
-                        60, // estimated cooking duration in minutes
-                        R.drawable.risol_sayur, // Ganti R.drawable.risol_sayur dengan gambar yang sesuai
+                        60,
+                        R.drawable.risol_sayur,
                         "Sedang",
                         12,  // portion
                         new String[]{
@@ -606,12 +609,12 @@ public class ReceiptData {
                                 "Angkat risol dan tiriskan di atas tisu dapur untuk menghilangkan kelebihan minyak."
                         },
                         new Ingredients[]{
-                                new Ingredients("12", "lembar", "kulit lumpia"),
+                                new Ingredients("12", "lbr", "kulit lumpia"),
                                 new Ingredients("200", "gram", "sayuran (wortel, kentang, buncis), rebus dan potong kecil-kecil"),
-                                new Ingredients("1", "butir", "telur, rebus dan potong kecil-kecil"),
-                                new Ingredients("1", "sendok teh", "garam"),
+                                new Ingredients("1", "btr", "telur, rebus dan potong kecil-kecil"),
+                                new Ingredients("1", "sdt", "garam"),
                                 new Ingredients("100", "gram", "tepung panir"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
@@ -620,8 +623,8 @@ public class ReceiptData {
                 new Receipt(
                         "Dadar Jagung",
                         "Isian sayur",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.dadar_jagung, // Ganti R.drawable.dadar_jagung dengan gambar yang sesuai
+                        45,
+                        R.drawable.dadar_jagung,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -635,11 +638,11 @@ public class ReceiptData {
                                 new Ingredients("100", "gram", "tepung terigu"),
                                 new Ingredients("50", "gram", "tepung beras"),
                                 new Ingredients("200", "gram", "jagung pipil (manis atau biasa)"),
-                                new Ingredients("1", "sendok makan", "gula"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
-                                new Ingredients("2", "batang", "daun bawang, iris halus"),
+                                new Ingredients("1", "sdm", "gula"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("2", "btg", "daun bawang, iris halus"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
@@ -648,8 +651,8 @@ public class ReceiptData {
                 new Receipt(
                         "Peyek Kacang",
                         "Buah",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.peyek_kacang, // Ganti R.drawable.peyek_kacang dengan gambar yang sesuai
+                        45,
+                        R.drawable.peyek_kacang,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -663,21 +666,21 @@ public class ReceiptData {
                                 new Ingredients("150", "gram", "tepung beras"),
                                 new Ingredients("50", "gram", "tepung terigu"),
                                 new Ingredients("2", "siung", "bawang putih, haluskan"),
-                                new Ingredients("1", "sendok makan", "gula"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
-                                new Ingredients("1/2", "sendok teh", "ketumbar bubuk"),
+                                new Ingredients("1", "sdm", "gula"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1/2", "sdt", "ketumbar bubuk"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Gehu Pedas",
+                        "Gehu Pedas UGD",
                         "Kedelai",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.gehu_pedas, // Ganti R.drawable.gehu_pedas dengan gambar yang sesuai
+                        45,
+                        R.drawable.gehu_pedas,
                         "Sedang",
                         4,  // portion
                         new String[]{
@@ -693,21 +696,21 @@ public class ReceiptData {
                                 new Ingredients("250", "gram", "tahu (gehu)"),
                                 new Ingredients("100", "gram", "tepung terigu"),
                                 new Ingredients("2", "siung", "bawang putih, haluskan"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
-                                new Ingredients("1/4", "sendok teh", "lada"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1/4", "sdt", "lada"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng"),
-                                new Ingredients("", "secukupnya","saus cabai atau saus sambal sebagai pelengkap")
+                                new Ingredients("", "~","minyak untuk menggoreng"),
+                                new Ingredients("", "~","saus cabai atau saus sambal sebagai pelengkap")
                         }
                 )
         );
 
         receipts.add(
                 new Receipt(
-                        "Sempol",
+                        "Sempol Chicken Kentucky",
                         "Aci",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.sempol, // Ganti R.drawable.sempol dengan gambar yang sesuai
+                        45,
+                        R.drawable.sempol,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -722,13 +725,13 @@ public class ReceiptData {
                                 new Ingredients("150", "gram", "tepung terigu"),
                                 new Ingredients("2", "siung", "bawang putih, haluskan"),
                                 new Ingredients("2", "siung", "bawang merah, haluskan"),
-                                new Ingredients("2", "batang", "daun seledri, iris halus"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
-                                new Ingredients("1/4", "sendok teh", "merica"),
-                                new Ingredients("1", "butir", "telur"),
+                                new Ingredients("2", "btg", "daun seledri, iris halus"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1/4", "sdt", "merica"),
+                                new Ingredients("1", "btr", "telur"),
                                 new Ingredients("200", "ml", "air"),
                                 new Ingredients("2", "buah", "daging sosis, potong-potong"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );
@@ -737,8 +740,8 @@ public class ReceiptData {
                 new Receipt(
                         "Combro",
                         "Isian Sayur",
-                        45, // estimated cooking duration in minutes
-                        R.drawable.combro, // Ganti R.drawable.combro dengan gambar yang sesuai
+                        45,
+                        R.drawable.combro,
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -751,13 +754,13 @@ public class ReceiptData {
                         new Ingredients[]{
                                 new Ingredients("250", "gram", "tepung ketan"),
                                 new Ingredients("100", "gram", "kelapa parut"),
-                                new Ingredients("2", "batang", "daun bawang, iris halus"),
-                                new Ingredients("2", "batang", "daun kemangi, iris halus"),
-                                new Ingredients("1/2", "sendok teh", "garam"),
-                                new Ingredients("1/4", "sendok teh", "merica"),
+                                new Ingredients("2", "btg", "daun bawang, iris halus"),
+                                new Ingredients("2", "btg", "daun kemangi, iris halus"),
+                                new Ingredients("1/2", "sdt", "garam"),
+                                new Ingredients("1/4", "sdt", "merica"),
                                 new Ingredients("200", "ml", "air"),
-                                new Ingredients("", "secukupnya","sayur oncom"),
-                                new Ingredients("", "secukupnya","minyak untuk menggoreng")
+                                new Ingredients("", "~","sayur oncom"),
+                                new Ingredients("", "~","minyak untuk menggoreng")
                         }
                 )
         );

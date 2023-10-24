@@ -1,7 +1,9 @@
-package com.example.gorenganindonesia;
+package com.example.gorenganindonesia.Model.Receipt;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.gorenganindonesia.Model.Ingredients.Ingredients;
 
 public class Receipt implements Parcelable {
     private String title;

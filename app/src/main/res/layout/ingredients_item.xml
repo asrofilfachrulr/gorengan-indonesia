@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:orientation="horizontal"
+    android:paddingVertical="22dp"
+    android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/tv_qty_unit"
+        android:textFontWeight="500"
+        android:textSize="16sp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="20 gram"
+        android:background="@drawable/rounded_dimmed"/>
+
+    <TextView
+        android:id="@+id/tv_ingredient"
+        android:textColor="@color/black"
+        android:layout_marginStart="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textFontWeight="500"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:text="Telur" />
+</LinearLayout>

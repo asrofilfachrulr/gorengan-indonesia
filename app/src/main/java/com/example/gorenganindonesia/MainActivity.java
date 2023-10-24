@@ -14,6 +14,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.gorenganindonesia.Model.Category.CategoryAdapter;
+import com.example.gorenganindonesia.Model.Category.CategoryData;
+import com.example.gorenganindonesia.Model.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.Receipt.ReceiptAdapter;
+import com.example.gorenganindonesia.Model.Receipt.ReceiptData;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {

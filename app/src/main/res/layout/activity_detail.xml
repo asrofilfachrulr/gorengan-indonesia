@@ -42,155 +42,54 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="300dp"
         android:background="@drawable/rounded_top"
         android:orientation="vertical"
+        android:paddingTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="14dp">
-        <View
-            android:id="@+id/view"
-            android:layout_width="55dp"
-            android:layout_height="7dp"
-            android:layout_gravity="center"
-            android:background= "@drawable/divider_rounded" />
-        <TextView
-            android:layout_marginTop="24dp"
-            android:id="@+id/tv_title_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bakwan Sahabat Kolesterol"
-            android:textFontWeight="500"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
-        <TextView
-            android:id="@+id/tv_category_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3sp"
-            android:textColor="#787575"
-            android:text="Kategori Favorit Donatur Rumah Sakit"
-            android:textFontWeight="300"
-            android:textSize="14sp" />
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_martial_dark"
-                    android:background="@drawable/rounded_dimmed"/>
-                <TextView
-                    android:id="@+id/tv_difficulty_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_marginTop="7sp"
-                    android:textFontWeight="500"
-                    android:text="Mudah"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="48dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_portion_dark"
-                    android:background="@drawable/rounded_dimmed"/>
-                <TextView
-                    android:id="@+id/tv_portion_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_marginTop="7sp"
-                    android:textFontWeight="500"
-                    android:text="4 Porsi"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="48dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_time_dark"
-                    android:background="@drawable/rounded_dimmed"/>
-                <TextView
-                    android:id="@+id/tv_time_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_marginTop="7sp"
-                    android:textFontWeight="500"
-                    android:text="±40 Menit"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_cart_dark"
-                    android:background="@drawable/rounded_dimmed"/>
-                <TextView
-                    android:id="@+id/tv_ingridient_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_marginTop="7sp"
-                    android:textFontWeight="500"
-                    android:text="5 Bahan"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="48dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_list_dark"
-                    android:background="@drawable/rounded_dimmed"/>
+            android:gravity="center"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_step_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
-                    android:text="7 Langkah"
-                    android:textAlignment="center"
-                    android:textFontWeight="500" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_title_ringkasan"
+                style="@style/UnhighlightedPagerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ringkasan"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/tv_title_bahan"
+                style="@style/UnhighlightedPagerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24sp"
+                android:text="Bahan"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/tv_title_langkah"
+                style="@style/UnhighlightedPagerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24sp"
+                android:text="Langkah"
+                android:textAllCaps="true" />
+
         </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

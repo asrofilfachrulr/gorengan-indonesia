@@ -1,9 +1,7 @@
-package com.example.gorenganindonesia;
+package com.example.gorenganindonesia.Model.Category;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
 
 public class Category implements Parcelable {
     private String name;

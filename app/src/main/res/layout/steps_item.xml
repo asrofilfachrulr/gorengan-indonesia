@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="80dp"
+    android:orientation="horizontal"
+    android:paddingVertical="17dp"
+    android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/tv_numbering"
+        android:textFontWeight="600"
+        android:textSize="18sp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="1."
+        android:background="@drawable/rounded_dimmed"/>
+
+    <TextView
+        android:id="@+id/tv_step"
+        android:textColor="@color/black"
+        android:layout_marginStart="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textFontWeight="500"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:text="Panaskan minyak, kemudian masukan beban diri, sifat arogan dan rasa gengsi" />
+</LinearLayout>

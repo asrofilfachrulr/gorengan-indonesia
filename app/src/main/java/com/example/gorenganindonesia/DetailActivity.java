@@ -1,47 +1,49 @@
 package com.example.gorenganindonesia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gorenganindonesia.Detail.Fragments.DetailFragmentAdapter;
+import com.example.gorenganindonesia.Detail.Fragments.IngredientsFragment;
+import com.example.gorenganindonesia.Detail.Fragments.StepsFragment;
+import com.example.gorenganindonesia.Detail.Fragments.SummaryFragment;
+import com.example.gorenganindonesia.Model.Receipt.Receipt;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetailActivity extends AppCompatActivity {
-    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient;
+    TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan;
     ImageView ivThumb;
     ImageButton btnBack, btnShare;
+    ViewPager vp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        tvTitle = (TextView) findViewById(R.id.tv_title_detail);
-        tvCategory = (TextView) findViewById(R.id.tv_category_detail);
-        tvDifficulty = (TextView) findViewById(R.id.tv_difficulty_detail);
-        tvTime = (TextView) findViewById(R.id.tv_time_detail);
-        tvPortion = (TextView) findViewById(R.id.tv_portion_detail);
-        tvStep = (TextView) findViewById(R.id.tv_step_detail);
-        tvIngridient = (TextView) findViewById(R.id.tv_ingridient_detail);
+        tvTitleRingkasan = (TextView) findViewById(R.id.tv_title_ringkasan);
+        tvTitleBahan = (TextView) findViewById(R.id.tv_title_bahan);
+        tvTitleLangkah = (TextView) findViewById(R.id.tv_title_langkah);
 
         ivThumb = (ImageView) findViewById(R.id.iv_thumb_detail);
 
         btnBack = (ImageButton) findViewById(R.id.btn_close_detail);
         btnShare = (ImageButton) findViewById(R.id.btn_share_detail);
 
+        vp = (ViewPager) findViewById(R.id.vp_detail);
+
         Intent intent = getIntent();
         Receipt receipt = intent.getParcelableExtra("receipt");
-
-        tvTitle.setText(receipt.getTitle().toString());
-        tvCategory.setText("Kategori " + receipt.getCategory().toString());
-        tvDifficulty.setText(receipt.getDifficulty().toString());
-        tvPortion.setText(String.valueOf(receipt.getPortion()) + " Porsi");
-        tvTime.setText( "±" + String.valueOf(receipt.getMinuteDuration()) + " Menit");
-        tvStep.setText(String.valueOf(receipt.getSteps().length) + " Langkah");
-        tvIngridient.setText(String.valueOf(receipt.getIngredients().length) + " Bahan");
 
         ivThumb.setImageResource(receipt.getThumb());
 
@@ -50,6 +52,67 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
             }
+        });
+
+        tvTitleRingkasan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vp.getCurrentItem() != 0)
+                    vp.setCurrentItem(0, true);
+            }
+        });
+
+        tvTitleBahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vp.getCurrentItem() != 1)
+                    vp.setCurrentItem(1, true);
+            }
+        });
+
+        tvTitleLangkah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vp.getCurrentItem() != 2)
+                    vp.setCurrentItem(2, true);
+            }
+        });
+
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new SummaryFragment(receipt));
+        fragments.add(new IngredientsFragment(receipt.getIngredients()));
+        fragments.add(new StepsFragment(receipt.getSteps()));
+
+        DetailFragmentAdapter detailFragmentAdapter = new DetailFragmentAdapter(getSupportFragmentManager(), fragments);
+        vp.setAdapter(detailFragmentAdapter);
+
+        List<TextView> pagerTitles = new ArrayList<TextView>(){{
+            add(tvTitleRingkasan);
+            add(tvTitleBahan);
+            add(tvTitleLangkah);
+        }};
+
+        final int[] prevCurrPos = {0,0}; // {prev, curr}
+
+        tvTitleRingkasan.setTextAppearance(R.style.HighlightedPagerTitle);
+
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                pagerTitles.get(position).setTextAppearance(R.style.HighlightedPagerTitle);
+
+                if(position != prevCurrPos[1]) {
+                    prevCurrPos[0] = prevCurrPos[1];
+                    prevCurrPos[1] = position;
+                    pagerTitles.get(prevCurrPos[0]).setTextAppearance(R.style.UnhighlightedPagerTitle);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
         });
     }
 

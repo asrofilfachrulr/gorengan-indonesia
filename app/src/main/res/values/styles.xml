@@ -8,4 +8,15 @@
         <item name="android:background">@drawable/button_accent_blue</item>
         <item name="android:textColor">@color/app_accent_blue</item>
     </style>
+<!--    android:textColor="@color/black"-->
+<!--    android:textSize="16sp"-->
+<!--    android:textFontWeight="500"-->
+    <style name="HighlightedPagerTitle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="UnhighlightedPagerTitle">
+        <item name="android:textColor">#A1A9A9A9</item>
+        <item name="android:textFontWeight">400</item>
+    </style>
 </resources>

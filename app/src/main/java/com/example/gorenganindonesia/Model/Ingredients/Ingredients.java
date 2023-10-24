@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia;
+package com.example.gorenganindonesia.Model.Ingredients;
 import android.os.Parcel;
 import android.os.Parcelable;
 

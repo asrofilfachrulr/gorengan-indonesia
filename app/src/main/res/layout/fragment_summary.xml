@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Detail.Fragments.SummaryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bakwan Sahabat Kolesterol"
+            android:textColor="@color/black"
+            android:textFontWeight="500"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_category_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3sp"
+            android:text="Kategori Favorit Donatur Rumah Sakit"
+            android:textColor="#787575"
+            android:textFontWeight="400"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/rounded_dimmed"
+                    android:src="@drawable/ic_martial_dark" />
+
+                <TextView
+                    android:id="@+id/tv_difficulty_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:text="Mudah"
+                    android:textAlignment="center"
+                    android:textFontWeight="500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/rounded_dimmed"
+                    android:src="@drawable/ic_portion_dark" />
+
+                <TextView
+                    android:id="@+id/tv_portion_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:text="4 Porsi"
+                    android:textAlignment="center"
+                    android:textFontWeight="500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/rounded_dimmed"
+                    android:src="@drawable/ic_time_dark" />
+
+                <TextView
+                    android:id="@+id/tv_time_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:text="±40 Menit"
+                    android:textAlignment="center"
+                    android:textFontWeight="500" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_ingredients_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/rounded_dimmed"
+                    android:src="@drawable/ic_cart_dark" />
+
+                <TextView
+                    android:id="@+id/tv_ingredient_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:text="5 Bahan"
+                    android:textAlignment="center"
+                    android:textFontWeight="500" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_steps_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/rounded_dimmed"
+                    android:src="@drawable/ic_list_dark" />
+
+                <TextView
+                    android:id="@+id/tv_step_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:text="7 Langkah"
+                    android:textAlignment="center"
+                    android:textFontWeight="500" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

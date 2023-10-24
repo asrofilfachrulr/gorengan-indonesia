@@ -2,4 +2,6 @@
     <string name="app_name">Gorengan Indonesia</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget nisl nec elit feugiat tincidunt. Sed nec bibendum ante. Curabitur at augue vel est vehicula euismod. Vestibulum sed ipsum non ex fringilla interdum. Aenean ac scelerisque odio. Nam euismod aliquet volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin justo libero, posuere nec nisi ut, tincidunt laoreet quam. Aenean varius, orci eu congue iaculis, erat nunc tempus odio, nec condimentum justo justo sit amet erat. Sed in justo nec augue tincidunt consectetur. Sed venenatis metus eu tortor consectetur, sit amet tristique metus laoreet. Nunc pellentesque nulla ut sem consectetur vulputate. In hac habitasse platea dictumst. Nunc a varius sem. Aenean quis erat eu ex mattis scelerisque vel et risus. Integer bibendum facilisis arcu eu tincidunt. Sed in elit nec felis bibendum laoreet. Nullam in odio nec justo euismod volutpat.
 </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
