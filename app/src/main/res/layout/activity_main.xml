@@ -2,69 +2,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_parent_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingVertical="10dp"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="85dp"
+        android:gravity="left|center"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:gravity="left|center">
+        android:padding="10dp">
 
-        <ImageView
-            android:layout_width="120px"
-            android:layout_height="120px"
-            android:layout_gravity="center"
-            android:src="@drawable/icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4sp"
-            android:textSize="16sp"
-            android:text="Gorengan\nCookbook"
-            android:textColor="@color/app_accent_blue"
-            android:textFontWeight="700"
-            />
+        <EditText
+            android:layout_marginVertical="5sp"
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded"
+            android:drawableRight="@drawable/ic_search"
+            android:hint="Tahu bulat..."
+            android:paddingHorizontal="14sp"
+            android:textAlignment="center"
+            android:textColor="#778287"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14sp"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:layout_marginTop="14sp">
+        android:paddingHorizontal="10dp">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/category_item"
-            tools:itemCount="7" />
+            tools:itemCount="7"
+            tools:listitem="@layout/category_item" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/divider"
-        android:layout_marginTop="8sp" />
+        android:layout_marginTop="8sp"
+        android:background="@drawable/divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="#F1F1F1"
-        android:paddingTop="8sp"
-        android:paddingHorizontal="10dp">
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="8sp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_receipt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/receipt_item"
-            tools:itemCount="10"/>
+            tools:itemCount="10"
+            tools:listitem="@layout/receipt_item" />
     </LinearLayout>
+
 
 </LinearLayout>

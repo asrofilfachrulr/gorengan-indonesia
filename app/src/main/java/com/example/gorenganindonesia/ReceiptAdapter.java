@@ -22,13 +22,28 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
         this.originalList = dataList;
     }
 
-    public void applyFilter(String category) {
+    public void applyFilterCategory(String category) {
         ArrayList<Receipt> filteredList = new ArrayList<>();
         if (category.toLowerCase().contains("semua")){
             this.dataList = this.originalList;
         } else {
             for(Receipt receipt: originalList){
                 if(receipt.getCategory().toLowerCase().contains(category.toLowerCase())){
+                    filteredList.add(receipt);
+                }
+            }
+            this.dataList = filteredList;
+        }
+        notifyDataSetChanged();
+    }
+
+    public void applyFilterTitle(String title) {
+        ArrayList<Receipt> filteredList = new ArrayList<>();
+        if (title.matches("\\s") || title.equals("")){
+            this.dataList = this.originalList;
+        } else {
+            for(Receipt receipt: originalList){
+                if(receipt.getTitle().toLowerCase().contains(title.toLowerCase())){
                     filteredList.add(receipt);
                 }
             }

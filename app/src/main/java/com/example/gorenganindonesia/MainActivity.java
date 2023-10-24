@@ -4,7 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -16,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     CategoryAdapter categoryAdapter;
     ReceiptAdapter receiptAdapter;
+
+    LinearLayout llParentContent;
+
+    EditText etSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +52,33 @@ public class MainActivity extends AppCompatActivity {
         rvCategory.setLayoutManager(categoryLayoutManager);
         rvCategory.setAdapter(categoryAdapter);
         rvCategory.addItemDecoration(new RecyclerViewItemSpacing(this, categorySpacing));
+
+
+        llParentContent = (LinearLayout) findViewById(R.id.ll_parent_content);
+        etSearch = (EditText) findViewById(R.id.et_search);
+
+        llParentContent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etSearch.clearFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                return false;
+            }
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                receiptAdapter.applyFilterTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
 }

@@ -37,7 +37,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View view) {
 //                Toast.makeText(view.getContext(), "Category " + btnText + " pressed", Toast.LENGTH_SHORT).show();
-                receiptAdapter.applyFilter(btnText);
+                receiptAdapter.applyFilterCategory(btnText);
             }
         });
     }

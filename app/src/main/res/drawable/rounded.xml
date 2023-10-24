@@ -1,0 +1,5 @@
+<!-- res/drawable/rounded_edittext_bg.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#F3F4F4" />
+    <corners android:radius="120dp" /> <!-- Adjust the radius for desired roundness -->
+</shape>
