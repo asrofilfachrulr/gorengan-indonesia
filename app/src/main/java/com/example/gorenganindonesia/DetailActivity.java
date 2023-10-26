@@ -107,7 +107,7 @@ public class DetailActivity extends AppCompatActivity {
 
         final int[] prevCurrPos = {0, 0}; // {prev, curr}
 
-        tvTitleRingkasan.setTextAppearance(R.style.HighlightedPagerTitle);
+        tvTitleRingkasan.setTextAppearance(R.style.highlighted_pager_title);
 
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -116,12 +116,12 @@ public class DetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                pagerTitles.get(position).setTextAppearance(R.style.HighlightedPagerTitle);
+                pagerTitles.get(position).setTextAppearance(R.style.highlighted_pager_title);
 
                 if (position != prevCurrPos[1]) {
                     prevCurrPos[0] = prevCurrPos[1];
                     prevCurrPos[1] = position;
-                    pagerTitles.get(prevCurrPos[0]).setTextAppearance(R.style.UnhighlightedPagerTitle);
+                    pagerTitles.get(prevCurrPos[0]).setTextAppearance(R.style.unhighlighted_pager_title);
                 }
             }
 

@@ -23,7 +23,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_white"
+        style="@style/btn_white_round"
         android:padding="10sp"
         android:src="@drawable/ic_close"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_white"
+        style="@style/btn_white_round"
         android:padding="10sp"
         android:src="@drawable/ic_share"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,28 +60,31 @@
 
             <TextView
                 android:id="@+id/tv_title_ringkasan"
-                style="@style/UnhighlightedPagerTitle"
+                style="@style/unhighlighted_pager_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ringkasan"
+                android:fontFamily="@font/open_sans_regular"
                 android:textAllCaps="true" />
 
             <TextView
                 android:id="@+id/tv_title_bahan"
-                style="@style/UnhighlightedPagerTitle"
+                style="@style/unhighlighted_pager_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24sp"
                 android:text="Bahan"
+                android:fontFamily="@font/open_sans_regular"
                 android:textAllCaps="true" />
 
             <TextView
                 android:id="@+id/tv_title_langkah"
-                style="@style/UnhighlightedPagerTitle"
+                style="@style/unhighlighted_pager_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24sp"
                 android:text="Langkah"
+                android:fontFamily="@font/open_sans_regular"
                 android:textAllCaps="true" />
 
         </LinearLayout>
@@ -89,7 +92,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

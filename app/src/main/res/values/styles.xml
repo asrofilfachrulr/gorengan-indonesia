@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:app="http://schemas.android.com/apk/res-auto">
-    <style name="RoundedOutlineBtn">
-        <item name="android:background">@drawable/button_outline</item>
+    <style name="btn_outline_rounded">
+        <item name="android:background">@drawable/btn_outline_grey</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
     </style>
-    <style name="RoundedAccentBtn">
-        <item name="android:background">@drawable/button_accent_blue</item>
+    <style name="btn_accent_light_rounded">
+        <item name="android:background">@drawable/btn_accent_light</item>
         <item name="android:textColor">@color/app_accent_blue</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
     </style>
-<!--    android:textColor="@color/black"-->
-<!--    android:textSize="16sp"-->
-<!--    android:textFontWeight="500"-->
-    <style name="HighlightedPagerTitle">
+
+    <style name="highlighted_pager_title">
         <item name="android:textColor">@color/black</item>
         <item name="android:textFontWeight">500</item>
     </style>
-    <style name="UnhighlightedPagerTitle">
+    <style name="unhighlighted_pager_title">
         <item name="android:textColor">#A1A9A9A9</item>
         <item name="android:textFontWeight">400</item>
+    </style>
+    <style name="btn_accent_solid_rounded">
+        <item name="android:background">@drawable/btn_solid_accent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="btn_neutral_solid_rounded">
+        <item name="android:background">@drawable/btn_solid_neutral</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="btn_white_round">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/rounded_white</item>
+    </style>
+    <style name="btn_transparent">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

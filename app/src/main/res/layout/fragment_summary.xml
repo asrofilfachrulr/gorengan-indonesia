@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Bakwan Sahabat Kolesterol"
             android:textColor="@color/black"
-            android:textFontWeight="500"
+            android:fontFamily="@font/open_sans_semibold"
             android:textSize="24sp" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_marginTop="3sp"
             android:text="Kategori Favorit Donatur Rumah Sakit"
             android:textColor="#787575"
-            android:textFontWeight="400"
+            android:fontFamily="@font/open_sans_light"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -57,7 +57,7 @@
                     android:layout_marginTop="7sp"
                     android:text="Mudah"
                     android:textAlignment="center"
-                    android:textFontWeight="500" />
+                    android:fontFamily="@font/open_sans_semibold" />
             </LinearLayout>
 
             <LinearLayout
@@ -80,7 +80,7 @@
                     android:layout_marginTop="7sp"
                     android:text="4 Porsi"
                     android:textAlignment="center"
-                    android:textFontWeight="500" />
+                    android:fontFamily="@font/open_sans_semibold" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,12 +98,12 @@
 
                 <TextView
                     android:id="@+id/tv_time_detail"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="±40 Menit"
                     android:textAlignment="center"
-                    android:textFontWeight="500" />
+                    android:fontFamily="@font/open_sans_semibold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -134,7 +134,7 @@
                     android:layout_marginTop="7sp"
                     android:text="5 Bahan"
                     android:textAlignment="center"
-                    android:textFontWeight="500" />
+                    android:fontFamily="@font/open_sans_semibold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -158,7 +158,7 @@
                     android:layout_marginTop="7sp"
                     android:text="7 Langkah"
                     android:textAlignment="center"
-                    android:textFontWeight="500" />
+                    android:fontFamily="@font/open_sans_semibold"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

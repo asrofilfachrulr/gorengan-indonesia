@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Langkah-Langkah"
             android:textColor="@color/black"
-            android:textFontWeight="500"
+            android:fontFamily="@font/open_sans_semibold"
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView

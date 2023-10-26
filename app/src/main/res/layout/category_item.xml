@@ -6,12 +6,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_category"
-        style="@style/RoundedAccentBtn"
+        style="@style/btn_accent_light_rounded"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:fontFamily="sans-serif-black"
         android:text="Test"
         android:textFontWeight="800"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textAllCaps="false" />
 </LinearLayout>

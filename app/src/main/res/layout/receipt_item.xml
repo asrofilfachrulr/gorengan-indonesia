@@ -32,7 +32,7 @@
             android:layout_marginStart="16dp"
             android:text="Bakwan Lezat Anti Stroke dan Kolesterol"
             android:textColor="@color/white"
-            android:textFontWeight="500"
+            android:fontFamily="@font/open_sans_semibold"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_receipt_thumb"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
+                    android:fontFamily="@font/open_sans_regular"
                     android:textSize="12sp"
                     android:text="Mudah"/>
             </LinearLayout>
@@ -85,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="12sp"
+                    android:fontFamily="@font/open_sans_regular"
                     android:text="4 Porsi"/>
             </LinearLayout>
             <LinearLayout
@@ -105,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="12sp"
+                    android:fontFamily="@font/open_sans_regular"
                     android:text="40mnt"/>
             </LinearLayout>
 
