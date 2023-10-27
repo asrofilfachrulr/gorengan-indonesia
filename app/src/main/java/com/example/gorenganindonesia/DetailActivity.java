@@ -15,7 +15,7 @@ import com.example.gorenganindonesia.Detail.Fragments.DetailFragmentAdapter;
 import com.example.gorenganindonesia.Detail.Fragments.IngredientsFragment;
 import com.example.gorenganindonesia.Detail.Fragments.StepsFragment;
 import com.example.gorenganindonesia.Detail.Fragments.SummaryFragment;
-import com.example.gorenganindonesia.Model.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.ui.Receipt.Receipt;
 
 import java.util.ArrayList;
 import java.util.List;

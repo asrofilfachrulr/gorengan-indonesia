@@ -11,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gorenganindonesia.Model.Ingredients.Ingredients;
-import com.example.gorenganindonesia.Model.Ingredients.IngredientsAdapter;
-import com.example.gorenganindonesia.Model.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.ui.Ingredients.Ingredients;
+import com.example.gorenganindonesia.Model.ui.Ingredients.IngredientsAdapter;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;

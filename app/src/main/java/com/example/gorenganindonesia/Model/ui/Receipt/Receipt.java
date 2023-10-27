@@ -1,11 +1,11 @@
-package com.example.gorenganindonesia.Model.Receipt;
+package com.example.gorenganindonesia.Model.ui.Receipt;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.example.gorenganindonesia.Model.Ingredients.Ingredients;
+import com.example.gorenganindonesia.Model.ui.Ingredients.Ingredients;
 
 public class Receipt implements Parcelable {
     private String title;

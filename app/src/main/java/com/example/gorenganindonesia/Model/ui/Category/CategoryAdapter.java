@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.Category;
+package com.example.gorenganindonesia.Model.ui.Category;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.Model.Receipt.ReceiptAdapter;
+import com.example.gorenganindonesia.Model.ui.Receipt.ReceiptAdapter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.Ingredients;
+package com.example.gorenganindonesia.Model.ui.Ingredients;
 
 import android.view.LayoutInflater;
 import android.view.View;

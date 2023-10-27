@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.Category;
+package com.example.gorenganindonesia.Model.ui.Category;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.Receipt;
+package com.example.gorenganindonesia.Model.ui.Receipt;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;

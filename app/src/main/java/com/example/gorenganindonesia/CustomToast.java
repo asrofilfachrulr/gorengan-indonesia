@@ -9,10 +9,20 @@ public class CustomToast {
     CharSequence text;
     View view;
 
+    boolean isLong; // default custom toast is long in duration
+
     CustomToast(CharSequence text, View view) {
         this.text = text;
         this.view = view;
+        this.isLong = true;
     }
+
+    CustomToast(CharSequence text, View view, boolean isLong) {
+        this.text = text;
+        this.view = view;
+        this.isLong = isLong;
+    }
+
 
     public void show(){
         LayoutInflater inflater = LayoutInflater.from(view.getContext());
@@ -21,7 +31,8 @@ public class CustomToast {
         ((TextView) layout.findViewById(R.id.tv_custom_toast)).setText(text);
 
         Toast toast = new Toast(view.getContext());
-        toast.setDuration(Toast.LENGTH_LONG);
+        if(isLong) toast.setDuration(Toast.LENGTH_LONG);
+        else toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
         toast.show();
     }

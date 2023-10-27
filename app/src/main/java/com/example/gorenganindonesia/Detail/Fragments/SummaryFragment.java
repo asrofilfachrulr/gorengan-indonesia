@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.gorenganindonesia.Model.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.ui.Receipt.Receipt;
 import com.example.gorenganindonesia.R;
 
 

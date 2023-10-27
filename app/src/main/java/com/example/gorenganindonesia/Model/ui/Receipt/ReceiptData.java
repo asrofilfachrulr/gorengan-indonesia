@@ -1,6 +1,6 @@
-package com.example.gorenganindonesia.Model.Receipt;
+package com.example.gorenganindonesia.Model.ui.Receipt;
 
-import com.example.gorenganindonesia.Model.Ingredients.Ingredients;
+import com.example.gorenganindonesia.Model.ui.Ingredients.Ingredients;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;

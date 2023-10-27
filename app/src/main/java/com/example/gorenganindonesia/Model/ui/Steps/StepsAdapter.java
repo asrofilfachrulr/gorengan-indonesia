@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.Steps;
+package com.example.gorenganindonesia.Model.ui.Steps;
 
 import android.view.LayoutInflater;
 import android.view.View;

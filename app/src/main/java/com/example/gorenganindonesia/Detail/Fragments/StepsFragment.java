@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gorenganindonesia.Model.Steps.StepsAdapter;
+import com.example.gorenganindonesia.Model.ui.Steps.StepsAdapter;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;
