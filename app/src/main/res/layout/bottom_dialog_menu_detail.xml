@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="16dp">
+    <Button
+        android:id="@+id/btn_share"
+        android:drawableStart="@drawable/ic_share"
+        style="@style/BottomDialogMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bagikan"/>
+
+    <Button
+        android:id="@+id/btn_add_to_favourite"
+        android:drawableStart="@drawable/ic_love"
+        style="@style/BottomDialogMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambahkan ke Favorit"/>
+    <Button
+        android:id="@+id/btn_save_offline"
+        android:drawableStart="@drawable/ic_wifi_off"
+        style="@style/BottomDialogMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simpan Resep Offline"/>
+    <Button
+        android:id="@+id/btn_see_user_rating"
+        android:drawableStart="@drawable/ic_stars"
+        style="@style/BottomDialogMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lihat Rating Pengguna"/>
+</LinearLayout>

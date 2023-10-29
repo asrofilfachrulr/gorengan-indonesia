@@ -11,11 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
+import com.example.gorenganindonesia.Model.api.Receipt.Receipt;
 import com.example.gorenganindonesia.databinding.FragmentFavouriteBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FavouriteFragment extends Fragment {
 
     private FragmentFavouriteBinding binding;
+
+    List<Receipt> favouriteReceipt;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +33,12 @@ public class FavouriteFragment extends Fragment {
 
         final TextView textView = binding.textFavourite;
         favouriteViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        List<Receipt> buff = favouriteViewModel.getFavourites().getValue();
+
+        favouriteReceipt = buff == null ? new ArrayList<Receipt>() : favouriteViewModel.getFavourites().getValue();
+
+
         return root;
     }
 

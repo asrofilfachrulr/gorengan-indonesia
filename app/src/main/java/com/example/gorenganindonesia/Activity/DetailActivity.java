@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.ui.Adapters.DetailFragmentAdapter;
@@ -16,6 +21,7 @@ import com.example.gorenganindonesia.ui.Fragments.Detail.IngredientsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.StepsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.SummaryFragment;
 import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +29,12 @@ import java.util.List;
 public class DetailActivity extends AppCompatActivity {
     TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan;
     ImageView ivThumb;
-    ImageButton btnBack, btnShare;
+    ImageButton btnBack, btnMore;
     ViewPager vp;
 
+    Button btnShare, btnAddFavourite, btnSaveOffline, btnSeeUserRating;
+
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +47,8 @@ public class DetailActivity extends AppCompatActivity {
         ivThumb = (ImageView) findViewById(R.id.iv_thumb_detail);
 
         btnBack = (ImageButton) findViewById(R.id.btn_close_detail);
-        btnShare = (ImageButton) findViewById(R.id.btn_share_detail);
+        btnMore = (ImageButton) findViewById(R.id.btn_more_detail);
+
 
         vp = (ViewPager) findViewById(R.id.vp_detail);
 
@@ -48,6 +58,18 @@ public class DetailActivity extends AppCompatActivity {
         ivThumb.setImageResource(receipt.getThumb());
 
         btnBack.setOnClickListener(v -> onBackPressed());
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.bottom_dialog_menu_detail);
+
+        btnShare = (Button) bottomSheetDialog.findViewById(R.id.btn_share);
+        btnAddFavourite = (Button) bottomSheetDialog.findViewById(R.id.btn_add_to_favourite);
+        btnSaveOffline = (Button) bottomSheetDialog.findViewById(R.id.btn_save_offline);
+        btnSeeUserRating = (Button) bottomSheetDialog.findViewById(R.id.btn_see_user_rating);
+
+        btnMore.setOnClickListener(v -> {
+            bottomSheetDialog.show();
+        });
 
         btnShare.setOnClickListener(v -> {
             // Create an Intent with the ACTION_SEND action
@@ -59,8 +81,24 @@ public class DetailActivity extends AppCompatActivity {
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
 
             startActivity(Intent.createChooser(shareIntent, "Bagikan melalui"));
-
+            bottomSheetDialog.dismiss();
         });
+
+        btnAddFavourite.setOnClickListener(v -> {
+            Toast.makeText(this, "Add to Favourite clicked", Toast.LENGTH_SHORT).show();
+            bottomSheetDialog.dismiss();
+        });
+
+        btnSaveOffline.setOnClickListener(v -> {
+            Toast.makeText(this, "Save Offline clicked", Toast.LENGTH_SHORT).show();
+            bottomSheetDialog.dismiss();
+        });
+
+        btnSeeUserRating.setOnClickListener(v -> {
+            Toast.makeText(this, "See User Rating clicked", Toast.LENGTH_SHORT).show();
+            bottomSheetDialog.dismiss();
+        });
+
 
         tvTitleRingkasan.setOnClickListener(v -> {
             if (vp.getCurrentItem() != 0) vp.setCurrentItem(0, true);
@@ -104,6 +142,7 @@ public class DetailActivity extends AppCompatActivity {
                 if (position != prevCurrPos[1]) {
                     prevCurrPos[0] = prevCurrPos[1];
                     prevCurrPos[1] = position;
+
                     pagerTitles.get(prevCurrPos[0]).setTextAppearance(R.style.unhighlighted_pager_title);
                 }
             }

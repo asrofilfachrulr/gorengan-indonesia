@@ -1,97 +1,50 @@
 package com.example.gorenganindonesia.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.RecyclerViewItemSpacing;
-import com.example.gorenganindonesia.ui.Adapters.CategoryAdapter;
-import com.example.gorenganindonesia.Model.data.Category.CategoryData;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
-import com.example.gorenganindonesia.ui.Adapters.ReceiptAdapter;
-import com.example.gorenganindonesia.Model.data.Receipt.ReceiptData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Receipt> receipts;
-    ArrayList<String> categories;
-
-    RecyclerView rvReceipt, rvCategory;
-
-    CategoryAdapter categoryAdapter;
-    ReceiptAdapter receiptAdapter;
-
-    LinearLayout llParentContent;
-
-    EditText etSearch;
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        categories = CategoryData.generate();
-        receipts = ReceiptData.generate();
+        BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.receipt_spacing);
-        rvReceipt = (RecyclerView) findViewById(R.id.rv_receipt);
-        receiptAdapter = new ReceiptAdapter(receipts, rvReceipt);
-        RecyclerView.LayoutManager receiptLayoutManager = new LinearLayoutManager(MainActivity.this);
-        rvReceipt.setLayoutManager(receiptLayoutManager);
-        rvReceipt.setAdapter(receiptAdapter);
-        rvReceipt.addItemDecoration(new RecyclerViewItemSpacing(this, receiptSpacing));
+        NavController navController = Navigation
+                .findNavController(this, R.id.nav_host_fragment_activity_main2);
 
-        int categorySpacing = getResources().getDimensionPixelSize(R.dimen.category_spacing);
-        rvCategory = (RecyclerView) findViewById(R.id.rv_category);
-        categoryAdapter = new CategoryAdapter(categories, receiptAdapter);
-        RecyclerView.LayoutManager categoryLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        rvCategory.setLayoutManager(categoryLayoutManager);
-        rvCategory.setAdapter(categoryAdapter);
-        rvCategory.addItemDecoration(new RecyclerViewItemSpacing(this, categorySpacing));
+        NavigationUI.setupWithNavController(navView, navController);
 
-
-        llParentContent = (LinearLayout) findViewById(R.id.ll_parent_content);
-        etSearch = (EditText) findViewById(R.id.et_search);
-
-        llParentContent.setOnTouchListener((v, event) -> {
-            etSearch.clearFocus();
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            return false;
-        });
-
-        etSearch.addTextChangedListener(new TextWatcher() {
+        navView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onGlobalLayout() {
+                // This method will be called once the layout has been populated, and you can obtain its height.
+                int height = navView.getHeight();
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                receiptAdapter.applyFilterTitle(s.toString());
+                // give empty space at the end of recycler view of receipt list so last
+                // item wont be covered by bottom navigation bar
+                View vw = (View) findViewById(R.id.vw_empty_space);
+                ViewGroup.LayoutParams param = vw.getLayoutParams();
+                param.height = height;
+
+                vw.setLayoutParams(param);
+
+                // Remove the listener to avoid multiple calls
+                navView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        ((Button) findViewById(R.id.btn_debug_mainactivity2)).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity2.class);
-            startActivity(intent);
         });
 
     }
-
 }

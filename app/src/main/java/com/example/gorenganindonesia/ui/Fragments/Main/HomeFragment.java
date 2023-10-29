@@ -1,7 +1,6 @@
 package com.example.gorenganindonesia.ui.Fragments.Main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,20 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gorenganindonesia.Activity.MainActivity;
-import com.example.gorenganindonesia.Activity.MainActivity2;
-import com.example.gorenganindonesia.Model.ViewModel.HomeViewModel;
 import com.example.gorenganindonesia.Model.data.Category.CategoryData;
 import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 import com.example.gorenganindonesia.Model.data.Receipt.ReceiptData;

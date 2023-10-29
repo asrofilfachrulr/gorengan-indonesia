@@ -5,9 +5,9 @@
     <color name="grey">#AADCDCDC</color>
     <color name="light_grey">#EAEAEA</color>
     <color name="divider_color">#AAA5A5A5</color>
-    <color name="app_accent_blue">#125C97</color>
-    <color name="app_accent_blue_light">#A3C4DE</color>
+    <color name="app_accent">#125C97</color>
+    <color name="app_accent_light">#A3C4DE</color>
 
-    <color name="active_tab_color">@color/black</color>
+    <color name="active_tab_color">@color/app_accent</color>
     <color name="inactive_tab_color">#AA2E2E2E</color>
 </resources>
