@@ -11,6 +11,7 @@
         <item name="android:textColor">@color/app_accent_blue</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
+        <item name="android:fontFamily">sans-serif-black</item>
     </style>
 
     <style name="highlighted_pager_title">
@@ -44,5 +45,9 @@
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="BottomNavTextActive">
+        <item name="android:textSize">12sp</item> <!-- Adjust the text size as needed -->
+        <item name="android:textColor">@color/active_tab_color</item> <!-- Set the text color -->
     </style>
 </resources>

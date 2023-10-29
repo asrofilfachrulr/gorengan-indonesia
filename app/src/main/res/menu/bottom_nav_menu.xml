@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/navigation_favourite"
+        android:icon="@drawable/baseline_star_outline_24"
+        android:title="Favorit" />
+
+    <item
+        android:id="@+id/navigation_my_receipt"
+        android:icon="@drawable/outline_view_list_24"
+        android:title="Resep Saya"/>
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/outline_account_circle_24"
+        android:title="Profil"/>
+</menu>

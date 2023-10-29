@@ -11,13 +11,13 @@ public class CustomToast {
 
     boolean isLong; // default custom toast is long in duration
 
-    CustomToast(CharSequence text, View view) {
+    public CustomToast(CharSequence text, View view) {
         this.text = text;
         this.view = view;
         this.isLong = true;
     }
 
-    CustomToast(CharSequence text, View view, boolean isLong) {
+    public CustomToast(CharSequence text, View view, boolean isLong) {
         this.text = text;
         this.view = view;
         this.isLong = isLong;
