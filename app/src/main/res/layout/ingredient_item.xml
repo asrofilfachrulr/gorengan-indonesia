@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="20 gram"
         android:fontFamily="@font/open_sans_semibold"
-        android:background="@drawable/rounded_dimmed"/>
+        android:background="@drawable/rounded_grey"/>
 
     <TextView
         android:id="@+id/tv_ingredient"

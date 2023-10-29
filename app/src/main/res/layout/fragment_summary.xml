@@ -8,8 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
+        android:paddingTop="24dp"
         android:paddingHorizontal="20dp"
+        android:background="@color/bg_white_secondary"
         android:orientation="vertical">
 
         <TextView
@@ -28,7 +29,7 @@
             android:layout_marginTop="3sp"
             android:text="Kategori Favorit Donatur Rumah Sakit"
             android:textColor="#787575"
-            android:fontFamily="@font/open_sans_light"
+            android:fontFamily="@font/open_sans_regular"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -45,9 +46,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/rounded_dimmed"
+                    style="@style/ImageViewBgGrey"
                     android:src="@drawable/ic_martial_dark" />
 
                 <TextView
@@ -68,9 +67,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/rounded_dimmed"
+                    style="@style/ImageViewBgGrey"
                     android:src="@drawable/ic_portion_dark" />
 
                 <TextView
@@ -91,9 +88,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/rounded_dimmed"
+                    style="@style/ImageViewBgGrey"
                     android:src="@drawable/ic_time_dark" />
 
                 <TextView
@@ -122,9 +117,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/rounded_dimmed"
+                    style="@style/ImageViewBgGrey"
                     android:src="@drawable/ic_cart_dark" />
 
                 <TextView
@@ -146,9 +139,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/rounded_dimmed"
+                    style="@style/ImageViewBgGrey"
                     android:src="@drawable/ic_list_dark" />
 
                 <TextView

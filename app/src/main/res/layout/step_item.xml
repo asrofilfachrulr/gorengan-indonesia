@@ -11,7 +11,7 @@
         android:id="@+id/tv_numbering"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:background="@drawable/rounded_dimmed"
+        android:background="@drawable/rounded_grey"
         android:gravity="center"
         android:text="1."
         android:textSize="18sp"

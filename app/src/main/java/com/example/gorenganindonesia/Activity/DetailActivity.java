@@ -2,6 +2,7 @@ package com.example.gorenganindonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
@@ -15,6 +16,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.ui.Adapters.DetailFragmentAdapter;
 import com.example.gorenganindonesia.ui.Fragments.Detail.IngredientsFragment;
@@ -85,7 +88,10 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         btnAddFavourite.setOnClickListener(v -> {
-            Toast.makeText(this, "Add to Favourite clicked", Toast.LENGTH_SHORT).show();
+            new ViewModelProvider(this)
+                    .get(FavouriteViewModel.class)
+                    .pushFavourite(receipt);
+            new CustomToast("Berhasil menambahkan ke Favorit!", v).show();
             bottomSheetDialog.dismiss();
         });
 

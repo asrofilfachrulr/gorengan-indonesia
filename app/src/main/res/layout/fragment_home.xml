@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/bg_white_secondary"
     tools:context=".Activity.MainActivity">
 
     <LinearLayout
@@ -56,9 +56,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F8F8F8"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
+            android:background="@color/bg_white_primary"
             android:paddingTop="8sp">
 
             <androidx.recyclerview.widget.RecyclerView
