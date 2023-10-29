@@ -58,91 +58,88 @@ public class LoginActivity extends AppCompatActivity {
 //        llRootLogin.addView(progressBar, params);
 //        progressBar.setVisibility(View.GONE);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                boolean isCompleted = true;
+            boolean isCompleted = true;
 
-                EditText[] required = {etIdentifier, etPassword};
-                for (EditText et : required) {
-                    if (et.getText().toString().isEmpty()) {
-                        et.setError("Harus diisi");
-                        isCompleted = false;
-                    } else {
-                        et.setError(null);
-                    }
+            EditText[] required = {etIdentifier, etPassword};
+            for (EditText et : required) {
+                if (et.getText().toString().isEmpty()) {
+                    et.setError("Harus diisi");
+                    isCompleted = false;
+                } else {
+                    et.setError(null);
                 }
+            }
 
-                if (isCompleted) {
-                    String identifier = etIdentifier.getText().toString();
-                    String password = etPassword.getText().toString();
+            if (isCompleted) {
+                String identifier = etIdentifier.getText().toString();
+                String password = etPassword.getText().toString();
 
 //                    progressBar.setVisibility(View.VISIBLE);
 
-                    RetrofitClient
-                            .getInstance()
-                            .create(AuthService.class)
-                            .login(new LoginRequest(identifier, password))
-                            .enqueue(new Callback<LoginResponse>() {
-                                @Override
-                                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                                    int statusCode = response.code();
+                RetrofitClient
+                        .getInstance()
+                        .create(AuthService.class)
+                        .login(new LoginRequest(identifier, password))
+                        .enqueue(new Callback<LoginResponse>() {
+                            @Override
+                            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                                int statusCode = response.code();
 
-                                    if (response.isSuccessful()) {
-                                        new CustomToast("Login sukses!", v, false).show();
+                                if (response.isSuccessful()) {
+                                    new CustomToast("Login sukses!", v, false).show();
 
-                                        sharedPreferences
-                                                .edit()
-                                                .putBoolean("isLogged", true)
-                                                .apply();
+                                    sharedPreferences
+                                            .edit()
+                                            .putBoolean("isLogged", true)
+                                            .apply();
 
-                                        sharedPreferences
-                                                .edit()
-                                                .putString("login_token", response.body().getToken())
-                                                .apply();
+                                    sharedPreferences
+                                            .edit()
+                                            .putString("login_token", response.body().getToken())
+                                            .apply();
 
-                                        v.getContext().startActivity(intent);
-                                    } else {
-                                        try {
-                                            String errorBody = response.errorBody().string();
-                                            Log.e("Status code: ", String.valueOf(statusCode));
-                                            Log.e("Error Response Body", errorBody);
+                                    v.getContext().startActivity(intent);
+                                } else {
+                                    try {
+                                        String errorBody = response.errorBody().string();
+                                        Log.e("Status code: ", String.valueOf(statusCode));
+                                        Log.e("Error Response Body", errorBody);
 
-                                            JSONObject errorJson = new JSONObject(errorBody);
-                                            String errorMessage = errorJson.optString("message");
-                                            String errorText = errorJson.optString("error");
+                                        JSONObject errorJson = new JSONObject(errorBody);
+                                        String errorMessage = errorJson.optString("message");
+                                        String errorText = errorJson.optString("error");
 
-                                            switch (statusCode) {
-                                                case 401:
-                                                    etPassword.setError(errorMessage);
-                                                case 404:
-                                                    new CustomToast(errorMessage, v).show();
-                                                    etIdentifier.setError(errorMessage);
-                                                    break;
-                                                case 500:
-                                                    new CustomToast(errorText, v).show();
-                                            }
-                                        } catch (IOException | JSONException e) {
-                                            Log.e("error", e.toString());
-                                            e.printStackTrace();
+                                        switch (statusCode) {
+                                            case 401:
+                                                etPassword.setError(errorMessage);
+                                            case 404:
+                                                new CustomToast(errorMessage, v).show();
+                                                etIdentifier.setError(errorMessage);
+                                                break;
+                                            case 500:
+                                                new CustomToast(errorText, v).show();
                                         }
+                                    } catch (IOException | JSONException e) {
+                                        Log.e("error", e.toString());
+                                        e.printStackTrace();
                                     }
-//                                    progressBar.setVisibility(View.GONE);
                                 }
+//                                    progressBar.setVisibility(View.GONE);
+                            }
 
-                                @Override
-                                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                                    System.out.println("LOGIN FAILURE: " + t.getMessage());
-                                    new CustomToast("Koneksi Error!", v).show();
+                            @Override
+                            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                                System.out.println("LOGIN FAILURE: " + t.getMessage());
+                                new CustomToast("Koneksi Error!", v).show();
 //                                    progressBar.setVisibility(View.GONE);
-                                }
-                        });
-                } else {
-                    new CustomToast("Isi seluruh field!", v).show();
-                }
+                            }
+                    });
+            } else {
+                new CustomToast("Isi seluruh field!", v).show();
             }
         });
 

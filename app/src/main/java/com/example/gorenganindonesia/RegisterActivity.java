@@ -41,91 +41,85 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), LoginActivity.class);
-                v.getContext().startActivity(intent);
-            }
+        btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), LoginActivity.class);
+            v.getContext().startActivity(intent);
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                boolean isCompleted = true;
+            boolean isCompleted = true;
 
-                EditText[] required = {etName, etUsername, etEmail, etPasswordRepeat, etPassword};
-                for(EditText et: required) {
-                    if (et.getText().toString().isEmpty()) {
-                        et.setError("Harus diisi");
-                        isCompleted = false;
-                    } else {
-                        et.setError(null);
-                    }
+            EditText[] required = {etName, etUsername, etEmail, etPasswordRepeat, etPassword};
+            for(EditText et: required) {
+                if (et.getText().toString().isEmpty()) {
+                    et.setError("Harus diisi");
+                    isCompleted = false;
+                } else {
+                    et.setError(null);
                 }
+            }
 
-                if(isCompleted) {
-                    if(etPassword
-                            .getText()
-                            .toString()
-                            .equals(etPasswordRepeat
-                                    .getText()
-                                    .toString())
-                    ){
-                        String username, name, email, password;
+            if(isCompleted) {
+                if(etPassword
+                        .getText()
+                        .toString()
+                        .equals(etPasswordRepeat
+                                .getText()
+                                .toString())
+                ){
+                    String username, name, email, password;
 
-                        username = etUsername.getText().toString();
-                        name = etName.getText().toString();
-                        email = etEmail.getText().toString();
-                        password = etPassword.getText().toString();
+                    username = etUsername.getText().toString();
+                    name = etName.getText().toString();
+                    email = etEmail.getText().toString();
+                    password = etPassword.getText().toString();
 
-                        RetrofitClient
-                                .getInstance()
-                                .create(AuthService.class)
-                                .register(new RegisterRequest(username, email, name, password))
-                                .enqueue(new Callback<RegisterResponse>() {
-                                    @Override
-                                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                                        if(response.isSuccessful()){
-                                            new CustomToast("Registrasi selesai, silahkan masuk", v).show();
-                                            v.getContext().startActivity(intent);
-                                        } else {
-                                            int statusCode = response.code();
-                                            try {
-                                                String errorBody = response.errorBody().string();
-                                                Log.e("Status code: ", String.valueOf(statusCode));
-                                                Log.e("Error Response Body", errorBody);
+                    RetrofitClient
+                            .getInstance()
+                            .create(AuthService.class)
+                            .register(new RegisterRequest(username, email, name, password))
+                            .enqueue(new Callback<RegisterResponse>() {
+                                @Override
+                                public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                                    if(response.isSuccessful()){
+                                        new CustomToast("Registrasi selesai, silahkan masuk", v).show();
+                                        v.getContext().startActivity(intent);
+                                    } else {
+                                        int statusCode = response.code();
+                                        try {
+                                            String errorBody = response.errorBody().string();
+                                            Log.e("Status code: ", String.valueOf(statusCode));
+                                            Log.e("Error Response Body", errorBody);
 
-                                                JSONObject errorJson = new JSONObject(errorBody);
-                                                String errorText = errorJson.optString("error");
+                                            JSONObject errorJson = new JSONObject(errorBody);
+                                            String errorText = errorJson.optString("error");
 
-                                                new CustomToast(errorText, v).show();
+                                            new CustomToast(errorText, v).show();
 
-                                            } catch (IOException | JSONException e) {
-                                                Log.e("error", e.toString());
-                                                e.printStackTrace();
-                                            }
+                                        } catch (IOException | JSONException e) {
+                                            Log.e("error", e.toString());
+                                            e.printStackTrace();
                                         }
                                     }
+                                }
 
-                                    @Override
-                                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                                        new CustomToast("Koneksi Error!", v).show();
-                                    }
-                                });
+                                @Override
+                                public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                                    new CustomToast("Koneksi Error!", v).show();
+                                }
+                            });
 
-                    } else {
-                        String msg = "Password harus sama";
-                        etPassword.setError(msg);
-                        etPasswordRepeat.setError(msg);
-                        new CustomToast(msg, v).show();
-                    }
                 } else {
-                    new CustomToast("Isi seluruh field!", v).show();
+                    String msg = "Password harus sama";
+                    etPassword.setError(msg);
+                    etPasswordRepeat.setError(msg);
+                    new CustomToast(msg, v).show();
                 }
+            } else {
+                new CustomToast("Isi seluruh field!", v).show();
             }
         });
 

@@ -47,48 +47,31 @@ public class DetailActivity extends AppCompatActivity {
 
         ivThumb.setImageResource(receipt.getThumb());
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        btnBack.setOnClickListener(v -> onBackPressed());
+
+        btnShare.setOnClickListener(v -> {
+            // Create an Intent with the ACTION_SEND action
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+            shareIntent.setType("text/plain");
+
+            String shareText = receipt.toString();
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+
+            startActivity(Intent.createChooser(shareIntent, "Bagikan melalui"));
+
         });
 
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent with the ACTION_SEND action
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
-                shareIntent.setType("text/plain");
-
-                String shareText = receipt.toString();
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-
-                startActivity(Intent.createChooser(shareIntent, "Bagikan melalui"));
-
-            }
+        tvTitleRingkasan.setOnClickListener(v -> {
+            if (vp.getCurrentItem() != 0) vp.setCurrentItem(0, true);
         });
 
-        tvTitleRingkasan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vp.getCurrentItem() != 0) vp.setCurrentItem(0, true);
-            }
+        tvTitleBahan.setOnClickListener(v -> {
+            if (vp.getCurrentItem() != 1) vp.setCurrentItem(1, true);
         });
 
-        tvTitleBahan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vp.getCurrentItem() != 1) vp.setCurrentItem(1, true);
-            }
-        });
-
-        tvTitleLangkah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vp.getCurrentItem() != 2) vp.setCurrentItem(2, true);
-            }
+        tvTitleLangkah.setOnClickListener(v -> {
+            if (vp.getCurrentItem() != 2) vp.setCurrentItem(2, true);
         });
 
         List<Fragment> fragments = new ArrayList<>();

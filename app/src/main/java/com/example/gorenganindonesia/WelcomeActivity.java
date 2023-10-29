@@ -37,21 +37,13 @@ public class WelcomeActivity extends AppCompatActivity {
             btnLogin = (Button) findViewById(R.id.btn_login);
             btnRegister = (Button) findViewById(R.id.btn_register);
 
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    toLoginPage(false);
-                }
-            });
+            btnLogin.setOnClickListener(v -> toLoginPage(false));
 
-            btnRegister.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+            btnRegister.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                    v.getContext().startActivity(intent);
-                }
+                v.getContext().startActivity(intent);
             });
         } else {
             if(isLogged) {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText etSearch;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +65,11 @@ public class MainActivity extends AppCompatActivity {
         llParentContent = (LinearLayout) findViewById(R.id.ll_parent_content);
         etSearch = (EditText) findViewById(R.id.et_search);
 
-        llParentContent.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                etSearch.clearFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                return false;
-            }
+        llParentContent.setOnTouchListener((v, event) -> {
+            etSearch.clearFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            return false;
         });
 
         etSearch.addTextChangedListener(new TextWatcher() {
