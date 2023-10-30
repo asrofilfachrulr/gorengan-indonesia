@@ -1,6 +1,7 @@
 package com.example.gorenganindonesia.ui.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 import com.example.gorenganindonesia.R;
@@ -57,6 +59,17 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
 
         holder.ivThumb.setImageResource(dataList.get(position).getThumb());
 
+        View[] views = {holder.ivThumb, holder.llFavItem};
+
+        for(View view: views){
+            view.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                intent.putExtra("receipt", dataList.get(position));
+
+                v.getContext().startActivity(intent);
+            });
+        }
+
         holder.btnDelete.setOnClickListener(v -> {
             ((GlobalModel) context.getApplicationContext())
                     .getFavouriteViewModel()
@@ -74,6 +87,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         TextView tvTitle, tvAuthor, tvDifficulty, tvMinuteDuration, tvPortion;
         ImageView ivThumb;
         ImageButton btnDelete;
+        LinearLayout llFavItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +101,8 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
             ivThumb = (ImageView) itemView.findViewById(R.id.iv_fav_receipt_image);
 
             btnDelete = (ImageButton) itemView.findViewById(R.id.btn_fav_delete);
+
+            llFavItem = (LinearLayout) itemView.findViewById(R.id.ll_fav_item);
         }
     }
 }
