@@ -25,7 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 public class SummaryFragment extends Fragment {
-    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient;
+    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient, tvAuthorName, tvStarRating;
     ImageButton ibMore;
     Button btnShare, btnSaveOffline, btnSeeUserRating;
     LinearLayout llSteps, llIngridients;
@@ -58,6 +58,8 @@ public class SummaryFragment extends Fragment {
         tvPortion = (TextView) view.findViewById(R.id.tv_portion_detail);
         tvStep = (TextView) view.findViewById(R.id.tv_step_detail);
         tvIngridient = (TextView) view.findViewById(R.id.tv_ingredient_detail);
+        tvAuthorName = (TextView) view.findViewById(R.id.tv_author_name_detail);
+        tvStarRating = (TextView) view.findViewById(R.id.tv_rating_star_detail);
 
         llSteps = (LinearLayout) view.findViewById(R.id.ll_steps_detail);
         llIngridients = (LinearLayout) view.findViewById(R.id.ll_ingredients_detail);
@@ -71,6 +73,8 @@ public class SummaryFragment extends Fragment {
         tvTime.setText( "±" + String.valueOf(receipt.getMinuteDuration()) + " Menit");
         tvStep.setText(String.valueOf(receipt.getSteps().length) + " Langkah");
         tvIngridient.setText(String.valueOf(receipt.getIngredients().length) + " Bahan");
+        tvAuthorName.setText("Resep oleh @"+receipt.getAuthorName().toString());
+        tvStarRating.setText(receipt.getRatingStar().toString());
 
         llSteps.setOnClickListener(new View.OnClickListener() {
             @Override

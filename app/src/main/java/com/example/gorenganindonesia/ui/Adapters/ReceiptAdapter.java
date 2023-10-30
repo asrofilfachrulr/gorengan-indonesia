@@ -79,6 +79,8 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
         holder.tvDifficulty.setText(receipt.getDifficulty().toString());
         holder.tvPortion.setText(String.valueOf(receipt.getPortion()) + " Porsi");
         holder.tvDuration.setText(String.valueOf(receipt.getMinuteDuration()) + "mnt");
+        holder.tvAuthorName.setText("@" + dataList.get(position).getAuthorName().toString());
+        holder.tvRatingStar.setText(dataList.get(position).getRatingStar().toString());
 
         holder.cvReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +101,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
     public class ViewHolder  extends RecyclerView.ViewHolder{
         CardView cvReceipt;
         ImageView ivReceiptThumb;
-        TextView tvReceiptTitle, tvDifficulty, tvPortion, tvDuration;
+        TextView tvReceiptTitle, tvDifficulty, tvPortion, tvDuration, tvAuthorName, tvRatingStar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -109,6 +111,8 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
             tvDifficulty = itemView.findViewById(R.id.tv_difficulty);
             tvPortion = itemView.findViewById(R.id.tv_portion);
             tvDuration = itemView.findViewById(R.id.tv_duration);
+            tvAuthorName = itemView.findViewById(R.id.tv_author_name);
+            tvRatingStar = itemView.findViewById(R.id.tv_star_rating);
         }
     }
 }
