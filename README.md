@@ -16,7 +16,8 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 - [x] Filter List Data with Search Keyword
 
 ## TODO
-~~1. change layout on detail activity: move kebab menu to the right of reciept title then replace the its place before with toggle add favourite button~~
+~~1. change layout on detail activity: move kebab menu to the right of reciept title then replace the its place before with toggle add favourite button~~ 
+
 2. add author name on detail, main also put small profile thumb
 3. convert necessary toast to has short period
 4. add logged user data to global model data which use user model
