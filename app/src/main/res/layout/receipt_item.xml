@@ -22,13 +22,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#6A000000" />
+            app:tint="#8F000000" />
 
         <TextView
             android:id="@+id/tv_receipt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="48dp"
             android:layout_marginStart="16dp"
             android:text="Bakwan Lezat Anti Stroke dan Kolesterol"
             android:textColor="@color/white"
@@ -38,8 +38,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tv_author_name"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4sp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@id/tv_receipt_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/ll_bottom_receipt_cover"
+            android:textColor="@color/white"
+            android:text="\@admin"/>
 
         <LinearLayout
+            android:id="@+id/ll_bottom_receipt_cover"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:orientation="horizontal"
@@ -109,6 +123,27 @@
                     android:textSize="12sp"
                     android:fontFamily="@font/open_sans_regular"
                     android:text="40mnt"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="18sp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_star_solid_white"
+                    />
+                <TextView
+                    android:id="@+id/tv_star_rating"
+                    android:layout_marginStart="4sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="4.5"/>
             </LinearLayout>
 
         </LinearLayout>

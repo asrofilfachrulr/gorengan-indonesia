@@ -70,12 +70,12 @@ public class DetailActivity extends AppCompatActivity {
         btnToggleFavourite.setOnClickListener(v -> {
             if(isReceiptExistInFav[0]){
                 favViewModel.removeFavourite(receipt);
-                new CustomToast("Berhasil menghapus dari Favorit", v).show();
+                new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
                 btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
                 isReceiptExistInFav[0] = false;
             } else {
                 favViewModel.pushFavourite(receipt);
-                new CustomToast("Berhasil menambahkan ke Favorit!", v).show();
+                new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
                 btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
                 isReceiptExistInFav[0] = true;
             }

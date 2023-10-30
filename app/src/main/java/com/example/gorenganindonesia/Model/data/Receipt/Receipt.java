@@ -10,19 +10,23 @@ import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 public class Receipt implements Parcelable {
     private String id;
     private String title;
-    private String author;
+    private String authorName;
     private String category;
     private int minuteDuration;
     private int thumb;
     private String difficulty;
     private int portion;
+    private String ratingStar;
     private Ingredient[] ingredients;
+
     private String[] steps;
 
-    public Receipt(String id, String title, String author, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
+
+    public Receipt(String id, String title, String authorName, String ratingStar, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
         this.id = id;
         this.title = title;
-        this.author = author;
+        this.authorName = authorName;
+        this.ratingStar = ratingStar;
         this.category = category;
         this.minuteDuration = minuteDuration;
         this.thumb = thumb;
@@ -104,6 +108,22 @@ public class Receipt implements Parcelable {
         this.ingredients = ingredients;
     }
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getRatingStar() {
+        return ratingStar;
+    }
+
+    public void setRatingStar(String ratingStar) {
+        this.ratingStar = ratingStar;
+    }
+
     // Implement the Parcelable.Creator for Receipt
     public static final Creator<Receipt> CREATOR = new Creator<Receipt>() {
         @Override
@@ -120,6 +140,8 @@ public class Receipt implements Parcelable {
     protected Receipt(Parcel in) {
         id = in.readString();
         title = in.readString();
+        authorName = in.readString();
+        ratingStar = in.readString();
         category = in.readString();
         minuteDuration = in.readInt();
         thumb = in.readInt();
@@ -133,6 +155,8 @@ public class Receipt implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(id);
         parcel.writeString(title);
+        parcel.writeString(authorName);
+        parcel.writeString(ratingStar);
         parcel.writeString(category);
         parcel.writeInt(minuteDuration);
         parcel.writeInt(thumb);
@@ -150,7 +174,7 @@ public class Receipt implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n\n" + "Bahan:";
+        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n⭐" + getRatingStar() + " oleh @" + getAuthorName() + "\n\n" + "Bahan:";
 
         for(int i = 0; i < getIngredients().length; i++){
             text += "\n" + String.valueOf(i+1) + ". ";

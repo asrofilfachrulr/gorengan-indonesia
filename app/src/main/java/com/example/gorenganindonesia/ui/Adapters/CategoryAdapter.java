@@ -1,10 +1,12 @@
 package com.example.gorenganindonesia.ui.Adapters;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.R;
@@ -15,9 +17,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     ArrayList<String> dataList;
     ReceiptAdapter receiptAdapter;
 
-    public CategoryAdapter(ArrayList<String> dataList, ReceiptAdapter receiptAdapter) {
+    RecyclerView receiptRv, categoryRv;
+
+    final Button[] stateCategory = {null, null}; // {previous, current}
+
+    public CategoryAdapter(ArrayList<String> dataList, ReceiptAdapter receiptAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
         this.dataList = dataList;
         this.receiptAdapter = receiptAdapter;
+        this.receiptRv = receiptRv;
+        this.categoryRv = categoryRv;
     }
 
     @NonNull
@@ -33,12 +41,27 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         String btnText = dataList.get(position).toString();
         holder.btnCategory.setText(btnText);
 
-        holder.btnCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(view.getContext(), "Category " + btnText + " pressed", Toast.LENGTH_SHORT).show();
-                receiptAdapter.applyFilterCategory(btnText);
-            }
+        if(btnText.toLowerCase().contains("semua")){
+            stateCategory[0] = holder.btnCategory;
+            stateCategory[1] = holder.btnCategory;
+
+            stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
+            stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
+        }
+
+        holder.btnCategory.setOnClickListener(view -> {
+            receiptAdapter.applyFilterCategory(btnText);
+            receiptRv.scrollToPosition(0);
+
+            stateCategory[0] = stateCategory[1];
+            stateCategory[1] = holder.btnCategory;
+
+            stateCategory[0].setTextAppearance(R.style.btn_accent_outline_rounded);
+            stateCategory[0].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_outline, null));
+
+
+            stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
+            stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
         });
     }
 
@@ -49,10 +72,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public class ViewHolder  extends RecyclerView.ViewHolder{
         Button btnCategory;
+        Context context;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             btnCategory = itemView.findViewById(R.id.btn_category);
+            context = itemView.getContext();
         }
     }
 }

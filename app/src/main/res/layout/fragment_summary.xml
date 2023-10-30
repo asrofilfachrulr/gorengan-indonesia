@@ -32,7 +32,11 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_kebab_menu_black"/>
     </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_author_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resep oleh \@admin"/>
         <TextView
             android:id="@+id/tv_category_detail"
             android:layout_width="match_parent"
@@ -162,6 +166,28 @@
                     android:textAlignment="center"
                     android:fontFamily="@font/open_sans_semibold"/>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_rating_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/ImageViewBgGrey"
+                    android:src="@drawable/ic_star_solid_dark" />
+
+                <TextView
+                    android:id="@+id/tv_rating_star_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:text="4.5"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/open_sans_semibold"/>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
 
         int categorySpacing = getResources().getDimensionPixelSize(R.dimen.category_spacing);
         rvCategory = (RecyclerView) binding.rvCategory;
-        categoryAdapter = new CategoryAdapter(categories, receiptAdapter);
+        categoryAdapter = new CategoryAdapter(categories, receiptAdapter, rvReceipt, rvCategory);
         RecyclerView.LayoutManager categoryLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvCategory.setLayoutManager(categoryLayoutManager);
         rvCategory.setAdapter(categoryAdapter);
@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                rvReceipt.scrollToPosition(0);
                 receiptAdapter.applyFilterTitle(s.toString());
             }
 

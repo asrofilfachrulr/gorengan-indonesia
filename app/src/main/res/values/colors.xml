@@ -3,6 +3,7 @@
     <!-- COLOR UNIT   -->
     <color name="black">#0C1C33</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_grey">#949494</color>
     <color name="grey">#AADCDCDC</color>
     <color name="light_grey">#EAEAEA</color>
 
