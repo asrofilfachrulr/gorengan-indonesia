@@ -32,5 +32,5 @@
         style="@style/BottomDialogMenuItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lihat Rating Pengguna"/>
+        android:text="Lihat Ulasan Pengguna"/>
 </LinearLayout>
