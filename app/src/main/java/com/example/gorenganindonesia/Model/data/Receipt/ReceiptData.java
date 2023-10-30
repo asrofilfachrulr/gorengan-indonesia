@@ -11,7 +11,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-1",
                         "Cireng Pedas Nuklir",
+                        "admin",
                         "Aci",
                         30,
                         R.drawable.cireng,
@@ -47,7 +49,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-2",
                         "Tempe Mendoan KFC",
+                        "admin",
                         "Kedelai",
                         30,
                         R.drawable.mendoan,
@@ -72,7 +76,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-3",
                         "Pisang Goreng Starbucks",
+                        "admin",
                         "Buah",
                         30,
                         R.drawable.pisang_goreng,
@@ -99,7 +105,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-4",
                         "Kentang Goreng Istana Negara",
+                        "admin",
                         "Kentang",
                         45,
                         R.drawable.kentang_goreng_pedas,
@@ -128,7 +136,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-5",
                         "Rempeyek Udang Cak Owi",
+                        "admin",
                         "Ikan",
                         45,
                         R.drawable.peyek_udang,
@@ -156,7 +166,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-6",
                         "Bakwan Sahabat Kolesterol",
+                        "admin",
                         "Isian Sayur",
                         40,
                         R.drawable.bakwan,
@@ -188,7 +200,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-7",
                         "Ubi Jalar yang diberi Tepung",
+                        "admin",
                         "Manis",
                         40,
                         R.drawable.ubi_jalar,
@@ -215,7 +229,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-8",
                         "Perkedel (Persatuan Kentang dan Telur)",
+                        "admin",
                         "Kentang",
                         40,
                         R.drawable.perkedel,
@@ -245,7 +261,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-9",
                         "Tahu Isi Harapan Rakyat",
+                        "admin",
                         "Kedelai",
                         30,
                         R.drawable.tahu_isi,
@@ -273,7 +291,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-10",
                         "Molen",
+                        "admin",
                         "Manis",
                         40,
                         R.drawable.molen,
@@ -302,7 +322,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-11",
                         "Cimol",
+                        "admin",
                         "Aci",
                         40,
                         R.drawable.cimol,
@@ -330,7 +352,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-12",
                         "Cilor",
+                        "admin",
                         "Aci",
                         45,
                         R.drawable.cilor,
@@ -361,7 +385,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-13",
                         "Tahu Bulat Digoreng Dadakan",
+                        "admin",
                         "Kedelai",
                         30,
                         R.drawable.tahu_bulat,
@@ -388,7 +414,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-14",
                         "Sukun",
+                        "admin",
                         "Buah",
                         45,
                         R.drawable.sukun,
@@ -415,7 +443,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-15",
                         "Apel Goreng Pak Newton",
+                        "admin",
                         "Buah",
                         30,
                         R.drawable.apel_goreng,
@@ -446,7 +476,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-16",
                         "Roti Bantal Tidur",
+                        "admin",
                         "Manis",
                         30,
                         R.drawable.roti_bantal,
@@ -475,7 +507,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-17",
                         "Donat Strawberry",
+                        "admin",
                         "Manis",
                         60,
                         R.drawable.donat_strawberry,
@@ -509,7 +543,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-18",
                         "Peyek Teri Ma Kasih",
+                        "admin",
                         "Ikan",
                         45,
                         R.drawable.peyek_teri,
@@ -537,7 +573,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-19",
                         "Onde-Onde Jakarta",
+                        "admin",
                         "Manis",
                         60,
                         R.drawable.onde_onde,
@@ -562,7 +600,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-20",
                         "Ote-Ote",
+                        "admin",
                         "Isian Sayur",
                         45,
                         R.drawable.ote_ote,
@@ -592,7 +632,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-21",
                         "Risol Sayur",
+                        "admin",
                         "Isian Sayur",
                         60,
                         R.drawable.risol_sayur,
@@ -621,7 +663,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-22",
                         "Dadar Jagung",
+                        "admin",
                         "Isian sayur",
                         45,
                         R.drawable.dadar_jagung,
@@ -649,7 +693,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-23",
                         "Peyek Kacang",
+                        "admin",
                         "Buah",
                         45,
                         R.drawable.peyek_kacang,
@@ -677,7 +723,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-24",
                         "Gehu Pedas UGD",
+                        "admin",
                         "Kedelai",
                         45,
                         R.drawable.gehu_pedas,
@@ -707,7 +755,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-25",
                         "Sempol Chicken Kentucky",
+                        "admin",
                         "Aci",
                         45,
                         R.drawable.sempol,
@@ -738,7 +788,9 @@ public class ReceiptData {
 
         receipts.add(
                 new Receipt(
+                        "receipt-26",
                         "Combro",
+                        "admin",
                         "Isian Sayur",
                         45,
                         R.drawable.combro,

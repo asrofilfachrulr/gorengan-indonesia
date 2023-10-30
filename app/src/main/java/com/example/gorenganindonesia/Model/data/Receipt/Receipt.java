@@ -8,7 +8,9 @@ import androidx.annotation.NonNull;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 
 public class Receipt implements Parcelable {
+    private String id;
     private String title;
+    private String author;
     private String category;
     private int minuteDuration;
     private int thumb;
@@ -17,8 +19,10 @@ public class Receipt implements Parcelable {
     private Ingredient[] ingredients;
     private String[] steps;
 
-    public Receipt(String title, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
+    public Receipt(String id, String title, String author, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
+        this.id = id;
         this.title = title;
+        this.author = author;
         this.category = category;
         this.minuteDuration = minuteDuration;
         this.thumb = thumb;
@@ -26,6 +30,14 @@ public class Receipt implements Parcelable {
         this.portion = portion;
         this.steps = steps;
         this.ingredients = ingredients;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCategory() {
@@ -106,6 +118,7 @@ public class Receipt implements Parcelable {
     };
 
     protected Receipt(Parcel in) {
+        id = in.readString();
         title = in.readString();
         category = in.readString();
         minuteDuration = in.readInt();
@@ -118,6 +131,7 @@ public class Receipt implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(id);
         parcel.writeString(title);
         parcel.writeString(category);
         parcel.writeInt(minuteDuration);

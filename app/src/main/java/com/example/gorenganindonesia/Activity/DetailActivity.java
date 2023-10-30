@@ -1,22 +1,24 @@
 package com.example.gorenganindonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.ui.Adapters.DetailFragmentAdapter;
@@ -28,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DetailActivity extends AppCompatActivity {
     TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan;
@@ -70,8 +73,38 @@ public class DetailActivity extends AppCompatActivity {
         btnSaveOffline = (Button) bottomSheetDialog.findViewById(R.id.btn_save_offline);
         btnSeeUserRating = (Button) bottomSheetDialog.findViewById(R.id.btn_see_user_rating);
 
-        btnMore.setOnClickListener(v -> {
-            bottomSheetDialog.show();
+        FavouriteViewModel favViewModel = ((GlobalModel) getApplication()).getFavouriteViewModel();
+
+        final boolean[] isReceiptExistInFav = {false};
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.show();
+
+                if (favViewModel.ifFavouriteExist(receipt)) {
+                    btnAddFavourite.setText("Hapus dari Favorit");
+                    btnAddFavourite.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_cross, 0, 0, 0);
+
+                    isReceiptExistInFav[0] = true;
+                } else {
+                    btnAddFavourite.setText("Tambahkan ke Favorit");
+                    btnAddFavourite.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_love, 0, 0, 0);
+
+                    isReceiptExistInFav[0] = false;
+                }
+            }
+        });
+
+        btnAddFavourite.setOnClickListener(v -> {
+            if(isReceiptExistInFav[0]){
+                favViewModel.removeFavourite(receipt);
+                new CustomToast("Berhasil menghapus dari Favorit", v).show();
+            } else {
+                favViewModel.pushFavourite(receipt);
+                new CustomToast("Berhasil menambahkan ke Favorit!", v).show();
+            }
+            bottomSheetDialog.dismiss();
         });
 
         btnShare.setOnClickListener(v -> {
@@ -87,13 +120,6 @@ public class DetailActivity extends AppCompatActivity {
             bottomSheetDialog.dismiss();
         });
 
-        btnAddFavourite.setOnClickListener(v -> {
-            new ViewModelProvider(this)
-                    .get(FavouriteViewModel.class)
-                    .pushFavourite(receipt);
-            new CustomToast("Berhasil menambahkan ke Favorit!", v).show();
-            bottomSheetDialog.dismiss();
-        });
 
         btnSaveOffline.setOnClickListener(v -> {
             Toast.makeText(this, "Save Offline clicked", Toast.LENGTH_SHORT).show();
