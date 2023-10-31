@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             JSONObject errorJson = new JSONObject(errorBody);
                                             String errorText = errorJson.optString("error");
 
-                                            new CustomToast(errorText, v).show();
+                                            new CustomToast("error: " + errorText, v).show();
 
                                         } catch (IOException | JSONException e) {
                                             Log.e("error", e.toString());

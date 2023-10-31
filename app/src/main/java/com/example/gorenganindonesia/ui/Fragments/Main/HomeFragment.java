@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.ViewModel.ReceiptViewModel;
 import com.example.gorenganindonesia.Model.data.Category.CategoryData;
 import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 import com.example.gorenganindonesia.Model.data.Receipt.ReceiptData;
@@ -26,10 +28,11 @@ import com.example.gorenganindonesia.ui.Adapters.CategoryAdapter;
 import com.example.gorenganindonesia.ui.Adapters.ReceiptAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
-    ArrayList<Receipt> receipts;
-    ArrayList<String> categories;
+    List<Receipt> receipts;
+    List<String> categories;
 
     RecyclerView rvReceipt, rvCategory;
 
@@ -41,12 +44,16 @@ public class HomeFragment extends Fragment {
     EditText etSearch;
     private FragmentHomeBinding binding;
 
+    ReceiptViewModel receiptViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        receiptViewModel = ((GlobalModel) getContext().getApplicationContext()).getReceiptViewModel();
+
         View root = binding.getRoot();
         categories = CategoryData.generate();
-        receipts = ReceiptData.generate();
+        receipts = receiptViewModel.getAllRecipes().getValue();
 
         int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.receipt_spacing);
         rvReceipt = (RecyclerView) binding.rvReceipt;
@@ -64,6 +71,9 @@ public class HomeFragment extends Fragment {
         rvCategory.setAdapter(categoryAdapter);
         rvCategory.addItemDecoration(new RecyclerViewItemSpacing(getContext(), categorySpacing));
 
+        receiptViewModel.getAllRecipes().observe(getViewLifecycleOwner(), updatedReceipts -> {
+            receiptAdapter.updateData(updatedReceipts);
+        });
 
         llParentContent = (LinearLayout) binding.llParentContent;
         etSearch = (EditText) binding.etSearch;

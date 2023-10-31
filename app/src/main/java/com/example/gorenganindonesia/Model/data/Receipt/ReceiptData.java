@@ -208,7 +208,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-7",
                         "Ubi Jalar yang diberi Tepung",
-                        "admin",
+                        "alya",
                         "3.8",
                         "Manis",
                         40,
@@ -271,7 +271,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-9",
                         "Tahu Isi Harapan Rakyat",
-                        "admin",
+                        "hasna",
                         "4.9",
                         "Kedelai",
                         30,
@@ -334,7 +334,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-11",
                         "Cimol",
-                        "admin",
+                        "hasna",
                         "4.0",
                         "Aci",
                         40,
@@ -399,7 +399,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-13",
                         "Tahu Bulat Digoreng Dadakan",
-                        "admin",
+                        "hasna",
                         "4.6",
                         "Kedelai",
                         30,
@@ -429,7 +429,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-14",
                         "Sukun",
-                        "admin",
+                        "alya",
                         "4.1",
                         "Buah",
                         45,
@@ -493,7 +493,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-16",
                         "Roti Bantal Tidur",
-                        "admin",
+                        "asrofil",
                         "4.5",
                         "Manis",
                         30,
@@ -593,7 +593,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-19",
                         "Onde-Onde Jakarta",
-                        "admin",
+                        "asrofil",
                         "4.5",
                         "Manis",
                         60,
@@ -654,7 +654,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-21",
                         "Risol Sayur",
-                        "admin",
+                        "asrofil",
                         "4.5",
                         "Isian Sayur",
                         60,
@@ -781,7 +781,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-25",
                         "Sempol Chicken Kentucky",
-                        "admin",
+                        "hasna",
                         "4.5",
                         "Aci",
                         45,
@@ -815,7 +815,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-26",
                         "Combro",
-                        "admin",
+                        "alya",
                         "4.5",
                         "Isian Sayur",
                         45,

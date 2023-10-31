@@ -33,7 +33,7 @@
             android:src="@drawable/ic_kebab_menu_black"/>
     </LinearLayout>
         <TextView
-            android:id="@+id/tv_author_name_detail"
+            android:id="@+id/tv_author_username_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Resep oleh \@admin"/>

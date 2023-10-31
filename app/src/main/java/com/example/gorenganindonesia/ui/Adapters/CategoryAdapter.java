@@ -12,16 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    ArrayList<String> dataList;
+    List<String> dataList;
     ReceiptAdapter receiptAdapter;
 
     RecyclerView receiptRv, categoryRv;
 
     final Button[] stateCategory = {null, null}; // {previous, current}
 
-    public CategoryAdapter(ArrayList<String> dataList, ReceiptAdapter receiptAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
+    public CategoryAdapter(List<String> dataList, ReceiptAdapter receiptAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
         this.dataList = dataList;
         this.receiptAdapter = receiptAdapter;
         this.receiptRv = receiptRv;

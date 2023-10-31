@@ -8,25 +8,68 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.gorenganindonesia.Model.ViewModel.MyReceiptViewModel;
+import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
+import com.example.gorenganindonesia.Model.ViewModel.ReceiptViewModel;
+import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 import com.example.gorenganindonesia.databinding.FragmentMyReceiptBinding;
+import com.example.gorenganindonesia.ui.Adapters.MyReceiptAdapter;
+
+import java.util.List;
 
 public class MyReceiptFragment extends Fragment {
 
     private FragmentMyReceiptBinding binding;
 
+    List<Receipt> myRecipes;
+
+    ReceiptViewModel receiptViewModel;
+    AccountViewModel accountViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MyReceiptViewModel myReceiptViewModel =
-                new ViewModelProvider(this).get(MyReceiptViewModel.class);
-
         binding = FragmentMyReceiptBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textMyReceipt;
-        myReceiptViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        receiptViewModel = ((GlobalModel) getContext().getApplicationContext()).getReceiptViewModel();
+        accountViewModel = ((GlobalModel) getContext().getApplicationContext()).getAccountViewModel();
+
+        String username = accountViewModel.getUsername();
+
+        myRecipes = receiptViewModel.getMyRecipes(username);
+
+        MyReceiptAdapter adapter = new MyReceiptAdapter(myRecipes);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.rvMyRecipes.getContext(), DividerItemDecoration.VERTICAL);
+
+        binding.rvMyRecipes.setAdapter(adapter);
+        binding.rvMyRecipes.addItemDecoration(dividerItemDecoration);
+        binding.rvMyRecipes.setLayoutManager(linearLayoutManager);
+
+        binding.ibAddMyReceipt.setOnClickListener(v -> {
+            new CustomToast("Add Receipt Clicked", v, false).show();
+        });
+
+        receiptViewModel.getAllRecipes().observe(getViewLifecycleOwner(), receipts -> {
+            List<Receipt> updatedMyRecipes = receiptViewModel.getMyRecipes(username);
+
+            adapter.updateData(updatedMyRecipes);
+
+            if(adapter.getItemCount() > 0) {
+                binding.llEmptyMyReceiptSign.setVisibility(View.GONE);
+                binding.svListMyReceipt.setVisibility(View.VISIBLE);
+            } else {
+                binding.llEmptyMyReceiptSign.setVisibility(View.VISIBLE);
+                binding.svListMyReceipt.setVisibility(View.GONE);
+            }
+        });
+
         return root;
     }
 

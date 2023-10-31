@@ -39,7 +39,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
         <TextView
-            android:id="@+id/tv_author_name"
+            android:id="@+id/tv_author_username"
             android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

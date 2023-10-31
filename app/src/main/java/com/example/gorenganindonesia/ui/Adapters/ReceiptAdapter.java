@@ -15,14 +15,15 @@ import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHolder> {
-    ArrayList<Receipt> dataList;
-    ArrayList<Receipt> originalList;
+    List<Receipt> dataList;
+    List<Receipt> originalList;
 
     RecyclerView rv;
 
-    public ReceiptAdapter(ArrayList<Receipt> dataList, RecyclerView rv) {
+    public ReceiptAdapter(List<Receipt> dataList, RecyclerView rv) {
         this.dataList = dataList;
         this.originalList = dataList;
         this.rv = rv;
@@ -61,6 +62,12 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
         rv.scrollToPosition(0);
     }
 
+    public void updateData(List<Receipt> receipts){
+        this.dataList = receipts;
+
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ReceiptAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -79,7 +86,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
         holder.tvDifficulty.setText(receipt.getDifficulty().toString());
         holder.tvPortion.setText(String.valueOf(receipt.getPortion()) + " Porsi");
         holder.tvDuration.setText(String.valueOf(receipt.getMinuteDuration()) + "mnt");
-        holder.tvAuthorName.setText("@" + dataList.get(position).getAuthorName().toString());
+        holder.tvAuthorUsername.setText("@" + dataList.get(position).getAuthorUsername().toString());
         holder.tvRatingStar.setText(dataList.get(position).getRatingStar().toString());
 
         holder.cvReceipt.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +108,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
     public class ViewHolder  extends RecyclerView.ViewHolder{
         CardView cvReceipt;
         ImageView ivReceiptThumb;
-        TextView tvReceiptTitle, tvDifficulty, tvPortion, tvDuration, tvAuthorName, tvRatingStar;
+        TextView tvReceiptTitle, tvDifficulty, tvPortion, tvDuration, tvAuthorUsername, tvRatingStar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -111,7 +118,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
             tvDifficulty = itemView.findViewById(R.id.tv_difficulty);
             tvPortion = itemView.findViewById(R.id.tv_portion);
             tvDuration = itemView.findViewById(R.id.tv_duration);
-            tvAuthorName = itemView.findViewById(R.id.tv_author_name);
+            tvAuthorUsername = itemView.findViewById(R.id.tv_author_username);
             tvRatingStar = itemView.findViewById(R.id.tv_star_rating);
         }
     }

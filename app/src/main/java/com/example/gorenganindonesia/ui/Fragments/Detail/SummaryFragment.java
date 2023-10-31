@@ -17,15 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gorenganindonesia.Activity.RatingActivity;
-import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 import com.example.gorenganindonesia.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 public class SummaryFragment extends Fragment {
-    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient, tvAuthorName, tvStarRating;
+    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient, tvAuthorUsername, tvStarRating;
     ImageButton ibMore;
     Button btnShare, btnSaveOffline, btnSeeUserRating;
     LinearLayout llSteps, llIngridients;
@@ -58,7 +56,7 @@ public class SummaryFragment extends Fragment {
         tvPortion = (TextView) view.findViewById(R.id.tv_portion_detail);
         tvStep = (TextView) view.findViewById(R.id.tv_step_detail);
         tvIngridient = (TextView) view.findViewById(R.id.tv_ingredient_detail);
-        tvAuthorName = (TextView) view.findViewById(R.id.tv_author_name_detail);
+        tvAuthorUsername = (TextView) view.findViewById(R.id.tv_author_username_detail);
         tvStarRating = (TextView) view.findViewById(R.id.tv_rating_star_detail);
 
         llSteps = (LinearLayout) view.findViewById(R.id.ll_steps_detail);
@@ -73,7 +71,7 @@ public class SummaryFragment extends Fragment {
         tvTime.setText( "±" + String.valueOf(receipt.getMinuteDuration()) + " Menit");
         tvStep.setText(String.valueOf(receipt.getSteps().length) + " Langkah");
         tvIngridient.setText(String.valueOf(receipt.getIngredients().length) + " Bahan");
-        tvAuthorName.setText("Resep oleh @"+receipt.getAuthorName().toString());
+        tvAuthorUsername.setText("Resep oleh @"+receipt.getAuthorUsername().toString());
         tvStarRating.setText(receipt.getRatingStar().toString());
 
         llSteps.setOnClickListener(new View.OnClickListener() {

@@ -14,8 +14,11 @@ import android.widget.EditText;
 import com.example.gorenganindonesia.API.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.api.LoginRequest;
 import com.example.gorenganindonesia.Model.api.LoginResponse;
+import com.example.gorenganindonesia.Model.data.Account.Account;
 import com.example.gorenganindonesia.R;
 
 import org.json.JSONException;
@@ -87,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                                 int statusCode = response.code();
+                                Log.e("Response Account", response.body().getAccount().toString());
 
                                 if (response.isSuccessful()) {
                                     new CustomToast("Login sukses!", v, false).show();
@@ -94,13 +98,31 @@ public class LoginActivity extends AppCompatActivity {
                                     sharedPreferences
                                             .edit()
                                             .putBoolean("isLogged", true)
-                                            .apply();
-
-                                    sharedPreferences
-                                            .edit()
                                             .putString("login_token", response.body().getToken())
                                             .apply();
 
+                                    com.example.gorenganindonesia.Model.api.Account accountJson = response.body().getAccount();
+
+                                    Account account = new Account(
+                                            accountJson.getId(),
+                                            accountJson.getName(),
+                                            accountJson.getUsername(),
+                                            accountJson.getImageUrl(),
+                                            accountJson.getEmail()
+                                    );
+
+                                    AccountViewModel accountViewModel = ((GlobalModel) getApplication()).getAccountViewModel();
+                                    accountViewModel.setAccount(account);
+
+                                    System.out.println("Account: " + accountViewModel.getAccount().getValue().toString());
+
+                                    sharedPreferences.edit()
+                                            .putString("account_id", account.getId())
+                                            .putString("account_name", account.getName())
+                                            .putString("account_username", account.getUsername())
+                                            .putString("account_image_url", account.getImageUrl())
+                                            .putString("account_email", account.getEmail())
+                                            .apply();
                                     v.getContext().startActivity(intent);
                                 } else {
                                     try {
@@ -136,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                 new CustomToast("Koneksi Error!", v).show();
 //                                    progressBar.setVisibility(View.GONE);
                             }
-                    });
+                        });
             } else {
                 new CustomToast("Isi seluruh field!", v).show();
             }

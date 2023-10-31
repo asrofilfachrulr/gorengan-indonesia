@@ -21,6 +21,20 @@
         app:itemTextAppearanceActive="@style/BottomNavTextActive"
         app:menu="@menu/bottom_nav_menu" />
 
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_debug_clear_data"
+        style="@style/BgRoundedAccent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:padding="16sp"
+        android:text="CLEAR DATA"
+        android:textColor="@color/white"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent" />
     <fragment
         android:id="@+id/nav_host_fragment_activity_main2"
         android:name="androidx.navigation.fragment.NavHostFragment"
