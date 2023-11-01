@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.gorenganindonesia.API.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -27,6 +29,7 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
     Button btnLogin, btnRegister;
     EditText etEmail, etUsername, etPassword, etName, etPasswordRepeat;
+    LinearLayout llRootLoadingRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
+
+        llRootLoadingRegister = (LinearLayout) findViewById(R.id.ll_root_loading_register);
 
         btnLogin.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), LoginActivity.class);
@@ -73,6 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
                 ){
                     String username, name, email, password;
 
+                    llRootLoadingRegister.setVisibility(View.VISIBLE);
+
                     username = etUsername.getText().toString();
                     name = etName.getText().toString();
                     email = etEmail.getText().toString();
@@ -86,9 +93,12 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                                     if(response.isSuccessful()){
+                                        llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                         new CustomToast("Registrasi selesai, silahkan masuk", v).show();
-                                        v.getContext().startActivity(intent);
+                                        startActivity(intent);
+                                        finish();
                                     } else {
+                                        llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                         int statusCode = response.code();
                                         try {
                                             String errorBody = response.errorBody().string();
@@ -101,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             new CustomToast("error: " + errorText, v).show();
 
                                         } catch (IOException | JSONException e) {
+                                            llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                             Log.e("error", e.toString());
                                             e.printStackTrace();
                                         }
@@ -109,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                                    llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                     new CustomToast("Koneksi Error!", v).show();
                                 }
                             });

@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.ui.Fragments.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.gorenganindonesia.Activity.NewReceiptActivity;
 import com.example.gorenganindonesia.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
@@ -53,7 +55,7 @@ public class MyReceiptFragment extends Fragment {
         binding.rvMyRecipes.setLayoutManager(linearLayoutManager);
 
         binding.ibAddMyReceipt.setOnClickListener(v -> {
-            new CustomToast("Add Receipt Clicked", v, false).show();
+            startActivity(new Intent(getContext(), NewReceiptActivity.class));
         });
 
         receiptViewModel.getAllRecipes().observe(getViewLifecycleOwner(), receipts -> {

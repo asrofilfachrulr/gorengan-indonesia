@@ -35,7 +35,7 @@ public class ReceiptViewModel extends ViewModel {
 
     // currently delete means change the author to admin
     public void deleteMyReceipt(Receipt receipt, String myName){
-        List<Receipt> receipts = new ArrayList<>(mRecipes.getValue());
+        List<Receipt> receipts = mRecipes.getValue();
 
         for(int i = 0; i < receipts.size(); i++){
             Receipt r = receipts.get(i);
@@ -51,7 +51,7 @@ public class ReceiptViewModel extends ViewModel {
     }
 
     public void addReceipt(Receipt receipt){
-        List<Receipt> receipts = new ArrayList<>(mRecipes.getValue());
+        List<Receipt> receipts = mRecipes.getValue();
         receipts.add(receipt);
 
         mRecipes.setValue(receipts);

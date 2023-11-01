@@ -14,7 +14,7 @@
 
     <!--  COMPONENT RELATED  -->
     <color name="divider_color">#AAA5A5A5</color>
-    <color name="bg_white_primary">#F8F9FA</color>
+    <color name="bg_white_primary">#F3F3F3</color>
     <color name="bg_white_secondary">#FBFCFD</color>
 
     <!--  VIEW RELATED  -->

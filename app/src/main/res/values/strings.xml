@@ -8,4 +8,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <array name="categories">
+        <item>Aci</item>
+        <item>Kedelai</item>
+        <item>Buah</item>
+        <item>Kentang</item>
+        <item>Ikan</item>
+        <item>Isian Sayur</item>
+        <item>Manis</item>
+    </array>
 </resources>

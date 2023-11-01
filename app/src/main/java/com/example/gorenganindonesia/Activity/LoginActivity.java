@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.gorenganindonesia.API.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -34,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin, btnRegister;
     EditText etIdentifier, etPassword;
 
+    LinearLayout llRootLoadingLogin;
+
 //    LinearLayout llRootLogin;
 //    ProgressBar progressBar;
 
@@ -52,16 +56,15 @@ public class LoginActivity extends AppCompatActivity {
         etIdentifier = (EditText) findViewById(R.id.et_identifier);
         etPassword = (EditText) findViewById(R.id.et_password);
 
-        // TODO: implement progress bar on login request loading
-//        llRootLogin = (LinearLayout) findViewById(R.id.ll_root_login);
-//        progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
-//
-//        llRootLogin.addView(progressBar, params);
-//        progressBar.setVisibility(View.GONE);
+        llRootLoadingLogin = (LinearLayout) findViewById(R.id.ll_root_loading_login);
 
         btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), MainActivity.class);
+            etIdentifier.clearFocus();
+            etPassword.clearFocus();
+            InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+            Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             boolean isCompleted = true;
@@ -77,10 +80,11 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (isCompleted) {
+                llRootLoadingLogin.setVisibility(View.VISIBLE);
+
                 String identifier = etIdentifier.getText().toString();
                 String password = etPassword.getText().toString();
 
-//                    progressBar.setVisibility(View.VISIBLE);
 
                 RetrofitClient
                         .getInstance()
@@ -123,8 +127,10 @@ public class LoginActivity extends AppCompatActivity {
                                             .putString("account_image_url", account.getImageUrl())
                                             .putString("account_email", account.getEmail())
                                             .apply();
+//                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
                                     v.getContext().startActivity(intent);
                                 } else {
+//                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
                                     try {
                                         String errorBody = response.errorBody().string();
                                         Log.e("Status code: ", String.valueOf(statusCode));
@@ -149,14 +155,13 @@ public class LoginActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
-//                                    progressBar.setVisibility(View.GONE);
                             }
 
                             @Override
                             public void onFailure(Call<LoginResponse> call, Throwable t) {
                                 System.out.println("LOGIN FAILURE: " + t.getMessage());
                                 new CustomToast("Koneksi Error!", v).show();
-//                                    progressBar.setVisibility(View.GONE);
+//                                llRootLoadingLogin.setVisibility(View.INVISIBLE);
                             }
                         });
             } else {
