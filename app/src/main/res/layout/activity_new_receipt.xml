@@ -5,48 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.NewReceiptActivity">
+
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_root_loading_new_receipt"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="#74606077"
         android:gravity="center"
-        android:translationZ="5dp">
+        android:orientation="vertical"
+        android:translationZ="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="16sp"
             android:fontFamily="@font/open_sans_semibold"
-            android:text="memuat..." />
+            android:text="memuat..."
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
         <ProgressBar
-            android:layout_marginTop="14sp"
             android:id="@+id/pb_new_receipt"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp" />
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MainFragmentRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="14sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/MainFragmentRoot">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:id="@+id/ll_top_my_receipt"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:translationZ="5dp"
+            android:background="@color/bg_white_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -69,69 +76,382 @@
                 android:text="Resep Baru" />
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14sp"
-            android:backgroundTintMode="src_over"
-            app:cardCornerRadius="5dp"
+            android:scrollbars="none"
+            android:overScrollMode="always"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_top_my_receipt">
+            app:layout_constraintTop_toBottomOf="@id/ll_top_my_receipt"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbarAlwaysDrawVerticalTrack="false"
-                android:scrollbars="none">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/bg_white_secondary"
-                    android:minHeight="200dp"
-                    android:orientation="vertical"
-                    android:padding="14dp">
+                    android:layout_marginTop="14sp"
+                    android:backgroundTintMode="src_over"
+                    app:cardCornerRadius="5dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Judul"
-                        android:textColor="@android:color/primary_text_light" />
+                        android:background="@color/bg_white_secondary"
+                        android:minHeight="200dp"
+                        android:orientation="vertical"
+                        android:padding="14dp">
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="text"
-                        android:layout_marginTop="10sp"
-                        android:background="@android:drawable/editbox_background_normal"
-                        android:clickable="true"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Kategori"
-                        android:layout_marginTop="14sp"
-                        android:textColor="@android:color/primary_text_light" />
-                    <Spinner
-                        android:layout_marginTop="10sp"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:entries="@array/categories"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Gambar"
-                        android:layout_marginTop="14sp"
-                        android:textColor="@android:color/primary_text_light" />
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="text"
-                        android:layout_marginTop="10sp"
-                        android:background="@android:drawable/editbox_background_normal"
-                        android:clickable="true"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_semibold"
+                            android:text="Informasi Resep"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Judul"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:clickable="true"
+                            android:inputType="text"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Kategori"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:entries="@array/categories" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Unggah Gambar"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="5sp">
+
+                            <Button
+                                android:id="@+id/btn_pick_img_new_receipt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:clickable="true"
+                                android:drawableStart="@drawable/ic_img_outline_dark"
+                                android:drawablePadding="7dp"
+                                android:text="Pilih Gambar"
+                                android:textAllCaps="false" />
+
+                            <TextView
+                                android:id="@+id/tv_image_file_name_new_receipt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="7sp"
+                                android:text="file-name.jpg"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Level Kesukaran"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:clickable="true"
+                            android:entries="@array/difficulties"
+                            android:inputType="text" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Estimasi Durasi Pembuatan"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:clickable="true"
+                            android:hint="40 (menit)"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18sp"
+                            android:fontFamily="@font/open_sans_semibold"
+                            android:text="Bahan-Bahan"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Tambah Bahan"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_row_add_ingredient1"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="3"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:hint="qty"
+                                android:inputType="number"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="3"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:hint="unit"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="2"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:hint="nama bahan"
+                                android:textSize="14sp" />
+                            <ImageButton
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_trashbin_outline_black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_row_add_ingredient2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="3"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:hint="qty"
+                                android:inputType="number"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="3"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:hint="unit"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="4dp"
+                                android:layout_weight="2"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:hint="nama bahan"
+                                android:textSize="14sp" />
+                            <ImageButton
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_trashbin_outline_black"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="7sp"
+                            android:text="+ Tambah"
+                            android:textAlignment="textEnd" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18sp"
+                            android:fontFamily="@font/open_sans_semibold"
+                            android:text="Langkah-Langkah"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Tambah Langkah"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_row_add_step_new_receipt1"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1."
+                                android:textColor="@color/black" />
+
+                            <EditText
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                            <ImageButton
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_trashbin_outline_black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_row_add_step_new_receipt2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2."
+                                android:textColor="@color/black" />
+
+                            <EditText
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                            <ImageButton
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_trashbin_outline_black"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_row_add_step_new_receipt3"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3."
+                                android:textColor="@color/black" />
+
+                            <EditText
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                            <ImageButton
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ic_trashbin_outline_black"/>
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="7sp"
+                            android:text="+ Tambah"
+                            android:textAlignment="textEnd" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="64dp"
+                            android:layout_marginBottom="14dp"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:clickable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:text="batal" />
+
+                            <Button
+                                style="@style/btn_accent_solid_rounded"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_weight="1"
+                                android:text="simpan" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+
                 </LinearLayout>
-            </ScrollView>
-        </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

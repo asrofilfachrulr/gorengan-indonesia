@@ -76,7 +76,7 @@
         <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
     <style name="MainFragmentRoot">
-        <item name="android:paddingVertical">14sp</item>
+        <item name="android:paddingTop">14sp</item>
         <item name="android:background">@color/bg_white_primary</item>
     </style>
     <style name="MainFragmentTitle">

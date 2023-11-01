@@ -17,4 +17,9 @@
         <item>Isian Sayur</item>
         <item>Manis</item>
     </array>
+    <array name="difficulties">
+        <item>Mudah</item>
+        <item>Sedang</item>
+        <item>Sukar</item>
+    </array>
 </resources>
