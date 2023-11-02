@@ -37,4 +37,6 @@ public class AccountViewModel extends ViewModel {
     public String getUsername(){
         return mAccount.getValue().getUsername();
     }
+
+    public String getEmail() { return mAccount.getValue().getEmail();}
 }

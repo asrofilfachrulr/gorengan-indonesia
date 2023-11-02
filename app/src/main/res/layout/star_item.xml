@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75dp"
+    android:id="@+id/btn_filter_star_rating"
+    android:layout_height="45dp"
+    android:drawableStart="@drawable/ic_star_solid_yellow"
+    style="@style/btn_outline_rounded"
+    android:textSize="14sp"
+    android:fontFamily="@font/open_sans_medium"
+    android:text="5"
+    android:textAllCaps="false"
+    android:paddingHorizontal="14sp"
+    />

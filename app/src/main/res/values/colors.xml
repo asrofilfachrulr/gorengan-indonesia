@@ -6,6 +6,7 @@
     <color name="dark_grey">#949494</color>
     <color name="grey">#AADCDCDC</color>
     <color name="light_grey">#EAEAEA</color>
+    <color name="yellow">#F7B635</color>
 
     <!--  COLOR ACCENT/THEME BASED  -->
     <color name="app_accent">#125C97</color>

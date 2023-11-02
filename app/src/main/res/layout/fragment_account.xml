@@ -1,23 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Fragments.Main.AccountFragment">
 
-    <TextView
-        android:id="@+id/text_account"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="Account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="18dp">
+        <ImageButton
+            android:layout_gravity="end"
+            android:id="@+id/ib_notif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_notifications_none_32"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="Akun Saya" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="14dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_account_circle_150"/>
+            <ImageButton
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="18dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                style="@style/btn_white_round"
+                android:src="@drawable/ic_add_photo_outline"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_name_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/open_sans_medium"
+            android:text="Ganjar Baswedan" />
+        <TextView
+            android:id="@+id/tv_email_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_medium"
+            android:text="ganjar@prabowo.mail.com" />
+        <Button
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:drawableStart="@drawable/round_manage_accounts_24"
+            android:drawablePadding="14dp"
+            android:drawableEnd="@drawable/baseline_chevron_right_24"
+            android:text="Akun"/>
+        <Button
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:drawableStart="@drawable/baseline_settings_24"
+            android:drawableEnd="@drawable/baseline_chevron_right_24"
+            android:drawablePadding="14dp"
+            android:text="Pengaturan"/>
+        <Button
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:drawablePadding="14dp"
+            android:drawableStart="@drawable/baseline_post_add_24"
+            android:drawableEnd="@drawable/baseline_chevron_right_24"
+            android:text="Terms of Services"/>
+        <Button
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:drawablePadding="14dp"
+            android:drawableStart="@drawable/baseline_warning_24"
+            android:drawableEnd="@drawable/baseline_chevron_right_24"
+            android:text="Info Aplikasi"/>
+        <Button
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:drawablePadding="14dp"
+            android:drawableStart="@drawable/baseline_headset_mic_24"
+            android:drawableEnd="@drawable/baseline_chevron_right_24"
+            android:text="Layanan Pelanggan"/>
+        <Button
+            android:id="@+id/btn_logout_account"
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:drawablePadding="14dp"
+            android:drawableEnd="@drawable/baseline_chevron_right_24"
+            android:drawableStart="@drawable/baseline_logout_24"
+            android:text="Keluar Akun"/>
+
+    </LinearLayout>
+</ScrollView>

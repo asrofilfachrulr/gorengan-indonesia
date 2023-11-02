@@ -13,7 +13,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-1",
                         "Cireng Pedas Nuklir",
-                        "admin",
+                        "surya",
                         "4.75",
                         "Aci",
                         30,
@@ -52,7 +52,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-2",
                         "Tempe Mendoan KFC",
-                        "admin",
+                        "ghina",
                         "4.2",
                         "Kedelai",
                         30,
@@ -80,7 +80,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-3",
                         "Pisang Goreng Starbucks",
-                        "admin",
+                        "riga",
                         "4.1",
                         "Buah",
                         30,
@@ -110,7 +110,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-4",
                         "Kentang Goreng Istana Negara",
-                        "admin",
+                        "riga",
                         "4.3",
                         "Kentang",
                         45,
@@ -142,7 +142,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-5",
                         "Rempeyek Udang Cak Owi",
-                        "admin",
+                        "surya",
                         "4.2",
                         "Ikan",
                         45,
@@ -173,7 +173,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-6",
                         "Bakwan Sahabat Kolesterol",
-                        "admin",
+                        "ghina",
                         "4.0",
                         "Isian Sayur",
                         40,
@@ -238,7 +238,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-8",
                         "Perkedel (Persatuan Kentang dan Telur)",
-                        "admin",
+                        "hasna",
                         "2.9",
                         "Kentang",
                         40,
@@ -302,7 +302,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-10",
                         "Molen",
-                        "admin",
+                        "asrofil",
                         "4",
                         "Manis",
                         40,
@@ -365,7 +365,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-12",
                         "Cilor",
-                        "admin",
+                        "surya",
                         "4.2",
                         "Aci",
                         45,
@@ -525,7 +525,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-17",
                         "Donat Strawberry",
-                        "admin",
+                        "alya",
                         "4.5",
                         "Manis",
                         60,
@@ -621,7 +621,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-20",
                         "Ote-Ote",
-                        "admin",
+                        "surya",
                         "4.5",
                         "Isian Sayur",
                         45,
@@ -717,7 +717,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-23",
                         "Peyek Kacang",
-                        "admin",
+                        "riga",
                         "4.5",
                         "Buah",
                         45,
@@ -748,7 +748,7 @@ public class ReceiptData {
                 new Receipt(
                         "receipt-24",
                         "Gehu Pedas UGD",
-                        "admin",
+                        "ghina",
                         "4.5",
                         "Kedelai",
                         45,

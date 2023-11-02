@@ -120,6 +120,7 @@ public class SummaryFragment extends Fragment {
         btnSeeUserRating.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             Intent intent = new Intent(getContext(), RatingActivity.class);
+            intent.putExtra("receipt", receipt);
             getContext().startActivity(intent);
         });
 
