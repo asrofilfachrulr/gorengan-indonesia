@@ -1,16 +1,16 @@
-package com.example.gorenganindonesia.Model.data.Receipt;
+package com.example.gorenganindonesia.Model.data.Recipe;
 
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;
 
-public class ReceiptData {
-    public static ArrayList<Receipt> generate(){
-        ArrayList<Receipt> receipts = new ArrayList<>();
+public class RecipeData {
+    public static ArrayList<Recipe> generate(){
+        ArrayList<Recipe> recipes = new ArrayList<>();
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-1",
                         "Cireng Pedas Nuklir",
                         "surya",
@@ -48,8 +48,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-2",
                         "Tempe Mendoan KFC",
                         "ghina",
@@ -76,8 +76,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-3",
                         "Pisang Goreng Starbucks",
                         "riga",
@@ -106,8 +106,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-4",
                         "Kentang Goreng Istana Negara",
                         "riga",
@@ -138,8 +138,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-5",
                         "Rempeyek Udang Cak Owi",
                         "surya",
@@ -169,8 +169,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-6",
                         "Bakwan Sahabat Kolesterol",
                         "ghina",
@@ -204,8 +204,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-7",
                         "Ubi Jalar yang diberi Tepung",
                         "alya",
@@ -234,8 +234,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-8",
                         "Perkedel (Persatuan Kentang dan Telur)",
                         "hasna",
@@ -267,8 +267,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-9",
                         "Tahu Isi Harapan Rakyat",
                         "hasna",
@@ -298,8 +298,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-10",
                         "Molen",
                         "asrofil",
@@ -330,8 +330,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-11",
                         "Cimol",
                         "hasna",
@@ -361,8 +361,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-12",
                         "Cilor",
                         "surya",
@@ -395,8 +395,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-13",
                         "Tahu Bulat Digoreng Dadakan",
                         "hasna",
@@ -425,8 +425,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-14",
                         "Sukun",
                         "alya",
@@ -455,8 +455,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-15",
                         "Apel Goreng Pak Newton",
                         "admin",
@@ -489,8 +489,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-16",
                         "Roti Bantal Tidur",
                         "asrofil",
@@ -521,8 +521,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-17",
                         "Donat Strawberry",
                         "alya",
@@ -558,8 +558,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-18",
                         "Peyek Teri Ma Kasih",
                         "admin",
@@ -589,8 +589,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-19",
                         "Onde-Onde Jakarta",
                         "asrofil",
@@ -617,8 +617,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-20",
                         "Ote-Ote",
                         "surya",
@@ -650,8 +650,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-21",
                         "Risol Sayur",
                         "asrofil",
@@ -682,8 +682,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-22",
                         "Dadar Jagung",
                         "admin",
@@ -713,8 +713,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-23",
                         "Peyek Kacang",
                         "riga",
@@ -744,8 +744,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-24",
                         "Gehu Pedas UGD",
                         "ghina",
@@ -777,8 +777,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-25",
                         "Sempol Chicken Kentucky",
                         "hasna",
@@ -811,8 +811,8 @@ public class ReceiptData {
                 )
         );
 
-        receipts.add(
-                new Receipt(
+        recipes.add(
+                new Recipe(
                         "receipt-26",
                         "Combro",
                         "alya",
@@ -844,6 +844,6 @@ public class ReceiptData {
         );
 
 
-        return receipts;
+        return recipes;
     }
 }

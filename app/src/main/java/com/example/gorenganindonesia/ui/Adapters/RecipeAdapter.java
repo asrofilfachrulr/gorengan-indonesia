@@ -11,32 +11,32 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.Activity.DetailActivity;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHolder> {
-    List<Receipt> dataList;
-    List<Receipt> originalList;
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+    List<Recipe> dataList;
+    List<Recipe> originalList;
 
     RecyclerView rv;
 
-    public ReceiptAdapter(List<Receipt> dataList, RecyclerView rv) {
+    public RecipeAdapter(List<Recipe> dataList, RecyclerView rv) {
         this.dataList = dataList;
         this.originalList = dataList;
         this.rv = rv;
     }
 
     public void applyFilterCategory(String category) {
-        ArrayList<Receipt> filteredList = new ArrayList<>();
+        ArrayList<Recipe> filteredList = new ArrayList<>();
         if (category.toLowerCase().contains("semua")){
             this.dataList = this.originalList;
         } else {
-            for(Receipt receipt: originalList){
-                if(receipt.getCategory().toLowerCase().contains(category.toLowerCase())){
-                    filteredList.add(receipt);
+            for(Recipe recipe : originalList){
+                if(recipe.getCategory().toLowerCase().contains(category.toLowerCase())){
+                    filteredList.add(recipe);
                 }
             }
             this.dataList = filteredList;
@@ -47,13 +47,13 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
     }
 
     public void applyFilterTitle(String title) {
-        ArrayList<Receipt> filteredList = new ArrayList<>();
+        ArrayList<Recipe> filteredList = new ArrayList<>();
         if (title.matches("\\s") || title.equals("")){
             this.dataList = this.originalList;
         } else {
-            for(Receipt receipt: originalList){
-                if(receipt.getTitle().toLowerCase().contains(title.toLowerCase())){
-                    filteredList.add(receipt);
+            for(Recipe recipe : originalList){
+                if(recipe.getTitle().toLowerCase().contains(title.toLowerCase())){
+                    filteredList.add(recipe);
                 }
             }
             this.dataList = filteredList;
@@ -62,30 +62,30 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
         rv.scrollToPosition(0);
     }
 
-    public void updateData(List<Receipt> receipts){
-        this.dataList = receipts;
+    public void updateData(List<Recipe> recipes){
+        this.dataList = recipes;
 
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ReceiptAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.receipt_item,parent,false);
+    public RecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_item,parent,false);
         ViewHolder viewHolder= new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReceiptAdapter.ViewHolder holder, int position) {
-        Receipt receipt = dataList.get(position);
-        String receiptTitle = receipt.getTitle().toString();
+    public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder holder, int position) {
+        Recipe recipe = dataList.get(position);
+        String receiptTitle = recipe.getTitle().toString();
 
-        holder.ivReceiptThumb.setImageResource(receipt.getThumb());
-        holder.tvReceiptTitle.setText(receipt.getTitle().toString());
-        holder.tvDifficulty.setText(receipt.getDifficulty().toString());
-        holder.tvPortion.setText(String.valueOf(receipt.getPortion()) + " Porsi");
-        holder.tvDuration.setText(String.valueOf(receipt.getMinuteDuration()) + "mnt");
+        holder.ivReceiptThumb.setImageResource(recipe.getThumb());
+        holder.tvReceiptTitle.setText(recipe.getTitle().toString());
+        holder.tvDifficulty.setText(recipe.getDifficulty().toString());
+        holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
+        holder.tvDuration.setText(String.valueOf(recipe.getMinuteDuration()) + "mnt");
         holder.tvAuthorUsername.setText("@" + dataList.get(position).getAuthorUsername().toString());
         holder.tvRatingStar.setText(dataList.get(position).getRatingStar().toString());
 
@@ -94,7 +94,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);
 
-                intent.putExtra("receipt", receipt);
+                intent.putExtra("receipt", recipe);
                 view.getContext().startActivity(intent);
             }
         });

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.GorenganIndonesia"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.NewReceiptActivity"
+            android:name=".Activity.NewRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.RatingActivity"

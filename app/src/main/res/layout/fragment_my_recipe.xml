@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.Fragments.Main.MyReceiptFragment">
+    tools:context=".ui.Fragments.Main.MyRecipeFragment">
 
     <TextView
         android:id="@+id/tv_my_receipt_title"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 tools:itemCount="5"
-                tools:listitem="@layout/my_receipt_item" />
+                tools:listitem="@layout/my_recipe_item" />
 
             <View
                 android:layout_width="match_parent"

@@ -94,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                                 int statusCode = response.code();
-                                Log.e("Response Account", response.body().getAccount().toString());
 
                                 if (response.isSuccessful()) {
                                     new CustomToast("Login sukses!", v, false).show();
@@ -127,10 +126,10 @@ public class LoginActivity extends AppCompatActivity {
                                             .putString("account_image_url", account.getImageUrl())
                                             .putString("account_email", account.getEmail())
                                             .apply();
-//                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
+                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
                                     v.getContext().startActivity(intent);
                                 } else {
-//                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
+                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
                                     try {
                                         String errorBody = response.errorBody().string();
                                         Log.e("Status code: ", String.valueOf(statusCode));
@@ -161,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onFailure(Call<LoginResponse> call, Throwable t) {
                                 System.out.println("LOGIN FAILURE: " + t.getMessage());
                                 new CustomToast("Koneksi Error!", v).show();
-//                                llRootLoadingLogin.setVisibility(View.INVISIBLE);
+                                llRootLoadingLogin.setVisibility(View.INVISIBLE);
                             }
                         });
             } else {

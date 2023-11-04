@@ -21,7 +21,7 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 2. add author name on detail, main also put small profile thumb
 3. convert necessary toast to has short period
 4. add logged user data to global model data which use user model
-5. implement my receipt fragment
+5. implement my recipe fragment
 6. implement profile fragment (at least the layout)
 7. implement rating activity (at least the layout + dummy data (optional))
 8. ensure to reset scroll every changing category or tab

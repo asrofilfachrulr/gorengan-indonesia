@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_my_receipt"
-        android:name="com.example.gorenganindonesia.ui.Fragments.Main.MyReceiptFragment"
+        android:name="com.example.gorenganindonesia.ui.Fragments.Main.MyRecipeFragment"
         android:label="My Receipt"
-        tools:layout="@layout/fragment_my_receipt" />
+        tools:layout="@layout/fragment_my_recipe" />
 
     <fragment
         android:id="@+id/navigation_account"

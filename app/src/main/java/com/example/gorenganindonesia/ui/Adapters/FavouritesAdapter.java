@@ -2,15 +2,12 @@ package com.example.gorenganindonesia.ui.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,21 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 
 import java.util.List;
 
 public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ViewHolder> {
-    List<Receipt> dataList;
+    List<Recipe> dataList;
     Context context;
 
-    public FavouritesAdapter(Context context, List<Receipt> dataList){
+    public FavouritesAdapter(Context context, List<Recipe> dataList){
         this.context = context;
         this.dataList = dataList;
     }
 
-    public void  updateData(List<Receipt> updatedDataList){
+    public void  updateData(List<Recipe> updatedDataList){
         this.dataList = updatedDataList;
         notifyDataSetChanged();
     }

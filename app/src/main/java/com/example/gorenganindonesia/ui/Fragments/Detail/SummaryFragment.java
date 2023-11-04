@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gorenganindonesia.Activity.RatingActivity;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -28,12 +28,12 @@ public class SummaryFragment extends Fragment {
     Button btnShare, btnSaveOffline, btnSeeUserRating;
     LinearLayout llSteps, llIngridients;
     ViewPager vp;
-    Receipt receipt;
+    Recipe recipe;
 
     public SummaryFragment() { }
 
-    public SummaryFragment(Receipt receipt){
-        this.receipt = receipt;
+    public SummaryFragment(Recipe recipe){
+        this.recipe = recipe;
     }
 
     @Override
@@ -64,15 +64,15 @@ public class SummaryFragment extends Fragment {
 
         ibMore = (ImageButton) view.findViewById(R.id.ib_more_detail);
 
-        tvTitle.setText(receipt.getTitle().toString());
-        tvCategory.setText("Kategori " + receipt.getCategory().toString());
-        tvDifficulty.setText(receipt.getDifficulty().toString());
-        tvPortion.setText(String.valueOf(receipt.getPortion()) + " Porsi");
-        tvTime.setText( "±" + String.valueOf(receipt.getMinuteDuration()) + " Menit");
-        tvStep.setText(String.valueOf(receipt.getSteps().length) + " Langkah");
-        tvIngridient.setText(String.valueOf(receipt.getIngredients().length) + " Bahan");
-        tvAuthorUsername.setText("Resep oleh @"+receipt.getAuthorUsername().toString());
-        tvStarRating.setText(receipt.getRatingStar().toString());
+        tvTitle.setText(recipe.getTitle().toString());
+        tvCategory.setText("Kategori " + recipe.getCategory().toString());
+        tvDifficulty.setText(recipe.getDifficulty().toString());
+        tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
+        tvTime.setText( "±" + String.valueOf(recipe.getMinuteDuration()) + " Menit");
+        tvStep.setText(String.valueOf(recipe.getSteps().length) + " Langkah");
+        tvIngridient.setText(String.valueOf(recipe.getIngredients().length) + " Bahan");
+        tvAuthorUsername.setText("Resep oleh @"+ recipe.getAuthorUsername().toString());
+        tvStarRating.setText(recipe.getRatingStar().toString());
 
         llSteps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +104,7 @@ public class SummaryFragment extends Fragment {
 
             shareIntent.setType("text/plain");
 
-            String shareText = receipt.toString();
+            String shareText = recipe.toString();
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
 
             startActivity(Intent.createChooser(shareIntent, "Bagikan melalui"));
@@ -120,7 +120,7 @@ public class SummaryFragment extends Fragment {
         btnSeeUserRating.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             Intent intent = new Intent(getContext(), RatingActivity.class);
-            intent.putExtra("receipt", receipt);
+            intent.putExtra("receipt", recipe);
             getContext().startActivity(intent);
         });
 

@@ -14,22 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 
 import java.util.List;
 
 public class MyReceiptAdapter extends RecyclerView.Adapter<MyReceiptAdapter.ViewHolder> {
-    List<Receipt> dataList;
+    List<Recipe> dataList;
 
-    public MyReceiptAdapter(List<Receipt> receipts){
-        this.dataList = receipts;
+    public MyReceiptAdapter(List<Recipe> recipes){
+        this.dataList = recipes;
     }
 
     @NonNull
     @Override
     public MyReceiptAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_receipt_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_recipe_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
@@ -46,7 +46,7 @@ public class MyReceiptAdapter extends RecyclerView.Adapter<MyReceiptAdapter.View
 
         holder.ibDelete.setOnClickListener(v -> {
             ((GlobalModel) v.getContext().getApplicationContext())
-                    .getReceiptViewModel()
+                    .getRecipeViewModel()
                     .deleteMyReceipt(
                             dataList.get(position),
                             ((GlobalModel) v.getContext().getApplicationContext())
@@ -65,8 +65,8 @@ public class MyReceiptAdapter extends RecyclerView.Adapter<MyReceiptAdapter.View
             });
     }
 
-    public void updateData(List<Receipt> receipts){
-        this.dataList = receipts;
+    public void updateData(List<Recipe> recipes){
+        this.dataList = recipes;
 
         notifyDataSetChanged();
     }

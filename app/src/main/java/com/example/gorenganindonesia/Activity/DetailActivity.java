@@ -10,17 +10,16 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gorenganindonesia.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.ui.Adapters.DetailFragmentAdapter;
 import com.example.gorenganindonesia.ui.Fragments.Detail.IngredientsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.StepsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.SummaryFragment;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +49,9 @@ public class DetailActivity extends AppCompatActivity {
         vp = (ViewPager) findViewById(R.id.vp_detail);
 
         Intent intent = getIntent();
-        Receipt receipt = intent.getParcelableExtra("receipt");
+        Recipe recipe = intent.getParcelableExtra("receipt");
 
-        ivThumb.setImageResource(receipt.getThumb());
+        ivThumb.setImageResource(recipe.getThumb());
 
         btnBack.setOnClickListener(v -> onBackPressed());
 
@@ -60,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
 
         final boolean[] isReceiptExistInFav = {false};
 
-        if(!favViewModel.ifFavouriteExist(receipt)){
+        if(!favViewModel.ifFavouriteExist(recipe)){
             btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
         } else {
             btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
@@ -69,12 +68,12 @@ public class DetailActivity extends AppCompatActivity {
 
         btnToggleFavourite.setOnClickListener(v -> {
             if(isReceiptExistInFav[0]){
-                favViewModel.removeFavourite(receipt);
+                favViewModel.removeFavourite(recipe);
                 new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
                 btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
                 isReceiptExistInFav[0] = false;
             } else {
-                favViewModel.pushFavourite(receipt);
+                favViewModel.pushFavourite(recipe);
                 new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
                 btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
                 isReceiptExistInFav[0] = true;
@@ -95,9 +94,9 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new SummaryFragment(receipt));
-        fragments.add(new IngredientsFragment(receipt.getIngredients()));
-        fragments.add(new StepsFragment(receipt.getSteps()));
+        fragments.add(new SummaryFragment(recipe));
+        fragments.add(new IngredientsFragment(recipe.getIngredients()));
+        fragments.add(new StepsFragment(recipe.getSteps()));
 
         DetailFragmentAdapter detailFragmentAdapter = new DetailFragmentAdapter(getSupportFragmentManager(), fragments);
         vp.setAdapter(detailFragmentAdapter);

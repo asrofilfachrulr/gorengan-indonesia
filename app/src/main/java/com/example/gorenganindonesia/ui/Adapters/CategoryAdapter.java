@@ -11,20 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     List<String> dataList;
-    ReceiptAdapter receiptAdapter;
+    RecipeAdapter recipeAdapter;
 
     RecyclerView receiptRv, categoryRv;
 
     final Button[] stateCategory = {null, null}; // {previous, current}
 
-    public CategoryAdapter(List<String> dataList, ReceiptAdapter receiptAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
+    public CategoryAdapter(List<String> dataList, RecipeAdapter recipeAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
         this.dataList = dataList;
-        this.receiptAdapter = receiptAdapter;
+        this.recipeAdapter = recipeAdapter;
         this.receiptRv = receiptRv;
         this.categoryRv = categoryRv;
     }
@@ -51,7 +50,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         holder.btnCategory.setOnClickListener(view -> {
-            receiptAdapter.applyFilterCategory(btnText);
+            recipeAdapter.applyFilterCategory(btnText);
             receiptRv.scrollToPosition(0);
 
             stateCategory[0] = stateCategory[1];

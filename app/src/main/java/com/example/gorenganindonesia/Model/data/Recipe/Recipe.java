@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.data.Receipt;
+package com.example.gorenganindonesia.Model.data.Recipe;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 
-public class Receipt implements Parcelable {
+public class Recipe implements Parcelable {
     private String id;
     private String title;
     private String authorUsername;
@@ -22,7 +22,7 @@ public class Receipt implements Parcelable {
     private String[] steps;
 
 
-    public Receipt(String id, String title, String authorUsername, String ratingStar, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
+    public Recipe(String id, String title, String authorUsername, String ratingStar, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
         this.id = id;
         this.title = title;
         this.authorUsername = authorUsername;
@@ -125,19 +125,19 @@ public class Receipt implements Parcelable {
     }
 
     // Implement the Parcelable.Creator for Receipt
-    public static final Creator<Receipt> CREATOR = new Creator<Receipt>() {
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
         @Override
-        public Receipt createFromParcel(Parcel in) {
-            return new Receipt(in);
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
         }
 
         @Override
-        public Receipt[] newArray(int size) {
-            return new Receipt[size];
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
         }
     };
 
-    protected Receipt(Parcel in) {
+    protected Recipe(Parcel in) {
         id = in.readString();
         title = in.readString();
         authorUsername = in.readString();

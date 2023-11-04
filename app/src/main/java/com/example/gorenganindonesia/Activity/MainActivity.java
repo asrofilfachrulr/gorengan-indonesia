@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
-import com.example.gorenganindonesia.Model.ViewModel.ReceiptViewModel;
+import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 import com.example.gorenganindonesia.Model.data.Account.Account;
 import com.example.gorenganindonesia.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,7 +25,7 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     AccountViewModel accountViewModel;
-    ReceiptViewModel receiptViewModel;
+    RecipeViewModel recipeViewModel;
     SharedPreferences sharedPreferences;
 
     Button btnDebugClearData;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         accountViewModel = ((GlobalModel) getApplication()).getAccountViewModel();
-        receiptViewModel = ((GlobalModel) getApplication()).getReceiptViewModel();
+        recipeViewModel = ((GlobalModel) getApplication()).getRecipeViewModel();
 
 
         sharedPreferences = getSharedPreferences("gorenganindonesia", Context.MODE_PRIVATE);

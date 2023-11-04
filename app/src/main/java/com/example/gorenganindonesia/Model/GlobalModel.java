@@ -1,25 +1,24 @@
 package com.example.gorenganindonesia.Model;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
-import com.example.gorenganindonesia.Model.ViewModel.ReceiptViewModel;
+import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 
 public class GlobalModel extends Application {
     private AccountViewModel accountViewModel;
     private FavouriteViewModel favouriteViewModel;
-    private ReceiptViewModel receiptViewModel;
+    private RecipeViewModel recipeViewModel;
     @Override
     public void onCreate() {
         super.onCreate();
 
         favouriteViewModel = new ViewModelProvider.AndroidViewModelFactory(this).create(FavouriteViewModel.class);
         accountViewModel = new ViewModelProvider.AndroidViewModelFactory(this).create(AccountViewModel.class);
-        receiptViewModel = new ViewModelProvider.AndroidViewModelFactory(this).create(ReceiptViewModel.class);
+        recipeViewModel = new ViewModelProvider.AndroidViewModelFactory(this).create(RecipeViewModel.class);
     }
 
     public FavouriteViewModel getFavouriteViewModel(){return favouriteViewModel;}
@@ -28,7 +27,7 @@ public class GlobalModel extends Application {
         return accountViewModel;
     }
 
-    public ReceiptViewModel getReceiptViewModel() {
-        return receiptViewModel;
+    public RecipeViewModel getRecipeViewModel() {
+        return recipeViewModel;
     }
 }

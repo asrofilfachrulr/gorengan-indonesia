@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.gorenganindonesia.CustomToast;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Rating.RatingData;
-import com.example.gorenganindonesia.Model.data.Receipt.Receipt;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
@@ -28,7 +28,7 @@ public class RatingActivity extends AppCompatActivity {
     TextView tvTitle, tvStar;
     ImageButton ibSort, ibBack;
     RecyclerView rvStarFilter, rvRating;
-    Receipt receipt;
+    Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class RatingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rating);
 
         Intent intent = getIntent();
-        receipt = intent.getParcelableExtra("receipt");
+        recipe = intent.getParcelableExtra("receipt");
 
         tvStar = (TextView) findViewById(R.id.tv_star_rating);
         tvTitle = (TextView) findViewById(R.id.tv_title_rating);
@@ -47,8 +47,8 @@ public class RatingActivity extends AppCompatActivity {
         rvRating = (RecyclerView) findViewById(R.id.rv_rating);
         rvStarFilter = (RecyclerView) findViewById(R.id.rv_rating_star_fitler);
 
-        tvTitle.setText(receipt.getTitle().toString());
-        tvStar.setText(receipt.getRatingStar() + "/5.0");
+        tvTitle.setText(recipe.getTitle().toString());
+        tvStar.setText(recipe.getRatingStar() + "/5.0");
 
         List<String> stars = new ArrayList<>();
 

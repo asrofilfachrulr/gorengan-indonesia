@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="1"
-                tools:listitem="@layout/receipt_item" />
+                tools:listitem="@layout/recipe_item" />
 
             <View
                 android:id="@+id/vw_empty_space"
