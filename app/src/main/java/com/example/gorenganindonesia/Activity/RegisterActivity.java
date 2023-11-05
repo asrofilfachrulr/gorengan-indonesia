@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.example.gorenganindonesia.API.AuthService;
+import com.example.gorenganindonesia.API.Services.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.api.Register.RegisterRequest;

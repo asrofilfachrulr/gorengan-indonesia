@@ -39,6 +39,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         holder.tvIngredient.setText(ingredient.getName().toString());
     }
 
+    public void updateData(List<Ingredient> updatedIngredients){
+        this.ingredients = updatedIngredients;
+
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return ingredients.size();

@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.example.gorenganindonesia.API.AuthService;
+import com.example.gorenganindonesia.API.Services.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Model.api.AccountResponse;
 import com.example.gorenganindonesia.Util.CustomToast;
@@ -25,8 +25,6 @@ import com.example.gorenganindonesia.Model.api.Login.LoginRequest;
 import com.example.gorenganindonesia.Model.api.Login.LoginResponse;
 import com.example.gorenganindonesia.Model.data.Account.Account;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.Util.SessionManager;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;

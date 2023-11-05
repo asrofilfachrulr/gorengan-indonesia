@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.ui.Adapters.IngredientAdapter;
 import com.example.gorenganindonesia.R;
 
@@ -22,13 +24,15 @@ import java.util.List;
 public class IngredientsFragment extends Fragment {
     RecyclerView rvIngridients;
     List<Ingredient> ingredients;
+    int index;
 
     public IngredientsFragment() {
         // Required empty public constructor
     }
 
-    public IngredientsFragment(Ingredient[] ingredients) {
+    public IngredientsFragment(Ingredient[] ingredients, int index) {
         this.ingredients = new ArrayList<>(Arrays.asList(ingredients));
+        this.index = index;
     }
 
     @Override
@@ -44,6 +48,13 @@ public class IngredientsFragment extends Fragment {
         rvIngridients.setAdapter(adapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvIngridients.getContext(), DividerItemDecoration.VERTICAL);
         rvIngridients.addItemDecoration(dividerItemDecoration);
+
+        ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
+            Ingredient[] updatedIngredients = updatedRecipes.get(index).getIngredients();
+
+            if(updatedIngredients != null)
+                adapter.updateData(Arrays.asList(updatedIngredients));
+        });
 
         return view;
     }

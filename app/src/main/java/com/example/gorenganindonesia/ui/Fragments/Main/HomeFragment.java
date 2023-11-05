@@ -2,7 +2,6 @@ package com.example.gorenganindonesia.ui.Fragments.Main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gorenganindonesia.API.RecipesService;
+import com.example.gorenganindonesia.API.Services.RecipesService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Activity.LoginActivity;
 import com.example.gorenganindonesia.Util.CustomToast;

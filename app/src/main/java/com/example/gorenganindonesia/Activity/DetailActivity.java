@@ -5,13 +5,26 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.RetrofitClient;
+import com.example.gorenganindonesia.API.Services.recipe.recipeId.IngredientsService;
+import com.example.gorenganindonesia.API.Services.recipe.recipeId.StepsService;
+import com.example.gorenganindonesia.Model.api.Recipe.GetStepsResponse;
+import com.example.gorenganindonesia.Model.api.Recipe.GetlIngredientsResponse;
+import com.example.gorenganindonesia.Model.api.Recipe.IngredientData;
+import com.example.gorenganindonesia.Model.api.Recipe.StepData;
+import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
@@ -22,43 +35,73 @@ import com.example.gorenganindonesia.ui.Fragments.Detail.IngredientsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.StepsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.SummaryFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
-    TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan;
+    TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan, tvStep, tvIngredient;
     ImageView ivThumb;
     ImageButton btnBack, btnToggleFavourite;
     ViewPager vp;
+    LinearLayout llRootLoadingDetail;
+    Activity thisActivity;
+
+    Fragment summaryFragment, ingredientsFragment, stepsFragment;
+
+    int index;
+
+    View summaryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        thisActivity = this;
+
         tvTitleRingkasan = (TextView) findViewById(R.id.tv_title_ringkasan);
         tvTitleBahan = (TextView) findViewById(R.id.tv_title_bahan);
         tvTitleLangkah = (TextView) findViewById(R.id.tv_title_langkah);
+
+        // inside summary fragment
+        summaryView = LayoutInflater.from(this).inflate(R.layout.fragment_summary, null);
+        tvStep = (TextView) summaryView.findViewById(R.id.tv_step_detail);
+        tvIngredient = (TextView) summaryView.findViewById(R.id.tv_ingredient_detail);
 
         ivThumb = (ImageView) findViewById(R.id.iv_thumb_detail);
 
         btnBack = (ImageButton) findViewById(R.id.ib_close_detail);
         btnToggleFavourite = (ImageButton) findViewById(R.id.ib_toggle_favourite);
 
+        llRootLoadingDetail = (LinearLayout) findViewById(R.id.ll_root_loading_detail);
 
         vp = (ViewPager) findViewById(R.id.vp_detail);
 
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra("receipt");
+        index = intent.getIntExtra("index", -1);
 
         Glide
-                .with(this)
-                .load(recipe.getImgUrl())
-                .placeholder(R.drawable.solid_grey_landscape)
-                .error(R.drawable.img_404_landscape)
-                .into(ivThumb);
+            .with(this)
+            .load(recipe.getImgUrl())
+            .placeholder(R.drawable.solid_grey_landscape)
+            .error(R.drawable.img_404_landscape)
+            .into(ivThumb);
 
-        btnBack.setOnClickListener(v -> onBackPressed());
+        btnBack.setOnClickListener(v -> {
+            thisActivity.finish();
+        });
 
         FavouriteViewModel favViewModel = ((GlobalModel) getApplication()).getFavouriteViewModel();
 
@@ -98,14 +141,6 @@ public class DetailActivity extends AppCompatActivity {
             if (vp.getCurrentItem() != 2) vp.setCurrentItem(2, true);
         });
 
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new SummaryFragment(recipe));
-        fragments.add(new IngredientsFragment(recipe.getIngredients()));
-        fragments.add(new StepsFragment(recipe.getSteps()));
-
-        DetailFragmentAdapter detailFragmentAdapter = new DetailFragmentAdapter(getSupportFragmentManager(), fragments);
-        vp.setAdapter(detailFragmentAdapter);
-
         List<TextView> pagerTitles = new ArrayList<TextView>() {{
             add(tvTitleRingkasan);
             add(tvTitleBahan);
@@ -137,13 +172,101 @@ public class DetailActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+
+        if(recipe.getIngredients() == null || recipe.getSteps() == null){
+            llRootLoadingDetail.setVisibility(View.VISIBLE);
+
+            Ingredient[] ingredientsEmpty = {};
+            recipe.setIngredients(ingredientsEmpty);
+
+            String[] stepsEmpty = {};
+            recipe.setSteps(stepsEmpty);
+
+            String token = "Bearer " + ((GlobalModel) getApplication()).getSessionManager().getToken();
+
+            getIngredientsAPIRequest(recipe.getId(), token);
+            getStepsAPIRequest(recipe.getId(), token);
+        }
+
+        summaryFragment = new SummaryFragment(recipe, index);
+        ingredientsFragment = new IngredientsFragment(recipe.getIngredients(), index);
+        stepsFragment = new StepsFragment(recipe.getSteps(), index);
+
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(summaryFragment);
+        fragments.add(ingredientsFragment);
+        fragments.add(stepsFragment);
+
+        DetailFragmentAdapter detailFragmentAdapter = new DetailFragmentAdapter(getSupportFragmentManager(), fragments);
+        vp.setAdapter(detailFragmentAdapter);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed(); // This is optional, but it's a good practice to call the super method.
+    private void getIngredientsAPIRequest(String recipeId, String token){
+        RetrofitClient
+            .getInstance()
+            .create(IngredientsService.class)
+            .getIngredientsByRecipeId(recipeId, token)
+            .enqueue(new Callback<GetlIngredientsResponse>() {
+                @Override
+                public void onResponse(Call<GetlIngredientsResponse> call, Response<GetlIngredientsResponse> response) {
+                    if(response.isSuccessful()){
+                        IngredientData[] ingredientData = response.body().getIngredientData();
+                        Ingredient[] ingredients = new Ingredient[ingredientData.length];
 
-        // Your custom code here, if needed.
+                        for(int i = 0; i < ingredientData.length; i++){
+                            ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
+                        }
+
+                        ((GlobalModel) getApplication()).getRecipeViewModel().setIngredients(ingredients, index);
+                    } else {
+                        try {
+                            new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
+                        } catch (IOException e) {
+                            new CustomToast("Error Mengolah Data", summaryView, false).show();
+                        }
+                    }
+                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
+                    new CustomToast("Error Memuat Data", summaryView, false).show();
+                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
+                }
+            });
     }
 
+    private void getStepsAPIRequest(String recipeId, String token){
+        RetrofitClient
+            .getInstance()
+            .create(StepsService.class)
+            .getStepsByRecipeId(recipeId, token)
+            .enqueue(new Callback<GetStepsResponse>() {
+                @Override
+                public void onResponse(Call<GetStepsResponse> call, Response<GetStepsResponse> response) {
+                    if(response.isSuccessful()){
+                        String[] steps = new String[response.body().getStepData().length];
+                        for(StepData stepData: response.body().getStepData()){
+                            steps[stepData.getNumber() - 1] = stepData.getStep();
+                        }
+
+                        ((GlobalModel) getApplication()).getRecipeViewModel().setSteps(steps, index);
+                    } else {
+                        try {
+                            new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
+                        } catch (IOException e) {
+                            new CustomToast("Error Mengolah Data", summaryView, false).show();
+                        }
+                    }
+                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onFailure(Call<GetStepsResponse> call, Throwable t) {
+                    new CustomToast("Error Memuat Data", summaryView, false).show();
+                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
+                }
+            });
+    }
 }

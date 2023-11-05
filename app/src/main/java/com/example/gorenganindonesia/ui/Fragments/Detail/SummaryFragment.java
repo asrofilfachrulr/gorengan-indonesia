@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gorenganindonesia.Activity.RatingActivity;
+import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -29,11 +30,13 @@ public class SummaryFragment extends Fragment {
     LinearLayout llSteps, llIngridients;
     ViewPager vp;
     Recipe recipe;
+    int index;
 
     public SummaryFragment() { }
 
-    public SummaryFragment(Recipe recipe){
+    public SummaryFragment(Recipe recipe, int index){
         this.recipe = recipe;
+        this.index = index;
     }
 
     @Override
@@ -122,6 +125,14 @@ public class SummaryFragment extends Fragment {
             Intent intent = new Intent(getContext(), RatingActivity.class);
             intent.putExtra("receipt", recipe);
             getContext().startActivity(intent);
+        });
+
+        ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
+            Recipe updatedRecipe = updatedRecipes.get(index);
+            if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
+                tvStep.setText(String.valueOf(updatedRecipe.getSteps().length) + " Langkah");
+                tvIngridient.setText(String.valueOf(updatedRecipe.getIngredients().length) + " Bahan");
+            }
         });
 
         return view;

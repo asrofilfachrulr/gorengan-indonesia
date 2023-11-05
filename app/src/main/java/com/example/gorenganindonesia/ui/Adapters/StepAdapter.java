@@ -36,6 +36,12 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder>{
         holder.tvStep.setText(steps.get(position).toString());
     }
 
+    public void updateData(List<String> updatedSteps){
+        this.steps = updatedSteps;
+
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return steps.size();

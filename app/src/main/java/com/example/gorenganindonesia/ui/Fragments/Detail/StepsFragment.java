@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.ui.Adapters.StepAdapter;
 import com.example.gorenganindonesia.R;
 
@@ -22,10 +24,13 @@ public class StepsFragment extends Fragment {
     RecyclerView rvSteps;
     List<String> steps;
 
+    int index;
+
     public StepsFragment() {  }
 
-    public StepsFragment(String[] steps) {
+    public StepsFragment(String[] steps, int index) {
         this.steps = new ArrayList<>(Arrays.asList(steps));
+        this.index = index;
     }
 
     @Override
@@ -41,6 +46,13 @@ public class StepsFragment extends Fragment {
         rvSteps.setLayoutManager(layoutManager);
         rvSteps.setAdapter(adapter);
         rvSteps.addItemDecoration(new DividerItemDecoration(rvSteps.getContext(), DividerItemDecoration.VERTICAL));
+
+        ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
+            String[] updatedSteps = updatedRecipes.get(index).getSteps();
+
+            if(updatedSteps != null)
+                adapter.updateData(Arrays.asList(updatedSteps));
+        });
 
         return view;
     }

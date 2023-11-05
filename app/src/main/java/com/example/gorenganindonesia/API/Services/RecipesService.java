@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.API;
+package com.example.gorenganindonesia.API.Services;
 
 import com.example.gorenganindonesia.Model.api.Recipes.GetAllRecipesResponse;
 
