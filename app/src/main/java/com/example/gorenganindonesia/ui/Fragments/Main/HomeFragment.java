@@ -83,9 +83,10 @@ public class HomeFragment extends Fragment {
         recipes = new ArrayList<>();
         categories = new ArrayList<>();
 
-        getAllRecipesRequest(token);
-
-        binding.llRootLoadingHome.setVisibility(View.VISIBLE);
+        if(recipeViewModel.getAllRecipes().getValue().size() == 0){
+            binding.llRootLoadingHome.setVisibility(View.VISIBLE);
+            getAllRecipesRequest(token);
+        }
 
         recipes = recipeViewModel.getAllRecipes().getValue();
 

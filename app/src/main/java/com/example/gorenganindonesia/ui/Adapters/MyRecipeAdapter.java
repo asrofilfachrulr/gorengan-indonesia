@@ -20,16 +20,16 @@ import com.example.gorenganindonesia.R;
 
 import java.util.List;
 
-public class MyReceiptAdapter extends RecyclerView.Adapter<MyReceiptAdapter.ViewHolder> {
+public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHolder> {
     List<Recipe> dataList;
 
-    public MyReceiptAdapter(List<Recipe> recipes){
+    public MyRecipeAdapter(List<Recipe> recipes){
         this.dataList = recipes;
     }
 
     @NonNull
     @Override
-    public MyReceiptAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_recipe_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -37,24 +37,27 @@ public class MyReceiptAdapter extends RecyclerView.Adapter<MyReceiptAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyReceiptAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyRecipeAdapter.ViewHolder holder, int position) {
+        Recipe recipe = dataList.get(position);
+
         Glide
-                .with(holder.itemView.getContext())
-                .load(dataList.get(position).getImgUrl())
-                .placeholder(R.drawable.solid_grey_landscape)
-                .error(R.drawable.img_404_landscape)
-                .into(holder.ivImage);
-        holder.tvTitle.setText(dataList.get(position).getTitle());
-        holder.tvDifficulty.setText(dataList.get(position).getDifficulty());
-        holder.tvPortion.setText(String.valueOf(dataList.get(position).getPortion()));
-        holder.tvMinuteDuration.setText(String.valueOf(dataList.get(position).getMinuteDuration()));
-        holder.tvAuthorUsername.setText("oleh @" + dataList.get(position).getAuthorUsername());
+            .with(holder.itemView.getContext())
+            .load(recipe.getImgUrl())
+            .placeholder(R.drawable.solid_grey_landscape)
+            .error(R.drawable.img_404_landscape)
+            .into(holder.ivImage);
+
+        holder.tvTitle.setText(recipe.getTitle());
+        holder.tvDifficulty.setText(recipe.getDifficulty());
+        holder.tvPortion.setText(String.valueOf(recipe.getPortion()));
+        holder.tvMinuteDuration.setText(String.valueOf(recipe.getMinuteDuration()));
+        holder.tvAuthorUsername.setText("oleh @" + recipe.getAuthorUsername());
 
         holder.ibDelete.setOnClickListener(v -> {
             ((GlobalModel) v.getContext().getApplicationContext())
                     .getRecipeViewModel()
                     .deleteMyReceipt(
-                            dataList.get(position),
+                            recipe,
                             ((GlobalModel) v.getContext().getApplicationContext())
                                     .getAccountViewModel()
                                     .getUsername()
@@ -66,7 +69,13 @@ public class MyReceiptAdapter extends RecyclerView.Adapter<MyReceiptAdapter.View
         for(View _: targetViews)
             _.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), DetailActivity.class);
-                intent.putExtra("receipt", dataList.get(position));
+                intent.putExtra("recipe", recipe);
+
+                int pos = ((GlobalModel) v.getContext().getApplicationContext()).getRecipeViewModel()
+                                .getRecipePos(recipe.getId());
+
+                intent.putExtra("position", pos);
+
                 v.getContext().startActivity(intent);
             });
     }

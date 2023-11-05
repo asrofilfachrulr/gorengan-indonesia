@@ -8,7 +8,10 @@ import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Model.data.Recipe.RecipeData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class RecipeViewModel extends ViewModel {
     private final MutableLiveData<List<Recipe>> mRecipes;
@@ -30,10 +33,6 @@ public class RecipeViewModel extends ViewModel {
         this.mCategories.setValue(categories);
     }
 
-    public List<Recipe> getFromDummy() {
-        return RecipeData.generate();
-    }
-
     public List<Recipe> getMyRecipes(String myName) {
         List<Recipe> myRecipes = new ArrayList<>();
 
@@ -44,8 +43,45 @@ public class RecipeViewModel extends ViewModel {
         return myRecipes;
     }
 
+    public int getRecipePos(String recipeId) {
+        List<Recipe> recipes = mRecipes.getValue();
+
+        for (int i = 0; i < recipes.size(); i++)
+            if (recipes.get(i).getId().equals(recipeId))
+                return i;
+
+        return -1;
+    }
+
     public MutableLiveData<List<Recipe>> getAllRecipes() {
         return mRecipes;
+    }
+
+    public Recipe getRecipeById(String recipeId) {
+        List<Recipe> recipes = mRecipes.getValue();
+
+        for (Recipe recipe : recipes)
+            if (recipe.getId().equals(recipeId))
+                return recipe;
+
+        return null;
+    }
+
+    public List<Recipe> getRecipesByIds(String[] recipeIds) {
+        HashMap<String, Boolean> recipeIdsMap = new HashMap<>();
+
+        for (String recipeId : recipeIds)
+            recipeIdsMap.put(recipeId, true);
+
+        List<Recipe> recipes = new ArrayList<>();
+        for (Recipe recipe : mRecipes.getValue())
+            if (recipeIdsMap.size() == 0) break;
+            else if (recipeIdsMap.get(recipe.getId()) != null) {
+                recipes.add(recipe);
+                recipeIdsMap.remove(recipe.getId());
+            }
+
+        return recipes;
     }
 
     public MutableLiveData<List<String>> getCategories() {

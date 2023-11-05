@@ -59,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
 
     Fragment summaryFragment, ingredientsFragment, stepsFragment;
 
-    int index;
+    int position;
 
     View summaryView;
 
@@ -89,8 +89,11 @@ public class DetailActivity extends AppCompatActivity {
         vp = (ViewPager) findViewById(R.id.vp_detail);
 
         Intent intent = getIntent();
-        Recipe recipe = intent.getParcelableExtra("receipt");
-        index = intent.getIntExtra("index", -1);
+        Recipe recipe = intent.getParcelableExtra("recipe");
+        position = intent.getIntExtra("position", -1);
+
+        if(position == -1)
+            this.finish();
 
         Glide
             .with(this)
@@ -189,9 +192,9 @@ public class DetailActivity extends AppCompatActivity {
             getStepsAPIRequest(recipe.getId(), token);
         }
 
-        summaryFragment = new SummaryFragment(recipe, index);
-        ingredientsFragment = new IngredientsFragment(recipe.getIngredients(), index);
-        stepsFragment = new StepsFragment(recipe.getSteps(), index);
+        summaryFragment = new SummaryFragment(recipe, position);
+        ingredientsFragment = new IngredientsFragment(recipe.getIngredients(), position);
+        stepsFragment = new StepsFragment(recipe.getSteps(), position);
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(summaryFragment);
@@ -218,7 +221,7 @@ public class DetailActivity extends AppCompatActivity {
                             ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
                         }
 
-                        ((GlobalModel) getApplication()).getRecipeViewModel().setIngredients(ingredients, index);
+                        ((GlobalModel) getApplication()).getRecipeViewModel().setIngredients(ingredients, position);
                     } else {
                         try {
                             new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
@@ -251,7 +254,7 @@ public class DetailActivity extends AppCompatActivity {
                             steps[stepData.getNumber() - 1] = stepData.getStep();
                         }
 
-                        ((GlobalModel) getApplication()).getRecipeViewModel().setSteps(steps, index);
+                        ((GlobalModel) getApplication()).getRecipeViewModel().setSteps(steps, position);
                     } else {
                         try {
                             new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();

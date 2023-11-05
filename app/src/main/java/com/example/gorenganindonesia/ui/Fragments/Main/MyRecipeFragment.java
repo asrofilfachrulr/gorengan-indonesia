@@ -17,7 +17,7 @@ import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.databinding.FragmentMyRecipeBinding;
-import com.example.gorenganindonesia.ui.Adapters.MyReceiptAdapter;
+import com.example.gorenganindonesia.ui.Adapters.MyRecipeAdapter;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class MyRecipeFragment extends Fragment {
 
         myRecipes = recipeViewModel.getMyRecipes(username);
 
-        MyReceiptAdapter adapter = new MyReceiptAdapter(myRecipes);
+        MyRecipeAdapter adapter = new MyRecipeAdapter(myRecipes);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.rvMyRecipes.getContext(), DividerItemDecoration.VERTICAL);
 

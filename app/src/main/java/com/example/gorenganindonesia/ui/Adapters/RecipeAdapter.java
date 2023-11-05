@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.Activity.DetailActivity;
+import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.CustomToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +28,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public RecipeAdapter(List<Recipe> dataList, RecyclerView rv) {
         this.dataList = dataList;
-        this.originalList = dataList;
+        this.originalList = dataList; // most likely equal to recipe view model
         this.rv = rv;
     }
 
     public void applyFilterCategory(String category) {
-        ArrayList<Recipe> filteredList = new ArrayList<>();
         if (category.toLowerCase().contains("semua")){
             this.dataList = this.originalList;
         } else {
+            ArrayList<Recipe> filteredList = new ArrayList<>();
             for(Recipe recipe : originalList){
                 if(recipe.getCategory().toLowerCase().contains(category.toLowerCase())){
                     filteredList.add(recipe);
@@ -48,10 +50,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     public void applyFilterTitle(String title) {
-        ArrayList<Recipe> filteredList = new ArrayList<>();
         if (title.matches("\\s") || title.equals("")){
             this.dataList = this.originalList;
         } else {
+            ArrayList<Recipe> filteredList = new ArrayList<>();
             for(Recipe recipe : originalList){
                 if(recipe.getTitle().toLowerCase().contains(title.toLowerCase())){
                     filteredList.add(recipe);
@@ -94,18 +96,24 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvDifficulty.setText(recipe.getDifficulty().toString());
         holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
         holder.tvDuration.setText(String.valueOf(recipe.getMinuteDuration()) + "mnt");
-        holder.tvAuthorUsername.setText("@" + dataList.get(position).getAuthorUsername().toString());
-        holder.tvRatingStar.setText(dataList.get(position).getRatingStar().toString());
+        holder.tvAuthorUsername.setText("@" + recipe.getAuthorUsername().toString());
+        holder.tvRatingStar.setText(recipe.getRatingStar().toString());
 
-        holder.cvReceipt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.cvReceipt.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);
 
-                intent.putExtra("receipt", recipe);
-                intent.putExtra("index", position);
+            intent.putExtra("recipe", recipe);
+
+            int pos = ((GlobalModel) view.getContext().getApplicationContext())
+                    .getRecipeViewModel()
+                    .getRecipePos(recipe.getId());
+
+            intent.putExtra("position", pos);
+
+            if(pos != -1)
                 view.getContext().startActivity(intent);
-            }
+            else
+                new CustomToast("Error mencari resep pada data!", view, false).show();
         });
     }
 

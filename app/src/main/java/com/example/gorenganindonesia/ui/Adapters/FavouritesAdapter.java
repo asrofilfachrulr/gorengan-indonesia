@@ -18,6 +18,7 @@ import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.CustomToast;
 
 import java.util.List;
 
@@ -49,25 +50,31 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull FavouritesAdapter.ViewHolder holder, int position) {
-        holder.tvTitle.setText(dataList.get(position).getTitle().toString());
-        holder.tvAuthor.setText("oleh @admin");
-        holder.tvPortion.setText(String.valueOf(dataList.get(position).getPortion()) + " porsi");
-        holder.tvDifficulty.setText(dataList.get(position).getDifficulty().toString());
-        holder.tvMinuteDuration.setText(String.valueOf(dataList.get(position).getMinuteDuration()) + "mnt");
+        Recipe recipe = dataList.get(position);
+        holder.tvTitle.setText(recipe.getTitle().toString());
+        holder.tvAuthor.setText("oleh @" + recipe.getAuthorUsername());
+        holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " porsi");
+        holder.tvDifficulty.setText(recipe.getDifficulty().toString());
+        holder.tvMinuteDuration.setText(String.valueOf(recipe.getMinuteDuration()) + "mnt");
 
         Glide
-                .with(holder.itemView.getContext())
-                .load(dataList.get(position).getImgUrl())
-                .placeholder(R.drawable.solid_grey_landscape)
-                .error(R.drawable.img_404_landscape)
-                .into(holder.ivThumb);
+            .with(holder.itemView.getContext())
+            .load(recipe.getImgUrl())
+            .placeholder(R.drawable.solid_grey_landscape)
+            .error(R.drawable.img_404_landscape)
+            .into(holder.ivThumb);
 
         View[] views = {holder.ivThumb, holder.llFavItem};
 
         for(View view: views){
             view.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), DetailActivity.class);
-                intent.putExtra("receipt", dataList.get(position));
+                intent.putExtra("recipe", recipe);
+
+                int pos = ((GlobalModel) v.getContext().getApplicationContext()).getRecipeViewModel()
+                                .getRecipePos(recipe.getId());
+
+                intent.putExtra("position", pos);
 
                 v.getContext().startActivity(intent);
             });
@@ -77,6 +84,8 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
             ((GlobalModel) context.getApplicationContext())
                     .getFavouriteViewModel()
                     .removeFavourite(position);
+
+            new CustomToast("Berhasil menghapus dari favorit!", v, false).show();
             notifyDataSetChanged();
         });
     }
