@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.R;
 
 public class NewStepAdapter extends RecyclerView.Adapter<NewStepAdapter.ViewHolder> {

@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 
 import com.example.gorenganindonesia.API.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.CustomToast;
-import com.example.gorenganindonesia.Model.api.RegisterRequest;
-import com.example.gorenganindonesia.Model.api.RegisterResponse;
+import com.example.gorenganindonesia.Util.CustomToast;
+import com.example.gorenganindonesia.Model.api.Register.RegisterRequest;
+import com.example.gorenganindonesia.Model.api.Register.RegisterResponse;
 import com.example.gorenganindonesia.R;
 
 import org.json.JSONException;

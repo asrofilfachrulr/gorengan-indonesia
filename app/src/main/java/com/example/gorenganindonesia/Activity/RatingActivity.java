@@ -12,12 +12,12 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Rating.RatingData;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.RecyclerViewItemSpacing;
+import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
 import com.example.gorenganindonesia.ui.Adapters.StarFilterAdapter;
 

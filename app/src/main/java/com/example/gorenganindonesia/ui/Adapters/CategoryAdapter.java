@@ -28,6 +28,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.categoryRv = categoryRv;
     }
 
+    public void updateData(List<String> updatedCategory){
+        this.dataList = updatedCategory;
+
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

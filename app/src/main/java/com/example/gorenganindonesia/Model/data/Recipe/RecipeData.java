@@ -17,7 +17,7 @@ public class RecipeData {
                         "4.75",
                         "Aci",
                         30,
-                        R.drawable.cireng,
+                        "R.drawable.cireng",
                         "Mudah",
                         3,
                         new String[]{
@@ -56,7 +56,7 @@ public class RecipeData {
                         "4.2",
                         "Kedelai",
                         30,
-                        R.drawable.mendoan,
+                        "R.drawable.mendoan",
                         "Mudah",
                         6,
                         new String[]{
@@ -84,7 +84,7 @@ public class RecipeData {
                         "4.1",
                         "Buah",
                         30,
-                        R.drawable.pisang_goreng,
+                        "R.drawable.pisang_goreng",
                         "Mudah",
                         10,
                         new String[]{
@@ -114,7 +114,7 @@ public class RecipeData {
                         "4.3",
                         "Kentang",
                         45,
-                        R.drawable.kentang_goreng_pedas,
+                        "R.drawable.kentang_goreng_pedas",
                         "Sedang",
                         40,
                         new String[]{
@@ -146,7 +146,7 @@ public class RecipeData {
                         "4.2",
                         "Ikan",
                         45,
-                        R.drawable.peyek_udang,
+                        "R.drawable.peyek_udang",
                         "Sedang",
                         20,
                         new String[]{
@@ -177,7 +177,7 @@ public class RecipeData {
                         "4.0",
                         "Isian Sayur",
                         40,
-                        R.drawable.bakwan,
+                        "R.drawable.bakwan",
                         "Mudah",
                         10,
                         new String[]{
@@ -212,7 +212,7 @@ public class RecipeData {
                         "3.8",
                         "Manis",
                         40,
-                        R.drawable.ubi_jalar,
+                        "R.drawable.ubi_jalar",
                         "Mudah",
                         5,
                         new String[]{
@@ -242,7 +242,7 @@ public class RecipeData {
                         "2.9",
                         "Kentang",
                         40,
-                        R.drawable.perkedel,
+                        "R.drawable.perkedel",
                         "Sedang",
                         7,
                         new String[]{
@@ -275,7 +275,7 @@ public class RecipeData {
                         "4.9",
                         "Kedelai",
                         30,
-                        R.drawable.tahu_isi,
+                        "R.drawable.tahu_isi",
                         "Mudah",
                         8,
                         new String[]{
@@ -306,7 +306,7 @@ public class RecipeData {
                         "4",
                         "Manis",
                         40,
-                        R.drawable.molen,
+                        "R.drawable.molen",
                         "Sulit",
                         10,
                         new String[]{
@@ -338,7 +338,7 @@ public class RecipeData {
                         "4.0",
                         "Aci",
                         40,
-                        R.drawable.cimol,
+                        "R.drawable.cimol",
                         "Mudah",
                         5,  // portion
                         new String[]{
@@ -369,7 +369,7 @@ public class RecipeData {
                         "4.2",
                         "Aci",
                         45,
-                        R.drawable.cilor,
+                        "R.drawable.cilor",
                         "Sedang",
                         3,  // portion
                         new String[]{
@@ -403,7 +403,7 @@ public class RecipeData {
                         "4.6",
                         "Kedelai",
                         30,
-                        R.drawable.tahu_bulat,
+                        "R.drawable.tahu_bulat",
                         "Sedang",
                         3,  // portion
                         new String[]{
@@ -433,7 +433,7 @@ public class RecipeData {
                         "4.1",
                         "Buah",
                         45,
-                        R.drawable.sukun,
+                        "R.drawable.sukun",
                         "Mudah",
                         2,  // portion
                         new String[]{
@@ -463,7 +463,7 @@ public class RecipeData {
                         "4.3",
                         "Buah",
                         30,
-                        R.drawable.apel_goreng,
+                        "R.drawable.apel_goreng",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -497,7 +497,7 @@ public class RecipeData {
                         "4.5",
                         "Manis",
                         30,
-                        R.drawable.roti_bantal,
+                        "R.drawable.roti_bantal",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -529,7 +529,7 @@ public class RecipeData {
                         "4.5",
                         "Manis",
                         60,
-                        R.drawable.donat_strawberry,
+                        "R.drawable.donat_strawberry",
                         "Sedang",
                         12,  // portion
                         new String[]{
@@ -566,7 +566,7 @@ public class RecipeData {
                         "4.5",
                         "Ikan",
                         45,
-                        R.drawable.peyek_teri,
+                        "R.drawable.peyek_teri",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -597,7 +597,7 @@ public class RecipeData {
                         "4.5",
                         "Manis",
                         60,
-                        R.drawable.onde_onde,
+                        "R.drawable.onde_onde",
                         "Mudah",
                         20,  // portion
                         new String[]{
@@ -625,7 +625,7 @@ public class RecipeData {
                         "4.5",
                         "Isian Sayur",
                         45,
-                        R.drawable.ote_ote,
+                        "R.drawable.ote_ote",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -658,7 +658,7 @@ public class RecipeData {
                         "4.5",
                         "Isian Sayur",
                         60,
-                        R.drawable.risol_sayur,
+                        "R.drawable.risol_sayur",
                         "Sedang",
                         12,  // portion
                         new String[]{
@@ -690,7 +690,7 @@ public class RecipeData {
                         "4.5",
                         "Isian sayur",
                         45,
-                        R.drawable.dadar_jagung,
+                        "R.drawable.dadar_jagung",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -721,7 +721,7 @@ public class RecipeData {
                         "4.5",
                         "Buah",
                         45,
-                        R.drawable.peyek_kacang,
+                        "R.drawable.peyek_kacang",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -752,7 +752,7 @@ public class RecipeData {
                         "4.5",
                         "Kedelai",
                         45,
-                        R.drawable.gehu_pedas,
+                        "R.drawable.gehu_pedas",
                         "Sedang",
                         4,  // portion
                         new String[]{
@@ -785,7 +785,7 @@ public class RecipeData {
                         "4.5",
                         "Aci",
                         45,
-                        R.drawable.sempol,
+                        "R.drawable.sempol",
                         "Mudah",
                         4,  // portion
                         new String[]{
@@ -819,7 +819,7 @@ public class RecipeData {
                         "4.5",
                         "Isian Sayur",
                         45,
-                        R.drawable.combro,
+                        "R.drawable.combro",
                         "Mudah",
                         4,  // portion
                         new String[]{

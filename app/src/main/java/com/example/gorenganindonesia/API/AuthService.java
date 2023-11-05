@@ -1,9 +1,9 @@
 package com.example.gorenganindonesia.API;
 
-import com.example.gorenganindonesia.Model.api.LoginRequest;
-import com.example.gorenganindonesia.Model.api.LoginResponse;
-import com.example.gorenganindonesia.Model.api.RegisterRequest;
-import com.example.gorenganindonesia.Model.api.RegisterResponse;
+import com.example.gorenganindonesia.Model.api.Login.LoginRequest;
+import com.example.gorenganindonesia.Model.api.Login.LoginResponse;
+import com.example.gorenganindonesia.Model.api.Register.RegisterRequest;
+import com.example.gorenganindonesia.Model.api.Register.RegisterResponse;
 
 import retrofit2.Call;
 import retrofit2.http.POST;

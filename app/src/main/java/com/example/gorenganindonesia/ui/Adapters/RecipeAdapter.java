@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
@@ -63,6 +64,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     public void updateData(List<Recipe> recipes){
+        this.originalList = recipes;
         this.dataList = recipes;
 
         notifyDataSetChanged();
@@ -81,7 +83,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         Recipe recipe = dataList.get(position);
         String receiptTitle = recipe.getTitle().toString();
 
-        holder.ivReceiptThumb.setImageResource(recipe.getThumb());
+        Glide
+            .with(holder.itemView.getContext())
+            .load(dataList.get(position).getImgUrl())
+            .placeholder(R.drawable.solid_grey_landscape)
+            .error(R.drawable.img_404_landscape)
+            .into(holder.ivReceiptThumb);
+
         holder.tvReceiptTitle.setText(recipe.getTitle().toString());
         holder.tvDifficulty.setText(recipe.getDifficulty().toString());
         holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");

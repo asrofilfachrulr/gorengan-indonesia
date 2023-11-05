@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.api;
+package com.example.gorenganindonesia.Model.api.Register;
 
 public class RegisterRequest {
     private String username;

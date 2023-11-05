@@ -1,92 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_parent_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bg_white_secondary"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activity.MainActivity">
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="36dp"
-        android:fontFamily="@font/open_sans_semibold"
-        android:text="Cari Resep \nGorengan Terbaik Pilihan dari Seluruh Nusantara"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:visibility="gone" />
-
     <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/ll_root_loading_home"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:gravity="left|center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:paddingHorizontal="36dp">
-
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="5sp"
-            android:background="@drawable/rounded"
-            android:drawableRight="@drawable/ic_search"
-            android:fontFamily="@font/open_sans_semibold"
-            android:hint="Tahu bulat..."
-            android:paddingHorizontal="14sp"
-            android:textAlignment="center"
-            android:textColor="#778287"
-            android:textColorHint="#778287"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14sp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_category"
-            android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#9E020202"
+        android:gravity="center"
+        android:translationZ="10dp">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:itemCount="7"
-            tools:listitem="@layout/category_item" />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:textAlignment="center"
+            android:text="memuat\ndata resep" />
+        <ProgressBar
+            android:layout_marginTop="14sp"
+            android:id="@+id/pb_login"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <View
+    <LinearLayout
+        android:id="@+id/ll_parent_content"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8sp"
-        android:background="@drawable/divider" />
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white_secondary"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="Cari Resep \nGorengan Terbaik Pilihan dari Seluruh Nusantara"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:gravity="left|center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:paddingHorizontal="36dp">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="5sp"
+                android:background="@drawable/rounded"
+                android:drawableRight="@drawable/ic_search"
+                android:fontFamily="@font/open_sans_semibold"
+                android:hint="Tahu bulat..."
+                android:paddingHorizontal="14sp"
+                android:textAlignment="center"
+                android:textColor="#778287"
+                android:textColorHint="#778287"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bg_white_primary"
-            android:orientation="vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingTop="8sp">
+            android:layout_marginTop="14sp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_receipt"
+                android:id="@+id/rv_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="1"
-                tools:listitem="@layout/recipe_item" />
-
-            <View
-                android:id="@+id/vw_empty_space"
-                android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                tools:itemCount="7"
+                tools:listitem="@layout/category_item" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8sp"
+            android:background="@drawable/divider" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white_primary"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="8sp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_receipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/recipe_item" />
+
+                <View
+                    android:id="@+id/vw_empty_space"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

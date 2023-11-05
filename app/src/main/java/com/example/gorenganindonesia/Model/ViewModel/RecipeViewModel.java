@@ -11,12 +11,26 @@ import java.util.List;
 
 public class RecipeViewModel extends ViewModel {
     private final MutableLiveData<List<Recipe>> mRecipes;
+    private final MutableLiveData<List<String>> mCategories;
 
     public RecipeViewModel() {
         this.mRecipes = new MutableLiveData<>();
+        this.mRecipes.setValue(new ArrayList<>());
 
-        List<Recipe> recipes = RecipeData.generate();
+        this.mCategories = new MutableLiveData<>();
+        this.mCategories.setValue(new ArrayList<>());
+    }
+
+    public void setRecipesData(List<Recipe> recipes){
         this.mRecipes.setValue(recipes);
+    }
+
+    public void setCategoriesData(List<String> categories){
+        this.mCategories.setValue(categories);
+    }
+
+    public List<Recipe> getFromDummy(){
+        return RecipeData.generate();
     }
 
     public List<Recipe> getMyRecipes(String myName){
@@ -31,6 +45,10 @@ public class RecipeViewModel extends ViewModel {
 
     public MutableLiveData<List<Recipe>> getAllRecipes(){
         return mRecipes;
+    }
+
+    public MutableLiveData<List<String>> getCategories(){
+        return mCategories;
     }
 
     // currently delete means change the author to admin

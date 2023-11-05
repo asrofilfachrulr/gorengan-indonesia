@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.api;
+package com.example.gorenganindonesia.Model.api.Login;
 
 public class LoginRequest {
     private String identifier;

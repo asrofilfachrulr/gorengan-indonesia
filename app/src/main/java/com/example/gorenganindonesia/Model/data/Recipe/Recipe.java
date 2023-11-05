@@ -13,7 +13,7 @@ public class Recipe implements Parcelable {
     private String authorUsername;
     private String category;
     private int minuteDuration;
-    private int thumb;
+    private String imgUrl;
     private String difficulty;
     private int portion;
     private String ratingStar;
@@ -22,14 +22,14 @@ public class Recipe implements Parcelable {
     private String[] steps;
 
 
-    public Recipe(String id, String title, String authorUsername, String ratingStar, String category, int minuteDuration, int thumb, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
+    public Recipe(String id, String title, String authorUsername, String ratingStar, String category, int minuteDuration, String imgUrl, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
         this.id = id;
         this.title = title;
         this.authorUsername = authorUsername;
         this.ratingStar = ratingStar;
         this.category = category;
         this.minuteDuration = minuteDuration;
-        this.thumb = thumb;
+        this.imgUrl = imgUrl;
         this.difficulty = difficulty;
         this.portion = portion;
         this.steps = steps;
@@ -68,12 +68,12 @@ public class Recipe implements Parcelable {
         this.minuteDuration = minuteDuration;
     }
 
-    public int getThumb() {
-        return thumb;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setThumb(int thumb) {
-        this.thumb = thumb;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getDifficulty() {
@@ -144,7 +144,7 @@ public class Recipe implements Parcelable {
         ratingStar = in.readString();
         category = in.readString();
         minuteDuration = in.readInt();
-        thumb = in.readInt();
+        imgUrl = in.readString();
         difficulty = in.readString();
         portion = in.readInt();
         steps = in.createStringArray();
@@ -159,7 +159,7 @@ public class Recipe implements Parcelable {
         parcel.writeString(ratingStar);
         parcel.writeString(category);
         parcel.writeInt(minuteDuration);
-        parcel.writeInt(thumb);
+        parcel.writeString(imgUrl);
         parcel.writeString(difficulty);
         parcel.writeInt(portion);
         parcel.writeStringArray(steps);

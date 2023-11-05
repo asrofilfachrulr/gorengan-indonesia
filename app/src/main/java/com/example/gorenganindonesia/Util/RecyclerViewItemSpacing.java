@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia;
+package com.example.gorenganindonesia.Util;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -2,7 +2,7 @@ package com.example.gorenganindonesia.Model.api;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Account {
+public class AccountResponse {
     private String id;
     private String name;
     private String username;

@@ -2,11 +2,13 @@ package com.example.gorenganindonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,13 +17,16 @@ import android.widget.LinearLayout;
 
 import com.example.gorenganindonesia.API.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Model.api.AccountResponse;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
-import com.example.gorenganindonesia.Model.api.LoginRequest;
-import com.example.gorenganindonesia.Model.api.LoginResponse;
+import com.example.gorenganindonesia.Model.api.Login.LoginRequest;
+import com.example.gorenganindonesia.Model.api.Login.LoginResponse;
 import com.example.gorenganindonesia.Model.data.Account.Account;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.SessionManager;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,10 +48,24 @@ public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
+    Activity thisActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        thisActivity = this;
+
+        Intent intent = getIntent();
+        String toastMsg = intent.getStringExtra("TOAST_MSG");
+        if(toastMsg != null){
+            if(!toastMsg.isEmpty())
+                new CustomToast(
+                        toastMsg,
+                        LayoutInflater.from(this).inflate(R.layout.activity_login, null)
+                ).show();
+        }
 
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
 
@@ -63,9 +82,6 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.clearFocus();
             InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             boolean isCompleted = true;
 
@@ -96,22 +112,14 @@ public class LoginActivity extends AppCompatActivity {
                                 int statusCode = response.code();
 
                                 if (response.isSuccessful()) {
-                                    new CustomToast("Login sukses!", v, false).show();
-
-                                    sharedPreferences
-                                            .edit()
-                                            .putBoolean("isLogged", true)
-                                            .putString("login_token", response.body().getToken())
-                                            .apply();
-
-                                    com.example.gorenganindonesia.Model.api.Account accountJson = response.body().getAccount();
+                                    AccountResponse accountResponseJson = response.body().getAccount();
 
                                     Account account = new Account(
-                                            accountJson.getId(),
-                                            accountJson.getName(),
-                                            accountJson.getUsername(),
-                                            accountJson.getImageUrl(),
-                                            accountJson.getEmail()
+                                            accountResponseJson.getId(),
+                                            accountResponseJson.getName(),
+                                            accountResponseJson.getUsername(),
+                                            accountResponseJson.getImageUrl(),
+                                            accountResponseJson.getEmail()
                                     );
 
                                     AccountViewModel accountViewModel = ((GlobalModel) getApplication()).getAccountViewModel();
@@ -119,15 +127,17 @@ public class LoginActivity extends AppCompatActivity {
 
                                     System.out.println("Account: " + accountViewModel.getAccount().getValue().toString());
 
-                                    sharedPreferences.edit()
-                                            .putString("account_id", account.getId())
-                                            .putString("account_name", account.getName())
-                                            .putString("account_username", account.getUsername())
-                                            .putString("account_image_url", account.getImageUrl())
-                                            .putString("account_email", account.getEmail())
-                                            .apply();
                                     llRootLoadingLogin.setVisibility(View.INVISIBLE);
-                                    v.getContext().startActivity(intent);
+
+                                    ((GlobalModel) getApplication())
+                                            .getSessionManager()
+                                            .login(
+                                                    thisActivity,
+                                                    thisActivity,
+                                                    response.body().getToken(),
+                                                    account,
+                                                    "login sukses!"
+                                            );
                                 } else {
                                     llRootLoadingLogin.setVisibility(View.INVISIBLE);
                                     try {

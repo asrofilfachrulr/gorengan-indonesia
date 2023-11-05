@@ -11,7 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gorenganindonesia.CustomToast;
+import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
@@ -30,7 +31,6 @@ public class DetailActivity extends AppCompatActivity {
     ImageButton btnBack, btnToggleFavourite;
     ViewPager vp;
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,12 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra("receipt");
 
-        ivThumb.setImageResource(recipe.getThumb());
+        Glide
+                .with(this)
+                .load(recipe.getImgUrl())
+                .placeholder(R.drawable.solid_grey_landscape)
+                .error(R.drawable.img_404_landscape)
+                .into(ivThumb);
 
         btnBack.setOnClickListener(v -> onBackPressed());
 

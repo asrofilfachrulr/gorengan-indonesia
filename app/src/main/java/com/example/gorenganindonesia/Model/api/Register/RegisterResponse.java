@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.api;
+package com.example.gorenganindonesia.Model.api.Register;
 
 import com.google.gson.annotations.SerializedName;
 

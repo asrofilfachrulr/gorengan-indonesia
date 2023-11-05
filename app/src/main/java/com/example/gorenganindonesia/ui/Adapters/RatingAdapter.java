@@ -1,6 +1,5 @@
 package com.example.gorenganindonesia.ui.Adapters;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.R;
 

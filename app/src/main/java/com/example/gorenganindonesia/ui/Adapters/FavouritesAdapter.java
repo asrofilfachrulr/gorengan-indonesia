@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
@@ -54,7 +55,12 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         holder.tvDifficulty.setText(dataList.get(position).getDifficulty().toString());
         holder.tvMinuteDuration.setText(String.valueOf(dataList.get(position).getMinuteDuration()) + "mnt");
 
-        holder.ivThumb.setImageResource(dataList.get(position).getThumb());
+        Glide
+                .with(holder.itemView.getContext())
+                .load(dataList.get(position).getImgUrl())
+                .placeholder(R.drawable.solid_grey_landscape)
+                .error(R.drawable.img_404_landscape)
+                .into(holder.ivThumb);
 
         View[] views = {holder.ivThumb, holder.llFavItem};
 

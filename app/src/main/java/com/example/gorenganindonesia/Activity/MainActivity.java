@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -14,6 +15,7 @@ import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 import com.example.gorenganindonesia.Model.data.Account.Account;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     RecipeViewModel recipeViewModel;
     SharedPreferences sharedPreferences;
 
-    Button btnDebugClearData;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,33 +42,36 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isLogged = sharedPreferences.getBoolean("isLogged", false);
 
-        if(isLogged){
-            Account account = new Account(
-                    sharedPreferences.getString("account_id", "undefined"),
-                    sharedPreferences.getString("account_name", "undefined"),
-                    sharedPreferences.getString("account_username", "undefined"),
-                    sharedPreferences.getString("account_image_url", "undefined"),
-                    sharedPreferences.getString("account_email", "undefined")
-            );
-
-            accountViewModel.setAccount(account);
-
-            System.out.println("Account: " + accountViewModel.getAccount().getValue().toString());
-        } else {
+        if(!isLogged){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             this.finish();
+            return;
         }
 
+        Intent intent = getIntent();
+        String toastMsg = intent.getStringExtra("TOAST_MSG");
+        if(toastMsg != null){
+            if(!toastMsg.isEmpty())
+                new CustomToast(
+                        toastMsg,
+                        LayoutInflater.from(this).inflate(R.layout.activity_main, null)
+                ).show();
+        }
+
+        Account account = new Account(
+                sharedPreferences.getString("account_id", "undefined"),
+                sharedPreferences.getString("account_name", "undefined"),
+                sharedPreferences.getString("account_username", "undefined"),
+                sharedPreferences.getString("account_image_url", "undefined"),
+                sharedPreferences.getString("account_email", "undefined")
+        );
+
+        accountViewModel.setAccount(account);
+
+        System.out.println("Account: " + accountViewModel.getAccount().getValue().toString());
+
         setContentView(R.layout.activity_main);
-
-        btnDebugClearData = (Button) findViewById(R.id.btn_debug_clear_data);
-
-        btnDebugClearData.setOnClickListener(v -> {
-            sharedPreferences.edit().clear().apply();
-            deleteCache(this);
-            clearAppData(this);
-        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 

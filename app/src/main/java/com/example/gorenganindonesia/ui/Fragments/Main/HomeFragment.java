@@ -1,9 +1,12 @@
 package com.example.gorenganindonesia.ui.Fragments.Main;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +19,35 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.API.RecipesService;
+import com.example.gorenganindonesia.API.RetrofitClient;
+import com.example.gorenganindonesia.Activity.LoginActivity;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
+import com.example.gorenganindonesia.Model.api.Recipes.RecipeData;
+import com.example.gorenganindonesia.Model.api.Recipes.GetAllRecipesResponse;
 import com.example.gorenganindonesia.Model.data.Category.CategoryData;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.RecyclerViewItemSpacing;
+import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.databinding.FragmentHomeBinding;
 import com.example.gorenganindonesia.ui.Adapters.CategoryAdapter;
 import com.example.gorenganindonesia.ui.Adapters.RecipeAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
-    List<Recipe> recipes;
+    List<com.example.gorenganindonesia.Model.data.Recipe.Recipe> recipes;
     List<String> categories;
 
     RecyclerView rvReceipt, rvCategory;
@@ -43,14 +61,33 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     RecipeViewModel recipeViewModel;
+    private String token;
+
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        token = "Bearer " + ((GlobalModel) getContext().getApplicationContext()).getSessionManager().getToken();
+        if(token.isEmpty()){
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.putExtra("custom_toast_msg", "Sesi telah berakhir, masuk kembali");
+            startActivity(intent);
+            getActivity().finish();
+        }
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         recipeViewModel = ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel();
 
-        View root = binding.getRoot();
-        categories = CategoryData.generate();
+        root = binding.getRoot();
+
+        recipes = new ArrayList<>();
+        categories = new ArrayList<>();
+
+        getAllRecipesRequest(token);
+
+        binding.llRootLoadingHome.setVisibility(View.VISIBLE);
+
         recipes = recipeViewModel.getAllRecipes().getValue();
 
         int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.receipt_spacing);
@@ -69,8 +106,12 @@ public class HomeFragment extends Fragment {
         rvCategory.setAdapter(categoryAdapter);
         rvCategory.addItemDecoration(new RecyclerViewItemSpacing(getContext(), categorySpacing));
 
-        recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), updatedReceipts -> {
-            recipeAdapter.updateData(updatedReceipts);
+        recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
+            recipeAdapter.updateData(updatedRecipes);
+        });
+
+        recipeViewModel.getCategories().observe(getViewLifecycleOwner(), updatedCategories -> {
+            categoryAdapter.updateData(updatedCategories);
         });
 
         llParentContent = (LinearLayout) binding.llParentContent;
@@ -85,7 +126,8 @@ public class HomeFragment extends Fragment {
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -94,7 +136,8 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         return root;
@@ -104,5 +147,67 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void getAllRecipesRequest(String token){
+        RetrofitClient
+                .getInstance()
+                .create(RecipesService.class)
+                .getAllRecipes(token)
+                .enqueue(new Callback<GetAllRecipesResponse>() {
+                    @Override
+                    public void onResponse(Call<GetAllRecipesResponse> call, Response<GetAllRecipesResponse> response) {
+                        int statusCode = response.code();
+                        binding.llRootLoadingHome.setVisibility(View.INVISIBLE);
+
+                        if (response.isSuccessful()) {
+                            categories = CategoryData.generate();
+
+                            List<Recipe> tempRecipes = new ArrayList<>();
+
+                            for (RecipeData recipeData : response.body().getData()) {
+                                tempRecipes.add(new Recipe(
+                                        recipeData.getId(),
+                                        recipeData.getTitle(),
+                                        recipeData.getUsername(),
+                                        recipeData.getStarRating(),
+                                        recipeData.getCategory(),
+                                        recipeData.getMinuteDuration(),
+                                        recipeData.getImgUrl(),
+                                        recipeData.getDifficulty(),
+                                        recipeData.getPortion(),
+                                        null,
+                                        null
+                                ));
+                            }
+
+                            recipeViewModel.setRecipesData(tempRecipes);
+                            //TODO: Automate category list from available recipes on backend or database!
+                            recipeViewModel.setCategoriesData(CategoryData.generate());
+                        } else {
+                            try {
+                                String errorBody = response.errorBody().string();
+                                Log.e("Status code: ", String.valueOf(statusCode));
+                                Log.e("Error Response Body", errorBody);
+
+                                JSONObject errorJson = new JSONObject(errorBody);
+                                String errorMessage = errorJson.optString("message");
+
+                                new CustomToast("Error: " + errorMessage, root.getRootView()).show();
+
+                            } catch (IOException | JSONException e) {
+                                Log.e("error", e.toString());
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetAllRecipesResponse> call, Throwable t) {
+                        binding.llRootLoadingHome.setVisibility(View.INVISIBLE);
+
+                        new CustomToast("Tidak dapat memuat data dari jaringan", root.getRootView(), false).show();
+                    }
+                });
     }
 }

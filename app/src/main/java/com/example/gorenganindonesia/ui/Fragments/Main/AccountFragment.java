@@ -7,16 +7,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.gorenganindonesia.Activity.LoginActivity;
-import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
+import com.example.gorenganindonesia.Util.SessionManager;
 import com.example.gorenganindonesia.databinding.FragmentAccountBinding;
 
 public class AccountFragment extends Fragment {
@@ -41,12 +40,9 @@ public class AccountFragment extends Fragment {
         );
 
         binding.btnLogoutAccount.setOnClickListener(v -> {
-            clearSharedPreferences();
-
-            getActivity().finish();
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            new CustomToast("Keluar Akun Berhasil", v, false).show();;
-            startActivity(intent);
+            ((GlobalModel) getContext().getApplicationContext())
+                    .getSessionManager()
+                    .logout(getContext(), getActivity(), "Logout berhasil");
         });
 
         return root;
@@ -57,12 +53,4 @@ public class AccountFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    private void clearSharedPreferences() {
-        SharedPreferences preferences = getActivity().getSharedPreferences("gorenganindonesia", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear(); // Clear all data in the preferences
-        editor.apply();
-    }
-
 }

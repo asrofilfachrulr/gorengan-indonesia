@@ -1,5 +1,6 @@
-package com.example.gorenganindonesia.Model.api;
+package com.example.gorenganindonesia.Model.api.Login;
 
+import com.example.gorenganindonesia.Model.api.AccountResponse;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
@@ -9,15 +10,15 @@ public class LoginResponse {
     private String token;
     @SerializedName("error")
     private String error;
+    @SerializedName("account")
+    private AccountResponse accountResponse;
 
-    private Account account;
-
-    public Account getAccount() {
-        return account;
+    public AccountResponse getAccount() {
+        return accountResponse;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccount(AccountResponse accountResponse) {
+        this.accountResponse = accountResponse;
     }
 
     public String getMessage() {

@@ -1,6 +1,5 @@
 package com.example.gorenganindonesia.ui.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gorenganindonesia.CustomToast;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StarFilterAdapter extends RecyclerView.Adapter<StarFilterAdapter.ViewHolder> {
