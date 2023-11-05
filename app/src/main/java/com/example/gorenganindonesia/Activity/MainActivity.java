@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             if(!toastMsg.isEmpty())
                 new CustomToast(
                         toastMsg,
-                        LayoutInflater.from(this).inflate(R.layout.activity_main, null)
+                        LayoutInflater.from(this).inflate(R.layout.fragment_home, null)
                 ).show();
         }
 

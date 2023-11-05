@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:translationZ="10dp"
         android:id="@+id/ib_add_my_receipt"
         style="@style/BgRoundedAccent"
         android:src="@drawable/ic_add_white"
@@ -73,7 +74,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="70dp" />
+                android:layout_height="150dp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
