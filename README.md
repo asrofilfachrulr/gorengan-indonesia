@@ -16,19 +16,33 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 - [x] Filter List Data with Search Keyword
 
 ## TODO
-~~1. change layout on detail activity: move kebab menu to the right of reciept title then replace the its place before with toggle add favourite button~~ 
-~~2. add author name on detail, main also put small profile thumb~~
-~~3. convert necessary toast to has short period~~
-~~4. add logged user data to global model data which use account model~~
-~~5. implement myrecipe fragment~~
-~~6. implement profile fragment (at least the layout + logout)~~
-~~7. implement rating activity (at least the layout + dummy data (optional))~~
-~~8. ensure to reset scroll every changing category or tab~~
-~~9. redesign category tabs so only active tab has solid color~~
-~~10. implement new recipe layout~~
-~~11. implement api request on get recipes~~
-~~12. implement api request on detail recipes (ingredients and steps)~~
-~~13. use image from remote storage file~~
+~~1. change layout on detail activity: move kebab menu to the right of reciept title then replace the its place before with toggle add favourite button~~  
+
+~~2. add author name on detail, main also put small profile thumb~~  
+
+~~3. convert necessary toast to has short period~~  
+
+~~4. add logged user data to global model data which use account model~~  
+
+~~5. implement myrecipe fragment~~  
+
+~~6. implement profile fragment (at least the layout + logout)~~  
+
+~~7. implement rating activity (at least the layout + dummy data (optional))~~  
+
+~~8. ensure to reset scroll every changing category or tab~~  
+
+~~9. redesign category tabs so only active tab has solid color~~  
+
+~~10. implement new recipe layout~~  
+
+~~11. implement api request on get recipes~~  
+
+~~12. implement api request on detail recipes (ingredients and steps)~~  
+
+~~13. use image from remote storage file~~   
+
+
 14. generate rating dummy data on db
 15. implement api request on get ratings
 16. implement sort and filter on rating page
