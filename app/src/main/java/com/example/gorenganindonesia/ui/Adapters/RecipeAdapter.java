@@ -32,7 +32,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.rv = rv;
     }
 
-    public void applyFilterCategory(String category) {
+    public void applyFilterCategory(String category, boolean resetScroll) {
         if (category.toLowerCase().contains("semua")){
             this.dataList = this.originalList;
         } else {
@@ -46,7 +46,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
 
         notifyDataSetChanged();
-        rv.scrollToPosition(0);
+
+        if(resetScroll)
+            rv.scrollToPosition(0);
     }
 
     public void applyFilterTitle(String title) {
@@ -65,11 +67,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         rv.scrollToPosition(0);
     }
 
-    public void updateData(List<Recipe> recipes){
+    public void updateData(List<Recipe> recipes, String currentCategory){
         this.originalList = recipes;
-        this.dataList = recipes;
 
-        notifyDataSetChanged();
+        if(currentCategory.isEmpty() || currentCategory.toLowerCase().contains("semua")){
+            applyFilterCategory("semua", false);
+        } else {
+            applyFilterCategory(currentCategory, false);
+        }
     }
 
     @NonNull
@@ -83,11 +88,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder holder, int position) {
         Recipe recipe = dataList.get(position);
-        String receiptTitle = recipe.getTitle().toString();
 
         Glide
             .with(holder.itemView.getContext())
-            .load(dataList.get(position).getImgUrl())
+            .load(recipe.getImgUrl())
             .placeholder(R.drawable.solid_grey_landscape)
             .error(R.drawable.img_404_landscape)
             .into(holder.ivReceiptThumb);

@@ -21,6 +21,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     final Button[] stateCategory = {null, null}; // {previous, current}
 
+    public String getCurrentCategory(){
+        if(stateCategory[1] != null)
+            return stateCategory[1].getText().toString();
+        return "";
+    }
+
     public CategoryAdapter(List<String> dataList, RecipeAdapter recipeAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
         this.dataList = dataList;
         this.recipeAdapter = recipeAdapter;
@@ -56,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         holder.btnCategory.setOnClickListener(view -> {
-            recipeAdapter.applyFilterCategory(btnText);
+            recipeAdapter.applyFilterCategory(btnText, true);
             receiptRv.scrollToPosition(0);
 
             stateCategory[0] = stateCategory[1];

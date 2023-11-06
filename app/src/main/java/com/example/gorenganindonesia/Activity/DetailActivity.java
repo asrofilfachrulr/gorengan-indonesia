@@ -1,14 +1,8 @@
 package com.example.gorenganindonesia.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,20 +10,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.IngredientsService;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.StepsService;
+import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.api.Recipe.GetStepsResponse;
 import com.example.gorenganindonesia.Model.api.Recipe.GetlIngredientsResponse;
 import com.example.gorenganindonesia.Model.api.Recipe.IngredientData;
 import com.example.gorenganindonesia.Model.api.Recipe.StepData;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
-import com.example.gorenganindonesia.Util.CustomToast;
-import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.ui.Adapters.DetailFragmentAdapter;
 import com.example.gorenganindonesia.ui.Fragments.Detail.IngredientsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.StepsFragment;
@@ -37,13 +35,7 @@ import com.example.gorenganindonesia.ui.Fragments.Detail.SummaryFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,25 +84,25 @@ public class DetailActivity extends AppCompatActivity {
         Recipe recipe = intent.getParcelableExtra("recipe");
         position = intent.getIntExtra("position", -1);
 
-        if(position == -1)
+        if (position == -1)
             this.finish();
 
         Glide
-            .with(this)
-            .load(recipe.getImgUrl())
-            .placeholder(R.drawable.solid_grey_landscape)
-            .error(R.drawable.img_404_landscape)
-            .into(ivThumb);
+                .with(this)
+                .load(recipe.getImgUrl())
+                .placeholder(R.drawable.solid_grey_landscape)
+                .error(R.drawable.img_404_landscape)
+                .into(ivThumb);
 
         btnBack.setOnClickListener(v -> {
-            thisActivity.finish();
+            this.finish();
         });
 
         FavouriteViewModel favViewModel = ((GlobalModel) getApplication()).getFavouriteViewModel();
 
         final boolean[] isReceiptExistInFav = {false};
 
-        if(!favViewModel.ifFavouriteExist(recipe)){
+        if (!favViewModel.ifFavouriteExist(recipe)) {
             btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
         } else {
             btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
@@ -118,7 +110,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         btnToggleFavourite.setOnClickListener(v -> {
-            if(isReceiptExistInFav[0]){
+            if (isReceiptExistInFav[0]) {
                 favViewModel.removeFavourite(recipe);
                 new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
                 btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
@@ -177,7 +169,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-        if(recipe.getIngredients() == null || recipe.getSteps() == null){
+        if (recipe.getIngredients() == null || recipe.getSteps() == null) {
             llRootLoadingDetail.setVisibility(View.VISIBLE);
 
             Ingredient[] ingredientsEmpty = {};
@@ -205,71 +197,71 @@ public class DetailActivity extends AppCompatActivity {
         vp.setAdapter(detailFragmentAdapter);
     }
 
-    private void getIngredientsAPIRequest(String recipeId, String token){
+    private void getIngredientsAPIRequest(String recipeId, String token) {
         RetrofitClient
-            .getInstance()
-            .create(IngredientsService.class)
-            .getIngredientsByRecipeId(recipeId, token)
-            .enqueue(new Callback<GetlIngredientsResponse>() {
-                @Override
-                public void onResponse(Call<GetlIngredientsResponse> call, Response<GetlIngredientsResponse> response) {
-                    if(response.isSuccessful()){
-                        IngredientData[] ingredientData = response.body().getIngredientData();
-                        Ingredient[] ingredients = new Ingredient[ingredientData.length];
+                .getInstance()
+                .create(IngredientsService.class)
+                .getIngredientsByRecipeId(recipeId, token)
+                .enqueue(new Callback<GetlIngredientsResponse>() {
+                    @Override
+                    public void onResponse(Call<GetlIngredientsResponse> call, Response<GetlIngredientsResponse> response) {
+                        if (response.isSuccessful()) {
+                            IngredientData[] ingredientData = response.body().getIngredientData();
+                            Ingredient[] ingredients = new Ingredient[ingredientData.length];
 
-                        for(int i = 0; i < ingredientData.length; i++){
-                            ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
-                        }
+                            for (int i = 0; i < ingredientData.length; i++) {
+                                ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
+                            }
 
-                        ((GlobalModel) getApplication()).getRecipeViewModel().setIngredients(ingredients, position);
-                    } else {
-                        try {
-                            new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
-                        } catch (IOException e) {
-                            new CustomToast("Error Mengolah Data", summaryView, false).show();
+                            ((GlobalModel) getApplication()).getRecipeViewModel().setIngredients(ingredients, position);
+                        } else {
+                            try {
+                                new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
+                            } catch (IOException e) {
+                                new CustomToast("Error Mengolah Data", summaryView, false).show();
+                            }
                         }
+                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
                     }
-                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                }
 
-                @Override
-                public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
-                    new CustomToast("Error Memuat Data", summaryView, false).show();
-                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
+                        new CustomToast("Error Memuat Data", summaryView, false).show();
+                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
+                    }
+                });
     }
 
-    private void getStepsAPIRequest(String recipeId, String token){
+    private void getStepsAPIRequest(String recipeId, String token) {
         RetrofitClient
-            .getInstance()
-            .create(StepsService.class)
-            .getStepsByRecipeId(recipeId, token)
-            .enqueue(new Callback<GetStepsResponse>() {
-                @Override
-                public void onResponse(Call<GetStepsResponse> call, Response<GetStepsResponse> response) {
-                    if(response.isSuccessful()){
-                        String[] steps = new String[response.body().getStepData().length];
-                        for(StepData stepData: response.body().getStepData()){
-                            steps[stepData.getNumber() - 1] = stepData.getStep();
-                        }
+                .getInstance()
+                .create(StepsService.class)
+                .getStepsByRecipeId(recipeId, token)
+                .enqueue(new Callback<GetStepsResponse>() {
+                    @Override
+                    public void onResponse(Call<GetStepsResponse> call, Response<GetStepsResponse> response) {
+                        if (response.isSuccessful()) {
+                            String[] steps = new String[response.body().getStepData().length];
+                            for (StepData stepData : response.body().getStepData()) {
+                                steps[stepData.getNumber() - 1] = stepData.getStep();
+                            }
 
-                        ((GlobalModel) getApplication()).getRecipeViewModel().setSteps(steps, position);
-                    } else {
-                        try {
-                            new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
-                        } catch (IOException e) {
-                            new CustomToast("Error Mengolah Data", summaryView, false).show();
+                            ((GlobalModel) getApplication()).getRecipeViewModel().setSteps(steps, position);
+                        } else {
+                            try {
+                                new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
+                            } catch (IOException e) {
+                                new CustomToast("Error Mengolah Data", summaryView, false).show();
+                            }
                         }
+                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
                     }
-                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                }
 
-                @Override
-                public void onFailure(Call<GetStepsResponse> call, Throwable t) {
-                    new CustomToast("Error Memuat Data", summaryView, false).show();
-                    llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<GetStepsResponse> call, Throwable t) {
+                        new CustomToast("Error Memuat Data", summaryView, false).show();
+                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
+                    }
+                });
     }
 }

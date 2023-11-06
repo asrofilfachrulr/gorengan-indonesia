@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
         rvCategory.addItemDecoration(new RecyclerViewItemSpacing(getContext(), categorySpacing));
 
         recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
-            recipeAdapter.updateData(updatedRecipes);
+            recipeAdapter.updateData(updatedRecipes, categoryAdapter.getCurrentCategory());
         });
 
         recipeViewModel.getCategories().observe(getViewLifecycleOwner(), updatedCategories -> {
@@ -141,6 +141,14 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+//        new CustomToast("Current Category: " + categoryAdapter.getCurrentCategory(), getView().getRootView(), false).show();
     }
 
     @Override
