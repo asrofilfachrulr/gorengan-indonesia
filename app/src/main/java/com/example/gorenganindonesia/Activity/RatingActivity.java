@@ -1,54 +1,94 @@
 package com.example.gorenganindonesia.Activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuInflater;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import android.widget.TextView;
-
-import com.example.gorenganindonesia.Util.CustomToast;
+import com.example.gorenganindonesia.API.RetrofitClient;
+import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
+import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.api.Recipe.Ratings.GetRatingsResponse;
+import com.example.gorenganindonesia.Model.api.Recipe.Ratings.RatingData;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
-import com.example.gorenganindonesia.Model.data.Rating.RatingData;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
 import com.example.gorenganindonesia.ui.Adapters.StarFilterAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RatingActivity extends AppCompatActivity {
-    TextView tvTitle, tvStar;
+    TextView tvTitle, tvStar, tvRatingCount;
     ImageButton ibSort, ibBack;
+    ProgressBar pb5, pb4, pb3, pb2, pb1;
     RecyclerView rvStarFilter, rvRating;
+    Map<Integer, Integer> starCountMap = new HashMap<>();
+    LinearLayout llRootLoadingRating;
     Recipe recipe;
+    int index;
+    View view;
+
+    List<Rating> ratings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
 
+        view = LayoutInflater.from(this).inflate(R.layout.activity_rating, null);
+
         Intent intent = getIntent();
-        recipe = intent.getParcelableExtra("receipt");
+        recipe = intent.getParcelableExtra("recipe");
+        index = intent.getIntExtra("index", -1);
+
+        if (index == -1) this.finish();
 
         tvStar = (TextView) findViewById(R.id.tv_star_rating);
         tvTitle = (TextView) findViewById(R.id.tv_title_rating);
+        tvRatingCount = (TextView) findViewById(R.id.tv_ratingcount_rating);
 
         ibSort = (ImageButton) findViewById(R.id.ib_sort_rating);
         ibBack = (ImageButton) findViewById(R.id.ib_back_rating);
 
+        pb5 = (ProgressBar) findViewById(R.id.pb_5_rating);
+        pb4 = (ProgressBar) findViewById(R.id.pb_4_rating);
+        pb3 = (ProgressBar) findViewById(R.id.pb_3_rating);
+        pb2 = (ProgressBar) findViewById(R.id.pb_2_rating);
+        pb1 = (ProgressBar) findViewById(R.id.pb_1_rating);
+
+
+        llRootLoadingRating = (LinearLayout) findViewById(R.id.ll_root_loading_rating);
+
         rvRating = (RecyclerView) findViewById(R.id.rv_rating);
         rvStarFilter = (RecyclerView) findViewById(R.id.rv_rating_star_fitler);
 
-        tvTitle.setText(recipe.getTitle().toString());
-        tvStar.setText(recipe.getRatingStar() + "/5.0");
+        tvTitle.setText(recipe.getTitle());
+        tvStar.setText(String.valueOf(recipe.getStars()) + "/5.0");
+        tvRatingCount.setText("(0 Ulasan)");
 
         List<String> stars = new ArrayList<>();
 
@@ -59,14 +99,12 @@ public class RatingActivity extends AppCompatActivity {
         stars.add("2");
         stars.add("1");
 
-        StarFilterAdapter starAdapter = new StarFilterAdapter(stars);
-        LinearLayoutManager starLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvStarFilter.setLayoutManager(starLinearLayoutManager);
-        rvStarFilter.setAdapter(starAdapter);
-        rvStarFilter.addItemDecoration(new RecyclerViewItemSpacing(this, 10));
+        ratings = new ArrayList<>();
 
-        //TODO: change to real rating data when API is ready, bind rating to receipt object
-        List<Rating> ratings = RatingData.generate();
+        llRootLoadingRating.setVisibility(View.VISIBLE);
+        getRatings(recipe.getId());
+
+
         RatingAdapter ratingAdapter = new RatingAdapter(ratings);
         LinearLayoutManager ratingLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRating.setLayoutManager(ratingLinearLayoutManager);
@@ -74,16 +112,40 @@ public class RatingActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvRating.getContext(), DividerItemDecoration.VERTICAL);
         rvRating.addItemDecoration(dividerItemDecoration);
 
+        StarFilterAdapter starAdapter = new StarFilterAdapter(stars, ratingAdapter);
+        LinearLayoutManager starLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvStarFilter.setLayoutManager(starLinearLayoutManager);
+        rvStarFilter.setAdapter(starAdapter);
+        rvStarFilter.addItemDecoration(new RecyclerViewItemSpacing(this, 10));
+
+
+        ((GlobalModel) getApplication()).getRecipeViewModel().getAllRecipes().observe(this, updatedData -> {
+            if (updatedData.get(index).getRatings() != null) {
+                ratingAdapter.updateData(Arrays.asList(updatedData.get(index).getRatings()));
+                tvRatingCount.setText("(" + String.valueOf(updatedData.get(index).getRatings().length) + " Ulasan)");
+
+                initMapperPbRating();
+
+                updateStarCountMapper(updatedData.get(index).getRatings());
+                updatePbRating(updatedData.get(index).getRatings().length);
+
+                rvRating.scrollToPosition(0);
+                view.scrollTo(0,0);
+            }
+        });
+
         ibSort.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(this, v);
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.sort_rating_menu, popupMenu.getMenu());
 
             popupMenu.setOnMenuItemClickListener(item -> {
-                if(item.equals(R.id.menu_sort_latest)){
-                    new CustomToast("Urutkan Terbaru...", v, false).show();
-                } else if (item.equals(R.id.menu_sort_most_popular)) {
-                    new CustomToast("Urutkan Paling Populer...", v, false).show();
+                llRootLoadingRating.setVisibility(View.VISIBLE);
+
+                if (item.getItemId() == R.id.menu_sort_latest) {
+                    getRatings(recipe.getId(), "date");
+                } else if (item.getItemId() == R.id.menu_sort_most_popular) {
+                    getRatings(recipe.getId(), "like_count");
                 }
 
                 return true;
@@ -96,5 +158,104 @@ public class RatingActivity extends AppCompatActivity {
             this.finish();
         });
 
+    }
+
+    public void initMapperPbRating(){
+        starCountMap = new HashMap<>();
+
+        starCountMap.put(5,0);
+        starCountMap.put(4,0);
+        starCountMap.put(3,0);
+        starCountMap.put(2,0);
+        starCountMap.put(1,0);
+    }
+
+    // only invoked when ratings is populated
+    private void updateStarCountMapper(Rating[] ratings) {
+        for(Rating rating: ratings){
+            switch (rating.getStarCount()){
+                case 5:
+                    starCountMap.put(5, starCountMap.get(5) + 1);
+                    break;
+                case 4:
+                    starCountMap.put(4, starCountMap.get(4) + 1);
+                    break;
+                case 3:
+                    starCountMap.put(3, starCountMap.get(3) + 1);
+                    break;
+                case 2:
+                    starCountMap.put(2, starCountMap.get(2) + 1);
+                    break;
+                case 1:
+                    starCountMap.put(1, starCountMap.get(1) + 1);
+                    break;
+            }
+        }
+    }
+
+    private void updatePbRating(int total){
+        starCountMap.forEach((key, value) -> System.out.println(key + " " + value));
+
+        pb5.setProgress(Math.round((100 * starCountMap.get(5)) / total));
+        pb4.setProgress(Math.round((100 * starCountMap.get(4)) / total));
+        pb3.setProgress(Math.round((100 * starCountMap.get(3)) / total));
+        pb2.setProgress(Math.round((100 * starCountMap.get(2)) / total));
+        pb1.setProgress(Math.round((100 * starCountMap.get(1)) / total));
+    }
+
+    private void getRatings(String recipeId) {
+        getRatingsAPIRequest(recipeId, "date");
+    }
+
+    private void getRatings(String recipeId, String queryOrder) {
+        getRatingsAPIRequest(recipeId, queryOrder);
+    }
+
+    private void getRatingsAPIRequest(String recipeId, String queryOrder) {
+        String token = "Bearer " + ((GlobalModel) getApplication()).getSessionManager().getToken();
+
+        RetrofitClient
+                .getInstance()
+                .create(RatingsService.class)
+                .getRatingsByRecipeId(recipeId, token, queryOrder)
+                .enqueue(new Callback<GetRatingsResponse>() {
+                    @Override
+                    public void onResponse(Call<GetRatingsResponse> call, Response<GetRatingsResponse> response) {
+                        llRootLoadingRating.setVisibility(View.INVISIBLE);
+
+                        if (response.isSuccessful()) {
+                            RatingData[] ratingData = response.body().getRatingData();
+                            final int sz = ratingData.length;
+                            Rating[] ratings = new Rating[sz];
+
+                            for (int i = 0; i < sz; i++) {
+                                Rating rating = new Rating(
+                                        ratingData[i].getComment(),
+                                        ratingData[i].getDate(),
+                                        ratingData[i].getUsername(),
+                                        ratingData[i].getStars(),
+                                        ratingData[i].getThumbUrl(),
+                                        ratingData[i].getLikeCount()
+                                );
+
+                                ratings[i] = rating;
+                            }
+
+                            ((GlobalModel) getApplication()).getRecipeViewModel().setRatings(ratings, index);
+                        } else {
+                            try {
+                                new CustomToast("Error Mengolah Data: " + response.errorBody().string(), view, false).show();
+                            } catch (IOException e) {
+                                new CustomToast("Error Mengolah Data", view, false).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetRatingsResponse> call, Throwable t) {
+                        llRootLoadingRating.setVisibility(View.INVISIBLE);
+                        new CustomToast("Error Memuat Data", view, false).show();
+                    }
+                });
     }
 }

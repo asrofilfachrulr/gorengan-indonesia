@@ -101,7 +101,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
         holder.tvDuration.setText(String.valueOf(recipe.getMinuteDuration()) + "mnt");
         holder.tvAuthorUsername.setText("@" + recipe.getAuthorUsername().toString());
-        holder.tvRatingStar.setText(recipe.getRatingStar().toString());
+        holder.tvRatingStar.setText(String.valueOf(recipe.getStars()));
 
         holder.cvReceipt.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);

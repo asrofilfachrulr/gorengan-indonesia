@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_thumb_rating"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/baseline_account_circle_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +18,7 @@
         android:id="@+id/tv_name_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="7dp"
         android:text="\@nuramaliarizkia"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -60,7 +60,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@id/iv_thumb_rating"
@@ -104,11 +104,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/open_sans_regular"
-        android:lineHeight="32dp"
-        android:minHeight="70dp"
+
+        android:minHeight="50dp"
         android:text="@string/lorem_short"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_thumb_rating" />
 </androidx.constraintlayout.widget.ConstraintLayout>

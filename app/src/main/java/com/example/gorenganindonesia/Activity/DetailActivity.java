@@ -20,10 +20,10 @@ import com.example.gorenganindonesia.API.Services.recipe.recipeId.IngredientsSer
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.StepsService;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
-import com.example.gorenganindonesia.Model.api.Recipe.GetStepsResponse;
-import com.example.gorenganindonesia.Model.api.Recipe.GetlIngredientsResponse;
-import com.example.gorenganindonesia.Model.api.Recipe.IngredientData;
-import com.example.gorenganindonesia.Model.api.Recipe.StepData;
+import com.example.gorenganindonesia.Model.api.Recipe.Steps.GetStepsResponse;
+import com.example.gorenganindonesia.Model.api.Recipe.Ingredients.GetlIngredientsResponse;
+import com.example.gorenganindonesia.Model.api.Recipe.Ingredients.IngredientData;
+import com.example.gorenganindonesia.Model.api.Recipe.Steps.StepData;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;

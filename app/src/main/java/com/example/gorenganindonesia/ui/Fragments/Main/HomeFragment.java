@@ -178,12 +178,13 @@ public class HomeFragment extends Fragment {
                                         recipeData.getId(),
                                         recipeData.getTitle(),
                                         recipeData.getUsername(),
-                                        recipeData.getStarRating(),
+                                        recipeData.getStars(),
                                         recipeData.getCategory(),
                                         recipeData.getMinuteDuration(),
                                         recipeData.getImgUrl(),
                                         recipeData.getDifficulty(),
                                         recipeData.getPortion(),
+                                        null,
                                         null,
                                         null
                                 ));

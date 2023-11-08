@@ -13,8 +13,8 @@ public class RecipeData {
     private int portion;
     @SerializedName("minute_duration")
     private int minuteDuration;
-    @SerializedName("star_rating")
-    private String starRating;
+    @SerializedName("stars")
+    private float stars;
 
     public String getId() {
         return id;
@@ -80,11 +80,11 @@ public class RecipeData {
         this.minuteDuration = minuteDuration;
     }
 
-    public String getStarRating() {
-        return starRating;
+    public float getStars() {
+        return stars;
     }
 
-    public void setStarRating(String starRating) {
-        this.starRating = starRating;
+    public void setStars(float stars) {
+        this.stars = stars;
     }
 }

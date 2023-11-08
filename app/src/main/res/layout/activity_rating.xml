@@ -7,6 +7,34 @@
     tools:context=".Activity.RatingActivity">
 
     <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/ll_root_loading_rating"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#9E020202"
+        android:gravity="center"
+        android:translationZ="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="memuat ulasan..." />
+        <ProgressBar
+            android:layout_marginTop="14sp"
+            android:id="@+id/pb_login"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_top_rating"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -75,10 +103,11 @@
                         android:textSize="24sp" />
 
                     <TextView
+                        android:id="@+id/tv_ratingcount_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="(128 ulasan)" />
+                        android:text="(0 ulasan)" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -219,26 +248,34 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_filter_and_sort_rating"
                 android:layout_marginTop="14dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="horizontal"
-                android:gravity="top|end">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:orientation="horizontal">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_rating_star_fitler"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
                     tools:itemCount="1"
                     tools:listitem="@layout/star_item"/>
                 <ImageButton
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/ib_sort_rating"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_filter_solid"
                     android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="end"/>
-            </LinearLayout>
+                    android:layout_height="48dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_rating"
                 tools:listitem="@layout/rating_item"

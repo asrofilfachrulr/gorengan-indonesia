@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
+import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Model.data.Recipe.RecipeData;
 
@@ -148,6 +149,16 @@ public class RecipeViewModel extends ViewModel {
 
         Recipe r = recipes.get(position);
         r.setSteps(steps);
+        recipes.set(position, r);
+
+        mRecipes.setValue(recipes);
+    }
+
+    public void setRatings(Rating[] ratings, int position) {
+        List<Recipe> recipes = mRecipes.getValue();
+
+        Recipe r = recipes.get(position);
+        r.setRatings(ratings);
         recipes.set(position, r);
 
         mRecipes.setValue(recipes);

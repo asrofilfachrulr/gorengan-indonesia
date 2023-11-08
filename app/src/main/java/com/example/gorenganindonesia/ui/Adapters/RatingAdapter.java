@@ -10,17 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.DateHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder>{
     List<Rating> dataList;
+    List<Rating> originalList;
 
     public RatingAdapter(List<Rating> dataList){
         this.dataList = dataList;
+        this.originalList = dataList;
     }
 
     @NonNull
@@ -34,22 +39,56 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RatingAdapter.ViewHolder holder, int position) {
-        //TODO: set image resource to real image when API is ready
-//        holder.ivThumb.setImageResource(dataList.get(position).getImageUrl());
+        Rating rating = dataList.get(position);
 
-        holder.tvName.setText("@" + dataList.get(position).getAuthorUsername().toString());
-        holder.tvText.setText(dataList.get(position).getContent().toString());
-        holder.tvTime.setText(dataList.get(position).getTime().toString());
-        holder.tvLikeCount.setText(String.valueOf(dataList.get(position).getLikeCount()));
+        Glide
+            .with(holder.itemView.getContext())
+            .load(rating.getThumbUrl())
+            .placeholder(R.drawable.solid_grey_landscape)
+            .error(R.drawable.img_404_landscape)
+            .into(holder.ivThumb);
+
+        holder.tvName.setText("@" + rating.getAuthorUsername());
+        holder.tvText.setText(rating.getComment());
+        holder.tvTime.setText(DateHelper.getHumanReadableDate(rating.getDate()));
+        holder.tvLikeCount.setText(String.valueOf(rating.getLikeCount()));
 
         holder.ibToggleLike.setOnClickListener(v -> {
             new CustomToast("Like clicked!", v, false).show();
         });
 
         ImageView[] target = {holder.ivStar1, holder.ivStar2, holder.ivStar3, holder.ivStar4, holder.ivStar5};
-        for(int star = 0; star < dataList.get(position).getStarCount(); star++){
+        for(int star = 0; star < rating.getStarCount(); star++){
             target[star].setImageResource(R.drawable.ic_star_solid_yellow);
         }
+    }
+
+    public void filterByStar(String star){
+        if(star.toLowerCase().contains("semua")){
+            this.dataList = this.originalList;
+        } else {
+            try{
+                int starInt = Integer.parseInt(star);
+
+                List<Rating> filteredRating = new ArrayList<>();
+                for(Rating rating: originalList)
+                    if(rating.getStarCount() == starInt)
+                        filteredRating.add(rating);
+
+                this.dataList = filteredRating;
+            } catch (RuntimeException e){
+
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+    public void updateData(List<Rating> updatedDataList){
+        this.dataList = updatedDataList;
+        this.originalList = updatedDataList;
+
+        notifyDataSetChanged();
     }
 
     @Override

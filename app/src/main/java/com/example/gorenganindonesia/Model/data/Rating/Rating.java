@@ -5,29 +5,31 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Date;
+
 public class Rating implements Parcelable {
-    private String content;
-    private String time;
+    private String comment;
+    private Date date;
     private String authorUsername;
     private int starCount;
-    private String imageUrl;
+    private String thumbUrl;
     private int likeCount;
 
-    public Rating(String content, String time, String authorUsername, int starCount, String imageUrl, int likeCount) {
-        this.content = content;
-        this.time = time;
+    public Rating(String comment, Date date, String authorUsername, int starCount, String thumbUrl, int likeCount) {
+        this.comment = comment;
+        this.date = date;
         this.authorUsername = authorUsername;
         this.starCount = starCount;
-        this.imageUrl = imageUrl;
+        this.thumbUrl = thumbUrl;
         this.likeCount = likeCount;
     }
 
     protected Rating(Parcel in) {
-        content = in.readString();
-        time = in.readString();
+        comment = in.readString();
+        date = new Date(in.readLong());
         authorUsername = in.readString();
         starCount = in.readInt();
-        imageUrl = in.readString();
+        thumbUrl = in.readString();
         likeCount = in.readInt();
     }
 
@@ -43,20 +45,20 @@ public class Rating implements Parcelable {
         }
     };
 
-    public String getContent() {
-        return content;
+    public String getComment() {
+        return comment;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public String getTime() {
-        return time;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getStarCount() {
@@ -67,12 +69,12 @@ public class Rating implements Parcelable {
         this.starCount = starCount;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getThumbUrl() {
+        return thumbUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
     }
 
     public String getAuthorUsername() {
@@ -98,10 +100,10 @@ public class Rating implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(content);
-        dest.writeString(time);
+        dest.writeString(comment);
+        dest.writeLong(date.getTime());
         dest.writeString(authorUsername);
-        dest.writeString(imageUrl);
+        dest.writeString(thumbUrl);
         dest.writeInt(starCount);
         dest.writeInt(likeCount);
     }

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
+import com.example.gorenganindonesia.Model.data.Rating.Rating;
 
 public class Recipe implements Parcelable {
     private String id;
@@ -16,17 +17,17 @@ public class Recipe implements Parcelable {
     private String imgUrl;
     private String difficulty;
     private int portion;
-    private String ratingStar;
+    private float stars;
     private Ingredient[] ingredients;
 
     private String[] steps;
+    private Rating[] ratings;
 
-
-    public Recipe(String id, String title, String authorUsername, String ratingStar, String category, int minuteDuration, String imgUrl, String difficulty, int portion, String[] steps, Ingredient[] ingredients) {
+    public Recipe(String id, String title, String authorUsername, float stars, String category, int minuteDuration, String imgUrl, String difficulty, int portion, String[] steps, Ingredient[] ingredients, Rating[] ratings) {
         this.id = id;
         this.title = title;
         this.authorUsername = authorUsername;
-        this.ratingStar = ratingStar;
+        this.stars = stars;
         this.category = category;
         this.minuteDuration = minuteDuration;
         this.imgUrl = imgUrl;
@@ -34,6 +35,7 @@ public class Recipe implements Parcelable {
         this.portion = portion;
         this.steps = steps;
         this.ingredients = ingredients;
+        this.ratings = ratings;
     }
 
     public String getId() {
@@ -116,12 +118,20 @@ public class Recipe implements Parcelable {
         this.authorUsername = authorUsername;
     }
 
-    public String getRatingStar() {
-        return ratingStar;
+    public float getStars() {
+        return stars;
     }
 
-    public void setRatingStar(String ratingStar) {
-        this.ratingStar = ratingStar;
+    public void setStars(float stars) {
+        this.stars = stars;
+    }
+
+    public Rating[] getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Rating[] ratings) {
+        this.ratings = ratings;
     }
 
     // Implement the Parcelable.Creator for Receipt
@@ -141,7 +151,7 @@ public class Recipe implements Parcelable {
         id = in.readString();
         title = in.readString();
         authorUsername = in.readString();
-        ratingStar = in.readString();
+        stars = in.readFloat();
         category = in.readString();
         minuteDuration = in.readInt();
         imgUrl = in.readString();
@@ -149,6 +159,7 @@ public class Recipe implements Parcelable {
         portion = in.readInt();
         steps = in.createStringArray();
         ingredients = in.createTypedArray(Ingredient.CREATOR);
+        ratings = in.createTypedArray(Rating.CREATOR);
     }
 
     @Override
@@ -156,7 +167,7 @@ public class Recipe implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(title);
         parcel.writeString(authorUsername);
-        parcel.writeString(ratingStar);
+        parcel.writeFloat(stars);
         parcel.writeString(category);
         parcel.writeInt(minuteDuration);
         parcel.writeString(imgUrl);
@@ -164,6 +175,7 @@ public class Recipe implements Parcelable {
         parcel.writeInt(portion);
         parcel.writeStringArray(steps);
         parcel.writeTypedArray(ingredients, flags);
+        parcel.writeTypedArray(ratings, flags);
     }
 
     @Override
@@ -174,7 +186,7 @@ public class Recipe implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n⭐" + getRatingStar() + " oleh @" + getAuthorUsername() + "\n\n" + "Bahan:";
+        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n⭐" + getStars() + " oleh @" + getAuthorUsername() + "\n\n" + "Bahan:";
 
         for(int i = 0; i < getIngredients().length; i++){
             text += "\n" + String.valueOf(i+1) + ". ";

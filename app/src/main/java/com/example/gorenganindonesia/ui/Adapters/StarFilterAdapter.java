@@ -15,9 +15,11 @@ import java.util.List;
 
 public class StarFilterAdapter extends RecyclerView.Adapter<StarFilterAdapter.ViewHolder> {
     private List<String> dataList;
+    private RatingAdapter ratingAdapter;
 
-    public StarFilterAdapter(List<String> dataList){
+    public StarFilterAdapter(List<String> dataList, RatingAdapter ratingAdapter){
         this.dataList = dataList;
+        this.ratingAdapter = ratingAdapter;
     }
 
     @NonNull
@@ -36,12 +38,11 @@ public class StarFilterAdapter extends RecyclerView.Adapter<StarFilterAdapter.Vi
             holder.btnFilterStarRating.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         }
 
-        holder.btnFilterStarRating.setOnClickListener(v -> applyFilterStar(dataList.get(position), v));
+        holder.btnFilterStarRating.setOnClickListener(v -> applyFilterStar(dataList.get(position)));
     }
 
-    public void applyFilterStar(String star, View v) {
-        //TODO: Complete filter on rating based on star count
-        new CustomToast(star + " filter clicked", v, false).show();
+    public void applyFilterStar(String star) {
+        ratingAdapter.filterByStar(star);
     }
 
     @Override

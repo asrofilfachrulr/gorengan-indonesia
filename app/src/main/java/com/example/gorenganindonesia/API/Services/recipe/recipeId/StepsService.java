@@ -1,6 +1,6 @@
 package com.example.gorenganindonesia.API.Services.recipe.recipeId;
 
-import com.example.gorenganindonesia.Model.api.Recipe.GetStepsResponse;
+import com.example.gorenganindonesia.Model.api.Recipe.Steps.GetStepsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

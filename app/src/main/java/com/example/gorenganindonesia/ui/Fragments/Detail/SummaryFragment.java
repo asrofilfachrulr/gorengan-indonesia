@@ -75,7 +75,7 @@ public class SummaryFragment extends Fragment {
         tvStep.setText(String.valueOf(recipe.getSteps().length) + " Langkah");
         tvIngridient.setText(String.valueOf(recipe.getIngredients().length) + " Bahan");
         tvAuthorUsername.setText("Resep oleh @"+ recipe.getAuthorUsername().toString());
-        tvStarRating.setText(recipe.getRatingStar().toString());
+        tvStarRating.setText(String.valueOf(recipe.getStars()));
 
         llSteps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +123,8 @@ public class SummaryFragment extends Fragment {
         btnSeeUserRating.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             Intent intent = new Intent(getContext(), RatingActivity.class);
-            intent.putExtra("receipt", recipe);
+            intent.putExtra("recipe", recipe);
+            intent.putExtra("index", index);
             getContext().startActivity(intent);
         });
 

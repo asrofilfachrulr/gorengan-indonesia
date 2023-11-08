@@ -1,4 +1,4 @@
-package com.example.gorenganindonesia.Model.api.Recipe;
+package com.example.gorenganindonesia.Model.api.Recipe.Ingredients;
 
 public class IngredientData {
     private String qty;
