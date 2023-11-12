@@ -2,7 +2,7 @@ package com.example.gorenganindonesia.Model.api.Login;
 
 public class LoginRequest {
     private String identifier;
-    private String password;
+        private String password;
 
     public LoginRequest(String identifier, String password) {
         this.identifier = identifier;

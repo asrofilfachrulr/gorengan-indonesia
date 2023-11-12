@@ -58,8 +58,11 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
         });
 
         ImageView[] target = {holder.ivStar1, holder.ivStar2, holder.ivStar3, holder.ivStar4, holder.ivStar5};
-        for(int star = 0; star < rating.getStarCount(); star++){
-            target[star].setImageResource(R.drawable.ic_star_solid_yellow);
+        for(int star = 0; star < target.length; star++){
+            if(star < rating.getStarCount())
+                target[star].setImageResource(R.drawable.ic_star_solid_yellow);
+            else
+                target[star].setImageResource(R.drawable.ic_star_outline_yellow);
         }
     }
 
