@@ -7,7 +7,7 @@
     tools:context=".Activity.RatingActivity">
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/ll_root_loading_rating"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,12 +20,13 @@
         android:gravity="center"
         android:translationZ="10dp">
         <TextView
+            android:id="@+id/tv_root_loading_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:fontFamily="@font/open_sans_semibold"
-            android:text="memuat ulasan..." />
+            android:text="memuat..." />
         <ProgressBar
             android:layout_marginTop="14sp"
             android:id="@+id/pb_login"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -19,24 +20,50 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.RetrofitClient;
+import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
 import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.DateHelper;
 import com.example.gorenganindonesia.ui.Fragments.Rating.OptionEditFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder>{
     List<Rating> dataList;
     List<Rating> originalList;
     FragmentManager fragmentManager;
+    String recipeId;
+    Runnable getRatingsCallback;
 
-    public RatingAdapter(List<Rating> dataList, FragmentManager fragmentManager){
+    TextView tvLoading;
+    LinearLayout llRootLoading;
+
+    public RatingAdapter(
+            List<Rating> dataList,
+            String recipeId,
+            Runnable getRatingsCallback,
+            TextView tvLoading,
+            LinearLayout llRootLoading,
+            FragmentManager fragmentManager
+    ){
         this.dataList = dataList;
         this.originalList = dataList;
+        this.recipeId = recipeId;
+
+        this.getRatingsCallback = getRatingsCallback;
+
+        this.tvLoading = tvLoading;
+        this.llRootLoading = llRootLoading;
 
         this.fragmentManager = fragmentManager;
     }
@@ -102,11 +129,45 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage("Apakah Anda yakin menghapus ulasan ini?")
                             .setPositiveButton("Hapus", (dialog, which) -> {
+                                String token = "Bearer " +
+                                        ((GlobalModel) holder.view.getContext()
+                                        .getApplicationContext())
+                                            .getSessionManager()
+                                            .getToken();
 
+                                tvLoading.setText("Menghapus ulasan...");
+                                llRootLoading.setVisibility(View.VISIBLE);
+
+                                RetrofitClient
+                                        .getInstance()
+                                        .create(RatingsService.class)
+                                        .deleteRatingByRecipeId(recipeId, token)
+                                        .enqueue(new Callback<BasicResponse>() {
+                                            @Override
+                                            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                                                if(response.isSuccessful()){
+                                                    // update rating
+                                                    getRatingsCallback.run();
+
+                                                    new CustomToast("Ulasan berhasil dihapus", holder.view, false).show();
+                                                } else {
+                                                    llRootLoading.setVisibility(View.GONE);
+                                                    try {
+                                                        new CustomToast("Error Mengolah Data: " + response.errorBody().string(), holder.view, false).show();
+                                                    } catch (IOException e) {
+                                                        new CustomToast("Error Mengolah Data", holder.view, false).show();
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                                                llRootLoading.setVisibility(View.GONE);
+                                                new CustomToast("Error Jaringan", holder.view, false).show();
+                                            }
+                                        });
                             })
-                            .setNegativeButton("Batal", (dialog, which) -> {
-
-                            });
+                            .setNegativeButton("Batal", (dialog, which) -> {});
 
                     builder.create().show();
                 } else {

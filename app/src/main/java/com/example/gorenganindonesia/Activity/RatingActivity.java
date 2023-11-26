@@ -48,7 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RatingActivity extends AppCompatActivity {
-    TextView tvTitle, tvStar, tvRatingCount;
+    TextView tvTitle, tvStar, tvRatingCount, tvLoading;
     ImageButton ibBack;
     ProgressBar pb5, pb4, pb3, pb2, pb1;
     RecyclerView rvStarFilter, rvRating;
@@ -76,6 +76,7 @@ public class RatingActivity extends AppCompatActivity {
         tvStar = (TextView) findViewById(R.id.tv_star_rating);
         tvTitle = (TextView) findViewById(R.id.tv_title_rating);
         tvRatingCount = (TextView) findViewById(R.id.tv_ratingcount_rating);
+        tvLoading = (TextView) findViewById(R.id.tv_root_loading_rating);
 
         ibBack = (ImageButton) findViewById(R.id.ib_back_rating);
 
@@ -108,11 +109,15 @@ public class RatingActivity extends AppCompatActivity {
 
         ratings = new ArrayList<>();
 
-        llRootLoadingRating.setVisibility(View.VISIBLE);
-        getRatings(recipe.getId());
+        Runnable getRatingsCallback = () -> {
+            llRootLoadingRating.setVisibility(View.VISIBLE);
+            tvLoading.setText("Memuat Ulasan...");
+            getRatings(recipe.getId());
+        };
 
+        getRatingsCallback.run();
 
-        RatingAdapter ratingAdapter = new RatingAdapter(ratings, getSupportFragmentManager());
+        RatingAdapter ratingAdapter = new RatingAdapter(ratings, recipe.getId(), getRatingsCallback, tvLoading, llRootLoadingRating, getSupportFragmentManager());
         LinearLayoutManager ratingLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRating.setLayoutManager(ratingLinearLayoutManager);
         rvRating.setAdapter(ratingAdapter);
@@ -203,7 +208,7 @@ public class RatingActivity extends AppCompatActivity {
                 .enqueue(new Callback<GetRatingsResponse>() {
                     @Override
                     public void onResponse(Call<GetRatingsResponse> call, Response<GetRatingsResponse> response) {
-                        llRootLoadingRating.setVisibility(View.INVISIBLE);
+                        llRootLoadingRating.setVisibility(View.GONE);
 
                         if (response.isSuccessful()) {
                             RatingData[] ratingData = response.body().getRatingData();
@@ -235,7 +240,7 @@ public class RatingActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<GetRatingsResponse> call, Throwable t) {
-                        llRootLoadingRating.setVisibility(View.INVISIBLE);
+                        llRootLoadingRating.setVisibility(View.GONE);
                         new CustomToast("Error Memuat Data", view, false).show();
                     }
                 });
