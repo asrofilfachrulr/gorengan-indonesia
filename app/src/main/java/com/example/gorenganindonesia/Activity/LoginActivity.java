@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                                     AccountViewModel accountViewModel = ((GlobalModel) getApplication()).getAccountViewModel();
                                     accountViewModel.setAccount(account);
 
-                                    System.out.println("Account: " + accountViewModel.getAccount().getValue().toString());
+                                    System.out.println("Account: " + accountViewModel.getLiveAccount().getValue().toString());
 
                                     llRootLoadingLogin.setVisibility(View.INVISIBLE);
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    app:cardCornerRadius="24dp">
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_medium"
+            android:text="Edit Ulasan"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Rating"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ib_rating_option_edit_star_1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_star_outline_yellow" />
+
+            <ImageButton
+                android:id="@+id/ib_rating_option_edit_star_2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_star_outline_yellow" />
+
+            <ImageButton
+                android:id="@+id/ib_rating_option_edit_star_3"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_star_outline_yellow" />
+
+            <ImageButton
+                android:id="@+id/ib_rating_option_edit_star_4"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_star_outline_yellow" />
+
+            <ImageButton
+                android:id="@+id/ib_rating_option_edit_star_5"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_star_outline_yellow" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Komentar"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/et_rating_option_edit_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:minLines="3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_rating_option_edit_cancel"
+                style="@style/btn_transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="Batal" />
+
+            <Button
+                android:id="@+id/btn_rating_option_edit_save"
+                style="@style/btn_accent_solid_rounded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Simpan" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,11 +1,16 @@
 package com.example.gorenganindonesia.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -29,6 +34,7 @@ import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
 import com.example.gorenganindonesia.ui.Adapters.StarFilterAdapter;
+import com.example.gorenganindonesia.ui.View.EmptySpaceView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +49,7 @@ import retrofit2.Response;
 
 public class RatingActivity extends AppCompatActivity {
     TextView tvTitle, tvStar, tvRatingCount;
-    ImageButton ibSort, ibBack;
+    ImageButton ibBack;
     ProgressBar pb5, pb4, pb3, pb2, pb1;
     RecyclerView rvStarFilter, rvRating;
     Map<Integer, Integer> starCountMap = new HashMap<>();
@@ -71,7 +77,6 @@ public class RatingActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title_rating);
         tvRatingCount = (TextView) findViewById(R.id.tv_ratingcount_rating);
 
-        ibSort = (ImageButton) findViewById(R.id.ib_sort_rating);
         ibBack = (ImageButton) findViewById(R.id.ib_back_rating);
 
         pb5 = (ProgressBar) findViewById(R.id.pb_5_rating);
@@ -80,8 +85,9 @@ public class RatingActivity extends AppCompatActivity {
         pb2 = (ProgressBar) findViewById(R.id.pb_2_rating);
         pb1 = (ProgressBar) findViewById(R.id.pb_1_rating);
 
-
         llRootLoadingRating = (LinearLayout) findViewById(R.id.ll_root_loading_rating);
+
+        ibBack.setOnClickListener(v -> this.finish());
 
         rvRating = (RecyclerView) findViewById(R.id.rv_rating);
         rvStarFilter = (RecyclerView) findViewById(R.id.rv_rating_star_fitler);
@@ -89,6 +95,7 @@ public class RatingActivity extends AppCompatActivity {
         tvTitle.setText(recipe.getTitle());
         tvStar.setText(String.valueOf(recipe.getStars()) + "/5.0");
         tvRatingCount.setText("(0 Ulasan)");
+
 
         List<String> stars = new ArrayList<>();
 
@@ -105,7 +112,7 @@ public class RatingActivity extends AppCompatActivity {
         getRatings(recipe.getId());
 
 
-        RatingAdapter ratingAdapter = new RatingAdapter(ratings);
+        RatingAdapter ratingAdapter = new RatingAdapter(ratings, getSupportFragmentManager());
         LinearLayoutManager ratingLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRating.setLayoutManager(ratingLinearLayoutManager);
         rvRating.setAdapter(ratingAdapter);
@@ -133,31 +140,6 @@ public class RatingActivity extends AppCompatActivity {
                 view.scrollTo(0,0);
             }
         });
-
-        ibSort.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(this, v);
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.sort_rating_menu, popupMenu.getMenu());
-
-            popupMenu.setOnMenuItemClickListener(item -> {
-                llRootLoadingRating.setVisibility(View.VISIBLE);
-
-                if (item.getItemId() == R.id.menu_sort_latest) {
-                    getRatings(recipe.getId(), "date");
-                } else if (item.getItemId() == R.id.menu_sort_most_popular) {
-                    getRatings(recipe.getId(), "like_count");
-                }
-
-                return true;
-            });
-
-            popupMenu.show();
-        });
-
-        ibBack.setOnClickListener(v -> {
-            this.finish();
-        });
-
     }
 
     public void initMapperPbRating(){

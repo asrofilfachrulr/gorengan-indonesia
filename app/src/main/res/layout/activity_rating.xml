@@ -7,7 +7,7 @@
     tools:context=".Activity.RatingActivity">
 
     <LinearLayout
-        android:visibility="invisible"
+        android:visibility="visible"
         android:id="@+id/ll_root_loading_rating"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -259,18 +259,10 @@
                     android:id="@+id/rv_rating_star_fitler"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:itemCount="1"
                     tools:listitem="@layout/star_item"/>
-                <ImageButton
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/ib_sort_rating"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_filter_solid"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <View
                 android:layout_width="match_parent"
@@ -279,6 +271,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_rating"
                 tools:listitem="@layout/rating_item"
+                android:layout_marginBottom="60dp"
                 tools:itemCount="5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

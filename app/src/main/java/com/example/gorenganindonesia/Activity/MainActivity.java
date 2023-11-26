@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         accountViewModel.setAccount(account);
 
-        System.out.println("Account: " + accountViewModel.getAccount().getValue().toString());
+        System.out.println("Account: " + accountViewModel.getLiveAccount().getValue().toString());
 
         setContentView(R.layout.activity_main);
 

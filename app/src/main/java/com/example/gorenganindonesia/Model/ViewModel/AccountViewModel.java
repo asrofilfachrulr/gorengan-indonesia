@@ -26,8 +26,12 @@ public class AccountViewModel extends ViewModel {
         mAccount.setValue(account);
     }
 
-    public LiveData<Account> getAccount(){
+    public LiveData<Account> getLiveAccount(){
         return mAccount;
+    }
+
+    public Account getAccount(){
+        return mAccount.getValue();
     }
 
     public String getName(){
