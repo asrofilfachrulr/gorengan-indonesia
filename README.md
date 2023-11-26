@@ -42,12 +42,16 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 
 ~~13. use image from remote storage file~~   
 
+~~14. generate rating dummy data on db~~
 
-14. generate rating dummy data on db
-15. implement api request on get ratings
-16. implement sort and filter on rating page
-17. persist favourite recipes on db through api requet
-18. delete favourite recipes on db through api request
+~~15. implement api request on get ratings~~
+
+~~16. implement sort and filter on rating page~~
+
+~~17. persist favourite recipes on db through api requet~~
+
+~~18. delete favourite recipes on db through api request~~
+
 19. share via whatsapp using image and text
 20. implement logic on creating recipe
 21. persist created recipe on db through api request
@@ -62,5 +66,7 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 30. implement layout account setting
 31. implement what user do on account setting
 32. do the CRUD 
-...
+... 
+
+
 -1. implement the sytle from figma
