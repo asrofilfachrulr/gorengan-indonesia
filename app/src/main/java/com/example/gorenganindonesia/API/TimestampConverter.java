@@ -10,13 +10,14 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class TimestampConverter {
     public static Gson createGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         // Define the date format expected in the JSON
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         gsonBuilder.registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
             @Override
             public JsonElement serialize(Date src, Type typeOfSrc, com.google.gson.JsonSerializationContext context) {
