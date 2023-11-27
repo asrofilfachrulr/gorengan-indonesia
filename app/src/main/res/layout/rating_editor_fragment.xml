@@ -12,10 +12,11 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/tv_rating_editor_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_medium"
-            android:text="Edit Ulasan"
+            android:text="Judul Editor"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18dp" />
@@ -35,7 +36,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/ib_rating_option_edit_star_1"
+                android:id="@+id/ib_rating_editor_star_1"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
@@ -43,7 +44,7 @@
                 android:src="@drawable/ic_star_outline_yellow" />
 
             <ImageButton
-                android:id="@+id/ib_rating_option_edit_star_2"
+                android:id="@+id/ib_rating_editor_star_2"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
@@ -51,7 +52,7 @@
                 android:src="@drawable/ic_star_outline_yellow" />
 
             <ImageButton
-                android:id="@+id/ib_rating_option_edit_star_3"
+                android:id="@+id/ib_rating_editor_star_3"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
@@ -59,7 +60,7 @@
                 android:src="@drawable/ic_star_outline_yellow" />
 
             <ImageButton
-                android:id="@+id/ib_rating_option_edit_star_4"
+                android:id="@+id/ib_rating_editor_star_4"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
@@ -67,7 +68,7 @@
                 android:src="@drawable/ic_star_outline_yellow" />
 
             <ImageButton
-                android:id="@+id/ib_rating_option_edit_star_5"
+                android:id="@+id/ib_rating_editor_star_5"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
@@ -84,7 +85,7 @@
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/et_rating_option_edit_comment"
+            android:id="@+id/et_rating_editor_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -98,7 +99,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_rating_option_edit_cancel"
+                android:id="@+id/btn_rating_editor_cancel"
                 style="@style/btn_transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +107,7 @@
                 android:text="Batal" />
 
             <Button
-                android:id="@+id/btn_rating_option_edit_save"
+                android:id="@+id/btn_rating_editor_save"
                 style="@style/btn_accent_solid_rounded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

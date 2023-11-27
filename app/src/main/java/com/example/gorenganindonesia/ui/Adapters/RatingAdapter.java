@@ -3,7 +3,6 @@ package com.example.gorenganindonesia.ui.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -14,9 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -28,7 +24,7 @@ import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.DateHelper;
-import com.example.gorenganindonesia.ui.Fragments.Rating.OptionEditFragment;
+import com.example.gorenganindonesia.ui.Fragments.Rating.RatingEditorFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +43,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
 
     TextView tvLoading;
     LinearLayout llRootLoading;
+    String username;
 
     public RatingAdapter(
             List<Rating> dataList,
@@ -54,6 +51,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
             Runnable getRatingsCallback,
             TextView tvLoading,
             LinearLayout llRootLoading,
+            String username,
             FragmentManager fragmentManager
     ){
         this.dataList = dataList;
@@ -64,6 +62,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
 
         this.tvLoading = tvLoading;
         this.llRootLoading = llRootLoading;
+
+        this.username = username;
 
         this.fragmentManager = fragmentManager;
     }
@@ -101,9 +101,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
                 target[star].setImageResource(R.drawable.ic_star_outline_yellow);
         }
 
-        String username = ((GlobalModel) holder.view.getContext().getApplicationContext())
-                .getAccountViewModel().getAccount().getUsername();
-
         if(rating.getAuthorUsername().equals(username)){
             holder.ibOption.setVisibility(View.VISIBLE);
 
@@ -122,9 +119,16 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
                 final int deleteId = getResourceId(context, "menu_rating_option_delete");
 
                 if(itemId == editId){
-                    OptionEditFragment editFragment = new OptionEditFragment(rating.getStarCount(), rating.getComment());
-
-                    editFragment.show(fragmentManager, "edit dialogue");
+                    RatingEditorFragment editFragment = new RatingEditorFragment(
+                            rating.getStarCount(),
+                            rating.getComment(),
+                            recipeId,
+                            tvLoading,
+                            llRootLoading,
+                            getRatingsCallback
+                    );
+                    editFragment.show(fragmentManager, "RATING_EDITOR_FRAGMENT");
+                    // rest edit operation taken inside dialogue fragment
                 } else if(itemId == deleteId){
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage("Apakah Anda yakin menghapus ulasan ini?")
@@ -146,14 +150,14 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
                                             @Override
                                             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                                                 if(response.isSuccessful()){
-                                                    // update rating
+                                                    // refresh rating list
                                                     getRatingsCallback.run();
 
                                                     new CustomToast("Ulasan berhasil dihapus", holder.view, false).show();
                                                 } else {
                                                     llRootLoading.setVisibility(View.GONE);
                                                     try {
-                                                        new CustomToast("Error Mengolah Data: " + response.errorBody().string(), holder.view, false).show();
+                                                        new CustomToast("Gagal menghapus ulasan: " + response.errorBody().string(), holder.view, false).show();
                                                     } catch (IOException e) {
                                                         new CustomToast("Error Mengolah Data", holder.view, false).show();
                                                     }
@@ -176,6 +180,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
 
                 return true;
             });
+        } else {
+            holder.ibOption.setVisibility(View.GONE);
         }
 
     }

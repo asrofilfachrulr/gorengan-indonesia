@@ -34,6 +34,7 @@ import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
 import com.example.gorenganindonesia.ui.Adapters.StarFilterAdapter;
+import com.example.gorenganindonesia.ui.Fragments.Rating.RatingEditorFragment;
 import com.example.gorenganindonesia.ui.View.EmptySpaceView;
 
 import java.io.IOException;
@@ -49,7 +50,7 @@ import retrofit2.Response;
 
 public class RatingActivity extends AppCompatActivity {
     TextView tvTitle, tvStar, tvRatingCount, tvLoading;
-    ImageButton ibBack;
+    ImageButton ibBack, ibAdd;
     ProgressBar pb5, pb4, pb3, pb2, pb1;
     RecyclerView rvStarFilter, rvRating;
     Map<Integer, Integer> starCountMap = new HashMap<>();
@@ -59,6 +60,8 @@ public class RatingActivity extends AppCompatActivity {
     View view;
 
     List<Rating> ratings;
+
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +76,15 @@ public class RatingActivity extends AppCompatActivity {
 
         if (index == -1) this.finish();
 
+        username = ((GlobalModel) getApplication()).getAccountViewModel().getUsername();
+
         tvStar = (TextView) findViewById(R.id.tv_star_rating);
         tvTitle = (TextView) findViewById(R.id.tv_title_rating);
         tvRatingCount = (TextView) findViewById(R.id.tv_ratingcount_rating);
         tvLoading = (TextView) findViewById(R.id.tv_root_loading_rating);
 
         ibBack = (ImageButton) findViewById(R.id.ib_back_rating);
+        ibAdd = (ImageButton) findViewById(R.id.ib_add_rating);
 
         pb5 = (ProgressBar) findViewById(R.id.pb_5_rating);
         pb4 = (ProgressBar) findViewById(R.id.pb_4_rating);
@@ -89,6 +95,7 @@ public class RatingActivity extends AppCompatActivity {
         llRootLoadingRating = (LinearLayout) findViewById(R.id.ll_root_loading_rating);
 
         ibBack.setOnClickListener(v -> this.finish());
+
 
         rvRating = (RecyclerView) findViewById(R.id.rv_rating);
         rvStarFilter = (RecyclerView) findViewById(R.id.rv_rating_star_fitler);
@@ -117,7 +124,18 @@ public class RatingActivity extends AppCompatActivity {
 
         getRatingsCallback.run();
 
-        RatingAdapter ratingAdapter = new RatingAdapter(ratings, recipe.getId(), getRatingsCallback, tvLoading, llRootLoadingRating, getSupportFragmentManager());
+        ibAdd.setOnClickListener(v -> {
+            RatingEditorFragment ratingEditorFragment = new RatingEditorFragment(
+                    recipe.getId(),
+                    tvLoading,
+                    llRootLoadingRating,
+                    getRatingsCallback
+            );
+
+            ratingEditorFragment.show(getSupportFragmentManager(), "RATING_EDITOR_FRAGMENT");
+        });
+
+        RatingAdapter ratingAdapter = new RatingAdapter(ratings, recipe.getId(), getRatingsCallback, tvLoading, llRootLoadingRating, username, getSupportFragmentManager());
         LinearLayoutManager ratingLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRating.setLayoutManager(ratingLinearLayoutManager);
         rvRating.setAdapter(ratingAdapter);
@@ -140,6 +158,15 @@ public class RatingActivity extends AppCompatActivity {
 
                 updateStarCountMapper(updatedData.get(index).getRatings());
                 updatePbRating(updatedData.get(index).getRatings().length);
+
+                ibAdd.setVisibility(View.VISIBLE);
+
+                for(Rating rating: updatedData.get(index).getRatings()){
+                    if(rating.getAuthorUsername().equals(username)){
+                        ibAdd.setVisibility(View.GONE);
+                        break;
+                    }
+                }
 
                 rvRating.scrollToPosition(0);
                 view.scrollTo(0,0);
