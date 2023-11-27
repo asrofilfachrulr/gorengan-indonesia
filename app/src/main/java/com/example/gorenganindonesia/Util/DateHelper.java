@@ -1,12 +1,26 @@
 package com.example.gorenganindonesia.Util;
 
+import android.util.Log;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class DateHelper {
     public static String getHumanReadableDate(Date inputDate) {
-        long now = new Date().getTime();
-        long inputTime = inputDate.getTime();
+        Calendar nowCalendar = Calendar.getInstance(TimeZone.getDefault());
+        Calendar inputCalendar = Calendar.getInstance(TimeZone.getDefault());
+
+        inputCalendar.setTime(inputDate);
+        inputCalendar.setTimeZone(TimeZone.getDefault());
+
+        Log.i("Calendar debug: now Date", nowCalendar.toString());
+        Log.i("Calendar debug: input Date before", inputDate.toString());
+        Log.i("Calendar debug: input Date after", inputCalendar.toString());
+
+        long now = nowCalendar.getTimeInMillis();
+        long inputTime = inputCalendar.getTimeInMillis();
         long difference = now - inputTime;
 
         if (difference < 60000) {  // Below 1 minute
