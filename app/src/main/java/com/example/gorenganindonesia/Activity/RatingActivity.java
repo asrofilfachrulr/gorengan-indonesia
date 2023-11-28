@@ -264,7 +264,7 @@ public class RatingActivity extends AppCompatActivity {
                             ((GlobalModel) getApplication()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
                         } else {
                             try {
-                                new CustomToast("Error Mengolah Data: " + response.errorBody().string(), view, false).show();
+                                new CustomToast("Error Mendapatkan Data: " + response.errorBody().string(), view, false).show();
                             } catch (IOException e) {
                                 new CustomToast("Error Mengolah Data", view, false).show();
                             }
