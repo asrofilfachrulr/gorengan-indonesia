@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activity.MainActivity">
     <LinearLayout
-        android:visibility="invisible"
+        android:visibility="gone"
         android:id="@+id/ll_root_loading_home"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
