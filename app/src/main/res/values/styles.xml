@@ -83,7 +83,6 @@
         <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
     <style name="MainFragmentRoot">
-        <item name="android:paddingTop">14sp</item>
         <item name="android:background">@color/bg_white_primary</item>
     </style>
     <style name="MainFragmentTitle">
@@ -91,6 +90,7 @@
         <item name="android:textAlignment">textStart</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginTop">16dp</item>
         <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
 </resources>
