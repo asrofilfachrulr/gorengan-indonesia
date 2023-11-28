@@ -23,7 +23,11 @@ public class FavouriteViewModel extends ViewModel {
     public LiveData<List<Recipe>> getFavourites() {
         return mFavourites;
     }
-    
+
+    public void setFavourites(List<Recipe> recipes){
+        mFavourites.setValue(recipes);
+    }
+
     public void pushFavourite(Recipe recipe){
         List<Recipe> favourites = mFavourites.getValue();
 
