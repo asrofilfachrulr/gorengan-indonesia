@@ -185,4 +185,14 @@ public class RecipeViewModel extends ViewModel {
 
         mRecipes.setValue(recipes);
     }
+
+    public void setStars(float stars, int position){
+        List<Recipe> recipes = mRecipes.getValue();
+
+        Recipe r = recipes.get(position);
+        r.setStars(stars);
+        recipes.set(position, r);
+
+        mRecipes.setValue(recipes);
+    }
 }

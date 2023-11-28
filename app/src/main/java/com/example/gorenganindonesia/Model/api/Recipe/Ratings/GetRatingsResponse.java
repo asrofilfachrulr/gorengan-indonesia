@@ -6,6 +6,8 @@ public class GetRatingsResponse {
     private String message;
     @SerializedName("data")
     private RatingData[] ratingData;
+    @SerializedName("extra")
+    private ExtraRatingData extra;
 
     public String getMessage() {
         return message;
@@ -21,5 +23,13 @@ public class GetRatingsResponse {
 
     public void setRatingData(RatingData[] ratingData) {
         this.ratingData = ratingData;
+    }
+
+    public ExtraRatingData getExtra() {
+        return extra;
+    }
+
+    public void setExtra(ExtraRatingData extra) {
+        this.extra = extra;
     }
 }

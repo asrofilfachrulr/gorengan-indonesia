@@ -62,6 +62,7 @@ public class RatingActivity extends AppCompatActivity {
     List<Rating> ratings;
 
     String username;
+    float starAvg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +169,9 @@ public class RatingActivity extends AppCompatActivity {
                     }
                 }
 
+                if(starAvg != 0)
+                    tvStar.setText(String.valueOf(starAvg) + "/5.0");
+
                 rvRating.scrollToPosition(0);
                 view.scrollTo(0,0);
             }
@@ -255,7 +259,9 @@ public class RatingActivity extends AppCompatActivity {
                                 ratings[i] = rating;
                             }
 
+                            starAvg = response.body().getExtra().getStarAvg();
                             ((GlobalModel) getApplication()).getRecipeViewModel().setRatings(ratings, index);
+                            ((GlobalModel) getApplication()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
                         } else {
                             try {
                                 new CustomToast("Error Mengolah Data: " + response.errorBody().string(), view, false).show();

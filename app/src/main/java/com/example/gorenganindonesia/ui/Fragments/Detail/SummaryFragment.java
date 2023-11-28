@@ -133,6 +133,7 @@ public class SummaryFragment extends Fragment {
             if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
                 tvStep.setText(String.valueOf(updatedRecipe.getSteps().length) + " Langkah");
                 tvIngridient.setText(String.valueOf(updatedRecipe.getIngredients().length) + " Bahan");
+                tvStarRating.setText(String.valueOf(updatedRecipe.getStars()));
             }
         });
 
