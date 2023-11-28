@@ -12,13 +12,22 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.API.RetrofitClient;
+import com.example.gorenganindonesia.API.Services.FavouritesService;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
+import com.example.gorenganindonesia.Model.api.GetFavouritesResponse;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
+import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.databinding.FragmentFavouriteBinding;
 import com.example.gorenganindonesia.ui.Adapters.FavouritesAdapter;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FavouriteFragment extends Fragment {
 
@@ -47,9 +56,9 @@ public class FavouriteFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        favouriteViewModel.getFavourites().observe(getViewLifecycleOwner(), receipts -> {
-            adapter.updateData(receipts);
-            if(adapter.getItemCount() > 0){
+        favouriteViewModel.getFavourites().observe(getViewLifecycleOwner(), updatedFavourites -> {
+            adapter.updateData(updatedFavourites);
+            if(updatedFavourites.size() > 0){
                 binding.svListFav.setVisibility(View.VISIBLE);
                 binding.llEmptyFavSign.setVisibility(View.GONE);
             } else {
@@ -59,6 +68,9 @@ public class FavouriteFragment extends Fragment {
             Log.e("Debug Live Data", "List Size on Fragment: " + String.valueOf(favouriteRecipe.size()));
         });
 
+        String token = "Bearer " + ((GlobalModel) requireContext().getApplicationContext()).getSessionManager().getToken();
+        getFavourite(token, root);
+
         return root;
     }
 
@@ -66,5 +78,38 @@ public class FavouriteFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void getFavourite(String token, View view){
+        binding.llRootLoadingFavourite.setVisibility(View.VISIBLE);
+        RetrofitClient
+                .getInstance()
+                .create(FavouritesService.class)
+                .getFavourites(token)
+                .enqueue(new Callback<GetFavouritesResponse>() {
+                    @Override
+                    public void onResponse(Call<GetFavouritesResponse> call, Response<GetFavouritesResponse> response) {
+                        if(response.isSuccessful()){
+                            String[] recipeids = response.body().getFavourites();
+
+                            List<Recipe> favRecipes = ((GlobalModel) requireContext().getApplicationContext()).getRecipeViewModel().getRecipesByIds(recipeids);
+                            ((GlobalModel) requireContext().getApplicationContext()).getFavouriteViewModel().setFavourites(favRecipes);
+                            binding.llRootLoadingFavourite.setVisibility(View.GONE);
+                        } else {
+                            binding.llRootLoadingFavourite.setVisibility(View.GONE);
+                            try {
+                                new CustomToast("Error Mendapatkan Data: " + response.errorBody().string(), view, false).show();
+                            } catch (IOException e) {
+                                new CustomToast("Error Mengolah Data", view, false).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetFavouritesResponse> call, Throwable t) {
+                        binding.llRootLoadingFavourite.setVisibility(View.GONE);
+                        new CustomToast("Error Memuat Data", view, false).show();
+                    }
+                });
     }
 }
