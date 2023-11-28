@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(Call<GetAllRecipesResponse> call, Response<GetAllRecipesResponse> response) {
                         int statusCode = response.code();
-                        binding.llRootLoadingHome.setVisibility(View.INVISIBLE);
+                        binding.llRootLoadingHome.setVisibility(View.GONE);
 
                         if (response.isSuccessful()) {
                             categories = CategoryData.generate();
@@ -213,7 +213,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<GetAllRecipesResponse> call, Throwable t) {
-                        binding.llRootLoadingHome.setVisibility(View.INVISIBLE);
+                        binding.llRootLoadingHome.setVisibility(View.GONE);
 
                         new CustomToast("Tidak dapat memuat data dari jaringan", root.getRootView(), false).show();
                     }
