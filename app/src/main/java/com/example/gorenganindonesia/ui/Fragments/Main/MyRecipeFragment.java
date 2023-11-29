@@ -16,6 +16,7 @@ import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
+import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.example.gorenganindonesia.databinding.FragmentMyRecipeBinding;
 import com.example.gorenganindonesia.ui.Adapters.MyRecipeAdapter;
 
@@ -51,6 +52,7 @@ public class MyRecipeFragment extends Fragment {
         binding.rvMyRecipes.setLayoutManager(linearLayoutManager);
 
         binding.ibAddMyReceipt.setOnClickListener(v -> {
+            ToastUseCase.showInDevelopment(root);
             startActivity(new Intent(getContext(), NewRecipeActivity.class));
         });
 

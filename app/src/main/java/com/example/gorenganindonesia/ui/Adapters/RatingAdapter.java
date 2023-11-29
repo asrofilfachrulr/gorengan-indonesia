@@ -16,8 +16,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.Handlers.RatingHandler;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
@@ -133,43 +135,12 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage("Apakah Anda yakin menghapus ulasan ini?")
                             .setPositiveButton("Hapus", (dialog, which) -> {
-                                String token = "Bearer " +
-                                        ((GlobalModel) holder.view.getContext()
-                                        .getApplicationContext())
-                                            .getSessionManager()
-                                            .getToken();
+                                APIHandlerDAO dao = new APIHandlerDAO(holder.view, llRootLoading,
+                                        tvLoading, holder.view.getContext());
+                                RatingHandler ratingHandler = new RatingHandler(dao);
+                                dao.setCallback(getRatingsCallback);
 
-                                tvLoading.setText("Menghapus ulasan...");
-                                llRootLoading.setVisibility(View.VISIBLE);
-
-                                RetrofitClient
-                                        .getInstance()
-                                        .create(RatingsService.class)
-                                        .deleteRatingByRecipeId(recipeId, token)
-                                        .enqueue(new Callback<BasicResponse>() {
-                                            @Override
-                                            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                                                if(response.isSuccessful()){
-                                                    // refresh rating list
-                                                    getRatingsCallback.run();
-
-                                                    new CustomToast("Ulasan berhasil dihapus", holder.view, false).show();
-                                                } else {
-                                                    llRootLoading.setVisibility(View.GONE);
-                                                    try {
-                                                        new CustomToast("Gagal menghapus ulasan: " + response.errorBody().string(), holder.view, false).show();
-                                                    } catch (IOException e) {
-                                                        new CustomToast("Error Mengolah Data", holder.view, false).show();
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<BasicResponse> call, Throwable t) {
-                                                llRootLoading.setVisibility(View.GONE);
-                                                new CustomToast("Error Jaringan", holder.view, false).show();
-                                            }
-                                        });
+                                ratingHandler.deleteRating(recipeId);
                             })
                             .setNegativeButton("Batal", (dialog, which) -> {});
 

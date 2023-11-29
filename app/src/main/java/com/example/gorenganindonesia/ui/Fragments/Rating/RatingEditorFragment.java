@@ -15,8 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.gorenganindonesia.API.Handlers.RatingHandler;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.api.Recipe.Ratings.PostRatingRequest;
@@ -139,77 +141,23 @@ public class RatingEditorFragment extends DialogFragment {
 
         btnCancel.setOnClickListener(v -> closeDialog());
         btnSave.setOnClickListener(v -> {
-            String token = "Bearer " + ((GlobalModel) getContext().getApplicationContext())
-                    .getSessionManager().getToken();
             comment = etComment.getText().toString();
 
             Log.i("Debug Rating Editor: Save", "comment: " + comment + "\nstar: " + String.valueOf(starCount));
 
             llRootLoading.setVisibility(View.VISIBLE);
 
-            RatingsService ratingsService = RetrofitClient
-                    .getInstance()
-                    .create(RatingsService.class);
 
-            if(editorMode == RatingEditorFragment.CREATEMODE) {
-                PostRatingRequest postRatingRequest = new PostRatingRequest(starCount, comment);
+            APIHandlerDAO dao = new APIHandlerDAO(view, tvLoading, tvTitle, requireContext());
+            dao.setCallback(getRatingsCallback);
 
-                tvLoading.setText("Membuat Ulasan...");
+            RatingHandler ratingHandler = new RatingHandler(dao);
 
-                ratingsService
-                        .postRating(recipeId, token, postRatingRequest)
-                        .enqueue(new Callback<BasicResponse>() {
-                            @Override
-                            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                                if(response.isSuccessful()){
-                                    new CustomToast("Ulasan berhasil dibuat", view, false).show();
-                                    getRatingsCallback.run();
-                                } else {
-                                    llRootLoading.setVisibility(View.GONE);
-                                    try {
-                                        new CustomToast("Gagal membuat ulasan: " + response.errorBody().string(), view, false).show();
-                                    } catch (IOException e) {
-                                        new CustomToast("Error Mengolah Data", view, false).show();
-                                    }
-                                }
-                            }
+            if(editorMode == RatingEditorFragment.CREATEMODE)
+                ratingHandler.postRating(recipeId, comment, starCount);
+            else if (editorMode == RatingEditorFragment.EDITMODE)
+                ratingHandler.putRating(recipeId, comment, starCount);
 
-                            @Override
-                            public void onFailure(Call<BasicResponse> call, Throwable t) {
-                                llRootLoading.setVisibility(View.GONE);
-                                new CustomToast("Error Jaringan", view, false).show();
-                            }
-                        });
-            } else if (editorMode == RatingEditorFragment.EDITMODE) {
-                PutRatingRequest putRatingRequest = new PutRatingRequest(starCount, comment);
-
-                tvLoading.setText("Memperbarui Ulasan...");
-
-                ratingsService
-                        .putRatingByRecipeId(recipeId, token, putRatingRequest)
-                        .enqueue(new Callback<BasicResponse>() {
-                            @Override
-                            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                                if (response.isSuccessful()) {
-                                    new CustomToast("Ulasan berhasil diperbarui", view, false).show();
-                                    getRatingsCallback.run();
-                                } else {
-                                    llRootLoading.setVisibility(View.GONE);
-                                    try {
-                                        new CustomToast("Gagal memperbarui ulasan: " + response.errorBody().string(), view, false).show();
-                                    } catch (IOException e) {
-                                        new CustomToast("Error Mengolah Data", view, false).show();
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<BasicResponse> call, Throwable t) {
-                                llRootLoading.setVisibility(View.GONE);
-                                new CustomToast("Error Jaringan", view, false).show();
-                            }
-                        });
-            }
             closeDialog();
         });
     }

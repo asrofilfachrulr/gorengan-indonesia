@@ -53,9 +53,11 @@ public class FavouriteHandler {
                         ((GlobalModel) dao.context.getApplicationContext()).getFavouriteViewModel().setFavourites(favRecipes);
                         dao.loadingView.setVisibility(View.GONE);
                     } else {
+                        int statusCode = response.code();
                         dao.loadingView.setVisibility(View.GONE);
                         try {
-                            new CustomToast("Error Mendapatkan Daftar Favorit: " + response.errorBody().string(), dao.view, false).show();
+                            if(statusCode != 404)
+                                new CustomToast("Error Mendapatkan Daftar Favorit: " + response.errorBody().string(), dao.view, false).show();
                         } catch (IOException e) {
                             new CustomToast("Error Mengolah Daftar Favorit", dao.view, false).show();
                         }

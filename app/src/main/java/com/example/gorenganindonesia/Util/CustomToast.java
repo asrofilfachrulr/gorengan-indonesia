@@ -33,8 +33,10 @@ public class CustomToast {
         ((TextView) layout.findViewById(R.id.tv_custom_toast)).setText(text);
 
         Toast toast = new Toast(view.getContext());
-        if(isLong) toast.setDuration(Toast.LENGTH_LONG);
-        else toast.setDuration(Toast.LENGTH_LONG);
+
+        if(isLong) toast.setDuration(Toast.LENGTH_SHORT);
+        else toast.setDuration(Toast.LENGTH_SHORT);
+
         toast.setView(layout);
         toast.show();
     }

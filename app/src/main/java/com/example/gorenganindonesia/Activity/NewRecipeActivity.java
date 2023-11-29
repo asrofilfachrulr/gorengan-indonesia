@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.example.gorenganindonesia.databinding.ActivityNewRecipeBinding;
 import com.example.gorenganindonesia.ui.Adapters.NewIngredientAdapter;
 import com.example.gorenganindonesia.ui.Adapters.NewStepAdapter;
@@ -39,5 +40,9 @@ public class NewRecipeActivity extends AppCompatActivity {
         NewStepAdapter stepAdapter = new NewStepAdapter();
         rvStep.setLayoutManager(stepLM);
         rvStep.setAdapter(stepAdapter);
+
+        binding.btnSaveNewRecipe.setOnClickListener(v -> {
+            ToastUseCase.showInDevelopment(binding.getRoot());
+        });
     }
 }

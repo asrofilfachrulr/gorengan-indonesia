@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.API.Handlers.RatingHandler;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.Recipe.Ratings.GetRatingsResponse;
 import com.example.gorenganindonesia.Model.api.Recipe.Ratings.RatingData;
@@ -62,7 +64,7 @@ public class RatingActivity extends AppCompatActivity {
     List<Rating> ratings;
 
     String username;
-    float starAvg;
+    public float starAvg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +120,6 @@ public class RatingActivity extends AppCompatActivity {
         ratings = new ArrayList<>();
 
         Runnable getRatingsCallback = () -> {
-            llRootLoadingRating.setVisibility(View.VISIBLE);
-            tvLoading.setText("Memuat Ulasan...");
             getRatings(recipe.getId());
         };
 
@@ -224,58 +224,11 @@ public class RatingActivity extends AppCompatActivity {
     private void getRatings(String recipeId) {
         getRatingsAPIRequest(recipeId, "date");
     }
-
-    private void getRatings(String recipeId, String queryOrder) {
-        getRatingsAPIRequest(recipeId, queryOrder);
-    }
-
+    
     private void getRatingsAPIRequest(String recipeId, String queryOrder) {
-        String token = "Bearer " + ((GlobalModel) getApplication()).getSessionManager().getToken();
+        APIHandlerDAO dao = new APIHandlerDAO(view, llRootLoadingRating, tvLoading, this);
+        RatingHandler ratingHandler = new RatingHandler(dao);
 
-        RetrofitClient
-                .getInstance()
-                .create(RatingsService.class)
-                .getRatingsByRecipeId(recipeId, token, queryOrder)
-                .enqueue(new Callback<GetRatingsResponse>() {
-                    @Override
-                    public void onResponse(Call<GetRatingsResponse> call, Response<GetRatingsResponse> response) {
-                        llRootLoadingRating.setVisibility(View.GONE);
-
-                        if (response.isSuccessful()) {
-                            RatingData[] ratingData = response.body().getRatingData();
-                            final int sz = ratingData.length;
-                            Rating[] ratings = new Rating[sz];
-
-                            for (int i = 0; i < sz; i++) {
-                                Rating rating = new Rating(
-                                        ratingData[i].getComment(),
-                                        ratingData[i].getDate(),
-                                        ratingData[i].getUsername(),
-                                        ratingData[i].getStars(),
-                                        ratingData[i].getThumbUrl(),
-                                        ratingData[i].getLikeCount()
-                                );
-
-                                ratings[i] = rating;
-                            }
-
-                            starAvg = response.body().getExtra().getStarAvg();
-                            ((GlobalModel) getApplication()).getRecipeViewModel().setRatings(ratings, index);
-                            ((GlobalModel) getApplication()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
-                        } else {
-                            try {
-                                new CustomToast("Error Mendapatkan Data: " + response.errorBody().string(), view, false).show();
-                            } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", view, false).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetRatingsResponse> call, Throwable t) {
-                        llRootLoadingRating.setVisibility(View.GONE);
-                        new CustomToast("Error Memuat Data", view, false).show();
-                    }
-                });
+        ratingHandler.getRatings(recipeId, queryOrder, index, this);
     }
 }

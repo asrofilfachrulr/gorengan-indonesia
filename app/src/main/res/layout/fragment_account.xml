@@ -12,13 +12,6 @@
         android:orientation="vertical"
         android:paddingHorizontal="18dp"
         android:paddingTop="18dp">
-        <ImageButton
-            android:layout_gravity="end"
-            android:id="@+id/ib_notif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/baseline_notifications_none_32"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_account_circle_150"/>
             <ImageButton
+                android:id="@+id/ib_edit_image_account"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="18dp"
@@ -45,7 +39,8 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 style="@style/btn_white_round"
-                android:src="@drawable/ic_add_photo_outline"/>
+                android:src="@drawable/round_edit_24"
+                app:tint="@color/black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/tv_name_account"
@@ -65,6 +60,7 @@
             android:fontFamily="@font/open_sans_medium"
             android:text="ganjar@prabowo.mail.com" />
         <Button
+            android:id="@+id/btn_account_account"
             android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -79,6 +75,7 @@
             android:drawableEnd="@drawable/baseline_chevron_right_24"
             android:text="Akun"/>
         <Button
+            android:id="@+id/btn_offline_recipe_account"
             android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -88,11 +85,12 @@
             android:textAlignment="textStart"
             android:textSize="18sp"
             android:fontFamily="@font/open_sans_semibold"
-            android:drawableStart="@drawable/baseline_settings_24"
+            android:drawableStart="@drawable/baseline_signal_wifi_off_24"
             android:drawableEnd="@drawable/baseline_chevron_right_24"
             android:drawablePadding="14dp"
-            android:text="Pengaturan"/>
+            android:text="Resep Offline"/>
         <Button
+            android:id="@+id/btn_terms_of_service_account"
             android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -107,6 +105,7 @@
             android:drawableEnd="@drawable/baseline_chevron_right_24"
             android:text="Terms of Services"/>
         <Button
+            android:id="@+id/btn_app_info_account"
             android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -121,6 +120,7 @@
             android:drawableEnd="@drawable/baseline_chevron_right_24"
             android:text="Info Aplikasi"/>
         <Button
+            android:id="@+id/btn_customer_service_account"
             android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"

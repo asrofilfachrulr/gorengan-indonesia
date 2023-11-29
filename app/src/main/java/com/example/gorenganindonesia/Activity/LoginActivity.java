@@ -14,9 +14,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.gorenganindonesia.API.Services.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.api.AccountResponse;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
@@ -36,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    TextView tvLoading;
     Button btnLogin, btnRegister;
     EditText etIdentifier, etPassword;
 
@@ -66,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
+
+        tvLoading = (TextView) findViewById(R.id.tv_root_loading_login);
 
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnRegister = (Button) findViewById(R.id.btn_register);
@@ -98,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 String identifier = etIdentifier.getText().toString();
                 String password = etPassword.getText().toString();
-
 
                 RetrofitClient
                         .getInstance()
