@@ -18,9 +18,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
+import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.API.Services.RecipesService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Activity.LoginActivity;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
@@ -46,8 +49,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-    List<com.example.gorenganindonesia.Model.data.Recipe.Recipe> recipes;
-    List<String> categories;
+    List<com.example.gorenganindonesia.Model.data.Recipe.Recipe> recipes = new ArrayList<>();
+    List<String> categories = new ArrayList<>();
 
     RecyclerView rvReceipt, rvCategory;
 
@@ -63,6 +66,9 @@ public class HomeFragment extends Fragment {
     private String token;
 
     private View root;
+
+    RecipeHandler recipeHandler;
+    FavouriteHandler favouriteHandler;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -83,9 +89,24 @@ public class HomeFragment extends Fragment {
         recipes = new ArrayList<>();
         categories = new ArrayList<>();
 
+        APIHandlerDAO dao = new APIHandlerDAO(
+                root,
+                binding.llRootLoadingHome,
+                binding.tvRootLoadingHome,
+                getContext()
+        );
+
+        recipeHandler = new RecipeHandler(dao);
+        favouriteHandler = new FavouriteHandler(dao);
+
         if(recipeViewModel.getAllRecipes().getValue().size() == 0){
-            binding.llRootLoadingHome.setVisibility(View.VISIBLE);
-            getAllRecipesRequest(token);
+            APIHandlerDAO tempDAO = recipeHandler.getDao();
+            tempDAO.setCallback(() -> {
+                favouriteHandler.getFavourites();
+            });
+            recipeHandler.setDao(tempDAO);
+            recipeHandler.getAllRecipes();
+//            getAllRecipesRequest(token);
         }
 
         recipes = recipeViewModel.getAllRecipes().getValue();

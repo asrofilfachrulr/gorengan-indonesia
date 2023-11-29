@@ -15,9 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
+import com.example.gorenganindonesia.API.Handlers.RecipeDetailHandler;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.IngredientsService;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.StepsService;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.api.Recipe.Steps.GetStepsResponse;
@@ -42,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
-    TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan, tvStep, tvIngredient;
+    TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan, tvStep, tvIngredient, tvLoading;
     ImageView ivThumb;
     ImageButton btnBack, btnToggleFavourite;
     ViewPager vp;
@@ -54,17 +57,24 @@ public class DetailActivity extends AppCompatActivity {
     int position;
 
     View summaryView;
+    View view;
+
+    RecipeDetailHandler recipeDetailHandler;
+    FavouriteHandler favouriteHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        view = LayoutInflater.from(this).inflate(R.layout.activity_detail, null);
+
         thisActivity = this;
 
         tvTitleRingkasan = (TextView) findViewById(R.id.tv_title_ringkasan);
         tvTitleBahan = (TextView) findViewById(R.id.tv_title_bahan);
         tvTitleLangkah = (TextView) findViewById(R.id.tv_title_langkah);
+        tvLoading = (TextView) findViewById(R.id.tv_root_loading_detail);
 
         // inside summary fragment
         summaryView = LayoutInflater.from(this).inflate(R.layout.fragment_summary, null);
@@ -79,6 +89,16 @@ public class DetailActivity extends AppCompatActivity {
         llRootLoadingDetail = (LinearLayout) findViewById(R.id.ll_root_loading_detail);
 
         vp = (ViewPager) findViewById(R.id.vp_detail);
+
+        APIHandlerDAO dao = new APIHandlerDAO(
+                view,
+                llRootLoadingDetail,
+                tvLoading,
+                this
+        );
+
+        recipeDetailHandler = new RecipeDetailHandler(dao);
+        favouriteHandler = new FavouriteHandler(dao);
 
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra("recipe");
@@ -111,15 +131,29 @@ public class DetailActivity extends AppCompatActivity {
 
         btnToggleFavourite.setOnClickListener(v -> {
             if (isReceiptExistInFav[0]) {
-                favViewModel.removeFavourite(recipe);
-                new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
-                btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
-                isReceiptExistInFav[0] = false;
+                APIHandlerDAO daoRemove = favouriteHandler.getDao();
+                daoRemove.setCallback(() -> {
+                    new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
+                    btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
+                    isReceiptExistInFav[0] = false;
+
+                    favouriteHandler.getFavourites();
+                });
+                favouriteHandler.setDao(daoRemove);
+                favouriteHandler.deleteFavourite(recipe.getId());
+//                favViewModel.removeFavourite(recipe);
             } else {
-                favViewModel.pushFavourite(recipe);
-                new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
-                btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
-                isReceiptExistInFav[0] = true;
+                APIHandlerDAO daoPush = favouriteHandler.getDao();
+                daoPush.setCallback(() -> {
+                    new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
+                    btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
+                    isReceiptExistInFav[0] = true;
+
+                    favouriteHandler.getFavourites();
+                });
+                favouriteHandler.setDao(daoPush);
+                favouriteHandler.postFavourite(recipe.getId());
+//                favViewModel.pushFavourite(recipe);
             }
         });
 
@@ -178,10 +212,8 @@ public class DetailActivity extends AppCompatActivity {
             String[] stepsEmpty = {};
             recipe.setSteps(stepsEmpty);
 
-            String token = "Bearer " + ((GlobalModel) getApplication()).getSessionManager().getToken();
-
-            getIngredientsAPIRequest(recipe.getId(), token);
-            getStepsAPIRequest(recipe.getId(), token);
+            recipeDetailHandler.getIngredients(recipe.getId(), position);
+            recipeDetailHandler.getSteps(recipe.getId(), position);
         }
 
         summaryFragment = new SummaryFragment(recipe, position);
@@ -195,73 +227,5 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailFragmentAdapter detailFragmentAdapter = new DetailFragmentAdapter(getSupportFragmentManager(), fragments);
         vp.setAdapter(detailFragmentAdapter);
-    }
-
-    private void getIngredientsAPIRequest(String recipeId, String token) {
-        RetrofitClient
-                .getInstance()
-                .create(IngredientsService.class)
-                .getIngredientsByRecipeId(recipeId, token)
-                .enqueue(new Callback<GetlIngredientsResponse>() {
-                    @Override
-                    public void onResponse(Call<GetlIngredientsResponse> call, Response<GetlIngredientsResponse> response) {
-                        if (response.isSuccessful()) {
-                            IngredientData[] ingredientData = response.body().getIngredientData();
-                            Ingredient[] ingredients = new Ingredient[ingredientData.length];
-
-                            for (int i = 0; i < ingredientData.length; i++) {
-                                ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
-                            }
-
-                            ((GlobalModel) getApplication()).getRecipeViewModel().setIngredients(ingredients, position);
-                        } else {
-                            try {
-                                new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
-                            } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", summaryView, false).show();
-                            }
-                        }
-                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
-                        new CustomToast("Error Memuat Data", summaryView, false).show();
-                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                    }
-                });
-    }
-
-    private void getStepsAPIRequest(String recipeId, String token) {
-        RetrofitClient
-                .getInstance()
-                .create(StepsService.class)
-                .getStepsByRecipeId(recipeId, token)
-                .enqueue(new Callback<GetStepsResponse>() {
-                    @Override
-                    public void onResponse(Call<GetStepsResponse> call, Response<GetStepsResponse> response) {
-                        if (response.isSuccessful()) {
-                            String[] steps = new String[response.body().getStepData().length];
-                            for (StepData stepData : response.body().getStepData()) {
-                                steps[stepData.getNumber() - 1] = stepData.getStep();
-                            }
-
-                            ((GlobalModel) getApplication()).getRecipeViewModel().setSteps(steps, position);
-                        } else {
-                            try {
-                                new CustomToast("Error Mengolah Data: " + response.errorBody().string(), summaryView, false).show();
-                            } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", summaryView, false).show();
-                            }
-                        }
-                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetStepsResponse> call, Throwable t) {
-                        new CustomToast("Error Memuat Data", summaryView, false).show();
-                        llRootLoadingDetail.setVisibility(View.INVISIBLE);
-                    }
-                });
     }
 }

@@ -21,6 +21,11 @@ public class SessionManager {
     public String getToken() {
         return token;
     }
+
+    public String getJwtHeaderValue(){
+        return "Bearer " + token;
+    }
+
     public void setToken(String token) {
         this.token = token;
     }

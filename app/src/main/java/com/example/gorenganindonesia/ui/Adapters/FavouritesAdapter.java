@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.Activity.DetailActivity;
+import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
@@ -25,10 +27,12 @@ import java.util.List;
 public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ViewHolder> {
     List<Recipe> dataList;
     Context context;
+    FavouriteHandler favouriteHandler;
 
-    public FavouritesAdapter(Context context, List<Recipe> dataList){
+    public FavouritesAdapter(Context context, List<Recipe> dataList, FavouriteHandler favouriteHandler){
         this.context = context;
         this.dataList = dataList;
+        this.favouriteHandler = favouriteHandler;
     }
 
     public void  updateData(List<Recipe> updatedDataList){
@@ -81,6 +85,12 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         }
 
         holder.btnDelete.setOnClickListener(v -> {
+            APIHandlerDAO tempDAO = favouriteHandler.getDao();
+            tempDAO.setCallback(() -> favouriteHandler.getFavourites());
+            favouriteHandler.setDao(tempDAO);
+
+            favouriteHandler.deleteFavourite(recipe.getId());
+
             ((GlobalModel) context.getApplicationContext())
                     .getFavouriteViewModel()
                     .removeFavourite(position);

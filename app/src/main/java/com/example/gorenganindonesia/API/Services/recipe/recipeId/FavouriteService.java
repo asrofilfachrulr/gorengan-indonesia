@@ -18,6 +18,6 @@ public interface FavouriteService {
     @DELETE("/recipe/{recipe_id}/favourite")
     Call<BasicResponse> deleteFavouriteByRecipeId(
             @Path("recipe_id") String recipeId,
-            @Header("Authorizaton") String token
+            @Header("Authorization") String token
     );
 }
