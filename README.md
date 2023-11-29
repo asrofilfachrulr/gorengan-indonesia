@@ -50,7 +50,8 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 
 ~~17. get favourites on db through api request~~   
 
-18. persist and delete favourite recipes on db through api request
+~~18. persist and delete favourite recipes on db through api request~~  
+
 19. share via whatsapp using image and text
 20. implement logic on creating recipe
 21. persist created recipe on db through api request
