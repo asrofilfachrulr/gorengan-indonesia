@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="14dp"
+    tools:context=".Activity.AccountSettingActivity">
+    <LinearLayout
+        android:id="@+id/ll_top_account_setting"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/ib_back_account_setting"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:scaleType="fitXY"
+            android:rotation="180"
+            android:src="@drawable/baseline_chevron_right_24"
+            android:background="@android:color/transparent" />
+        <TextView
+            android:layout_marginStart="7sp"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textFontWeight="500"
+            android:textColor="@color/black"
+            android:text="Pengaturan Akun"/>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_content_account_setting"
+        app:layout_constraintTop_toBottomOf="@id/ll_top_account_setting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="16dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_content_account_setting"
+            android:paddingVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:paddingHorizontal="14dp"
+                android:id="@+id/btn_user_profile_account_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/btn_transparent"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:text="Profil Pengguna"
+                android:textSize="16sp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_rounded"/>
+            <Button
+                android:paddingHorizontal="14dp"
+                android:id="@+id/btn_user_password_account_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/btn_transparent"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:text="Kata Sandi"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

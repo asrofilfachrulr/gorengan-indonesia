@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.gorenganindonesia.Activity.AccountSettingActivity;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
@@ -45,7 +46,8 @@ public class AccountFragment extends Fragment {
         });
 
         binding.btnAccountAccount.setOnClickListener(v -> {
-            ToastUseCase.showInDevelopment(root);
+            Intent intent = new Intent(getActivity(), AccountSettingActivity.class);
+            getActivity().startActivity(intent);
         });
 
         binding.btnOfflineRecipeAccount.setOnClickListener(v -> {

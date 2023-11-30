@@ -16,6 +16,15 @@
         android:theme="@style/Theme.GorenganIndonesia"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.PasswordSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ProfileSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AccountSettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.NewRecipeActivity"
             android:exported="false" />
         <activity
