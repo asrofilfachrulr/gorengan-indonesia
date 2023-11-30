@@ -4,14 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="14dp"
     tools:context=".Activity.ProfileSettingActivity">
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_root_loading_profile_setting"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#9E020202"
+        android:gravity="center"
+        android:translationZ="10dp">
+        <TextView
+            android:id="@+id/tv_root_loading_profile_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:textAlignment="center"
+            android:text="Memperbarui\nKata Sandi..." />
+        <ProgressBar
+            android:layout_marginTop="14sp"
+            android:id="@+id/pb_login"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_top_profile_setting"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="14dp"
         android:orientation="horizontal">
         <ImageButton
             android:id="@+id/ib_back_profile_setting"
@@ -40,6 +69,7 @@
         android:layout_marginTop="24dp"
         app:cardElevation="0dp"
         app:cardCornerRadius="10dp"
+        android:layout_marginHorizontal="14dp"
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/ll_content_profile_setting"
@@ -120,88 +150,6 @@
                 android:minHeight="50dp"
                 android:maxLines="1"
                 android:background="@android:drawable/editbox_background"/>
-            <TextView
-                android:layout_marginTop="14dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kata Sandi Baru"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:visibility="gone"
-                android:layout_marginTop="5dp"
-                android:id="@+id/tv_new_password_error_profile_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#C10E0E"
-                android:text="Kata Sandi Tidak Valid"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="14dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:id="@+id/et_new_password_profile_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="50dp"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:background="@android:drawable/editbox_background"/>
-                <ImageButton
-                    android:id="@+id/ib_toggle_new_password_profile_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="14dp"
-                    style="@style/btn_transparent"
-                    android:src="@drawable/baseline_remove_red_eye_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ulangi Kata Sandi"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:visibility="gone"
-                android:layout_marginTop="5dp"
-                android:id="@+id/tv_repeat_new_password_error_profile_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#C10E0E"
-                android:text="Kata Sandi Tidak Valid"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp">
-                <EditText
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:id="@+id/et_repeat_new_password_profile_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="50dp"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:background="@android:drawable/editbox_background"/>
-                <ImageButton
-                    android:id="@+id/ib_repeat_toggle_new_password_profile_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="14dp"
-                    style="@style/btn_transparent"
-                    android:src="@drawable/baseline_remove_red_eye_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
             <View
                 android:id="@+id/vw_empty_space_profile_setting"
                 android:layout_width="match_parent"
@@ -214,7 +162,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:padding="14dp"
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_reset_profile_setting"

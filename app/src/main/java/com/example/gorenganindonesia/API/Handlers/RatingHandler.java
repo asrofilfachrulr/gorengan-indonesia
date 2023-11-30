@@ -78,9 +78,9 @@ public class RatingHandler {
                             ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
                         } else {
                             try {
-                                new CustomToast("Error Mendapatkan Data: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Mendapatkan Data Rating: " + response.errorBody().string(), dao.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", dao.view, false).show();
+                                new CustomToast("Gagal Mendapatkan Data Rating", dao.view, false).show();
                             }
                         }
                     }
@@ -88,7 +88,7 @@ public class RatingHandler {
                     @Override
                     public void onFailure(Call<GetRatingsResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Error Memuat Data", dao.view, false).show();
+                        new CustomToast("Gagal Mendapatkan Data Rating: Koneksi Gagal", dao.view, false).show();
                     }
                 });
     }
@@ -115,7 +115,7 @@ public class RatingHandler {
                             try {
                                 new CustomToast("Gagal membuat ulasan: " + response.errorBody().string(), dao.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", dao.view, false).show();
+                                new CustomToast("Gagal membuat ulasan", dao.view, false).show();
                             }
                         }
                     }
@@ -123,7 +123,7 @@ public class RatingHandler {
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Error Jaringan", dao.view, false).show();
+                        new CustomToast("Gagal membuat ulasan: Koneksi Gagal", dao.view, false).show();
                     }
                 });
     }
@@ -150,7 +150,7 @@ public class RatingHandler {
                             try {
                                 new CustomToast("Gagal memperbarui ulasan: " + response.errorBody().string(), dao.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", dao.view, false).show();
+                                new CustomToast("Gagal memperbarui ulasan", dao.view, false).show();
                             }
                         }
                     }
@@ -158,7 +158,7 @@ public class RatingHandler {
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Error Jaringan", dao.view, false).show();
+                        new CustomToast("Gagal memperbarui ulasan: Koneksi Gagal", dao.view, false).show();
                     }
                 });
     }
@@ -186,7 +186,7 @@ public class RatingHandler {
                             try {
                                 new CustomToast("Gagal menghapus ulasan: " + response.errorBody().string(), dao.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Mengolah Data", dao.view, false).show();
+                                new CustomToast("Gagal menghapus ulasan", dao.view, false).show();
                             }
                         }
                     }
@@ -194,7 +194,7 @@ public class RatingHandler {
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Error Jaringan", dao.view, false).show();
+                        new CustomToast("Gagal menghapus ulasan: Koneksi Gagal", dao.view, false).show();
                     }
                 });
     }

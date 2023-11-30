@@ -68,7 +68,7 @@ public class RecipeDetailHandler {
 
                     @Override
                     public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
-                        new CustomToast("Error Jaringan: Gagal Mendapat Bahan Resep", dao.view, false).show();
+                        new CustomToast("Error Memuat Bahan Resep: Koneksi Gagal", dao.view, false).show();
                         dao.loadingView.setVisibility(View.GONE);
                     }
                 });
@@ -103,7 +103,7 @@ public class RecipeDetailHandler {
 
                     @Override
                     public void onFailure(Call<GetStepsResponse> call, Throwable t) {
-                        new CustomToast("Error Jaringan: Gagal Mendapat Langkah Resep", dao.view, false).show();
+                        new CustomToast("Gagal Memuat Langkah Resep: Koneksi Gagal", dao.view, false).show();
                         dao.loadingView.setVisibility(View.GONE);
                     }
                 });

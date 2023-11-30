@@ -70,8 +70,10 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 
 ~~29. implement logic on displaying bars rating each star~~  
 
-30. implement layout account setting
-31. implement what user can do on account setting
+~~30. implement layout account setting~~  
+
+~~31. implement what user can do on account setting~~  
+
 32. save recieps locally => handling offline connection
 ... 
 

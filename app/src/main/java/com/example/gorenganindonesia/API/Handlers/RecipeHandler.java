@@ -90,7 +90,7 @@ public class RecipeHandler {
                                 JSONObject errorJson = new JSONObject(errorBody);
                                 String errorMessage = errorJson.optString("message");
 
-                                new CustomToast("Error: " + errorMessage, dao.view).show();
+                                new CustomToast("Gagal Mendapatkan Data Resep: " + errorMessage, dao.view).show();
 
                             } catch (IOException | JSONException e) {
                                 Log.e("error", e.toString());
@@ -103,7 +103,7 @@ public class RecipeHandler {
                     public void onFailure(Call<GetAllRecipesResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
 
-                        new CustomToast("Error Jaringan: Gagal Mendapatkan Resep", dao.view, false).show();
+                        new CustomToast("Gagal Mendapatkan Resep: Koneksi Gagal", dao.view, false).show();
                     }
                 });
     }

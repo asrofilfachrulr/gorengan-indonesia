@@ -57,9 +57,9 @@ public class FavouriteHandler {
                         dao.loadingView.setVisibility(View.GONE);
                         try {
                             if(statusCode != 404)
-                                new CustomToast("Error Mendapatkan Daftar Favorit: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Mendapatkan Daftar Favorit: " + response.errorBody().string(), dao.view, false).show();
                         } catch (IOException e) {
-                            new CustomToast("Error Mengolah Daftar Favorit", dao.view, false).show();
+                            new CustomToast("Gagal Mengolah Daftar Favorit", dao.view, false).show();
                         }
                     }
                 }
@@ -67,7 +67,7 @@ public class FavouriteHandler {
                 @Override
                 public void onFailure(Call<GetFavouritesResponse> call, Throwable t) {
                     dao.loadingView.setVisibility(View.GONE);
-                    new CustomToast("Error Jaringan: Gagal Memuat Daftar Favorit", dao.view, false).show();
+                    new CustomToast("Gagal Mendapatkan Daftar Favorit: Koneksi Gagal", dao.view, false).show();
                 }
             });
     }
@@ -90,9 +90,9 @@ public class FavouriteHandler {
                         } else {
                             dao.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Error Menambahkan Favorit: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Menambahkan Favorit: " + response.errorBody().string(), dao.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Menambahkan Favorit", dao.view, false).show();
+                                new CustomToast("Gagal Menambahkan Favorit", dao.view, false).show();
                             }
                         }
                     }
@@ -100,7 +100,7 @@ public class FavouriteHandler {
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Error Jaringan: Gagal Menambahkan Favorit", dao.view, false).show();
+                        new CustomToast("Gagal Menambahkan Favorit: Koneksi Gagal", dao.view, false).show();
 
                     }
                 });
@@ -125,9 +125,9 @@ public class FavouriteHandler {
                         } else {
                             dao.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Error Menghapus Favorit: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Menghapus Favorit: " + response.errorBody().string(), dao.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Menghapus Favorit", dao.view, false).show();
+                                new CustomToast("Gagal Menghapus Favorit", dao.view, false).show();
                             }
                         }
                     }
@@ -135,7 +135,7 @@ public class FavouriteHandler {
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Error Jaringan: Gagal Menghapus Favorit", dao.view, false).show();
+                        new CustomToast("Gagal Menghapus Favorit: Koneksi Gagal", dao.view, false).show();
                     }
                 });
     }

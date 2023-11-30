@@ -27,6 +27,7 @@
             android:layout_marginTop="14dp">
 
             <ImageView
+                android:id="@+id/iv_profile_photo_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_account_circle_150"

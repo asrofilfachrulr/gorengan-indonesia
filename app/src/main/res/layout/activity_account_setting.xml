@@ -43,7 +43,6 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/ll_content_account_setting"
-            android:paddingVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -53,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/btn_transparent"
+                android:padding="20dp"
                 android:textAllCaps="false"
                 android:textAlignment="textStart"
                 android:text="Profil Pengguna"
@@ -67,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/btn_transparent"
+                android:padding="20dp"
                 android:textAllCaps="false"
                 android:textAlignment="textStart"
                 android:text="Kata Sandi"
