@@ -8,6 +8,7 @@ import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.api.User.GetUserResponse;
+import com.example.gorenganindonesia.Model.api.User.PutUserBioImgResponse;
 import com.example.gorenganindonesia.Model.api.User.PutUserBioRequest;
 import com.example.gorenganindonesia.Model.api.User.UserData;
 import com.example.gorenganindonesia.Model.data.Account.Account;
@@ -15,6 +16,7 @@ import com.example.gorenganindonesia.Util.CustomToast;
 
 import java.io.IOException;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,6 +120,46 @@ public class UserHandler {
                         if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
                             dto.loadingView.setVisibility(View.GONE);
                         new CustomToast("Gagal Memperbarui Profil: Koneksi Gagal", dto.view, false).show();
+                    }
+                });
+    }
+
+    public void putUserBioImg(MultipartBody.Part imageData, String prevPath){
+        dto.loadingView.setVisibility(View.VISIBLE);
+        dto.loadingText.setText("Mengunggah Gambar...");
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
+                        .getJwtHeaderValue();
+
+        userService
+                .putUserBioImg(token, prevPath, imageData)
+                .enqueue(new Callback<PutUserBioImgResponse>() {
+                    @Override
+                    public void onResponse(Call<PutUserBioImgResponse> call, Response<PutUserBioImgResponse> response) {
+                        dto.loadingView.setVisibility(View.GONE);
+                        if(response.isSuccessful()){
+                            PutUserBioImgResponse respBody = response.body();
+
+                            Account account = ((GlobalModel) dto.context.getApplicationContext()).getAccountViewModel().getAccount();
+                            account.setImageUrl(respBody.getImageUrl());
+                            account.setImagePath(respBody.getImagePath());
+
+                            ((GlobalModel) dto.context.getApplicationContext()).getAccountViewModel().setAccount(account);
+
+                            if(dto.callback != null)
+                                dto.callback.run();
+                        } else {
+                            try {
+                                new CustomToast("Gagal Memperbarui Gambar Profil: " + response.errorBody().string(), dto.view, false).show();
+                            } catch (IOException e) {
+                                new CustomToast("Gagal Memperbarui Gambar Profil", dto.view, false).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PutUserBioImgResponse> call, Throwable t) {
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Memperbarui Gambar Profil: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }

@@ -45,4 +45,6 @@ public class AccountViewModel extends ViewModel {
     public String getEmail() { return mAccount.getValue().getEmail();}
 
     public String getImageUrl() { return mAccount.getValue().getImageUrl();}
+
+    public String getImagePath() { return mAccount.getValue().getImagePath();}
 }

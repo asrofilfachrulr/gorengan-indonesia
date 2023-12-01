@@ -5,6 +5,8 @@ import static android.app.Activity.RESULT_OK;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import com.example.gorenganindonesia.Activity.AccountSettingActivity;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.data.Account.Account;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.BitmapHelper;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
@@ -29,11 +32,16 @@ import com.example.gorenganindonesia.databinding.FragmentAccountBinding;
 import com.example.gorenganindonesia.ui.Fragments.Account.AppInfoFragment;
 import com.example.gorenganindonesia.ui.Fragments.Account.TermsOfServiceFragment;
 
+import java.io.InputStream;
+
+import okhttp3.MultipartBody;
+
 public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
     private AccountViewModel accountViewModel;
     private static final int PICK_FILE_REQUEST_CODE = 1;
+    private static final int MAX_SIZE_IMAGE = 1024; // KB or 1MB
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -138,14 +146,40 @@ public class AccountFragment extends Fragment {
         if(resultCode == RESULT_OK){
             switch(requestCode){
                 case PICK_FILE_REQUEST_CODE:
-                    Uri selectedFileUri = data.getData();
-                    Glide
-                            .with(requireContext())
-                            .load(selectedFileUri)
-                            .circleCrop()
-                            .placeholder(R.drawable.baseline_account_circle_150)
-                            .error(R.drawable.img_404_landscape)
-                            .into(binding.ivProfilePhotoAccount);
+                    binding.llRootLoadingAccountFragment.setVisibility(View.VISIBLE);
+                    binding.tvRootLoadingAccountFragment.setText("Memproses Gambar");
+
+                    MultipartBody.Part imageData;
+                    String prevPath = ((GlobalModel) requireContext().getApplicationContext()).getAccountViewModel().getImagePath();
+
+                    try {
+                        Uri selectedFileUri = data.getData();
+                        BitmapHelper bitmapHelper = new BitmapHelper();
+                        Bitmap compressedBitmap = bitmapHelper.compressImage(selectedFileUri, requireContext().getContentResolver());
+
+                        if (compressedBitmap == null) {
+                            new CustomToast("Error Memproses Gambar!", binding.getRoot()).show();
+                            throw new RuntimeException();
+                        }
+
+                        imageData = bitmapHelper.bitmapToMultipartBody(compressedBitmap, selectedFileUri);
+
+                    } catch (Exception e) {
+                        binding.llRootLoadingAccountFragment.setVisibility(View.GONE);
+                        return;
+                    }
+
+
+                    APIHandlerDTO dto = new APIHandlerDTO(
+                            binding.getRoot(),
+                            binding.llRootLoadingAccountFragment,
+                            binding.tvRootLoadingAccountFragment,
+                            requireContext()
+                    );
+
+                    UserHandler userHandler = new UserHandler(dto);
+                    userHandler.putUserBioImg(imageData, prevPath);
+
                     break;
             }
         }
