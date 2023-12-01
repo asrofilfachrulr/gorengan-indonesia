@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.user.UserService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.api.User.GetUserResponse;
@@ -20,26 +20,28 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserHandler {
-    APIHandlerDAO dao;
+    APIHandlerDTO dto;
     UserService userService;
 
-    public APIHandlerDAO getDao() {
-        return dao;
+    public APIHandlerDTO getDto() {
+        return dto;
     }
 
-    public void setDao(APIHandlerDAO dao) {
-        this.dao = dao;
+    public void setDto(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
-    public UserHandler(APIHandlerDAO dao) {
-        this.dao = dao;
+    public UserHandler(APIHandlerDTO dto) {
+        this.dto = dto;
         this.userService = RetrofitClient.getInstance().create(UserService.class);
     }
 
     public void getUser(){
-        dao.loadingView.setVisibility(View.VISIBLE);
-        dao.loadingText.setText("Memuat Informasi Pengguna...");
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE){
+            dto.loadingView.setVisibility(View.VISIBLE);
+            dto.loadingText.setText("Memuat Informasi Pengguna...");
+        }
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
         userService
@@ -47,7 +49,8 @@ public class UserHandler {
                 .enqueue(new Callback<GetUserResponse>() {
                     @Override
                     public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
-                        dao.loadingView.setVisibility(View.GONE);
+                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
+                            dto.loadingView.setVisibility(View.GONE);
                         if(response.isSuccessful()){
                             UserData userDataResponse = response.body().getUserData();
 
@@ -56,59 +59,65 @@ public class UserHandler {
                                     userDataResponse.getName(),
                                     userDataResponse.getUsername(),
                                     userDataResponse.getImageUrl(),
+                                    userDataResponse.getImagePath(),
                                     userDataResponse.getEmail()
                             );
 
-                            ((GlobalModel) dao.context.getApplicationContext()).getAccountViewModel().setAccount(account);
+                            ((GlobalModel) dto.context.getApplicationContext()).getAccountViewModel().setAccount(account);
+                            ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().saveAccountInfo(account);
 
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
                             try {
-                                new CustomToast("Gagal Mendaptkan Informasi Pengguna: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Mendaptkan Informasi Pengguna: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal Mendaptkan Informasi Pengguna", dao.view, false).show();
+                                new CustomToast("Gagal Mendaptkan Informasi Pengguna", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<GetUserResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal Mendapatkan Informasi Pengguna: Koneksi Gagal", dao.view, false).show();
+                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
+                            dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Mendapatkan Informasi Pengguna: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }
 
     public void putUserBio(PutUserBioRequest putUserBioRequest){
-        dao.loadingView.setVisibility(View.VISIBLE);
-        dao.loadingText.setText("Memperbarui Informasi\nProfil Anda...");
-
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE) {
+            dto.loadingView.setVisibility(View.VISIBLE);
+            dto.loadingText.setText("Memperbarui Informasi\nProfil Anda...");
+        }
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
         userService
                 .putUserBio(token, putUserBioRequest)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                        dao.loadingView.setVisibility(View.GONE);
+                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
+                            dto.loadingView.setVisibility(View.GONE);
 
                         if(response.isSuccessful()){
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
                             try {
-                                new CustomToast("Gagal Memperbarui Profil: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Memperbarui Profil: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal Memperbarui Profil", dao.view, false).show();
+                                new CustomToast("Gagal Memperbarui Profil", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal Memperbarui Profil: Koneksi Gagal", dao.view, false).show();
+                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
+                            dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Memperbarui Profil: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }

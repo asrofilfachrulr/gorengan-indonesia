@@ -5,7 +5,7 @@ import android.view.View;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.FavouritesService;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.FavouriteService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.api.GetFavouritesResponse;
@@ -20,17 +20,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavouriteHandler {
-    private APIHandlerDAO dao;
+    private APIHandlerDTO dao;
 
-    public FavouriteHandler(APIHandlerDAO dao) {
+    public FavouriteHandler(APIHandlerDTO dao) {
         this.dao = dao;
     }
 
-    public APIHandlerDAO getDao() {
+    public APIHandlerDTO getDao() {
         return dao;
     }
 
-    public void setDao(APIHandlerDAO dao) {
+    public void setDao(APIHandlerDTO dao) {
         this.dao = dao;
     }
 

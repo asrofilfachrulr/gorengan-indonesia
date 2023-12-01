@@ -23,7 +23,7 @@ import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.API.Services.RecipesService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Activity.LoginActivity;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         recipes = new ArrayList<>();
         categories = new ArrayList<>();
 
-        APIHandlerDAO dao = new APIHandlerDAO(
+        APIHandlerDTO dao = new APIHandlerDTO(
                 root,
                 binding.llRootLoadingHome,
                 binding.tvRootLoadingHome,
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
         favouriteHandler = new FavouriteHandler(dao);
 
         if(recipeViewModel.getAllRecipes().getValue().size() == 0){
-            APIHandlerDAO tempDAO = recipeHandler.getDao();
+            APIHandlerDTO tempDAO = recipeHandler.getDao();
             tempDAO.setCallback(() -> {
                 favouriteHandler.getFavourites();
             });

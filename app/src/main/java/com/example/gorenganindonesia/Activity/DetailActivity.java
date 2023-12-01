@@ -17,16 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.API.Handlers.RecipeDetailHandler;
-import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.API.Services.recipe.recipeId.IngredientsService;
-import com.example.gorenganindonesia.API.Services.recipe.recipeId.StepsService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
-import com.example.gorenganindonesia.Model.api.Recipe.Steps.GetStepsResponse;
-import com.example.gorenganindonesia.Model.api.Recipe.Ingredients.GetlIngredientsResponse;
-import com.example.gorenganindonesia.Model.api.Recipe.Ingredients.IngredientData;
-import com.example.gorenganindonesia.Model.api.Recipe.Steps.StepData;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
@@ -36,13 +29,8 @@ import com.example.gorenganindonesia.ui.Fragments.Detail.IngredientsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.StepsFragment;
 import com.example.gorenganindonesia.ui.Fragments.Detail.SummaryFragment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
     TextView tvTitleRingkasan, tvTitleLangkah, tvTitleBahan, tvStep, tvIngredient, tvLoading;
@@ -90,7 +78,7 @@ public class DetailActivity extends AppCompatActivity {
 
         vp = (ViewPager) findViewById(R.id.vp_detail);
 
-        APIHandlerDAO dao = new APIHandlerDAO(
+        APIHandlerDTO dao = new APIHandlerDTO(
                 view,
                 llRootLoadingDetail,
                 tvLoading,
@@ -131,7 +119,7 @@ public class DetailActivity extends AppCompatActivity {
 
         btnToggleFavourite.setOnClickListener(v -> {
             if (isReceiptExistInFav[0]) {
-                APIHandlerDAO daoRemove = favouriteHandler.getDao();
+                APIHandlerDTO daoRemove = favouriteHandler.getDao();
                 daoRemove.setCallback(() -> {
                     new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
                     btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
@@ -143,7 +131,7 @@ public class DetailActivity extends AppCompatActivity {
                 favouriteHandler.deleteFavourite(recipe.getId());
 //                favViewModel.removeFavourite(recipe);
             } else {
-                APIHandlerDAO daoPush = favouriteHandler.getDao();
+                APIHandlerDTO daoPush = favouriteHandler.getDao();
                 daoPush.setCallback(() -> {
                     new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
                     btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);

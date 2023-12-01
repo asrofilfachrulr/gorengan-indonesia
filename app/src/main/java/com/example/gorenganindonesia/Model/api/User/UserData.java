@@ -9,16 +9,16 @@ public class UserData {
     String email;
     @SerializedName("image_url")
     String imageUrl;
-    @SerializedName("thumb_url")
-    String thumbUrl;
+    @SerializedName("image_path")
+    String imagePath;
 
-    public UserData(String id, String name, String username, String email, String imageUrl, String thumbUrl) {
+    public UserData(String id, String name, String username, String email, String imageUrl, String imagePath) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.imageUrl = imageUrl;
-        this.thumbUrl = thumbUrl;
+        this.imagePath = imagePath;
     }
 
     public String getId() {
@@ -61,11 +61,11 @@ public class UserData {
         this.imageUrl = imageUrl;
     }
 
-    public String getThumbUrl() {
-        return thumbUrl;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setThumbUrl(String thumbUrl) {
-        this.thumbUrl = thumbUrl;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

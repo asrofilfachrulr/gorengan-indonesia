@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
@@ -36,7 +36,7 @@ public class FavouriteFragment extends Fragment {
         binding = FragmentFavouriteBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        favouriteHandler = new FavouriteHandler(new APIHandlerDAO(
+        favouriteHandler = new FavouriteHandler(new APIHandlerDTO(
                 root,
                 binding.llRootLoadingFavourite,
                 binding.tvRootLoadingFavourites,

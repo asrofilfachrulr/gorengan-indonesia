@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.gorenganindonesia.API.Handlers.PasswordHandler;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.api.User.PutPasswordRequest;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.InputMethodHelper;
@@ -109,7 +109,7 @@ public class PasswordSettingActivity extends AppCompatActivity {
                 return;
             }
 
-            APIHandlerDAO dao = new APIHandlerDAO(
+            APIHandlerDTO dao = new APIHandlerDTO(
                     binding.getRoot(),
                     binding.llRootLoadingPasswordSetting,
                     binding.tvRootLoadingPasswordSetting,

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.gorenganindonesia.API.Handlers.UserHandler;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.User.PutUserBioRequest;
 import com.example.gorenganindonesia.Model.data.Account.Account;
@@ -89,7 +89,7 @@ public class ProfileSettingActivity extends AppCompatActivity {
                 binding.tvEmailErrorProfileSetting.setVisibility(View.VISIBLE);
             }
 
-            APIHandlerDAO dao = new APIHandlerDAO(
+            APIHandlerDTO dao = new APIHandlerDTO(
                     binding.getRoot(),
                     binding.llRootLoadingProfileSetting,
                     binding.tvRootLoadingProfileSetting,
@@ -98,7 +98,7 @@ public class ProfileSettingActivity extends AppCompatActivity {
 
             dao.setCallback(() -> {
                 UserHandler userHandler = new UserHandler(dao);
-                APIHandlerDAO getUserDAO = userHandler.getDao();
+                APIHandlerDTO getUserDAO = userHandler.getDto();
                 getUserDAO.setCallback(() -> {
                     BasicInfoFragment basicInfoFragment = new BasicInfoFragment(
                             "Profil Berhasil Diperbarui",
@@ -109,7 +109,7 @@ public class ProfileSettingActivity extends AppCompatActivity {
 
                     basicInfoFragment.show(getSupportFragmentManager(), "BASIC_INFO_FRAGMENT");
                 });
-                userHandler.setDao(getUserDAO);
+                userHandler.setDto(getUserDAO);
                 userHandler.getUser();
             });
 

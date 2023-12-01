@@ -17,24 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.Handlers.RatingHandler;
-import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
-import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.api.BasicResponse;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.DateHelper;
 import com.example.gorenganindonesia.ui.Fragments.Rating.RatingEditorFragment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder>{
     List<Rating> dataList;
@@ -85,7 +76,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
 
         Glide
             .with(holder.itemView.getContext())
-            .load(rating.getThumbUrl())
+            .load(rating.getImageUrl())
+            .circleCrop()
             .placeholder(R.drawable.solid_grey_landscape)
             .error(R.drawable.img_404_landscape)
             .into(holder.ivThumb);
@@ -135,7 +127,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ViewHolder
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage("Apakah Anda yakin menghapus ulasan ini?")
                             .setPositiveButton("Hapus", (dialog, which) -> {
-                                APIHandlerDAO dao = new APIHandlerDAO(holder.view, llRootLoading,
+                                APIHandlerDTO dao = new APIHandlerDTO(holder.view, llRootLoading,
                                         tvLoading, holder.view.getContext());
                                 RatingHandler ratingHandler = new RatingHandler(dao);
                                 dao.setCallback(getRatingsCallback);

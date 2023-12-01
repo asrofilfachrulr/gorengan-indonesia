@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F3F3F3"
     tools:context=".ui.Fragments.Main.AccountFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,19 +29,19 @@
 
             <ImageView
                 android:id="@+id/iv_profile_photo_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="136dp"
+                android:layout_height="136dp"
                 android:src="@drawable/baseline_account_circle_150"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/ib_edit_image_account"
-                style="@style/btn_white_round"
+                style="@style/btn_white_round_bordered"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/round_edit_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +52,7 @@
             android:id="@+id/tv_name_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ganjar Baswedan"
+            android:text="Ganjar Baswedan Subianto"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -60,111 +61,146 @@
             android:id="@+id/tv_email_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ganjar@prabowo.mail.com"
+            android:text="ganjar@banteng.mail.com"
             android:textAlignment="center"
             android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_account_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/round_manage_accounts_24"
-            android:drawableEnd="@drawable/baseline_chevron_right_24"
-            android:drawablePadding="14dp"
-            android:minHeight="45dp"
-            android:paddingVertical="10dp"
-            android:text="Akun"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_offline_recipe_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/baseline_signal_wifi_off_24"
-            android:drawableEnd="@drawable/baseline_chevron_right_24"
-            android:drawablePadding="14dp"
-            android:minHeight="45dp"
-            android:paddingVertical="10dp"
-            android:text="Resep Offline"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_terms_of_service_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/baseline_post_add_24"
-            android:drawableEnd="@drawable/baseline_chevron_right_24"
-            android:drawablePadding="14dp"
-            android:minHeight="45dp"
-            android:paddingVertical="10dp"
-            android:text="Terms of Services"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_app_info_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/baseline_warning_24"
-            android:drawableEnd="@drawable/baseline_chevron_right_24"
-            android:drawablePadding="14dp"
-            android:minHeight="45dp"
-            android:paddingVertical="10dp"
-            android:text="Info Aplikasi"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_customer_service_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/baseline_headset_mic_24"
-            android:drawableEnd="@drawable/baseline_chevron_right_24"
-            android:drawablePadding="14dp"
-            android:minHeight="45dp"
-            android:paddingVertical="10dp"
-            android:text="Layanan Pelanggan"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_logout_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/baseline_logout_24"
-            android:drawableEnd="@drawable/baseline_chevron_right_24"
-            android:drawablePadding="14dp"
-            android:minHeight="45dp"
-            android:paddingVertical="10dp"
-            android:text="Keluar Akun"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
     </LinearLayout>
-</ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingHorizontal="18dp"
+                android:id="@+id/btn_account_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/round_manage_accounts_24"
+                android:drawableEnd="@drawable/baseline_chevron_right_24"
+                android:drawablePadding="14dp"
+                android:minHeight="45dp"
+                android:paddingVertical="20dp"
+                android:text="Akun"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_rounded"/>
+            <Button
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingHorizontal="18dp"
+                android:id="@+id/btn_offline_recipe_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/baseline_signal_wifi_off_24"
+                android:drawableEnd="@drawable/baseline_chevron_right_24"
+                android:drawablePadding="14dp"
+                android:minHeight="45dp"
+                android:paddingVertical="20dp"
+                android:text="Resep Offline"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_rounded"/>
+            <Button
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingHorizontal="18dp"
+                android:id="@+id/btn_terms_of_service_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/baseline_post_add_24"
+                android:drawableEnd="@drawable/baseline_chevron_right_24"
+                android:drawablePadding="14dp"
+                android:minHeight="45dp"
+                android:paddingVertical="20dp"
+                android:text="Terms of Services"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_rounded"/>
+            <Button
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingHorizontal="18dp"
+                android:id="@+id/btn_app_info_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/baseline_warning_24"
+                android:drawableEnd="@drawable/baseline_chevron_right_24"
+                android:drawablePadding="14dp"
+                android:minHeight="45dp"
+                android:paddingVertical="20dp"
+                android:text="Info Aplikasi"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="0dp"
+                android:background="@drawable/divider_rounded"/>
+            <Button
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingHorizontal="18dp"
+                android:id="@+id/btn_customer_service_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/baseline_headset_mic_24"
+                android:drawableEnd="@drawable/baseline_chevron_right_24"
+                android:drawablePadding="14dp"
+                android:minHeight="45dp"
+                android:paddingVertical="20dp"
+                android:text="Layanan Pelanggan"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_rounded"/>
+            <Button
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingHorizontal="18dp"
+                android:id="@+id/btn_logout_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/baseline_logout_24"
+                android:drawableEnd="@drawable/baseline_chevron_right_24"
+                android:drawablePadding="14dp"
+                android:minHeight="45dp"
+                android:paddingVertical="20dp"
+                android:text="Keluar Akun"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

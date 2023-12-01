@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.RecipesService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.Recipes.GetAllRecipesResponse;
 import com.example.gorenganindonesia.Model.api.Recipes.RecipeData;
@@ -25,17 +25,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipeHandler {
-    APIHandlerDAO dao;
+    APIHandlerDTO dao;
 
-    public RecipeHandler(APIHandlerDAO dao) {
+    public RecipeHandler(APIHandlerDTO dao) {
         this.dao = dao;
     }
 
-    public APIHandlerDAO getDao() {
+    public APIHandlerDTO getDao() {
         return dao;
     }
 
-    public void setDao(APIHandlerDAO dao) {
+    public void setDao(APIHandlerDTO dao) {
         this.dao = dao;
     }
 

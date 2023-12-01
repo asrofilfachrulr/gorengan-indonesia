@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.example.gorenganindonesia.API.Services.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
 import com.example.gorenganindonesia.Model.api.AccountResponse;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
@@ -121,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                                             accountResponseJson.getName(),
                                             accountResponseJson.getUsername(),
                                             accountResponseJson.getImageUrl(),
+                                            accountResponseJson.getImagePath(),
                                             accountResponseJson.getEmail()
                                     );
 

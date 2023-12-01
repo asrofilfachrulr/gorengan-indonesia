@@ -12,15 +12,15 @@ public class Rating implements Parcelable {
     private Date date;
     private String authorUsername;
     private int starCount;
-    private String thumbUrl;
+    private String imageUrl;
     private int likeCount;
 
-    public Rating(String comment, Date date, String authorUsername, int starCount, String thumbUrl, int likeCount) {
+    public Rating(String comment, Date date, String authorUsername, int starCount, String imageUrl, int likeCount) {
         this.comment = comment;
         this.date = date;
         this.authorUsername = authorUsername;
         this.starCount = starCount;
-        this.thumbUrl = thumbUrl;
+        this.imageUrl = imageUrl;
         this.likeCount = likeCount;
     }
 
@@ -29,7 +29,7 @@ public class Rating implements Parcelable {
         date = new Date(in.readLong());
         authorUsername = in.readString();
         starCount = in.readInt();
-        thumbUrl = in.readString();
+        imageUrl = in.readString();
         likeCount = in.readInt();
     }
 
@@ -69,12 +69,12 @@ public class Rating implements Parcelable {
         this.starCount = starCount;
     }
 
-    public String getThumbUrl() {
-        return thumbUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setThumbUrl(String thumbUrl) {
-        this.thumbUrl = thumbUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getAuthorUsername() {
@@ -103,7 +103,7 @@ public class Rating implements Parcelable {
         dest.writeString(comment);
         dest.writeLong(date.getTime());
         dest.writeString(authorUsername);
-        dest.writeString(thumbUrl);
+        dest.writeString(imageUrl);
         dest.writeInt(starCount);
         dest.writeInt(likeCount);
     }

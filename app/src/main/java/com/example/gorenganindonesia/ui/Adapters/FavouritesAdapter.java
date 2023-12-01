@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.Activity.DetailActivity;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
@@ -85,7 +85,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         }
 
         holder.btnDelete.setOnClickListener(v -> {
-            APIHandlerDAO tempDAO = favouriteHandler.getDao();
+            APIHandlerDTO tempDAO = favouriteHandler.getDao();
             tempDAO.setCallback(() -> favouriteHandler.getFavourites());
             favouriteHandler.setDao(tempDAO);
 

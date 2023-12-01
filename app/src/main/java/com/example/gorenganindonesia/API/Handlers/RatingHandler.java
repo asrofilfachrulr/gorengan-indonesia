@@ -5,7 +5,7 @@ import android.view.View;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
 import com.example.gorenganindonesia.Activity.RatingActivity;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.api.Recipe.Ratings.GetRatingsResponse;
@@ -22,36 +22,36 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RatingHandler {
-    APIHandlerDAO dao;
+    APIHandlerDTO dto;
     RatingsService ratingsService;
 
-    public RatingHandler(APIHandlerDAO dao) {
-        this.dao = dao;
+    public RatingHandler(APIHandlerDTO dto) {
+        this.dto = dto;
 
         this.ratingsService = RetrofitClient.getInstance().create(RatingsService.class);
     }
 
-    public APIHandlerDAO getDao() {
-        return dao;
+    public APIHandlerDTO getDto() {
+        return dto;
     }
 
-    public void setDao(APIHandlerDAO dao) {
-        this.dao = dao;
+    public void setDto(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
     public void getRatings(String recipeId, String queryOrder, int index, RatingActivity activity){
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
-        dao.loadingView.setVisibility(View.VISIBLE);
-        dao.loadingText.setText("Memuat Ulasan...");
+        dto.loadingView.setVisibility(View.VISIBLE);
+        dto.loadingText.setText("Memuat Ulasan...");
 
         ratingsService
                 .getRatingsByRecipeId(recipeId, token, queryOrder)
                 .enqueue(new Callback<GetRatingsResponse>() {
                     @Override
                     public void onResponse(Call<GetRatingsResponse> call, Response<GetRatingsResponse> response) {
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
 
                         if (response.isSuccessful()) {
                             RatingData[] ratingData = response.body().getRatingData();
@@ -64,7 +64,7 @@ public class RatingHandler {
                                         ratingData[i].getDate(),
                                         ratingData[i].getUsername(),
                                         ratingData[i].getStars(),
-                                        ratingData[i].getThumbUrl(),
+                                        ratingData[i].getImageUrl(),
                                         ratingData[i].getLikeCount()
                                 );
 
@@ -74,32 +74,32 @@ public class RatingHandler {
                             float starAvg = response.body().getExtra().getStarAvg();
                             activity.starAvg = starAvg;
 
-                            ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setRatings(ratings, index);
-                            ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setRatings(ratings, index);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
                         } else {
                             try {
-                                new CustomToast("Gagal Mendapatkan Data Rating: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Mendapatkan Data Rating: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal Mendapatkan Data Rating", dao.view, false).show();
+                                new CustomToast("Gagal Mendapatkan Data Rating", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<GetRatingsResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal Mendapatkan Data Rating: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Mendapatkan Data Rating: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }
 
     public void postRating(String recipeId, String comment, int stars){
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
         PostRatingRequest postRatingRequest = new PostRatingRequest(stars, comment);
 
-        dao.loadingText.setText("Membuat Ulasan...");
+        dto.loadingText.setText("Membuat Ulasan...");
 
         ratingsService
                 .postRating(recipeId, token, postRatingRequest)
@@ -107,34 +107,34 @@ public class RatingHandler {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                         if(response.isSuccessful()){
-                            new CustomToast("Ulasan berhasil dibuat", dao.view, false).show();
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            new CustomToast("Ulasan berhasil dibuat", dto.view, false).show();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
-                            dao.loadingView.setVisibility(View.GONE);
+                            dto.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Gagal membuat ulasan: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal membuat ulasan: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal membuat ulasan", dao.view, false).show();
+                                new CustomToast("Gagal membuat ulasan", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal membuat ulasan: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal membuat ulasan: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }
 
     public void putRating(String recipeId, String comment, int stars){
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
         PutRatingRequest putRatingRequest = new PutRatingRequest(stars, comment);
 
-        dao.loadingText.setText("Memperbarui Ulasan...");
+        dto.loadingText.setText("Memperbarui Ulasan...");
 
         ratingsService
                 .putRatingByRecipeId(recipeId, token, putRatingRequest)
@@ -142,33 +142,33 @@ public class RatingHandler {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                         if (response.isSuccessful()) {
-                            new CustomToast("Ulasan berhasil diperbarui", dao.view, false).show();
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            new CustomToast("Ulasan berhasil diperbarui", dto.view, false).show();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
-                            dao.loadingView.setVisibility(View.GONE);
+                            dto.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Gagal memperbarui ulasan: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal memperbarui ulasan: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal memperbarui ulasan", dao.view, false).show();
+                                new CustomToast("Gagal memperbarui ulasan", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal memperbarui ulasan: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal memperbarui ulasan: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }
 
     public void deleteRating(String recipeId){
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
 
-        dao.loadingText.setText("Menghapus ulasan...");
-        dao.loadingView.setVisibility(View.VISIBLE);
+        dto.loadingText.setText("Menghapus ulasan...");
+        dto.loadingView.setVisibility(View.VISIBLE);
 
         ratingsService
                 .deleteRatingByRecipeId(recipeId, token)
@@ -177,24 +177,24 @@ public class RatingHandler {
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                         if(response.isSuccessful()){
                             // refresh rating list
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
 
-                            new CustomToast("Ulasan berhasil dihapus", dao.view, false).show();
+                            new CustomToast("Ulasan berhasil dihapus", dto.view, false).show();
                         } else {
-                            dao.loadingView.setVisibility(View.GONE);
+                            dto.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Gagal menghapus ulasan: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal menghapus ulasan: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal menghapus ulasan", dao.view, false).show();
+                                new CustomToast("Gagal menghapus ulasan", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal menghapus ulasan: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal menghapus ulasan: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }

@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class RatingData {
     private String username;
-    @SerializedName("thumb_url")
-    private String thumbUrl;
+    @SerializedName("image_url")
+    private String imageUrl;
     private int stars;
     @SerializedName("like_count")
     private int likeCount;
@@ -22,12 +22,12 @@ public class RatingData {
         this.username = username;
     }
 
-    public String getThumbUrl() {
-        return thumbUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setThumbUrl(String thumbUrl) {
-        this.thumbUrl = thumbUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getStars() {

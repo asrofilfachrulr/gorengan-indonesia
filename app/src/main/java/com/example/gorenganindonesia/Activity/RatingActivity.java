@@ -1,19 +1,11 @@
 package com.example.gorenganindonesia.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,32 +15,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.API.Handlers.RatingHandler;
-import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.api.Recipe.Ratings.GetRatingsResponse;
-import com.example.gorenganindonesia.Model.api.Recipe.Ratings.RatingData;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
 import com.example.gorenganindonesia.ui.Adapters.StarFilterAdapter;
 import com.example.gorenganindonesia.ui.Fragments.Rating.RatingEditorFragment;
-import com.example.gorenganindonesia.ui.View.EmptySpaceView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RatingActivity extends AppCompatActivity {
     TextView tvTitle, tvStar, tvRatingCount, tvLoading;
@@ -226,7 +207,7 @@ public class RatingActivity extends AppCompatActivity {
     }
     
     private void getRatingsAPIRequest(String recipeId, String queryOrder) {
-        APIHandlerDAO dao = new APIHandlerDAO(view, llRootLoadingRating, tvLoading, this);
+        APIHandlerDTO dao = new APIHandlerDTO(view, llRootLoadingRating, tvLoading, this);
         RatingHandler ratingHandler = new RatingHandler(dao);
 
         ratingHandler.getRatings(recipeId, queryOrder, index, this);

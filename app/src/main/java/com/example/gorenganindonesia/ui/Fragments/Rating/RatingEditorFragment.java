@@ -16,23 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.gorenganindonesia.API.Handlers.RatingHandler;
-import com.example.gorenganindonesia.API.RetrofitClient;
-import com.example.gorenganindonesia.API.Services.recipe.recipeId.RatingsService;
-import com.example.gorenganindonesia.Model.DAO.APIHandlerDAO;
-import com.example.gorenganindonesia.Model.GlobalModel;
-import com.example.gorenganindonesia.Model.api.BasicResponse;
-import com.example.gorenganindonesia.Model.api.Recipe.Ratings.PostRatingRequest;
-import com.example.gorenganindonesia.Model.api.Recipe.Ratings.PutRatingRequest;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.Util.CustomToast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RatingEditorFragment extends DialogFragment {
     ImageButton ibStar1, ibStar2, ibStar3, ibStar4, ibStar5;
@@ -148,7 +136,7 @@ public class RatingEditorFragment extends DialogFragment {
             llRootLoading.setVisibility(View.VISIBLE);
 
 
-            APIHandlerDAO dao = new APIHandlerDAO(view, tvLoading, tvTitle, requireContext());
+            APIHandlerDTO dao = new APIHandlerDTO(view, tvLoading, tvTitle, requireContext());
             dao.setCallback(getRatingsCallback);
 
             RatingHandler ratingHandler = new RatingHandler(dao);

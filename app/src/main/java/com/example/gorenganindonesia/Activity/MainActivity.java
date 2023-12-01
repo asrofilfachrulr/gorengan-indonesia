@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 sharedPreferences.getString("account_name", "undefined"),
                 sharedPreferences.getString("account_username", "undefined"),
                 sharedPreferences.getString("account_image_url", "undefined"),
+                sharedPreferences.getString("account_image_path", "undefined"),
                 sharedPreferences.getString("account_email", "undefined")
         );
 

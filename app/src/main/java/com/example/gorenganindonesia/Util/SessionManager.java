@@ -31,21 +31,11 @@ public class SessionManager {
     }
 
     public void login(Context context, Activity activity, String token, Account account, String msg){
-        sharedPreferences
-                .edit()
-                .putBoolean("isLogged", true)
-                .putString("token", token)
-                .apply();
+        saveLoginInfo();
 
         setToken(token);
 
-        sharedPreferences.edit()
-                .putString("account_id", account.getId())
-                .putString("account_name", account.getName())
-                .putString("account_username", account.getUsername())
-                .putString("account_image_url", account.getImageUrl())
-                .putString("account_email", account.getEmail())
-                .apply();
+        saveAccountInfo(account);
 
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("TOAST_MSG", msg);
@@ -65,5 +55,25 @@ public class SessionManager {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
         activity.finish();
+    }
+
+    public void saveAccountInfo(Account account){
+        sharedPreferences.edit()
+                .putString("account_id", account.getId())
+                .putString("account_name", account.getName())
+                .putString("account_username", account.getUsername())
+                .putString("account_image_url", account.getImageUrl())
+                .putString("account_image_path", account.getImagePath())
+                .putString("account_email", account.getEmail())
+                .apply();
+
+    }
+
+    public void saveLoginInfo(){
+        sharedPreferences
+                .edit()
+                .putBoolean("isLogged", true)
+                .putString("token", token)
+                .apply();
     }
 }
