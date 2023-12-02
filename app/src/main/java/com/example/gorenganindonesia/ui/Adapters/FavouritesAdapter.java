@@ -85,9 +85,9 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         }
 
         holder.btnDelete.setOnClickListener(v -> {
-            APIHandlerDTO tempDAO = favouriteHandler.getDao();
+            APIHandlerDTO tempDAO = favouriteHandler.getDto();
             tempDAO.setCallback(() -> favouriteHandler.getFavourites());
-            favouriteHandler.setDao(tempDAO);
+            favouriteHandler.setDto(tempDAO);
 
             favouriteHandler.deleteFavourite(recipe.getId());
 

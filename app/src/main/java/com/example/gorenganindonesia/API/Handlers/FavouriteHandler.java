@@ -20,24 +20,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FavouriteHandler {
-    private APIHandlerDTO dao;
+    private APIHandlerDTO dto;
 
-    public FavouriteHandler(APIHandlerDTO dao) {
-        this.dao = dao;
+    public FavouriteHandler(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
-    public APIHandlerDTO getDao() {
-        return dao;
+    public APIHandlerDTO getDto() {
+        return dto;
     }
 
-    public void setDao(APIHandlerDTO dao) {
-        this.dao = dao;
+    public void setDto(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
     public void getFavourites(){
-        dao.loadingText.setText("Memuat Favorit...");
-        dao.loadingView.setVisibility(View.VISIBLE);
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        dto.loadingText.setText("Memuat Favorit...");
+        dto.loadingView.setVisibility(View.VISIBLE);
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
 
         RetrofitClient
             .getInstance()
@@ -49,33 +49,33 @@ public class FavouriteHandler {
                     if(response.isSuccessful()){
                         String[] recipeids = response.body().getFavourites();
 
-                        List<Recipe> favRecipes = ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().getRecipesByIds(recipeids);
-                        ((GlobalModel) dao.context.getApplicationContext()).getFavouriteViewModel().setFavourites(favRecipes);
-                        dao.loadingView.setVisibility(View.GONE);
+                        List<Recipe> favRecipes = ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().getRecipesByIds(recipeids);
+                        ((GlobalModel) dto.context.getApplicationContext()).getFavouriteViewModel().setFavourites(favRecipes);
+                        dto.loadingView.setVisibility(View.GONE);
                     } else {
                         int statusCode = response.code();
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
                         try {
                             if(statusCode != 404)
-                                new CustomToast("Gagal Mendapatkan Daftar Favorit: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Mendapatkan Daftar Favorit: " + response.errorBody().string(), dto.view, false).show();
                         } catch (IOException e) {
-                            new CustomToast("Gagal Mengolah Daftar Favorit", dao.view, false).show();
+                            new CustomToast("Gagal Mengolah Daftar Favorit", dto.view, false).show();
                         }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<GetFavouritesResponse> call, Throwable t) {
-                    dao.loadingView.setVisibility(View.GONE);
-                    new CustomToast("Gagal Mendapatkan Daftar Favorit: Koneksi Gagal", dao.view, false).show();
+                    dto.loadingView.setVisibility(View.GONE);
+                    new CustomToast("Gagal Mendapatkan Daftar Favorit: Koneksi Gagal", dto.view, false).show();
                 }
             });
     }
 
     public void postFavourite(String recipeId){
-        dao.loadingText.setText("Menambahkan Favorit...");
-        dao.loadingView.setVisibility(View.VISIBLE);
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        dto.loadingText.setText("Menambahkan Favorit...");
+        dto.loadingView.setVisibility(View.VISIBLE);
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
 
         RetrofitClient
                 .getInstance()
@@ -85,31 +85,31 @@ public class FavouriteHandler {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                         if(response.isSuccessful()){
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
-                            dao.loadingView.setVisibility(View.GONE);
+                            dto.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Gagal Menambahkan Favorit: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Menambahkan Favorit: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal Menambahkan Favorit", dao.view, false).show();
+                                new CustomToast("Gagal Menambahkan Favorit", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal Menambahkan Favorit: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Menambahkan Favorit: Koneksi Gagal", dto.view, false).show();
 
                     }
                 });
     }
 
     public void deleteFavourite(String recipeId){
-        dao.loadingText.setText("Menghapus Favorit...");
-        dao.loadingView.setVisibility(View.VISIBLE);
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        dto.loadingText.setText("Menghapus Favorit...");
+        dto.loadingView.setVisibility(View.VISIBLE);
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
 
         RetrofitClient
                 .getInstance()
@@ -120,22 +120,22 @@ public class FavouriteHandler {
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                         if(response.isSuccessful()){
 
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
-                            dao.loadingView.setVisibility(View.GONE);
+                            dto.loadingView.setVisibility(View.GONE);
                             try {
-                                new CustomToast("Gagal Menghapus Favorit: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Gagal Menghapus Favorit: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Gagal Menghapus Favorit", dao.view, false).show();
+                                new CustomToast("Gagal Menghapus Favorit", dto.view, false).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal Menghapus Favorit: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Menghapus Favorit: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }

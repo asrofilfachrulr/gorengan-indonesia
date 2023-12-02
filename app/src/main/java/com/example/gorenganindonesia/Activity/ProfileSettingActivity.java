@@ -89,17 +89,17 @@ public class ProfileSettingActivity extends AppCompatActivity {
                 binding.tvEmailErrorProfileSetting.setVisibility(View.VISIBLE);
             }
 
-            APIHandlerDTO dao = new APIHandlerDTO(
+            APIHandlerDTO dto = new APIHandlerDTO(
                     binding.getRoot(),
                     binding.llRootLoadingProfileSetting,
                     binding.tvRootLoadingProfileSetting,
                     binding.getRoot().getContext()
             );
 
-            dao.setCallback(() -> {
-                UserHandler userHandler = new UserHandler(dao);
-                APIHandlerDTO getUserDAO = userHandler.getDto();
-                getUserDAO.setCallback(() -> {
+            dto.setCallback(() -> {
+                UserHandler userHandler = new UserHandler(dto);
+                APIHandlerDTO getUserDTO = userHandler.getDto();
+                getUserDTO.setCallback(() -> {
                     BasicInfoFragment basicInfoFragment = new BasicInfoFragment(
                             "Profil Berhasil Diperbarui",
                             "Anda berhasil memperbarui profil",
@@ -109,11 +109,11 @@ public class ProfileSettingActivity extends AppCompatActivity {
 
                     basicInfoFragment.show(getSupportFragmentManager(), "BASIC_INFO_FRAGMENT");
                 });
-                userHandler.setDto(getUserDAO);
+                userHandler.setDto(getUserDTO);
                 userHandler.getUser();
             });
 
-            UserHandler userHandler = new UserHandler(dao);
+            UserHandler userHandler = new UserHandler(dto);
 
             PutUserBioRequest putUserBioRequest = new PutUserBioRequest(username, email, name);
 

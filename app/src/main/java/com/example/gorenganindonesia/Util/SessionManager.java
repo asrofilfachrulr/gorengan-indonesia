@@ -31,9 +31,8 @@ public class SessionManager {
     }
 
     public void login(Context context, Activity activity, String token, Account account, String msg){
-        saveLoginInfo();
-
         setToken(token);
+        saveLoginInfo();
 
         saveAccountInfo(account);
 
@@ -73,6 +72,13 @@ public class SessionManager {
         sharedPreferences
                 .edit()
                 .putBoolean("isLogged", true)
+                .putString("token", token)
+                .apply();
+    }
+
+    public void saveToken(){
+        sharedPreferences
+                .edit()
                 .putString("token", token)
                 .apply();
     }

@@ -17,49 +17,49 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PasswordHandler {
-    APIHandlerDTO dao;
+    APIHandlerDTO dto;
     PasswordService passwordService;
 
-    public PasswordHandler(APIHandlerDTO dao) {
-        this.dao = dao;
+    public PasswordHandler(APIHandlerDTO dto) {
+        this.dto = dto;
 
         this.passwordService = RetrofitClient.getInstance().create(PasswordService.class);
     }
 
-    public APIHandlerDTO getDao() {
-        return dao;
+    public APIHandlerDTO getDto() {
+        return dto;
     }
 
-    public void setDao(APIHandlerDTO dao) {
-        this.dao = dao;
+    public void setDto(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
     public void putPassword(PutPasswordRequest putPasswordRequest){
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager()
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
 
-        dao.loadingView.setVisibility(View.VISIBLE);
-        dao.loadingText.setText("Memperbarui\nKata Sandi...");
+        dto.loadingView.setVisibility(View.VISIBLE);
+        dto.loadingText.setText("Memperbarui\nKata Sandi...");
 
         passwordService
                 .putPassword(token, putPasswordRequest)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
                         if(response.isSuccessful()){
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
                             int statusCode = response.code();
                             if(statusCode == 401)
-                                if(dao.negativeCallback != null)
-                                    dao.negativeCallback.run();
+                                if(dto.negativeCallback != null)
+                                    dto.negativeCallback.run();
                             else {
                                 try {
-                                    new CustomToast("Gagal Memperbarui Kata Sandi: " + response.errorBody().string(), dao.view, false).show();
+                                    new CustomToast("Gagal Memperbarui Kata Sandi: " + response.errorBody().string(), dto.view, false).show();
                                 } catch (IOException e) {
-                                    new CustomToast("Gagal Memperbarui Kata Sandi", dao.view, false).show();
+                                    new CustomToast("Gagal Memperbarui Kata Sandi", dto.view, false).show();
                                 }
                             }
                         }
@@ -67,8 +67,8 @@ public class PasswordHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
-                        new CustomToast("Gagal Memperbarui Kata Sandi: Koneksi Gagal", dao.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Memperbarui Kata Sandi: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }

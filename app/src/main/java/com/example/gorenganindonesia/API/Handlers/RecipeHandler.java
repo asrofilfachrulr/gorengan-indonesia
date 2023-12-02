@@ -25,24 +25,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipeHandler {
-    APIHandlerDTO dao;
+    APIHandlerDTO dto;
 
-    public RecipeHandler(APIHandlerDTO dao) {
-        this.dao = dao;
+    public RecipeHandler(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
-    public APIHandlerDTO getDao() {
-        return dao;
+    public APIHandlerDTO getDto() {
+        return dto;
     }
 
-    public void setDao(APIHandlerDTO dao) {
-        this.dao = dao;
+    public void setDto(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
     public void getAllRecipes(){
-        dao.loadingView.setVisibility(View.VISIBLE);
-        dao.loadingText.setText("Memuat Resep...");
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        dto.loadingView.setVisibility(View.VISIBLE);
+        dto.loadingText.setText("Memuat Resep...");
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
 
         RetrofitClient
                 .getInstance()
@@ -52,7 +52,7 @@ public class RecipeHandler {
                     @Override
                     public void onResponse(Call<GetAllRecipesResponse> call, Response<GetAllRecipesResponse> response) {
                         int statusCode = response.code();
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
 
                         if (response.isSuccessful()) {
                             List<Recipe> tempRecipes = new ArrayList<>();
@@ -74,14 +74,14 @@ public class RecipeHandler {
                                 ));
                             }
 
-                            ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setRecipesData(tempRecipes);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setRecipesData(tempRecipes);
                             //TODO: Automate category list from available recipes on backend or database!
-                            ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setCategoriesData(CategoryData.generate());
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setCategoriesData(CategoryData.generate());
 
-                            if(dao.callback != null)
-                                dao.callback.run();
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
-                            dao.loadingView.setVisibility(View.GONE);
+                            dto.loadingView.setVisibility(View.GONE);
                             try {
                                 String errorBody = response.errorBody().string();
                                 Log.e("Status code: ", String.valueOf(statusCode));
@@ -90,7 +90,7 @@ public class RecipeHandler {
                                 JSONObject errorJson = new JSONObject(errorBody);
                                 String errorMessage = errorJson.optString("message");
 
-                                new CustomToast("Gagal Mendapatkan Data Resep: " + errorMessage, dao.view).show();
+                                new CustomToast("Gagal Mendapatkan Data Resep: " + errorMessage, dto.view).show();
 
                             } catch (IOException | JSONException e) {
                                 Log.e("error", e.toString());
@@ -101,9 +101,9 @@ public class RecipeHandler {
 
                     @Override
                     public void onFailure(Call<GetAllRecipesResponse> call, Throwable t) {
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
 
-                        new CustomToast("Gagal Mendapatkan Resep: Koneksi Gagal", dao.view, false).show();
+                        new CustomToast("Gagal Mendapatkan Resep: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }

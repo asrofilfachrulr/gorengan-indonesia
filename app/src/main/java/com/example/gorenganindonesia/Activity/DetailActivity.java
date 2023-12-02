@@ -119,7 +119,7 @@ public class DetailActivity extends AppCompatActivity {
 
         btnToggleFavourite.setOnClickListener(v -> {
             if (isReceiptExistInFav[0]) {
-                APIHandlerDTO daoRemove = favouriteHandler.getDao();
+                APIHandlerDTO daoRemove = favouriteHandler.getDto();
                 daoRemove.setCallback(() -> {
                     new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
                     btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
@@ -127,11 +127,11 @@ public class DetailActivity extends AppCompatActivity {
 
                     favouriteHandler.getFavourites();
                 });
-                favouriteHandler.setDao(daoRemove);
+                favouriteHandler.setDto(daoRemove);
                 favouriteHandler.deleteFavourite(recipe.getId());
 //                favViewModel.removeFavourite(recipe);
             } else {
-                APIHandlerDTO daoPush = favouriteHandler.getDao();
+                APIHandlerDTO daoPush = favouriteHandler.getDto();
                 daoPush.setCallback(() -> {
                     new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
                     btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
@@ -139,7 +139,7 @@ public class DetailActivity extends AppCompatActivity {
 
                     favouriteHandler.getFavourites();
                 });
-                favouriteHandler.setDao(daoPush);
+                favouriteHandler.setDto(daoPush);
                 favouriteHandler.postFavourite(recipe.getId());
 //                favViewModel.pushFavourite(recipe);
             }

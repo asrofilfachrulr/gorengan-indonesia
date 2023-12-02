@@ -21,23 +21,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipeDetailHandler {
-    private APIHandlerDTO dao;
+    private APIHandlerDTO dto;
 
-    public RecipeDetailHandler(APIHandlerDTO dao) {
-        this.dao = dao;
+    public RecipeDetailHandler(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
-    public APIHandlerDTO getDao() {
-        return dao;
+    public APIHandlerDTO getDto() {
+        return dto;
     }
 
-    public void setDao(APIHandlerDTO dao) {
-        this.dao = dao;
+    public void setDto(APIHandlerDTO dto) {
+        this.dto = dto;
     }
 
 
     public void getIngredients(String recipeId, int position) {
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
         RetrofitClient
                 .getInstance()
                 .create(IngredientsService.class)
@@ -53,27 +53,27 @@ public class RecipeDetailHandler {
                                 ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
                             }
 
-                            ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setIngredients(ingredients, position);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setIngredients(ingredients, position);
                         } else {
                             try {
-                                new CustomToast("Error Memuat Bahan Resep: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Error Memuat Bahan Resep: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Mengolah Bahan Resep", dao.view, false).show();
+                                new CustomToast("Error Mengolah Bahan Resep", dto.view, false).show();
                             }
                         }
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
-                        new CustomToast("Error Memuat Bahan Resep: Koneksi Gagal", dao.view, false).show();
-                        dao.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Error Memuat Bahan Resep: Koneksi Gagal", dto.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
                     }
                 });
     }
 
     public void getSteps(String recipeId, int position) {
-        String token = ((GlobalModel) dao.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
 
         RetrofitClient
                 .getInstance()
@@ -88,21 +88,21 @@ public class RecipeDetailHandler {
                                 steps[stepData.getNumber() - 1] = stepData.getStep();
                             }
 
-                            ((GlobalModel) dao.context.getApplicationContext()).getRecipeViewModel().setSteps(steps, position);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setSteps(steps, position);
                         } else {
                             try {
-                                new CustomToast("Error Memuat Langkah Resep: " + response.errorBody().string(), dao.view, false).show();
+                                new CustomToast("Error Memuat Langkah Resep: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
-                                new CustomToast("Error Mengolah Langkah Resep", dao.view, false).show();
+                                new CustomToast("Error Mengolah Langkah Resep", dto.view, false).show();
                             }
                         }
-                        dao.loadingView.setVisibility(View.GONE);
+                        dto.loadingView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<GetStepsResponse> call, Throwable t) {
-                        new CustomToast("Gagal Memuat Langkah Resep: Koneksi Gagal", dao.view, false).show();
-                        dao.loadingView.setVisibility(View.GONE);
+                        new CustomToast("Gagal Memuat Langkah Resep: Koneksi Gagal", dto.view, false).show();
+                        dto.loadingView.setVisibility(View.GONE);
                     }
                 });
     }

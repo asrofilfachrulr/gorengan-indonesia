@@ -207,8 +207,8 @@ public class RatingActivity extends AppCompatActivity {
     }
     
     private void getRatingsAPIRequest(String recipeId, String queryOrder) {
-        APIHandlerDTO dao = new APIHandlerDTO(view, llRootLoadingRating, tvLoading, this);
-        RatingHandler ratingHandler = new RatingHandler(dao);
+        APIHandlerDTO dto = new APIHandlerDTO(view, llRootLoadingRating, tvLoading, this);
+        RatingHandler ratingHandler = new RatingHandler(dto);
 
         ratingHandler.getRatings(recipeId, queryOrder, index, this);
     }

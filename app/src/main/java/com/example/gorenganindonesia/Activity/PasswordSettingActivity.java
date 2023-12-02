@@ -109,14 +109,14 @@ public class PasswordSettingActivity extends AppCompatActivity {
                 return;
             }
 
-            APIHandlerDTO dao = new APIHandlerDTO(
+            APIHandlerDTO dto = new APIHandlerDTO(
                     binding.getRoot(),
                     binding.llRootLoadingPasswordSetting,
                     binding.tvRootLoadingPasswordSetting,
                     binding.getRoot().getContext()
             );
 
-            dao.setCallback(() -> {
+            dto.setCallback(() -> {
                 BasicInfoFragment basicInfoFragment = new BasicInfoFragment(
                         "Pembaruan Berhasil",
                         "Kata Sandi Berhasil Diperbarui",
@@ -130,12 +130,12 @@ public class PasswordSettingActivity extends AppCompatActivity {
             });
 
             // wrong old password
-            dao.setNegativeCallback(() -> {
+            dto.setNegativeCallback(() -> {
                 binding.tvOldPasswordErrorPasswordSetting.setText(INVALID_OLD_PASSWORD_ERROR_MSG);
                 binding.tvOldPasswordErrorPasswordSetting.setVisibility(View.VISIBLE);
             });
 
-            PasswordHandler passwordHandler = new PasswordHandler(dao);
+            PasswordHandler passwordHandler = new PasswordHandler(dto);
             PutPasswordRequest putPasswordRequest = new PutPasswordRequest(oldPassword, newPassword);
 
             passwordHandler.putPassword(putPasswordRequest);
