@@ -49,8 +49,8 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
 
         holder.tvTitle.setText(recipe.getTitle());
         holder.tvDifficulty.setText(recipe.getDifficulty());
-        holder.tvPortion.setText(String.valueOf(recipe.getPortion()));
-        holder.tvMinuteDuration.setText(String.valueOf(recipe.getMinuteDuration()));
+        holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
+        holder.tvMinuteDuration.setText(String.valueOf(recipe.getMinuteDuration()) + "mnt");
         holder.tvAuthorUsername.setText("oleh @" + recipe.getAuthorUsername());
 
         holder.ibDelete.setOnClickListener(v -> {

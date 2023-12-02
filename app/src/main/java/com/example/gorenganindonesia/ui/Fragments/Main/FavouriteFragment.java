@@ -54,8 +54,8 @@ public class FavouriteFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+//        recyclerView.addItemDecoration(dividerItemDecoration);
 
         favouriteViewModel.getFavourites().observe(getViewLifecycleOwner(), updatedFavourites -> {
             adapter.updateData(updatedFavourites);

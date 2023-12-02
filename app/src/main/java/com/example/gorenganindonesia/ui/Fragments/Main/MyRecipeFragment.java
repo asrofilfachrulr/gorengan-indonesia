@@ -45,10 +45,10 @@ public class MyRecipeFragment extends Fragment {
 
         MyRecipeAdapter adapter = new MyRecipeAdapter(myRecipes);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.rvMyRecipes.getContext(), DividerItemDecoration.VERTICAL);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.rvMyRecipes.getContext(), DividerItemDecoration.VERTICAL);
+//        binding.rvMyRecipes.addItemDecoration(dividerItemDecoration);
 
         binding.rvMyRecipes.setAdapter(adapter);
-        binding.rvMyRecipes.addItemDecoration(dividerItemDecoration);
         binding.rvMyRecipes.setLayoutManager(linearLayoutManager);
 
         binding.ibAddMyReceipt.setOnClickListener(v -> {
