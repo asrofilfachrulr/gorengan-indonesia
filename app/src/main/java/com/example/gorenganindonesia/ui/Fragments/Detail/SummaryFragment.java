@@ -20,6 +20,7 @@ import com.example.gorenganindonesia.Activity.RatingActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
@@ -66,6 +67,12 @@ public class SummaryFragment extends Fragment {
         llIngridients = (LinearLayout) view.findViewById(R.id.ll_ingredients_detail);
 
         ibMore = (ImageButton) view.findViewById(R.id.ib_more_detail);
+
+        if(recipe == null){
+            ToastUseCase.showUnexpectedError(view);
+            getActivity().finish();
+            return null;
+        }
 
         tvTitle.setText(recipe.getTitle().toString());
         tvCategory.setText("Kategori " + recipe.getCategory().toString());

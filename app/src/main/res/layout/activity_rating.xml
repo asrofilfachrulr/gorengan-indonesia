@@ -99,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans_semibold"
-                        android:text="4.7/5.0"
+                        android:text="0.0/5.0"
                         android:textColor="@color/black"
                         android:textSize="24sp" />
 
@@ -140,7 +140,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:progress="70"
+                            android:progress="0"
                             android:progressTint="@color/yellow" />
                     </LinearLayout>
 
@@ -166,7 +166,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:progress="50"
+                            android:progress="0"
                             android:progressTint="@color/yellow" />
                     </LinearLayout>
 
@@ -192,7 +192,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:progress="20"
+                            android:progress="0"
                             android:progressTint="@color/yellow" />
                     </LinearLayout>
 
@@ -244,7 +244,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:progress="5"
+                            android:progress="0"
                             android:progressTint="@color/yellow" />
                     </LinearLayout>
                 </LinearLayout>
@@ -279,13 +279,15 @@
         </LinearLayout>
     </ScrollView>
     <ImageButton
-        android:visibility="gone"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:visibility="visible"
         android:translationZ="10dp"
         android:id="@+id/ib_add_rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        style="@style/BgRoundedAccent"
-        android:src="@drawable/ic_add_white"/>
+        android:layout_marginBottom="48dp"
+        style="@style/btn_accent_solid_rounded_full"
+        android:src="@drawable/baseline_add_36_white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

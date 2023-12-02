@@ -15,7 +15,10 @@ import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.Constants;
 import com.example.gorenganindonesia.Util.CustomToast;
+import com.example.gorenganindonesia.Util.Logger;
+import com.example.gorenganindonesia.Util.RegexHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,57 +26,96 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
     List<Recipe> dataList;
     List<Recipe> originalList;
+    String category;
+    String title;
+    String empty = Constants.EMPTY_STRING;
+    RecyclerView recipeRecylerView;
 
-    RecyclerView rv;
-
-    public RecipeAdapter(List<Recipe> dataList, RecyclerView rv) {
+    public RecipeAdapter(List<Recipe> dataList, RecyclerView recipeRecylerView) {
         this.dataList = dataList;
-        this.originalList = dataList; // most likely equal to recipe view model
-        this.rv = rv;
+        this.originalList = dataList;
+        this.recipeRecylerView = recipeRecylerView;
+        category = "semua";
+        title = Constants.EMPTY_STRING;
     }
 
-    public void applyFilterCategory(String category, boolean resetScroll) {
-        if (category.toLowerCase().contains("semua")){
-            this.dataList = this.originalList;
-        } else {
-            ArrayList<Recipe> filteredList = new ArrayList<>();
-            for(Recipe recipe : originalList){
-                if(recipe.getCategory().toLowerCase().contains(category.toLowerCase())){
-                    filteredList.add(recipe);
-                }
-            }
-            this.dataList = filteredList;
-        }
+    public void clearTitle(){
+        title = Constants.EMPTY_STRING;
+    }
+
+    public void applyFilter(String categoryInput, String titleInput, boolean resetScroll){
+        List<Recipe> filteredList;
+        String categoryTarget, titleTarget;
+
+        categoryTarget = categoryInput.equals(empty) ? category : categoryInput;
+        titleTarget = titleInput.equals(empty) ? title : titleInput;
+
+        filteredList = filterCategory(categoryTarget, originalList);
+        filteredList = filterTitle(titleTarget, filteredList);
+
+        this.dataList = filteredList;
 
         notifyDataSetChanged();
 
-        if(resetScroll)
-            rv.scrollToPosition(0);
+        if(resetScroll) {
+            recipeRecylerView.scrollToPosition(0);
+        }
     }
 
-    public void applyFilterTitle(String title) {
-        if (title.matches("\\s") || title.equals("")){
-            this.dataList = this.originalList;
-        } else {
-            ArrayList<Recipe> filteredList = new ArrayList<>();
-            for(Recipe recipe : originalList){
-                if(recipe.getTitle().toLowerCase().contains(title.toLowerCase())){
-                    filteredList.add(recipe);
-                }
+    public void applyFilter(String categoryInput, String titleInput){
+        applyFilter(categoryInput, titleInput, true);
+    }
+
+    public List<Recipe> filterCategory(String categoryTarget, List<Recipe> targetList){
+        categoryTarget = categoryTarget.toLowerCase();
+        category = categoryTarget.equals(empty) ? "semua" : categoryTarget;
+
+        if(categoryTarget.contains("semua"))
+            return  originalList;
+
+
+        List<Recipe> filteredList = new ArrayList<>();
+
+        for(Recipe recipe : targetList){
+            if(recipe.getCategory().toLowerCase().contains(category)){
+                filteredList.add(recipe);
             }
-            this.dataList = filteredList;
         }
-        notifyDataSetChanged();
-        rv.scrollToPosition(0);
+
+        return filteredList;
+    }
+
+    public List<Recipe> filterTitle(String titleTarget, List<Recipe> targetList){
+        Logger.SimpleLog("titleTarget: " + titleTarget);
+        titleTarget = titleTarget.toLowerCase();
+        RegexHelper regexHelper = new RegexHelper(titleTarget);
+
+        if(regexHelper.isBlank()){
+            title = empty;
+            Logger.SimpleLog("reset title");
+            return targetList;
+        }
+
+        title = titleTarget;
+
+        List<Recipe> filteredList = new ArrayList<>();
+
+        for(Recipe recipe : targetList){
+            if(recipe.getTitle().toLowerCase().contains(titleTarget)){
+                filteredList.add(recipe);
+            }
+        }
+
+        return filteredList;
     }
 
     public void updateData(List<Recipe> recipes, String currentCategory){
         this.originalList = recipes;
 
         if(currentCategory.isEmpty() || currentCategory.toLowerCase().contains("semua")){
-            applyFilterCategory("semua", false);
+            applyFilter("semua", Constants.EMPTY_STRING, false);
         } else {
-            applyFilterCategory(currentCategory, false);
+            applyFilter(currentCategory, Constants.EMPTY_STRING, false);
         }
     }
 

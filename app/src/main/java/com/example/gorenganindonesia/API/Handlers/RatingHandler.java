@@ -71,11 +71,11 @@ public class RatingHandler {
                                 ratings[i] = rating;
                             }
 
-                            float starAvg = response.body().getExtra().getStarAvg();
+                            float starAvg = sz > 0 ? response.body().getExtra().getStarAvg() : 0;
                             activity.starAvg = starAvg;
 
                             ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setRatings(ratings, index);
-                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setStars(response.body().getExtra().getStarAvg(), index);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setStars(starAvg, index);
                         } else {
                             try {
                                 new CustomToast("Gagal Mendapatkan Data Rating: " + response.errorBody().string(), dto.view, false).show();

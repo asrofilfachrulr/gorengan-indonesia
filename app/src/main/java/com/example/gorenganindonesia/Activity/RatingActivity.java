@@ -193,6 +193,8 @@ public class RatingActivity extends AppCompatActivity {
     }
 
     private void updatePbRating(int total){
+        if(total == 0) return;
+
         starCountMap.forEach((key, value) -> System.out.println(key + " " + value));
 
         pb5.setProgress(Math.round((100 * starCountMap.get(5)) / total));

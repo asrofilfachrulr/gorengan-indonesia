@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.Constants;
 
 import java.util.List;
 
@@ -59,10 +60,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
             stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
+            recipeAdapter.applyFilter(Constants.EMPTY_STRING, Constants.EMPTY_STRING);
         }
 
         holder.btnCategory.setOnClickListener(view -> {
-            recipeAdapter.applyFilterCategory(btnText, true);
             receiptRv.scrollToPosition(0);
 
             stateCategory[0] = stateCategory[1];
@@ -74,6 +75,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
             stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
+            recipeAdapter.applyFilter(btnText, Constants.EMPTY_STRING);
         });
     }
 

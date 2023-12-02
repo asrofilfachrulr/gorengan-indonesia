@@ -24,6 +24,7 @@ import com.example.gorenganindonesia.API.Services.RecipesService;
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Activity.LoginActivity;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
+import com.example.gorenganindonesia.Util.Constants;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
@@ -32,7 +33,9 @@ import com.example.gorenganindonesia.Model.api.Recipes.GetAllRecipesResponse;
 import com.example.gorenganindonesia.Model.data.Category.CategoryData;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.Logger;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
+import com.example.gorenganindonesia.Util.RegexHelper;
 import com.example.gorenganindonesia.databinding.FragmentHomeBinding;
 import com.example.gorenganindonesia.ui.Adapters.CategoryAdapter;
 import com.example.gorenganindonesia.ui.Adapters.RecipeAdapter;
@@ -152,8 +155,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                rvReceipt.scrollToPosition(0);
-                recipeAdapter.applyFilterTitle(s.toString());
+                Logger.SimpleLog("Search Input String: " + s.toString());
+
+                RegexHelper regexHelper = new RegexHelper();
+                if(regexHelper.create(s.toString()).isBlank())
+                    recipeAdapter.clearTitle();
+
+                recipeAdapter.applyFilter(Constants.EMPTY_STRING, s.toString());
             }
 
             @Override
