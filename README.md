@@ -3,6 +3,13 @@
 
 Simple Android App that provides numerous recipes of Indonesian fritters. This project is done to fulfill College Subject (Mobile Programming) Final Assignment. [Backend](https://github.com/asrofilfachrulr/API-Gorengan-Indonesia) of the app is hosted as Express.js serverless app on PaaS Vercel and use Database Hosting also Storage Hosting at [Supabase](https://supabase.com/).
 
+## APK Download  
+Go to [release page](https://github.com/asrofilfachrulr/gorengan-indonesia/tags) of this repo to see what available options. 
+
+#### Quick Link For Beta 
+Currently, updates on app will be released to this link. Not every commits are uploaded.
+[Download](https://github.com/asrofilfachrulr/gorengan-indonesia/releases/download/beta/app-debug.apk)
+
 ## Snapshot
 ![snapshot](./snapshot.png)
 
