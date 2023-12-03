@@ -107,7 +107,7 @@
     </style>
     <style name="judulGorengan">
         <item name="fontFamily">@font/lato_extra_bold</item>
-        <item name="android:textSize">35dp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/gorengan</item>
     </style>
