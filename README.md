@@ -7,9 +7,8 @@ Simple Android App that provides numerous recipes of Indonesian fritters. This p
 Go to [release page](https://github.com/asrofilfachrulr/gorengan-indonesia/tags) of this repo to see what available options. 
 
 #### Quick Link For Beta 
-Currently, updates on app will be released to this link. Not every commits are uploaded.  
-
-[Download Gorengan Indonesia Beta APK](https://github.com/asrofilfachrulr/gorengan-indonesia/releases/download/beta/app-debug.apk)
+Currently, updates on app will be released to this link. Not every commits are uploaded.
+[Download](https://github.com/asrofilfachrulr/gorengan-indonesia/releases/download/beta/app-debug.apk)
 
 ## Snapshot
 ![snapshot](./snapshot.png)
