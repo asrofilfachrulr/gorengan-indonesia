@@ -4,36 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".Activity.WelcomeActivity">
-
-    <TextView
-        android:id="@+id/judulapp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/lato_extra_bold"
-        android:gravity="center_horizontal"
-        android:text="GorenganIndonesia."
-        android:textColor="@color/font_default"
-        android:textSize="28sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_hero"
         android:layout_width="360dp"
         android:layout_height="360dp"
-        android:layout_marginTop="200dp"
-        android:onClick="changeImage"
-        android:scaleType="centerCrop"
-        android:src="@drawable/gorengan1"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="204dp"
+        android:src="@drawable/gorengan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,44 +21,34 @@
         android:layout_height="wrap_content"
         android:layout_margin="14dp"
         android:layout_marginStart="20dp"
-        android:fontFamily="@font/lato_semibold"
+        android:fontFamily="@font/open_sans_semibold"
         android:text="@string/welcome_banner"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/iv_hero"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/iv_hero"/>
 
     <Button
+        android:layout_margin="14dp"
         android:id="@+id/btn_login"
-        style="@style/btn_accent_solid_rounded"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:elevation="10dp"
-        android:padding="10dp"
-        android:text="login"
-        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/btn_accent_solid_rounded"
+        android:text="Masuk"/>
     <Button
+        android:layout_margin="14dp"
         android:id="@+id/btn_register"
-        style="@style/btn_neutral_solid_rounded"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="5dp"
-        android:elevation="10dp"
-        android:padding="10dp"
-        android:text="Sign Up"
-        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
         app:layout_constraintBottom_toTopOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_hero"
-        app:layout_constraintVertical_bias="0.8" />
+        style="@style/btn_neutral_solid_rounded"
+        android:layout_marginBottom="14dp"
+        android:text="Daftar"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
