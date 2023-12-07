@@ -40,7 +40,7 @@ public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
     private AccountViewModel accountViewModel;
-    private static final int PICK_FILE_REQUEST_CODE = 1;
+    private static final int PICK_FILE_REQUEST_CODE = 8283;
     private static final int MAX_SIZE_IMAGE = 1024; // KB or 1MB
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -68,8 +68,6 @@ public class AccountFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
-
-            ToastUseCase.showInDevelopment(view);
         });
 
         binding.btnAccountAccount.setOnClickListener(v -> {

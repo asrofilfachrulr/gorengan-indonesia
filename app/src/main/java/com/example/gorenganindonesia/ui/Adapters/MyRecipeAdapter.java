@@ -17,6 +17,7 @@ import com.example.gorenganindonesia.Activity.DetailActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.ToastUseCase;
 
 import java.util.List;
 
@@ -54,14 +55,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
         holder.tvAuthorUsername.setText("oleh @" + recipe.getAuthorUsername());
 
         holder.ibDelete.setOnClickListener(v -> {
-            ((GlobalModel) v.getContext().getApplicationContext())
-                    .getRecipeViewModel()
-                    .deleteMyReceipt(
-                            recipe,
-                            ((GlobalModel) v.getContext().getApplicationContext())
-                                    .getAccountViewModel()
-                                    .getUsername()
-                            );
+            ToastUseCase.showInDevelopment(v);
         });
 
         View[] targetViews = {holder.llMyReceipt, holder.ivImage};

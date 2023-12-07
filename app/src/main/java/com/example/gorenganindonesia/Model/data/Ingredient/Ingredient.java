@@ -2,10 +2,18 @@ package com.example.gorenganindonesia.Model.data.Ingredient;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class Ingredient implements Parcelable {
     private String qty;
     private String unit;
     private String name;
+
+    public Ingredient(){
+        this.qty = "";
+        this.unit = "";
+        this.name = "";
+    }
 
     public Ingredient(String qty, String unit, String name) {
         this.qty = qty;
@@ -65,5 +73,16 @@ public class Ingredient implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEmpty(){
+        if(name.isEmpty() || qty.isEmpty() || unit.isEmpty()) return  true;
+        return  false;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getQty() + " " + getUnit() + " " + getName() + "\n";
     }
 }
