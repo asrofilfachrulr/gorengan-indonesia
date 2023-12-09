@@ -23,6 +23,8 @@ public class Recipe implements Parcelable {
     private String[] steps;
     private Rating[] ratings;
 
+    public Recipe(){}
+
     public Recipe(String id, String title, String authorUsername, float stars, String category, int minuteDuration, String imgUrl, String difficulty, int portion, String[] steps, Ingredient[] ingredients, Rating[] ratings) {
         this.id = id;
         this.title = title;
@@ -186,7 +188,10 @@ public class Recipe implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n⭐" + getStars() + " oleh @" + getAuthorUsername() + "\n\n" + "Bahan:";
+        String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n⭐" + getStars() + " oleh @" + getAuthorUsername() + "\n";
+        text += "Kategori: " + getCategory() + "\n";
+        text += "Kesulitan: " + getDifficulty() + "\n\n";
+        text += "Bahan:";
 
         for(int i = 0; i < getIngredients().length; i++){
             text += "\n" + String.valueOf(i+1) + ". ";
@@ -204,7 +209,8 @@ public class Recipe implements Parcelable {
             text += "\n" + String.valueOf(i+1) + ". " + getSteps()[i];
         }
 
-        text += "\n\n©Gorengan Indonesia 2023";
+        text += "\n\n©Gorengan Indonesia 2023\n";
+        text += getImgUrl() + "\n";
         return text;
     }
 }

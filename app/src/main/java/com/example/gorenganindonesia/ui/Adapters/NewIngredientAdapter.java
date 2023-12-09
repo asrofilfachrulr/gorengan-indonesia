@@ -20,9 +20,11 @@ import java.util.List;
 public class NewIngredientAdapter extends RecyclerView.Adapter<NewIngredientAdapter.ViewHolder> {
 
     private List<Ingredient> dataList;
+    boolean isTwEnabled;
 
     public NewIngredientAdapter(List<Ingredient> dataList){
         this.dataList = dataList;
+        isTwEnabled = true;
     }
 
     @NonNull
@@ -36,6 +38,7 @@ public class NewIngredientAdapter extends RecyclerView.Adapter<NewIngredientAdap
     @Override
     public void onBindViewHolder(@NonNull NewIngredientAdapter.ViewHolder holder, int position) {
 //        int pos = holder.getBindingAdapterPosition();
+        holder.reattachTextWatchers();
 
         Ingredient ingredient = dataList.get(holder.getBindingAdapterPosition());
 
@@ -45,59 +48,17 @@ public class NewIngredientAdapter extends RecyclerView.Adapter<NewIngredientAdap
         holder.etUnit.setText(ingredient.getUnit());
         holder.etName.setText(ingredient.getName());
 
-        holder.etQty.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newQty = s.toString();
-                ingredient.setQty(newQty);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                dataList.set(holder.getBindingAdapterPosition(), ingredient);
-            }
-        });
-
-        holder.etUnit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newUnit = s.toString();
-                ingredient.setUnit(newUnit);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                dataList.set(holder.getBindingAdapterPosition(), ingredient);
-            }
-        });
-
-        holder.etName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newName = s.toString();
-                ingredient.setName(newName);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                dataList.set(holder.getBindingAdapterPosition(), ingredient);
-            }
-        });
 
         holder.btnDelete.setOnClickListener(v -> {
             int adapterPos = holder.getBindingAdapterPosition();
-            Logger.SimpleLog("Pos: " + Integer.valueOf(adapterPos));
+//            Logger.SimpleLog("Pos: " + Integer.valueOf(adapterPos));
+            isTwEnabled = false;
+
+            holder.deleteTextWatchers();
+
             dataList.remove(adapterPos);
             notifyItemRemoved(adapterPos);
+            isTwEnabled = true;
         });
     }
 
@@ -109,6 +70,7 @@ public class NewIngredientAdapter extends RecyclerView.Adapter<NewIngredientAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
         EditText etQty, etUnit, etName;
         ImageButton btnDelete;
+        TextWatcher twQty, twUnit, twName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -117,6 +79,88 @@ public class NewIngredientAdapter extends RecyclerView.Adapter<NewIngredientAdap
             etName = (EditText) itemView.findViewById(R.id.et_name_new_ingredient_new_recipe);
 
             btnDelete = (ImageButton) itemView.findViewById(R.id.ib_delete_new_ingredient_new_recipe);
+
+            twQty = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(isTwEnabled) {
+                        int pos = getBindingAdapterPosition();
+                        Ingredient ingredient = dataList.get(pos);
+                        Logger.SimpleLog("[CHANGED] FROM: " + ingredient.toString());
+                        String newQty = s.toString();
+                        ingredient.setQty(newQty);
+                        dataList.set(pos, ingredient);
+                        Logger.SimpleLog("[CHANGED] TO: " + ingredient.toString());
+                    }
+                }
+            };
+
+            twUnit = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(isTwEnabled) {
+                        int pos = getBindingAdapterPosition();
+                        Ingredient ingredient = dataList.get(pos);
+                        Logger.SimpleLog("[CHANGED] FROM: " + ingredient.toString());
+                        String newUnit = s.toString();
+                        ingredient.setUnit(newUnit);
+                        dataList.set(pos, ingredient);
+                        Logger.SimpleLog("[CHANGED] TO: " + ingredient.toString());
+                    }
+                }
+            };
+
+            twName = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(isTwEnabled) {
+                        int pos = getBindingAdapterPosition();
+                        Ingredient ingredient = dataList.get(pos);
+                        Logger.SimpleLog("[CHANGED] FROM: " + ingredient.toString());
+                        String newName = s.toString();
+                        ingredient.setName(newName);
+                        dataList.set(pos, ingredient);
+                        Logger.SimpleLog("[CHANGED] TO: " + ingredient.toString());
+                    }
+                }
+            };
+
+            attachTextWatchers();
+        }
+
+        public  void reattachTextWatchers(){
+            deleteTextWatchers();
+            attachTextWatchers();
+        }
+
+        public void attachTextWatchers(){
+            etQty.addTextChangedListener(twQty);
+            etUnit.addTextChangedListener(twUnit);
+            etName.addTextChangedListener(twName);
+        }
+
+        public void deleteTextWatchers(){
+            etQty.removeTextChangedListener(twQty);
+            etUnit.removeTextChangedListener(twUnit);
+            etName.removeTextChangedListener(twName);
         }
     }
 

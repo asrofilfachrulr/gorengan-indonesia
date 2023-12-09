@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="50dp"
-        android:inputType="text"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
         android:textSize="14sp" />
     <ImageButton
         android:id="@+id/ib_delete_new_step_new_recipe"

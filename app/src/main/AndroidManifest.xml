@@ -25,7 +25,8 @@
             android:name=".Activity.AccountSettingActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.NewRecipeActivity"
+            android:name=".Activity.RecipeEditorActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".Activity.RatingActivity"

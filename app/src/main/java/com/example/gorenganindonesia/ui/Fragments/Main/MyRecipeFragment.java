@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.gorenganindonesia.Activity.NewRecipeActivity;
+import com.example.gorenganindonesia.Activity.RecipeEditorActivity;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
@@ -53,7 +52,7 @@ public class MyRecipeFragment extends Fragment {
 
         binding.ibAddMyReceipt.setOnClickListener(v -> {
             ToastUseCase.showInDevelopment(root);
-            startActivity(new Intent(getContext(), NewRecipeActivity.class));
+            startActivity(new Intent(getContext(), RecipeEditorActivity.class));
         });
 
         recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), receipts -> {
