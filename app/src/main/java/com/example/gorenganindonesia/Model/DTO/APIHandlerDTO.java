@@ -16,6 +16,13 @@ public class APIHandlerDTO {
     public static boolean DAEMON_MODE = true;
     public static boolean SCREAMING_MODE = false;
 
+    public APIHandlerDTO(View view, Context context) {
+        this.view = view;
+        this.context = context;
+        this.callback = null;
+        this.isDaemonMode = DAEMON_MODE;
+    }
+
     public APIHandlerDTO(View view, Context context, Runnable callback) {
         this.view = view;
         this.context = context;

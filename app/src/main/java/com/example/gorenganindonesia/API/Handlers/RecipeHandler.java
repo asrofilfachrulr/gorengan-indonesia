@@ -7,11 +7,13 @@ import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.RecipesService;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.api.BasicResponse;
 import com.example.gorenganindonesia.Model.api.Recipes.GetAllRecipesResponse;
 import com.example.gorenganindonesia.Model.api.Recipes.RecipeData;
 import com.example.gorenganindonesia.Model.data.Category.CategoryData;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Util.CustomToast;
+import com.example.gorenganindonesia.Util.ToastUseCase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -104,6 +108,41 @@ public class RecipeHandler {
                         dto.loadingView.setVisibility(View.GONE);
 
                         new CustomToast("Gagal Mendapatkan Resep: Koneksi Gagal", dto.view, false).show();
+                    }
+                });
+    }
+
+    public void postRecipe(MultipartBody.Part imagePart, RequestBody jsonData){
+        dto.loadingView.setVisibility(View.VISIBLE);
+        dto.loadingText.setText("Membuat Resep...");
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+
+        RetrofitClient
+                .getInstance()
+                .create(RecipesService.class)
+                .postRecipe(token, imagePart, jsonData)
+                .enqueue(new Callback<BasicResponse>() {
+                    @Override
+                    public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        dto.loadingView.setVisibility(View.GONE);
+                        if(response.isSuccessful()){
+                            if(dto.callback != null)
+                                dto.callback.run();
+                        } else {
+                            try {
+                                ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: " + response.errorBody().string());
+                                Log.e("Error", response.errorBody().string());
+                            } catch (IOException e) {
+                                ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicResponse> call, Throwable t) {
+                        dto.loadingView.setVisibility(View.GONE);
+
+                        ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: Koneksi Gagal");
                     }
                 });
     }

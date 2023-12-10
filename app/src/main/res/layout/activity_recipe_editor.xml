@@ -7,7 +7,7 @@
     tools:context=".Activity.RecipeEditorActivity">
 
     <LinearLayout
-        android:id="@+id/ll_root_loading_new_receipt"
+        android:id="@+id/ll_root_loading_new_recipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#74606077"
@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_root_loading_new_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_semibold"

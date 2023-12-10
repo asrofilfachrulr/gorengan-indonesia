@@ -7,27 +7,41 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
+import com.example.gorenganindonesia.Model.Adapters.RecipeToPostRecipeAdapter;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
+import com.example.gorenganindonesia.Model.Factories.RequestBodyFactory;
 import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.api.Recipe.PostRecipeRequest;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Model.data.Step.Step;
+import com.example.gorenganindonesia.Util.BitmapHelper;
 import com.example.gorenganindonesia.Util.FileUtils;
 import com.example.gorenganindonesia.Util.Logger;
 import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.example.gorenganindonesia.databinding.ActivityRecipeEditorBinding;
 import com.example.gorenganindonesia.ui.Adapters.NewIngredientAdapter;
 import com.example.gorenganindonesia.ui.Adapters.NewStepAdapter;
+import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class RecipeEditorActivity extends AppCompatActivity {
     RecyclerView rvIngredient, rvStep;
@@ -36,8 +50,13 @@ public class RecipeEditorActivity extends AppCompatActivity {
     private List<Step> newSteps = new ArrayList<>();
     private List<Ingredient> newIngredients = new ArrayList<>();
     private Recipe newRecipe;
+    String mode;
+    Uri selectedImageUri;
 
     private static final int PICK_FILE_REQUEST_CODE = 1832;
+    private static final String REQUEST_MODE_POST = "POST";
+    private static final String REQUEST_MODE_PUT = "PUT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +73,13 @@ public class RecipeEditorActivity extends AppCompatActivity {
         Recipe recipe = intent.getParcelableExtra("recipe");
 
         if(recipe == null){
+            mode = REQUEST_MODE_POST;
             newRecipe = new Recipe();
 
             newIngredients.add(new Ingredient());
             newSteps.add(new Step("", 1));
         } else {
+            mode = REQUEST_MODE_PUT;
             newIngredients = Arrays.asList(recipe.getIngredients());
 
             String[] steps = recipe.getSteps();
@@ -130,6 +151,8 @@ public class RecipeEditorActivity extends AppCompatActivity {
                 newRecipe.setSteps(steps);
 
                 Logger.SimpleLog(newRecipe.toString());
+
+                requestAPIRecipe();
             } catch (Exception e){
                 ToastUseCase.showMessage(binding.getRoot(), "[Error] " + e.getMessage());
             }
@@ -179,6 +202,7 @@ public class RecipeEditorActivity extends AppCompatActivity {
             switch (requestCode){
                 case PICK_FILE_REQUEST_CODE:
                     Uri selectedUri = data.getData();
+                    selectedImageUri = selectedUri;
 
                     String fileName = FileUtils.getFileName(this, selectedUri);
 
@@ -188,17 +212,17 @@ public class RecipeEditorActivity extends AppCompatActivity {
         }
     }
 
-    public void setRecipeImage(String fileName, String imageUrl){
+    void setRecipeImage(String fileName, String imageUrl){
         setRecipeImage(fileName, null, imageUrl);
         newRecipe.setImgUrl(imageUrl);
     }
 
-    public void setRecipeImage(String fileName, Uri uri){
+    void setRecipeImage(String fileName, Uri uri){
         setRecipeImage(fileName, uri, null);
         newRecipe.setImgUrl(uri.getPath());
     }
 
-    public void setRecipeImage(String fileName, Uri uri, String imageUrl){
+    void setRecipeImage(String fileName, Uri uri, String imageUrl){
         binding.tvImageFileNameNewReceipt.setVisibility(View.VISIBLE);
         binding.tvImageFileNameNewReceipt.setText(fileName);
         binding.btnPickImgNewReceipt.setText("Edit Gambar");
@@ -211,22 +235,56 @@ public class RecipeEditorActivity extends AppCompatActivity {
         binding.ccRecipeImageNewRecipe.setVisibility(View.VISIBLE);
     }
 
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent event) {
-//        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-//        }
-//        else if (event.getAction() == MotionEvent.ACTION_UP) {
-//            View v = getCurrentFocus();
-//            if ( v instanceof EditText) {
-//                Rect outRect = new Rect();
-//                v.getGlobalVisibleRect(outRect);
-//                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-//                    v.clearFocus();
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//                }
-//            }
-//        }
-//        return super.dispatchTouchEvent( event );
-//    }
+    void requestAPIRecipe(){
+        if(mode.equals(REQUEST_MODE_POST)) requestPostRecipe();
+        else if(mode.equals(REQUEST_MODE_PUT)) requestPutRecipe();
+    }
+
+    void requestPostRecipe(){
+        MultipartBody.Part imagePart;
+
+        try {
+            APIHandlerDTO dto = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
+
+            RecipeToPostRecipeAdapter adapter = new RecipeToPostRecipeAdapter(newRecipe);
+            PostRecipeRequest postModel = adapter.convert();
+
+            RecipeHandler handler = new RecipeHandler(dto);
+
+            dto.setCallback(() -> {
+                APIHandlerDTO dto1 = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
+                dto1.setCallback(() -> {
+                    ToastUseCase.showMessage(binding.getRoot(), "Berhasil membuat resep!");
+                    this.finish();
+                });
+
+                RecipeHandler handler1 = new RecipeHandler(dto1);
+                handler1.getAllRecipes();
+            });
+
+            handler.setDto(dto);
+
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(postModel);
+            RequestBody jsonRequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonData);
+
+            BitmapHelper bitmapHelper = new BitmapHelper();
+            Bitmap compressedBitmap = bitmapHelper.compressImage(selectedImageUri, getContentResolver());
+
+            if(compressedBitmap == null)
+                throw new Exception("Gagal dalam memproses gambar");
+
+            imagePart = bitmapHelper.bitmapToMultipartBody(compressedBitmap, selectedImageUri);
+
+            handler.postRecipe(imagePart, jsonRequestBody);
+        } catch (Exception e){
+            ToastUseCase.showMessage(binding.getRoot(), "[Error] " + e.getMessage());
+            Log.e("Error Post Recipe", e.getMessage());
+            Log.e("Error Post Recipe", e.toString());
+        }
+    }
+
+    void requestPutRecipe(){
+        //TODO: Implement todo
+    }
 }

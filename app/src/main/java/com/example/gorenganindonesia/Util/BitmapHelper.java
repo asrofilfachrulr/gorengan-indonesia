@@ -57,8 +57,8 @@ public class BitmapHelper {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         String imageType = getImageTypeFromUri(imageUri);
+        byte[] byteArray = bitmapToByteArray(bitmap, imageUri);
         bitmap.compress(getBitmapCompressFormat(imageType), 100, stream);
-        byte[] byteArray = stream.toByteArray();
 
         // Create a RequestBody from the byte array
         RequestBody requestBody = RequestBody.create(getMediaType(imageType), byteArray);
@@ -67,6 +67,14 @@ public class BitmapHelper {
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", "image." + imageType, requestBody);
 
         return filePart;
+    }
+
+    public byte[] bitmapToByteArray(Bitmap bitmap, Uri imageUri){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        String imageType = getImageTypeFromUri(imageUri);
+        bitmap.compress(getBitmapCompressFormat(imageType), 100, stream);
+        return stream.toByteArray();
     }
 
 
