@@ -12,7 +12,7 @@
         android:id="@+id/et_qty_new_ingredient_new_recipe"
         android:background="@android:drawable/editbox_background_normal"
         android:hint="qty"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:layout_height="match_parent"
         android:layout_weight="16"
         android:layout_width="match_parent"

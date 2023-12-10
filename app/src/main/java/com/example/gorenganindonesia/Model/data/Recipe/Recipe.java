@@ -199,8 +199,6 @@ public class Recipe implements Parcelable {
                 text += getIngredients()[i].getQty() + " " + getIngredients()[i].getUnit() + " " + getIngredients()[i].getName();
             else
                 text += "secukupnya";
-
-            text += " " + getIngredients()[i].getName();
         }
 
         text += "\n\nLangkah-Langkah:";

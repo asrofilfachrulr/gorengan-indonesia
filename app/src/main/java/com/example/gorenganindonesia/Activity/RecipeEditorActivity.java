@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
@@ -82,57 +83,57 @@ public class RecipeEditorActivity extends AppCompatActivity {
         rvStep.setLayoutManager(stepLM);
         rvStep.setAdapter(stepAdapter);
 
+        binding.btnNewCategoryRecipeEditor.setOnClickListener(v -> {
+            binding.llNewCategoryRecipeEditor.setVisibility(View.VISIBLE);
+            binding.etNewCategoryRecipeEditor.setText("");
+        });
+
+        binding.btnNewCategoryCancelRecipeEditor.setOnClickListener(v -> {
+            binding.llNewCategoryRecipeEditor.setVisibility(View.GONE);
+            binding.etNewCategoryRecipeEditor.setText("");
+        });
+
         binding.btnSaveNewRecipe.setOnClickListener(v -> {
-            newRecipe.setTitle(binding.etTitleRecipeEditor.getText().toString());
-            newRecipe.setMinuteDuration(
-                    Integer.valueOf(binding.etMinuteDurationRecipeEditor.getText().toString())
-            );
+            try {
+                newRecipe.setTitle(binding.etTitleRecipeEditor.getText().toString());
+                newRecipe.setMinuteDuration(
+                        Integer.valueOf(binding.etMinuteDurationRecipeEditor.getText().toString())
+                );
 
-            binding.spCategoryRecipeEditor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String category = (String) parent.getItemAtPosition(position);
-                    newRecipe.setCategory(category);
-                }
+                int portion = Integer.valueOf(binding.etPortionRecipeEditor.getText().toString());
+                newRecipe.setPortion(portion);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+                String username = ((GlobalModel) getApplication()).getAccountViewModel().getUsername();
+                newRecipe.setAuthorUsername(username);
 
-                }
-            });
+                String newCategory = binding.etNewCategoryRecipeEditor.getText().toString();
+                String category = newCategory.isEmpty() ? binding.spCategoryRecipeEditor.getSelectedItem().toString() : newCategory;
+                newRecipe.setCategory(category);
 
-            binding.spDifficultyRecipeEditor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String difficulty = (String) parent.getItemAtPosition(position);
-                    newRecipe.setDifficulty(difficulty);
-                }
+                String difficulty = binding.spDifficultyRecipeEditor.getSelectedItem().toString();
+                newRecipe.setDifficulty(difficulty);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+                List<Ingredient> ingredientsData = ingredientAdapter.getDataList();
+                List<Step> stepsData = stepAdapter.getDataList();
 
-                }
-            });
+                Ingredient[] ingredients = new Ingredient[ingredientsData.size()];
+                for (int i = 0; i < ingredients.length; i++)
+                    ingredients[i] = ingredientsData.get(i);
 
-            List<Ingredient> ingredientsData = ingredientAdapter.getDataList();
-            List<Step> stepsData = stepAdapter.getDataList();
+                newRecipe.setIngredients(ingredients);
 
-            Ingredient[] ingredients = new Ingredient[ingredientsData.size()];
-            for(int i = 0; i < ingredients.length; i++)
-                ingredients[i] =  ingredientsData.get(i);
+                String[] steps = new String[stepsData.size()];
 
-            newRecipe.setIngredients(ingredients);
+                for (int i = 0; i < steps.length; i++)
+                    steps[i] = stepsData.get(i).getDescription();
 
-            String[] steps = new String[stepsData.size()];
+                newRecipe.setSteps(steps);
 
-            for(int i = 0; i < steps.length; i++)
-                steps[i] = stepsData.get(i).getDescription();
-
-            newRecipe.setSteps(steps);
-
-            Logger.SimpleLog(newRecipe.toString());
-
-            ToastUseCase.showInDevelopment(binding.getRoot());
+                Logger.SimpleLog(newRecipe.toString());
+            } catch (Exception e){
+                ToastUseCase.showMessage(binding.getRoot(), "[Error] " + e.getMessage());
+            }
+//            ToastUseCase.showInDevelopment(binding.getRoot());
         });
 
         binding.btnNewFieldNewIngredientNewRecipe.setOnClickListener(v -> {

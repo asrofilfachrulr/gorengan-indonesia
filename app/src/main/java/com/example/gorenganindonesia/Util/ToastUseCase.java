@@ -8,6 +8,10 @@ public class ToastUseCase {
     }
 
     public static void showUnexpectedError(View view){
-        new CustomToast("Error tidak terduga", view, false).show();
+        new CustomToast("Telah terjadi Error tidak terduga", view, false).show();
+    }
+
+    public static void showMessage(View view, String msg){
+        new CustomToast(msg, view, false).show();
     }
 }

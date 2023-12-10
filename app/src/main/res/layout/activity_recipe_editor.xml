@@ -133,7 +133,7 @@
                             android:background="@android:drawable/editbox_background_normal"
                             android:clickable="true"
                             android:inputType="text"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -141,46 +141,87 @@
                             android:layout_marginTop="14sp"
                             android:text="Kategori"
                             android:textColor="@android:color/primary_text_light" />
-
-                        <Spinner
-                            android:id="@+id/sp_category_recipe_editor"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="10sp"
-                            android:entries="@array/categories" />
+                            android:orientation="horizontal">
+                            <Spinner
+                                android:id="@+id/sp_category_recipe_editor"
+                                android:layout_width="200sp"
+                                android:layout_height="match_parent"
+                                android:entries="@array/categories" />
+                            <Button
+                                android:layout_marginStart="7sp"
+                                android:id="@+id/btn_new_category_recipe_editor"
+                                android:layout_width="70sp"
+                                android:layout_height="match_parent"
+                                android:textAllCaps="false"
+                                android:background="@drawable/rounded_grey_bordered"
+                                android:lines="2"
+                                android:text="Tambah Baru"/>
+                        </LinearLayout>
                         <LinearLayout
-                            android:layout_marginTop="14sp"
+                            android:id="@+id/ll_new_category_recipe_editor"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:id="@+id/et_new_category_recipe_editor"
+                                android:layout_width="200sp"
+                                android:layout_height="match_parent"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:clickable="true"
+                                android:inputType="text"
+                                android:hint="kategori baru"
+                                android:textSize="14sp" />
+                            <Button
+                                android:layout_marginStart="7sp"
+                                android:id="@+id/btn_new_category_cancel_recipe_editor"
+                                android:layout_width="70sp"
+                                android:layout_height="wrap_content"
+                                android:textAllCaps="false"
+                                android:background="@drawable/rounded_grey_bordered"
+                                android:text="Batal"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:id="@+id/ll_input_image_new_recipe"
-                            android:visibility="visible"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginTop="14sp"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Unggah Gambar"
                                 android:textColor="@android:color/primary_text_light" />
+
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/cc_recipe_image_new_recipe"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="14dp"
                                 android:visibility="gone"
-                                app:cardElevation="0dp"
-                                app:cardCornerRadius="7dp">
+                                app:cardCornerRadius="7dp"
+                                app:cardElevation="0dp">
+
                                 <ImageView
                                     android:id="@+id/iv_preview_new_recipe"
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/gorengan2"/>
+                                    android:src="@drawable/gorengan2" />
                             </androidx.cardview.widget.CardView>
 
                             <LinearLayout
-                                android:layout_marginTop="14dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_gravity="center_vertical"
+                                android:layout_marginTop="14dp"
                                 android:orientation="horizontal"
                                 android:padding="5sp">
 
@@ -188,20 +229,20 @@
                                     android:id="@+id/btn_pick_img_new_receipt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:clickable="true"
-                                    android:text="Pilih Gambar"
                                     android:background="@drawable/rounded_grey_bordered"
+                                    android:clickable="true"
                                     android:paddingHorizontal="10sp"
+                                    android:text="Pilih Gambar"
                                     android:textAllCaps="false" />
 
                                 <TextView
-                                    android:visibility="gone"
                                     android:id="@+id/tv_image_file_name_new_receipt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="14sp"
                                     android:text="file-name.jpg"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black"
+                                    android:visibility="gone" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -214,7 +255,7 @@
 
                         <Spinner
                             android:id="@+id/sp_difficulty_recipe_editor"
-                            android:layout_width="match_parent"
+                            android:layout_width="200sp"
                             android:layout_height="50dp"
                             android:layout_marginTop="10sp"
                             android:clickable="true"
@@ -228,16 +269,61 @@
                             android:text="Estimasi Durasi Pembuatan"
                             android:textColor="@android:color/primary_text_light" />
 
-                        <EditText
-                            android:id="@+id/et_minute_duration_recipe_editor"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:layout_marginTop="10sp"
-                            android:background="@android:drawable/editbox_background_normal"
-                            android:clickable="true"
-                            android:hint="40 (menit)"
-                            android:inputType="number"
-                            android:textSize="14sp" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/et_minute_duration_recipe_editor"
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:clickable="true"
+                                android:hint="40"
+                                android:textAlignment="center"
+                                android:inputType="number"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="7sp"
+                                android:text="Menit"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
+                            android:text="Porsi Resep"
+                            android:textColor="@android:color/primary_text_light" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10sp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/et_portion_recipe_editor"
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:clickable="true"
+                                android:hint="4"
+                                android:inputType="number"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="7sp"
+                                android:text="Porsi" />
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -254,6 +340,7 @@
                             android:layout_marginTop="14sp"
                             android:text="Masukan Bahan-Bahan Resep"
                             android:textColor="@android:color/primary_text_light" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -261,11 +348,12 @@
                             android:lineHeight="20sp"
                             android:text="Contoh Pengisian:\n[ 10 ] [ gr ] [ gula ]\n[ 1 ] [ lbr ] [ daun bawang ]\n[    ] [ secukupnya ] [ air ]"
                             android:textColor="@android:color/primary_text_light_nodisable" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_add_ingredient_new_recipe"
-                            android:layout_marginTop="14sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="14sp"
                             tools:itemCount="3"
                             tools:listitem="@layout/new_recipe_ingredient_item" />
 
