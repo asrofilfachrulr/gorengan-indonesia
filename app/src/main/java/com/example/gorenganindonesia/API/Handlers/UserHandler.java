@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.API.Handlers;
 
+import android.app.ProgressDialog;
 import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -39,10 +40,15 @@ public class UserHandler {
     }
 
     public void getUser(){
+        ProgressDialog progressDialog;
         if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE){
-            dto.loadingView.setVisibility(View.VISIBLE);
-            dto.loadingText.setText("Memuat Informasi Pengguna...");
-        }
+            progressDialog = dto.createProgressDialog();
+            progressDialog.setMessage("Memuat Informasi Pengguna");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        } else
+            progressDialog = null;
+
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
@@ -51,8 +57,8 @@ public class UserHandler {
                 .enqueue(new Callback<GetUserResponse>() {
                     @Override
                     public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
-                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
-                            dto.loadingView.setVisibility(View.GONE);
+                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE && progressDialog != null)
+                            progressDialog.dismiss();
                         if(response.isSuccessful()){
                             UserData userDataResponse = response.body().getUserData();
 
@@ -81,18 +87,23 @@ public class UserHandler {
 
                     @Override
                     public void onFailure(Call<GetUserResponse> call, Throwable t) {
-                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
-                            dto.loadingView.setVisibility(View.GONE);
+                        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE && progressDialog != null)
+                            progressDialog.dismiss();
                         new CustomToast("Gagal Mendapatkan Informasi Pengguna: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }
 
     public void putUserBio(PutUserBioRequest putUserBioRequest){
+        ProgressDialog progressDialog;
         if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE) {
-            dto.loadingView.setVisibility(View.VISIBLE);
-            dto.loadingText.setText("Memperbarui Informasi\nProfil Anda...");
-        }
+            progressDialog = dto.createProgressDialog();
+            progressDialog.setMessage("Memperbarui Informasi Profil");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        } else
+            progressDialog = null;
+
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
         userService
@@ -101,7 +112,7 @@ public class UserHandler {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                         if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
-                            dto.loadingView.setVisibility(View.GONE);
+                            progressDialog.dismiss();
 
                         if(response.isSuccessful()){
                             if(dto.callback != null)
@@ -118,24 +129,27 @@ public class UserHandler {
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
-                            dto.loadingView.setVisibility(View.GONE);
+                            progressDialog.dismiss();
                         new CustomToast("Gagal Memperbarui Profil: Koneksi Gagal", dto.view, false).show();
                     }
                 });
     }
 
     public void putUserBioImg(MultipartBody.Part imageData, String prevPath){
-        dto.loadingView.setVisibility(View.VISIBLE);
-        dto.loadingText.setText("Mengunggah Gambar...");
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
+
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memperbarui Gambar Profil");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         userService
                 .putUserBioImg(token, prevPath, imageData)
                 .enqueue(new Callback<PutUserBioImgResponse>() {
                     @Override
                     public void onResponse(Call<PutUserBioImgResponse> call, Response<PutUserBioImgResponse> response) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             PutUserBioImgResponse respBody = response.body();
 
@@ -158,7 +172,7 @@ public class UserHandler {
 
                     @Override
                     public void onFailure(Call<PutUserBioImgResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal Memperbarui Gambar Profil: Koneksi Gagal", dto.view, false).show();
                     }
                 });

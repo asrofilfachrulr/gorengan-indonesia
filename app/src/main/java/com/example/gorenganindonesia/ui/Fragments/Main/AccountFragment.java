@@ -3,6 +3,7 @@ package com.example.gorenganindonesia.ui.Fragments.Main;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -144,8 +145,10 @@ public class AccountFragment extends Fragment {
         if(resultCode == RESULT_OK){
             switch(requestCode){
                 case PICK_FILE_REQUEST_CODE:
-                    binding.llRootLoadingAccountFragment.setVisibility(View.VISIBLE);
-                    binding.tvRootLoadingAccountFragment.setText("Memproses Gambar");
+                    ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setMessage("Memproses Gambar");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
                     MultipartBody.Part imageData;
                     String prevPath = ((GlobalModel) requireContext().getApplicationContext()).getAccountViewModel().getImagePath();
@@ -163,10 +166,11 @@ public class AccountFragment extends Fragment {
                         imageData = bitmapHelper.bitmapToMultipartBody(compressedBitmap, selectedFileUri);
 
                     } catch (Exception e) {
-                        binding.llRootLoadingAccountFragment.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         return;
                     }
 
+                    progressDialog.dismiss();
 
                     APIHandlerDTO dto = new APIHandlerDTO(
                             binding.getRoot(),

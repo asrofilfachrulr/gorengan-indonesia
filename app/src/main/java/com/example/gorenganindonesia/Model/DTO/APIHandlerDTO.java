@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.Model.DTO;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
@@ -66,5 +67,9 @@ public class APIHandlerDTO {
 
     public void setDaemonMode(boolean daemonMode) {
         isDaemonMode = daemonMode;
+    }
+
+    public ProgressDialog createProgressDialog(){
+        return new ProgressDialog(context);
     }
 }

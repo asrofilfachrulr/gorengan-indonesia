@@ -133,8 +133,6 @@ public class RatingEditorFragment extends DialogFragment {
 
             Log.i("Debug Rating Editor: Save", "comment: " + comment + "\nstar: " + String.valueOf(starCount));
 
-            llRootLoading.setVisibility(View.VISIBLE);
-
 
             APIHandlerDTO dao = new APIHandlerDTO(view, tvLoading, tvTitle, requireContext());
             dao.setCallback(getRatingsCallback);

@@ -54,7 +54,6 @@ public class MyRecipeFragment extends Fragment {
         binding.rvMyRecipes.setLayoutManager(linearLayoutManager);
 
         binding.ibAddMyReceipt.setOnClickListener(v -> {
-            ToastUseCase.showInDevelopment(root);
             startActivity(new Intent(getContext(), RecipeEditorActivity.class));
         });
 

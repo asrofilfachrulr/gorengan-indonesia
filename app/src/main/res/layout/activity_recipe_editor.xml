@@ -347,7 +347,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10sp"
                             android:lineHeight="20sp"
-                            android:text="Contoh Pengisian:\n[ 10 ] [ gr ] [ gula ]\n[ 1 ] [ lbr ] [ daun bawang ]\n[ 0 ] [ secukupnya ] [ air ]" />
+                            android:text="Contoh Pengisian:\n[ 10 ] [ gr ] [ gula ]\n[ 1 ] [ lbr ] [ daun bawang ]\n[ 0 ] [ ~ ] [ secukupnya air ]" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_add_ingredient_new_recipe"
