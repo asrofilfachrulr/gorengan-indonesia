@@ -32,7 +32,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull IngredientAdapter.ViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
-        if(ingredient.getQty().equals(""))
+        if(ingredient.getQty().equals("") || ingredient.getQty().equals("0"))
             holder.tvQtyUnit.setText(ingredient.getUnit().toString());
         else
             holder.tvQtyUnit.setText(ingredient.getQty().toString()+"\n"+ingredient.getUnit().toString());

@@ -264,11 +264,19 @@ public class RecipeEditorActivity extends AppCompatActivity {
 
             handler.setDto(dto);
 
+            dto.setNegativeCallback(() -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder
+                        .setMessage("Kesalahan dalam membuat resep. Pastikan data yang diisi benar!")
+                        .setPositiveButton("OKE", (dialog, which) -> {dialog.dismiss();})
+                        .show();
+            });
+
             Gson gson = new Gson();
             String jsonData = gson.toJson(postModel);
             RequestBody jsonRequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonData);
 
-            BitmapHelper bitmapHelper = new BitmapHelper();
+            BitmapHelper bitmapHelper = new BitmapHelper(this);
             Bitmap compressedBitmap = bitmapHelper.compressImage(selectedImageUri, getContentResolver());
 
             if(compressedBitmap == null)

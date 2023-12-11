@@ -7,7 +7,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.Fragments.Main.MyRecipeFragment">
+    <LinearLayout
+        android:id="@+id/ll_root_loading_my_recipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#74606077"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:translationZ="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tv_root_loading_my_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="memuat..."
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/pb_my_recipe"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp" />
+    </LinearLayout>
     <TextView
         android:id="@+id/tv_my_receipt_title"
         style="@style/MainFragmentTitle"

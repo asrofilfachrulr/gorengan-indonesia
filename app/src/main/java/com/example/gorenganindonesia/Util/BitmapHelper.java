@@ -1,6 +1,7 @@
 package com.example.gorenganindonesia.Util;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,7 +17,10 @@ import okhttp3.RequestBody;
 public class BitmapHelper {
     int MAX_SIZE_IMAGE = 1024; // default
 
-    public BitmapHelper() {
+    Context context;
+
+    public BitmapHelper(Context context) {
+        this.context = context;
     }
 
     public Bitmap compressImage(Uri imageUri, ContentResolver resolver) {
@@ -103,14 +107,19 @@ public class BitmapHelper {
     public String getImageTypeFromUri(Uri imageUri) {
          MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
 
+         String filename = FileUtils.getFileName(context, imageUri);
+
         // Get the file extension from the Uri
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(imageUri.toString());
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(filename);
+        Logger.SimpleLog("File Extension: " +  fileExtension);
 
         // Map the file extension to a standard image type
         String mimeType = mimeTypeMap.getMimeTypeFromExtension(fileExtension.toLowerCase());
+        Logger.SimpleLog("File Mime Type: " +  mimeType);
 
         // Extract the image type from the mime type
         String imageType = mimeType != null ? mimeType.split("/")[1] : "jpeg";
+        Logger.SimpleLog("File Image type: " +  imageType);
 
         return imageType;
     }

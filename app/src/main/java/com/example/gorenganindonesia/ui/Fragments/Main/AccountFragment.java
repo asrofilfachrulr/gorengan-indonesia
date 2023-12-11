@@ -152,7 +152,7 @@ public class AccountFragment extends Fragment {
 
                     try {
                         Uri selectedFileUri = data.getData();
-                        BitmapHelper bitmapHelper = new BitmapHelper();
+                        BitmapHelper bitmapHelper = new BitmapHelper(getContext());
                         Bitmap compressedBitmap = bitmapHelper.compressImage(selectedFileUri, requireContext().getContentResolver());
 
                         if (compressedBitmap == null) {

@@ -1,5 +1,7 @@
 package com.example.gorenganindonesia.ui.Adapters;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.Activity.DetailActivity;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
@@ -23,9 +27,13 @@ import java.util.List;
 
 public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHolder> {
     List<Recipe> dataList;
+    Context context;
+    APIHandlerDTO dto;
 
-    public MyRecipeAdapter(List<Recipe> recipes){
+    public MyRecipeAdapter(List<Recipe> recipes, Context context, APIHandlerDTO dto){
         this.dataList = recipes;
+        this.context = context;
+        this.dto = dto;
     }
 
     @NonNull
@@ -55,7 +63,21 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
         holder.tvAuthorUsername.setText("oleh @" + recipe.getAuthorUsername());
 
         holder.ibDelete.setOnClickListener(v -> {
-            ToastUseCase.showInDevelopment(v);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder
+                    .setMessage("Anda yakin ingin menghapus Resep \"" + recipe.getTitle() + "\"? Aktivitas ini tidak dapat dipulihkan")
+                    .setPositiveButton("Hapus", (dialog, which) -> {
+                        dto.setCallback(() -> {
+                            APIHandlerDTO getDTO = dto;
+                            getDTO.setCallback(null);
+                            RecipeHandler getHandler = new RecipeHandler(getDTO);
+                            getHandler.getAllRecipes();
+                        });
+                        RecipeHandler deleteHandler = new RecipeHandler(dto);
+                        deleteHandler.deleteRecipe(recipe.getId());
+                    })
+                    .setNegativeButton("Batal", (dialog, which) -> {dialog.dismiss();})
+                    .show();
         });
 
         View[] targetViews = {holder.llMyReceipt, holder.ivImage};

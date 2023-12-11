@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.API.Services.RecipesService;
+import com.example.gorenganindonesia.API.Services.recipe.recipeId.RecipeService;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.BasicResponse;
@@ -119,7 +120,7 @@ public class RecipeHandler {
 
         RetrofitClient
                 .getInstance()
-                .create(RecipesService.class)
+                .create(RecipeService.class)
                 .postRecipe(token, imagePart, jsonData)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
@@ -130,7 +131,8 @@ public class RecipeHandler {
                                 dto.callback.run();
                         } else {
                             try {
-                                ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: " + response.errorBody().string());
+                                if(dto.negativeCallback != null)
+                                    dto.negativeCallback.run();
                                 Log.e("Error", response.errorBody().string());
                             } catch (IOException e) {
                                 ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep");
@@ -142,6 +144,39 @@ public class RecipeHandler {
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         dto.loadingView.setVisibility(View.GONE);
 
+                        ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: Koneksi Gagal");
+                    }
+                });
+    }
+
+    public void deleteRecipe(String recipeId){
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        dto.loadingText.setText("Menghapus Resep...");
+        dto.loadingView.setVisibility(View.VISIBLE);
+
+        RetrofitClient
+                .getInstance()
+                .create(RecipeService.class)
+                .deleteRecipeByRecipeId(token, recipeId)
+                .enqueue(new Callback<BasicResponse>() {
+                    @Override
+                    public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        dto.loadingView.setVisibility(View.GONE);
+                        if(response.isSuccessful()){
+                            if(dto.callback != null) dto.callback.run();
+                        } else {
+                            try {
+                                ToastUseCase.showMessage(dto.view,"Gagal Menghapus Resep: " + response.errorBody().string());
+                                Log.e("Error", response.errorBody().string());
+                            } catch (IOException e) {
+                                ToastUseCase.showMessage(dto.view,"Gagal Menghapus Resep");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicResponse> call, Throwable t) {
+                        dto.loadingView.setVisibility(View.GONE);
                         ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: Koneksi Gagal");
                     }
                 });
