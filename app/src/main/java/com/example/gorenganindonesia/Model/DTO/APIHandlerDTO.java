@@ -13,6 +13,7 @@ public class APIHandlerDTO {
     public Runnable negativeCallback;
     public boolean isDaemonMode;
 
+
     public static boolean DAEMON_MODE = true;
     public static boolean SCREAMING_MODE = false;
 

@@ -15,12 +15,4 @@ import retrofit2.http.Part;
 public interface RecipesService {
     @GET("/recipes")
     Call<GetAllRecipesResponse> getAllRecipes(@Header("Authorization") String token);
-
-    @Multipart
-    @POST("/recipe")
-    Call<BasicResponse> postRecipe(
-            @Header("Authorization") String token,
-            @Part MultipartBody.Part imageData,
-            @Part("json") RequestBody jsonData
-    );
 }
