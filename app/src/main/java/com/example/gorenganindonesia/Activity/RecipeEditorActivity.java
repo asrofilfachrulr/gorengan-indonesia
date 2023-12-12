@@ -12,21 +12,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.Model.Adapters.RecipeToPostRecipeAdapter;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
-import com.example.gorenganindonesia.Model.Factories.RequestBodyFactory;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.Recipe.PostRecipeRequest;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
-import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Model.data.Step.Step;
 import com.example.gorenganindonesia.Util.BitmapHelper;
-import com.example.gorenganindonesia.Util.FileUtils;
 import com.example.gorenganindonesia.Util.Logger;
 import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.example.gorenganindonesia.databinding.ActivityRecipeEditorBinding;
@@ -34,7 +30,6 @@ import com.example.gorenganindonesia.ui.Adapters.NewIngredientAdapter;
 import com.example.gorenganindonesia.ui.Adapters.NewStepAdapter;
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,9 +44,10 @@ public class RecipeEditorActivity extends AppCompatActivity {
     private ActivityRecipeEditorBinding binding;
     private List<Step> newSteps = new ArrayList<>();
     private List<Ingredient> newIngredients = new ArrayList<>();
-    private Recipe newRecipe;
+    private Recipe nRecipe;
     String mode;
     Uri selectedImageUri;
+    Recipe recipeOrigin;
 
     private static final int PICK_FILE_REQUEST_CODE = 1832;
     private static final String REQUEST_MODE_POST = "POST";
@@ -70,25 +66,34 @@ public class RecipeEditorActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        Recipe recipe = intent.getParcelableExtra("recipe");
+        recipeOrigin = (Recipe) intent.getParcelableExtra("recipe");
 
-        if(recipe == null){
+        if(recipeOrigin == null){
             mode = REQUEST_MODE_POST;
-            newRecipe = new Recipe();
+            nRecipe = new Recipe();
 
             newIngredients.add(new Ingredient());
             newSteps.add(new Step("", 1));
         } else {
             mode = REQUEST_MODE_PUT;
-            newIngredients = Arrays.asList(recipe.getIngredients());
+            selectedImageUri = null;
 
-            String[] steps = recipe.getSteps();
+            binding.btnResetImgNewReceipt.setVisibility(View.VISIBLE);
+            binding.btnResetImgNewReceipt.setOnClickListener(v -> {
+                setRecipeImage(recipeOrigin.getImgUrl());
+                selectedImageUri = null;
+            });
+
+            newIngredients = Arrays.asList(recipeOrigin.getIngredients());
+
+            String[] steps = recipeOrigin.getSteps();
             for(int i = 1; i < steps.length; i++){
                 newSteps.add(new Step(steps[i], Integer.valueOf(i)));
             }
 
-            setRecipeImage("", recipe.getImgUrl());
-            newRecipe = recipe;
+            nRecipe = recipeOrigin;
+
+            setRecipeImage(recipeOrigin.getImgUrl());
         }
 
 
@@ -116,23 +121,23 @@ public class RecipeEditorActivity extends AppCompatActivity {
 
         binding.btnSaveNewRecipe.setOnClickListener(v -> {
             try {
-                newRecipe.setTitle(binding.etTitleRecipeEditor.getText().toString());
-                newRecipe.setMinuteDuration(
+                nRecipe.setTitle(binding.etTitleRecipeEditor.getText().toString());
+                nRecipe.setMinuteDuration(
                         Integer.valueOf(binding.etMinuteDurationRecipeEditor.getText().toString())
                 );
 
                 int portion = Integer.valueOf(binding.etPortionRecipeEditor.getText().toString());
-                newRecipe.setPortion(portion);
+                nRecipe.setPortion(portion);
 
                 String username = ((GlobalModel) getApplication()).getAccountViewModel().getUsername();
-                newRecipe.setAuthorUsername(username);
+                nRecipe.setAuthorUsername(username);
 
                 String newCategory = binding.etNewCategoryRecipeEditor.getText().toString();
                 String category = newCategory.isEmpty() ? binding.spCategoryRecipeEditor.getSelectedItem().toString() : newCategory;
-                newRecipe.setCategory(category);
+                nRecipe.setCategory(category);
 
                 String difficulty = binding.spDifficultyRecipeEditor.getSelectedItem().toString();
-                newRecipe.setDifficulty(difficulty);
+                nRecipe.setDifficulty(difficulty);
 
                 List<Ingredient> ingredientsData = ingredientAdapter.getDataList();
                 List<Step> stepsData = stepAdapter.getDataList();
@@ -141,16 +146,16 @@ public class RecipeEditorActivity extends AppCompatActivity {
                 for (int i = 0; i < ingredients.length; i++)
                     ingredients[i] = ingredientsData.get(i);
 
-                newRecipe.setIngredients(ingredients);
+                nRecipe.setIngredients(ingredients);
 
                 String[] steps = new String[stepsData.size()];
 
                 for (int i = 0; i < steps.length; i++)
                     steps[i] = stepsData.get(i).getDescription();
 
-                newRecipe.setSteps(steps);
+                nRecipe.setSteps(steps);
 
-                Logger.SimpleLog(newRecipe.toString());
+                Logger.SimpleLog(nRecipe.toString());
 
                 requestAPIRecipe();
             } catch (Exception e){
@@ -204,40 +209,46 @@ public class RecipeEditorActivity extends AppCompatActivity {
                     Uri selectedUri = data.getData();
                     selectedImageUri = selectedUri;
 
-                    String fileName = FileUtils.getFileName(this, selectedUri);
-
-                    setRecipeImage(fileName, selectedUri);
+                    setRecipeImage(selectedUri);
                     break;
             }
         }
     }
 
-    void setRecipeImage(String fileName, String imageUrl){
-        setRecipeImage(fileName, null, imageUrl);
-        newRecipe.setImgUrl(imageUrl);
+    void setRecipeImage(String imageUrl){
+        setRecipeImage(null, imageUrl);
+        nRecipe.setImgUrl(imageUrl);
     }
 
-    void setRecipeImage(String fileName, Uri uri){
-        setRecipeImage(fileName, uri, null);
-        newRecipe.setImgUrl(uri.getPath());
+    void setRecipeImage(Uri uri){
+        setRecipeImage(uri, null);
+        nRecipe.setImgUrl(uri.getPath());
     }
 
-    void setRecipeImage(String fileName, Uri uri, String imageUrl){
-        binding.tvImageFileNameNewReceipt.setVisibility(View.VISIBLE);
-        binding.tvImageFileNameNewReceipt.setText(fileName);
+    void setRecipeImage(Uri uri, String imageUrl){
         binding.btnPickImgNewReceipt.setText("Edit Gambar");
 
-        Glide
-                .with(this)
-                .load(uri != null ? uri : imageUrl)
-                .into(binding.ivPreviewNewRecipe);
+        if(uri != null) {
+            Glide
+                    .with(this)
+                    .load(uri)
+                    .into(binding.ivPreviewNewRecipe);
+        } else if (imageUrl != null){
+            Glide
+                    .with(this)
+                    .load(imageUrl)
+                    .into(binding.ivPreviewNewRecipe);
+        }
+
 
         binding.ccRecipeImageNewRecipe.setVisibility(View.VISIBLE);
     }
 
     void requestAPIRecipe(){
-        if(mode.equals(REQUEST_MODE_POST)) requestPostRecipe();
-        else if(mode.equals(REQUEST_MODE_PUT)) requestPutRecipe();
+        if(mode.equals(REQUEST_MODE_POST))
+            requestPostRecipe();
+        else if(mode.equals(REQUEST_MODE_PUT))
+            requestPutRecipe();
     }
 
     void requestPostRecipe(){
@@ -246,7 +257,7 @@ public class RecipeEditorActivity extends AppCompatActivity {
         try {
             APIHandlerDTO dto = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
 
-            RecipeToPostRecipeAdapter adapter = new RecipeToPostRecipeAdapter(newRecipe);
+            RecipeToPostRecipeAdapter adapter = new RecipeToPostRecipeAdapter(nRecipe);
             PostRecipeRequest postModel = adapter.convert();
 
             RecipeHandler handler = new RecipeHandler(dto);

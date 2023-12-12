@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.ui.Fragments.Detail;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.Activity.RatingActivity;
+import com.example.gorenganindonesia.Activity.RecipeEditorActivity;
+import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
@@ -27,7 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class SummaryFragment extends Fragment {
     TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient, tvAuthorUsername, tvStarRating;
     ImageButton ibMore;
-    Button btnShare, btnSaveOffline, btnSeeUserRating;
+    Button btnShare, btnSaveOffline, btnSeeUserRating, btnEdit, btnDelete;
     LinearLayout llSteps, llIngridients;
     ViewPager vp;
     Recipe recipe;
@@ -98,12 +102,60 @@ public class SummaryFragment extends Fragment {
             }
         });
 
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext());
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(R.layout.bottom_dialog_menu_detail);
 
         btnShare = (Button) bottomSheetDialog.findViewById(R.id.btn_share);
         btnSaveOffline = (Button) bottomSheetDialog.findViewById(R.id.btn_save_offline);
         btnSeeUserRating = (Button) bottomSheetDialog.findViewById(R.id.btn_see_user_rating);
+
+        btnEdit = (Button) bottomSheetDialog.findViewById(R.id.btn_edit_recipe);
+        btnDelete = (Button) bottomSheetDialog.findViewById(R.id.btn_delete_recipe);
+
+
+        String username = ((GlobalModel) requireContext().getApplicationContext()).getAccountViewModel().getUsername();
+        String authorUsername = recipe.getAuthorUsername();
+
+        if(username.equals(authorUsername)){
+            btnDelete.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.VISIBLE);
+
+            // delete
+            btnDelete.setOnClickListener(v -> {
+                bottomSheetDialog.dismiss();
+                APIHandlerDTO dto = new APIHandlerDTO(v, requireContext(), null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder
+                        .setMessage("Anda yakin ingin menghapus Resep \"" + recipe.getTitle() + "\"? Aktivitas ini tidak dapat dipulihkan")
+                        .setPositiveButton("Hapus", (dialog, which) -> {
+                            dto.setCallback(() -> {
+                                APIHandlerDTO getDTO = dto;
+                                getDTO.setCallback(() -> {
+                                    getActivity().finish();
+                                });
+                                RecipeHandler getHandler = new RecipeHandler(getDTO);
+                                getHandler.getAllRecipes();
+
+                                dialog.dismiss();
+                            });
+                            RecipeHandler deleteHandler = new RecipeHandler(dto);
+                            deleteHandler.deleteRecipe(recipe.getId());
+                        })
+                        .setNegativeButton("Batal", (dialog, which) -> {dialog.dismiss();})
+                        .show();
+            });
+
+            // edit
+            btnEdit.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), RecipeEditorActivity.class);
+                intent.putExtra("recipe", recipe);
+
+                bottomSheetDialog.dismiss();
+
+                startActivity(intent);
+            });
+        }
 
 
         ibMore.setOnClickListener(v -> bottomSheetDialog.show());
@@ -123,7 +175,7 @@ public class SummaryFragment extends Fragment {
 
 
         btnSaveOffline.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Save Offline clicked", Toast.LENGTH_SHORT).show();
+            ToastUseCase.showInDevelopment(v);
             bottomSheetDialog.dismiss();
         });
 

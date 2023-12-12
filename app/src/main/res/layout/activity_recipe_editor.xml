@@ -235,15 +235,18 @@
                                     android:paddingHorizontal="10sp"
                                     android:text="Pilih Gambar"
                                     android:textAllCaps="false" />
-
-                                <TextView
-                                    android:id="@+id/tv_image_file_name_new_receipt"
+                                <Button
+                                    android:visibility="gone"
+                                    android:id="@+id/btn_reset_img_new_receipt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="14sp"
-                                    android:text="file-name.jpg"
-                                    android:textColor="@color/black"
-                                    android:visibility="gone" />
+                                    android:background="@drawable/rounded_grey_bordered"
+                                    android:clickable="true"
+                                    android:paddingHorizontal="10sp"
+                                    android:text="Reset Gambar"
+                                    android:layout_marginStart="14dp"
+                                    android:textAllCaps="false" />
+
                             </LinearLayout>
                         </LinearLayout>
 

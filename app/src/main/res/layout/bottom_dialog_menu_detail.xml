@@ -5,12 +5,21 @@
     android:orientation="vertical"
     android:paddingVertical="16dp">
     <Button
-        android:id="@+id/btn_share"
-        android:drawableStart="@drawable/ic_share"
+        android:visibility="gone"
+        android:id="@+id/btn_edit_recipe"
+        android:drawableStart="@drawable/baseline_edit_24"
         style="@style/BottomDialogMenuItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bagikan"/>
+        android:text="Edit Resep"/>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_delete_recipe"
+        android:drawableStart="@drawable/baseline_delete_24"
+        style="@style/BottomDialogMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hapus Resep"/>
 
     <Button
         android:id="@+id/btn_save_offline"
@@ -18,7 +27,14 @@
         style="@style/BottomDialogMenuItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Simpan Resep Offline"/>
+        android:text="Simpan Offline"/>
+    <Button
+        android:id="@+id/btn_share"
+        android:drawableStart="@drawable/ic_whatsapp"
+        style="@style/BottomDialogMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bagikan ke WhatsApp"/>
     <Button
         android:id="@+id/btn_see_user_rating"
         android:drawableStart="@drawable/ic_stars"
