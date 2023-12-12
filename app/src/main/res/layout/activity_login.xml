@@ -33,7 +33,7 @@
         android:layout_marginTop="132dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato_extra_bold"
-        android:text="Welcome Back"
+        android:text="Ayo Mulai Menjelajah Gorengan!"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato_light"
-        android:text="Sign in to your account"
+        android:text="Silakan masuk ke akun anda"
         android:textColor="@color/login"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/rounded_edittext_background"
                 android:fontFamily="@font/lato_light"
-                android:hint="Enter your username / email"
+                android:hint="Masukkan username / email"
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/lato_semibold"
-                android:text="Password"
+                android:text="Kata Sandi"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -113,7 +113,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/rounded_edittext_background"
                 android:fontFamily="@font/lato_light"
-                android:hint="Enter Your Password"
+                android:hint="Masukkan Kata Sandi"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:textColor="@color/black"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_semibold"
                 android:padding="5dp"
-                android:text="Forgot password?"
+                android:text="Lupa kata sandi?"
                 android:textColor="@color/note"
                 android:textSize="12sp" />
 
@@ -137,7 +137,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="14dp"
                 android:elevation="30dp"
-                android:text="Login" />
+                android:text="masuk" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -151,17 +151,17 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="center"
-                    android:text="Don't Have an Account? "
+                    android:text="Belum punya akun? "
                     android:textColor="@color/dark_grey" />
 
                 <Button
                     android:id="@+id/btn_register"
                     style="@style/btn_transparent"
-                    android:layout_width="49dp"
+                    android:layout_width="80dp"
                     android:layout_height="19dp"
                     android:fontFamily="@font/lato_semibold"
                     android:gravity="center_vertical"
-                    android:text="Sign Up"
+                    android:text="Daftar disini"
                     android:textAllCaps="false"
                     android:textColor="@color/note" />
             </LinearLayout>
@@ -173,7 +173,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="-or sign in with-"
+                android:text="-atau masuk dengan-"
                 android:textColor="@color/dark_grey" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,12 +185,12 @@
                     android:layout_width="40dp"
                     android:layout_height="50dp"
                     android:src="@drawable/google"
-                    android:layout_marginEnd="25dp"/>
+                    android:layout_marginEnd="35dp"/>
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="50dp"
                     android:src="@drawable/facebook"
-                    android:layout_marginEnd="25dp"/>
+                    android:layout_marginEnd="35dp"/>
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="40dp"
