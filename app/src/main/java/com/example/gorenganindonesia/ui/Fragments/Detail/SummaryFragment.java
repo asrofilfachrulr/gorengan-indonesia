@@ -190,6 +190,7 @@ public class SummaryFragment extends Fragment {
         ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
             Recipe updatedRecipe = updatedRecipes.get(index);
             if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
+                recipe = updatedRecipe;
                 tvStep.setText(String.valueOf(updatedRecipe.getSteps().length) + " Langkah");
                 tvIngridient.setText(String.valueOf(updatedRecipe.getIngredients().length) + " Bahan");
                 tvStarRating.setText(String.valueOf(updatedRecipe.getStars()));

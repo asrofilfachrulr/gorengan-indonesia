@@ -85,7 +85,7 @@ public class RecipeHandler {
 
                             ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setRecipesData(tempRecipes);
                             //TODO: Automate category list from available recipes on backend or database!
-                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setCategoriesData(CategoryData.generate());
+//                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setCategoriesData(CategoryData.generate());
 
                             if(dto.callback != null)
                                 dto.callback.run();

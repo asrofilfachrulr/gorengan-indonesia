@@ -78,15 +78,15 @@ public class DetailActivity extends AppCompatActivity {
 
         vp = (ViewPager) findViewById(R.id.vp_detail);
 
-        APIHandlerDTO dao = new APIHandlerDTO(
+        APIHandlerDTO dto = new APIHandlerDTO(
                 view,
                 llRootLoadingDetail,
                 tvLoading,
                 this
         );
 
-        recipeDetailHandler = new RecipeDetailHandler(dao);
-        favouriteHandler = new FavouriteHandler(dao);
+        recipeDetailHandler = new RecipeDetailHandler(dto);
+        favouriteHandler = new FavouriteHandler(dto);
 
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra("recipe");
@@ -119,27 +119,27 @@ public class DetailActivity extends AppCompatActivity {
 
         btnToggleFavourite.setOnClickListener(v -> {
             if (isReceiptExistInFav[0]) {
-                APIHandlerDTO daoRemove = favouriteHandler.getDto();
-                daoRemove.setCallback(() -> {
+                APIHandlerDTO dtoRemove = favouriteHandler.getDto();
+                dtoRemove.setCallback(() -> {
                     new CustomToast("Berhasil menghapus dari Favorit", v, false).show();
                     btnToggleFavourite.setImageResource(R.drawable.ic_favourite_outline);
                     isReceiptExistInFav[0] = false;
 
                     favouriteHandler.getFavourites();
                 });
-                favouriteHandler.setDto(daoRemove);
+                favouriteHandler.setDto(dtoRemove);
                 favouriteHandler.deleteFavourite(recipe.getId());
 //                favViewModel.removeFavourite(recipe);
             } else {
-                APIHandlerDTO daoPush = favouriteHandler.getDto();
-                daoPush.setCallback(() -> {
+                APIHandlerDTO dtoPush = favouriteHandler.getDto();
+                dtoPush.setCallback(() -> {
                     new CustomToast("Berhasil menambahkan ke Favorit!", v, false).show();
                     btnToggleFavourite.setImageResource(R.drawable.ic_favourite_solid);
                     isReceiptExistInFav[0] = true;
 
                     favouriteHandler.getFavourites();
                 });
-                favouriteHandler.setDto(daoPush);
+                favouriteHandler.setDto(dtoPush);
                 favouriteHandler.postFavourite(recipe.getId());
 //                favViewModel.pushFavourite(recipe);
             }

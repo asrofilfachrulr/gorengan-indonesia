@@ -68,15 +68,19 @@ public class RecipeEditorActivity extends AppCompatActivity {
         Intent intent = getIntent();
         recipeOrigin = (Recipe) intent.getParcelableExtra("recipe");
 
+        nRecipe = new Recipe();
+
         if(recipeOrigin == null){
             mode = REQUEST_MODE_POST;
-            nRecipe = new Recipe();
 
             newIngredients.add(new Ingredient());
             newSteps.add(new Step("", 1));
         } else {
             mode = REQUEST_MODE_PUT;
             selectedImageUri = null;
+
+            Logger.SimpleLog(recipeOrigin.toString());
+
 
             binding.btnResetImgNewReceipt.setVisibility(View.VISIBLE);
             binding.btnResetImgNewReceipt.setOnClickListener(v -> {
@@ -91,9 +95,26 @@ public class RecipeEditorActivity extends AppCompatActivity {
                 newSteps.add(new Step(steps[i], Integer.valueOf(i)));
             }
 
-            nRecipe = recipeOrigin;
-
             setRecipeImage(recipeOrigin.getImgUrl());
+            binding.etTitleRecipeEditor.setText(recipeOrigin.getTitle());
+            binding.etMinuteDurationRecipeEditor.setText(String.valueOf(recipeOrigin.getMinuteDuration()));
+            binding.etPortionRecipeEditor.setText(String.valueOf(recipeOrigin.getPortion()));
+
+            switch(recipeOrigin.getDifficulty().toLowerCase()){
+                case "mudah":
+                    binding.spDifficultyRecipeEditor.setSelection(0);
+                    break;
+                case "sedang":
+                    binding.spDifficultyRecipeEditor.setSelection(1);
+                    break;
+                case "sulit":
+                    binding.spDifficultyRecipeEditor.setSelection(2);
+                    break;
+                default:
+                    binding.spDifficultyRecipeEditor.setSelection(0);
+            }
+
+            // implement for category
         }
 
 

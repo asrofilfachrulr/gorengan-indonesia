@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.API.Handlers.CategoryHandler;
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.API.Services.RecipesService;
@@ -72,6 +73,7 @@ public class HomeFragment extends Fragment {
 
     RecipeHandler recipeHandler;
     FavouriteHandler favouriteHandler;
+    CategoryHandler categoryHandler;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -101,15 +103,16 @@ public class HomeFragment extends Fragment {
 
         recipeHandler = new RecipeHandler(dao);
         favouriteHandler = new FavouriteHandler(dao);
+        categoryHandler = new CategoryHandler(dao);
 
         if(recipeViewModel.getAllRecipes().getValue().size() == 0){
             APIHandlerDTO tempDAO = recipeHandler.getDto();
             tempDAO.setCallback(() -> {
+                categoryHandler.getCategories();
                 favouriteHandler.getFavourites();
             });
             recipeHandler.setDto(tempDAO);
             recipeHandler.getAllRecipes();
-//            getAllRecipesRequest(token);
         }
 
         recipes = recipeViewModel.getAllRecipes().getValue();

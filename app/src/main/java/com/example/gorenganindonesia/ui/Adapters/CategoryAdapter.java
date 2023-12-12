@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.Constants;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
@@ -51,7 +53,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        String btnText = dataList.get(position).toString();
+        String btnText = WordUtils.capitalizeFully(dataList.get(position).toString());
         holder.btnCategory.setText(btnText);
 
         if(btnText.toLowerCase().contains("semua")){
