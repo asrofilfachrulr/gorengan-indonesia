@@ -4,94 +4,226 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F7FA"
+    android:background="#FFFFFFFF"
     tools:context=".Activity.LoginActivity">
 
-    <LinearLayout
-        android:visibility="invisible"
-        android:id="@+id/ll_root_loading_login"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/gorenganlogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#9E020202"
-        android:gravity="center"
-        android:translationZ="10dp">
-        <TextView
-            android:id="@+id/tv_root_loading_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:fontFamily="@font/open_sans_semibold"
-            android:text="memuat..." />
-        <ProgressBar
-            android:layout_marginTop="14sp"
-            android:id="@+id/pb_login"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato_extra_bold"
+        android:gravity="center_horizontal"
+        android:text="GorenganIndonesia."
+        android:textColor="@color/font_default"
+        android:textSize="28sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato_extra_bold"
+        android:text="Ayo Mulai Menjelajah Gorengan!"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signin"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato_light"
+        android:text="Silakan masuk ke akun anda"
+        android:textColor="@color/login"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="380dp"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:translationZ="1dp"
         app:cardCornerRadius="7dp"
-        android:translationZ="1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signin">
+
         <LinearLayout
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="14dp"
             android:paddingVertical="24dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_semibold"
+                android:text="Username / Email"
                 android:textColor="@color/black"
-                android:fontFamily="@font/open_sans_semibold"
-                android:textSize="16sp"
-                android:text="Username/Email"/>
+                android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/et_identifier"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginTop="16dp"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:fontFamily="@font/lato_light"
+                android:hint="Masukkan username / email"
+                android:padding="5dp"
                 android:textColor="@color/black"
-                android:fontFamily="@font/open_sans_semibold"
+                android:textColorHint="#80000000"
+                android:textSize="14sp" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="Kata Sandi"/>
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/lato_semibold"
+                android:text="Kata Sandi"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/et_password"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:fontFamily="@font/lato_light"
+                android:hint="Masukkan Kata Sandi"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_semibold"
+                android:padding="5dp"
+                android:text="Lupa kata sandi?"
+                android:textColor="@color/note"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/btn_login"
+                style="@style/loginButton"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="14dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/btn_accent_solid_rounded"
+                android:elevation="30dp"
                 android:text="masuk" />
-            <Button
-                android:id="@+id/btn_register"
-                android:layout_marginTop="14dp"
-                style="@style/btn_transparent"
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center"
+                    android:text="Belum punya akun? "
+                    android:textColor="@color/dark_grey" />
+
+                <Button
+                    android:id="@+id/btn_register"
+                    style="@style/btn_transparent"
+                    android:layout_width="80dp"
+                    android:layout_height="19dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:gravity="center_vertical"
+                    android:text="Daftar disini"
+                    android:textAllCaps="false"
+                    android:textColor="@color/note" />
+            </LinearLayout>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="Daftar" />
+                android:fontFamily="@font/lato_semibold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="-atau masuk dengan-"
+                android:textColor="@color/dark_grey" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/google"
+                    android:layout_marginEnd="35dp"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/facebook"
+                    android:layout_marginEnd="35dp"/>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/twitter"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_root_loading_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#9E020202"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:translationZ="10dp"
+                android:visibility="invisible">
+
+                <TextView
+                    android:id="@+id/tv_root_loading_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="memuat..."
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/pb_login"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

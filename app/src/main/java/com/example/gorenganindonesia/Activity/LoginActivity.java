@@ -1,12 +1,16 @@
 package com.example.gorenganindonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,5 +192,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        int colorGorengan = ContextCompat.getColor(this, R.color.gorengan);
+        int colorBlack = ContextCompat.getColor(this, R.color.black);
+
+        TextView colorText2 = (TextView)findViewById(R.id.gorenganlogin);
+        SpannableString text2 = new SpannableString("GorenganIndonesia.");
+        text2.setSpan(new ForegroundColorSpan(colorGorengan), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text2.setSpan(new ForegroundColorSpan(colorBlack), 8, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        colorText2.setText(text2);
+        colorText2.setText(text2, TextView.BufferType.SPANNABLE);
     }
 }
