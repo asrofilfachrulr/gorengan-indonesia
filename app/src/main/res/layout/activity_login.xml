@@ -197,33 +197,6 @@
                     android:src="@drawable/twitter"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_root_loading_login"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#9E020202"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:translationZ="10dp"
-                android:visibility="invisible">
-
-                <TextView
-                    android:id="@+id/tv_root_loading_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:text="memuat..."
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <ProgressBar
-                    android:id="@+id/pb_login"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14sp" />
-            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

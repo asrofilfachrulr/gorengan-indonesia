@@ -1,9 +1,11 @@
 package com.example.gorenganindonesia.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,14 +43,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView tvLoading;
     Button btnLogin, btnRegister;
     EditText etIdentifier, etPassword;
-
-    LinearLayout llRootLoadingLogin;
-
-//    LinearLayout llRootLogin;
-//    ProgressBar progressBar;
 
     SharedPreferences sharedPreferences;
 
@@ -73,15 +69,12 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
 
-        tvLoading = (TextView) findViewById(R.id.tv_root_loading_login);
 
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnRegister = (Button) findViewById(R.id.btn_register);
 
         etIdentifier = (EditText) findViewById(R.id.et_identifier);
         etPassword = (EditText) findViewById(R.id.et_password);
-
-        llRootLoadingLogin = (LinearLayout) findViewById(R.id.ll_root_loading_login);
 
         btnLogin.setOnClickListener(v -> {
             etIdentifier.clearFocus();
@@ -102,10 +95,13 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (isCompleted) {
-                llRootLoadingLogin.setVisibility(View.VISIBLE);
-
                 String identifier = etIdentifier.getText().toString();
                 String password = etPassword.getText().toString();
+
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Memuat Akun Anda...");
+                progressDialog.show();
 
                 RetrofitClient
                         .getInstance()
@@ -114,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                         .enqueue(new Callback<LoginResponse>() {
                             @Override
                             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                                progressDialog.dismiss();
                                 int statusCode = response.code();
 
                                 if (response.isSuccessful()) {
@@ -133,8 +130,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                     System.out.println("Account: " + accountViewModel.getLiveAccount().getValue().toString());
 
-                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
-
                                     ((GlobalModel) getApplication())
                                             .getSessionManager()
                                             .login(
@@ -145,7 +140,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     "login sukses!"
                                             );
                                 } else {
-                                    llRootLoadingLogin.setVisibility(View.INVISIBLE);
                                     try {
                                         String errorBody = response.errorBody().string();
                                         Log.e("Status code: ", String.valueOf(statusCode));
@@ -159,8 +153,12 @@ public class LoginActivity extends AppCompatActivity {
                                             case 401:
                                                 etPassword.setError(errorMessage);
                                             case 404:
-                                                new CustomToast(errorMessage, v).show();
                                                 etIdentifier.setError(errorMessage);
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+                                                builder
+                                                        .setMessage("Error: " + errorMessage)
+                                                        .setPositiveButton("OKE", (dialog, which) -> {dialog.dismiss();})
+                                                        .show();
                                                 break;
                                             case 500:
                                                 new CustomToast(errorText, v).show();
@@ -174,9 +172,16 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                                progressDialog.dismiss();
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+                                builder
+                                        .setMessage("Sambungan Error. Pastikan Sambungan Internet Anda")
+                                        .setPositiveButton("OKE", (dialog, which) -> {dialog.dismiss();})
+                                        .show();
+
                                 System.out.println("LOGIN FAILURE: " + t.getMessage());
-                                new CustomToast("Koneksi Error!", v).show();
-                                llRootLoadingLogin.setVisibility(View.INVISIBLE);
+
                             }
                         });
             } else {
