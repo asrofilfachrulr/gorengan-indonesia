@@ -1,14 +1,19 @@
 package com.example.gorenganindonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.gorenganindonesia.API.Services.AuthService;
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -46,6 +51,16 @@ public class RegisterActivity extends AppCompatActivity {
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
 
         llRootLoadingRegister = (LinearLayout) findViewById(R.id.ll_root_loading_register);
+
+        //warna text GorenganIndonesia.
+        int colorGorengan = ContextCompat.getColor(this, R.color.gorengan);
+        int colorBlack = ContextCompat.getColor(this, R.color.black);
+
+        TextView colorText2 = (TextView)findViewById(R.id.gorengansignup);
+        SpannableString text2 = new SpannableString("GorenganIndonesia.");
+        text2.setSpan(new ForegroundColorSpan(colorGorengan), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text2.setSpan(new ForegroundColorSpan(colorBlack), 8, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        colorText2.setText(text2, TextView.BufferType.SPANNABLE);
 
         btnLogin.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), LoginActivity.class);
@@ -135,6 +150,5 @@ public class RegisterActivity extends AppCompatActivity {
                 new CustomToast("Isi seluruh field!", v).show();
             }
         });
-
     }
 }
