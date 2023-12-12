@@ -1,8 +1,11 @@
 package com.example.gorenganindonesia.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -34,12 +37,14 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
     Button btnLogin, btnRegister;
     EditText etEmail, etUsername, etPassword, etName, etPasswordRepeat;
-    LinearLayout llRootLoadingRegister;
+    Activity thisActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        thisActivity = this;
 
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnRegister = (Button) findViewById(R.id.btn_register);
@@ -50,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.et_password);
         etPasswordRepeat = (EditText) findViewById(R.id.et_password_repeat);
 
-        llRootLoadingRegister = (LinearLayout) findViewById(R.id.ll_root_loading_register);
 
         //warna text GorenganIndonesia.
         int colorGorengan = ContextCompat.getColor(this, R.color.gorengan);
@@ -93,7 +97,10 @@ public class RegisterActivity extends AppCompatActivity {
                 ){
                     String username, name, email, password;
 
-                    llRootLoadingRegister.setVisibility(View.VISIBLE);
+                    ProgressDialog progressDialog = new ProgressDialog(this);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setMessage("Membuat Akun Anda...");
+                    progressDialog.show();
 
                     username = etUsername.getText().toString();
                     name = etName.getText().toString();
@@ -107,13 +114,12 @@ public class RegisterActivity extends AppCompatActivity {
                             .enqueue(new Callback<RegisterResponse>() {
                                 @Override
                                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                                    progressDialog.dismiss();
                                     if(response.isSuccessful()){
-                                        llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                         new CustomToast("Registrasi selesai, silahkan masuk", v).show();
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                         int statusCode = response.code();
                                         try {
                                             String errorBody = response.errorBody().string();
@@ -123,10 +129,13 @@ public class RegisterActivity extends AppCompatActivity {
                                             JSONObject errorJson = new JSONObject(errorBody);
                                             String errorText = errorJson.optString("error");
 
-                                            new CustomToast("error: " + errorText, v).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+                                            builder
+                                                    .setMessage("Error: " + errorText)
+                                                    .setPositiveButton("OKE", (dialog, which) -> {dialog.dismiss();})
+                                                    .show();
 
                                         } catch (IOException | JSONException e) {
-                                            llRootLoadingRegister.setVisibility(View.INVISIBLE);
                                             Log.e("error", e.toString());
                                             e.printStackTrace();
                                         }
@@ -135,8 +144,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                                    llRootLoadingRegister.setVisibility(View.INVISIBLE);
+                                    progressDialog.dismiss();
                                     new CustomToast("Koneksi Error!", v).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+                                    builder
+                                            .setMessage("Sambungan Error. Pastikan Sambungan Internet Anda")
+                                            .setPositiveButton("OKE", (dialog, which) -> {dialog.dismiss();})
+                                            .show();
                                 }
                             });
 
