@@ -53,4 +53,5 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation ("org.apache.commons:commons-lang3:3.12.0")
 }

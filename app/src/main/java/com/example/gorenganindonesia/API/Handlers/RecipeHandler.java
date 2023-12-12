@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.API.Handlers;
 
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Util.ToastUseCase;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,9 +47,11 @@ public class RecipeHandler {
     }
 
     public void getAllRecipes(){
-        dto.loadingView.setVisibility(View.VISIBLE);
-        dto.loadingText.setText("Memuat Resep...");
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memuat Resep...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
                 .getInstance()
@@ -57,7 +61,7 @@ public class RecipeHandler {
                     @Override
                     public void onResponse(Call<GetAllRecipesResponse> call, Response<GetAllRecipesResponse> response) {
                         int statusCode = response.code();
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
 
                         if (response.isSuccessful()) {
                             List<Recipe> tempRecipes = new ArrayList<>();
@@ -68,10 +72,10 @@ public class RecipeHandler {
                                         recipeData.getTitle(),
                                         recipeData.getUsername(),
                                         recipeData.getStars(),
-                                        recipeData.getCategory(),
+                                        WordUtils.capitalizeFully(recipeData.getCategory()),
                                         recipeData.getMinuteDuration(),
                                         recipeData.getImgUrl(),
-                                        recipeData.getDifficulty(),
+                                        WordUtils.capitalizeFully(recipeData.getDifficulty()),
                                         recipeData.getPortion(),
                                         null,
                                         null,
@@ -86,7 +90,7 @@ public class RecipeHandler {
                             if(dto.callback != null)
                                 dto.callback.run();
                         } else {
-                            dto.loadingView.setVisibility(View.GONE);
+                            progressDialog.dismiss();
                             try {
                                 String errorBody = response.errorBody().string();
                                 Log.e("Status code: ", String.valueOf(statusCode));
@@ -106,7 +110,7 @@ public class RecipeHandler {
 
                     @Override
                     public void onFailure(Call<GetAllRecipesResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
 
                         new CustomToast("Gagal Mendapatkan Resep: Koneksi Gagal", dto.view, false).show();
                     }
@@ -114,9 +118,11 @@ public class RecipeHandler {
     }
 
     public void postRecipe(MultipartBody.Part imagePart, RequestBody jsonData){
-        dto.loadingView.setVisibility(View.VISIBLE);
-        dto.loadingText.setText("Membuat Resep...");
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Membuat Resep");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
                 .getInstance()
@@ -125,7 +131,7 @@ public class RecipeHandler {
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             if(dto.callback != null)
                                 dto.callback.run();
@@ -142,7 +148,7 @@ public class RecipeHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
 
                         ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: Koneksi Gagal");
                     }
@@ -151,8 +157,10 @@ public class RecipeHandler {
 
     public void deleteRecipe(String recipeId){
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
-        dto.loadingText.setText("Menghapus Resep...");
-        dto.loadingView.setVisibility(View.VISIBLE);
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Menghapus Resep");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
                 .getInstance()
@@ -161,7 +169,7 @@ public class RecipeHandler {
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             if(dto.callback != null) dto.callback.run();
                         } else {
@@ -176,7 +184,7 @@ public class RecipeHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: Koneksi Gagal");
                     }
                 });

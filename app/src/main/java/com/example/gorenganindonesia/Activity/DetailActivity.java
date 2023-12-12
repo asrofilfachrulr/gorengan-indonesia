@@ -192,8 +192,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
         if (recipe.getIngredients() == null || recipe.getSteps() == null) {
-            llRootLoadingDetail.setVisibility(View.VISIBLE);
-
             Ingredient[] ingredientsEmpty = {};
             recipe.setIngredients(ingredientsEmpty);
 

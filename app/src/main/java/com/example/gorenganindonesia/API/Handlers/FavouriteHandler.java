@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.API.Handlers;
 
+import android.app.ProgressDialog;
 import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -35,9 +36,11 @@ public class FavouriteHandler {
     }
 
     public void getFavourites(){
-        dto.loadingText.setText("Memuat Favorit...");
-        dto.loadingView.setVisibility(View.VISIBLE);
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memuat Daftar Favorit...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
             .getInstance()
@@ -46,15 +49,14 @@ public class FavouriteHandler {
             .enqueue(new Callback<GetFavouritesResponse>() {
                 @Override
                 public void onResponse(Call<GetFavouritesResponse> call, Response<GetFavouritesResponse> response) {
+                    progressDialog.dismiss();
                     if(response.isSuccessful()){
                         String[] recipeids = response.body().getFavourites();
 
                         List<Recipe> favRecipes = ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().getRecipesByIds(recipeids);
                         ((GlobalModel) dto.context.getApplicationContext()).getFavouriteViewModel().setFavourites(favRecipes);
-                        dto.loadingView.setVisibility(View.GONE);
                     } else {
                         int statusCode = response.code();
-                        dto.loadingView.setVisibility(View.GONE);
                         try {
                             if(statusCode != 404)
                                 new CustomToast("Gagal Mendapatkan Daftar Favorit: " + response.errorBody().string(), dto.view, false).show();
@@ -66,16 +68,19 @@ public class FavouriteHandler {
 
                 @Override
                 public void onFailure(Call<GetFavouritesResponse> call, Throwable t) {
-                    dto.loadingView.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                     new CustomToast("Gagal Mendapatkan Daftar Favorit: Koneksi Gagal", dto.view, false).show();
                 }
             });
     }
 
     public void postFavourite(String recipeId){
-        dto.loadingText.setText("Menambahkan Favorit...");
-        dto.loadingView.setVisibility(View.VISIBLE);
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Menambahkan Favorit");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
                 .getInstance()
@@ -84,11 +89,11 @@ public class FavouriteHandler {
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             if(dto.callback != null)
                                 dto.callback.run();
                         } else {
-                            dto.loadingView.setVisibility(View.GONE);
                             try {
                                 new CustomToast("Gagal Menambahkan Favorit: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
@@ -99,7 +104,7 @@ public class FavouriteHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal Menambahkan Favorit: Koneksi Gagal", dto.view, false).show();
 
                     }
@@ -107,9 +112,12 @@ public class FavouriteHandler {
     }
 
     public void deleteFavourite(String recipeId){
-        dto.loadingText.setText("Menghapus Favorit...");
-        dto.loadingView.setVisibility(View.VISIBLE);
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Menghapus Resep dari Favorit");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
                 .getInstance()
@@ -118,12 +126,12 @@ public class FavouriteHandler {
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
 
                             if(dto.callback != null)
                                 dto.callback.run();
                         } else {
-                            dto.loadingView.setVisibility(View.GONE);
                             try {
                                 new CustomToast("Gagal Menghapus Favorit: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
@@ -134,7 +142,7 @@ public class FavouriteHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal Menghapus Favorit: Koneksi Gagal", dto.view, false).show();
                     }
                 });

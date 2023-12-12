@@ -61,13 +61,11 @@ public class RecipeDetailHandler {
                                 new CustomToast("Error Mengolah Bahan Resep", dto.view, false).show();
                             }
                         }
-                        dto.loadingView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
                         new CustomToast("Error Memuat Bahan Resep: Koneksi Gagal", dto.view, false).show();
-                        dto.loadingView.setVisibility(View.GONE);
                     }
                 });
     }
@@ -96,13 +94,11 @@ public class RecipeDetailHandler {
                                 new CustomToast("Error Mengolah Langkah Resep", dto.view, false).show();
                             }
                         }
-                        dto.loadingView.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<GetStepsResponse> call, Throwable t) {
                         new CustomToast("Gagal Memuat Langkah Resep: Koneksi Gagal", dto.view, false).show();
-                        dto.loadingView.setVisibility(View.GONE);
                     }
                 });
     }

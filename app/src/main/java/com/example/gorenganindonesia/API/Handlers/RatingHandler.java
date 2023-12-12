@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.API.Handlers;
 
+import android.app.ProgressDialog;
 import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -43,15 +44,17 @@ public class RatingHandler {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
-        dto.loadingView.setVisibility(View.VISIBLE);
-        dto.loadingText.setText("Memuat Ulasan...");
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memuat Ulasan...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ratingsService
                 .getRatingsByRecipeId(recipeId, token, queryOrder)
                 .enqueue(new Callback<GetRatingsResponse>() {
                     @Override
                     public void onResponse(Call<GetRatingsResponse> call, Response<GetRatingsResponse> response) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
 
                         if (response.isSuccessful()) {
                             RatingData[] ratingData = response.body().getRatingData();
@@ -87,7 +90,7 @@ public class RatingHandler {
 
                     @Override
                     public void onFailure(Call<GetRatingsResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal Mendapatkan Data Rating: Koneksi Gagal", dto.view, false).show();
                     }
                 });
@@ -99,19 +102,22 @@ public class RatingHandler {
 
         PostRatingRequest postRatingRequest = new PostRatingRequest(stars, comment);
 
-        dto.loadingText.setText("Membuat Ulasan...");
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Membuat Ulasan");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ratingsService
                 .postRating(recipeId, token, postRatingRequest)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             new CustomToast("Ulasan berhasil dibuat", dto.view, false).show();
                             if(dto.callback != null)
                                 dto.callback.run();
                         } else {
-                            dto.loadingView.setVisibility(View.GONE);
                             try {
                                 new CustomToast("Gagal membuat ulasan: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
@@ -122,7 +128,7 @@ public class RatingHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal membuat ulasan: Koneksi Gagal", dto.view, false).show();
                     }
                 });
@@ -134,19 +140,22 @@ public class RatingHandler {
 
         PutRatingRequest putRatingRequest = new PutRatingRequest(stars, comment);
 
-        dto.loadingText.setText("Memperbarui Ulasan...");
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memperbarui Ulasan");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ratingsService
                 .putRatingByRecipeId(recipeId, token, putRatingRequest)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        progressDialog.dismiss();
                         if (response.isSuccessful()) {
                             new CustomToast("Ulasan berhasil diperbarui", dto.view, false).show();
                             if(dto.callback != null)
                                 dto.callback.run();
                         } else {
-                            dto.loadingView.setVisibility(View.GONE);
                             try {
                                 new CustomToast("Gagal memperbarui ulasan: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
@@ -157,7 +166,7 @@ public class RatingHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal memperbarui ulasan: Koneksi Gagal", dto.view, false).show();
                     }
                 });
@@ -167,14 +176,17 @@ public class RatingHandler {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
 
-        dto.loadingText.setText("Menghapus ulasan...");
-        dto.loadingView.setVisibility(View.VISIBLE);
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Menghapus Ulasan");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ratingsService
                 .deleteRatingByRecipeId(recipeId, token)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             // refresh rating list
                             if(dto.callback != null)
@@ -182,7 +194,6 @@ public class RatingHandler {
 
                             new CustomToast("Ulasan berhasil dihapus", dto.view, false).show();
                         } else {
-                            dto.loadingView.setVisibility(View.GONE);
                             try {
                                 new CustomToast("Gagal menghapus ulasan: " + response.errorBody().string(), dto.view, false).show();
                             } catch (IOException e) {
@@ -193,7 +204,7 @@ public class RatingHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal menghapus ulasan: Koneksi Gagal", dto.view, false).show();
                     }
                 });

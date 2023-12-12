@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.API.Handlers;
 
+import android.app.ProgressDialog;
 import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -38,15 +39,17 @@ public class PasswordHandler {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                         .getJwtHeaderValue();
 
-        dto.loadingView.setVisibility(View.VISIBLE);
-        dto.loadingText.setText("Memperbarui\nKata Sandi...");
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memperbarui Kata Sandi");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         passwordService
                 .putPassword(token, putPasswordRequest)
                 .enqueue(new Callback<BasicResponse>() {
                     @Override
                     public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         if(response.isSuccessful()){
                             if(dto.callback != null)
                                 dto.callback.run();
@@ -67,7 +70,7 @@ public class PasswordHandler {
 
                     @Override
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
-                        dto.loadingView.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         new CustomToast("Gagal Memperbarui Kata Sandi: Koneksi Gagal", dto.view, false).show();
                     }
                 });
