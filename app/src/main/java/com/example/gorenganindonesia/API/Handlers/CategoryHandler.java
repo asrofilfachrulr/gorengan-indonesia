@@ -12,6 +12,8 @@ import com.example.gorenganindonesia.Model.api.GetCategoriesResponse;
 import com.example.gorenganindonesia.Model.data.Category.CategoryData;
 import com.example.gorenganindonesia.Util.ToastUseCase;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,8 +46,13 @@ public class CategoryHandler {
                         progressDialog.dismiss();
                         if(response.isSuccessful()){
                             String[] categories = response.body().getData();
-                            List<String> lCategories = new ArrayList<>(Arrays.asList(categories));
-                            lCategories.add(0, "semua");
+                            List<String> lCategories = new ArrayList<>();
+                            lCategories.add(0, "Semua");
+
+                            for(int i = 0; i < categories.length; i++){
+                                String category = WordUtils.capitalizeFully(categories[i]);
+                                lCategories.add(category);
+                            }
 
                             ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setCategoriesData(lCategories);
                         } else {

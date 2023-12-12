@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
@@ -68,6 +69,15 @@ public class RecipeEditorActivity extends AppCompatActivity {
         Intent intent = getIntent();
         recipeOrigin = (Recipe) intent.getParcelableExtra("recipe");
 
+        List<String> lCategories = ((GlobalModel) getApplication()).getRecipeViewModel().getCategories().getValue();
+        ArrayAdapter<String> categoryStringAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                lCategories
+        );
+
+        binding.actvCategoryRecipeEditor.setAdapter(categoryStringAdapter);
+
         nRecipe = new Recipe();
 
         if(recipeOrigin == null){
@@ -114,7 +124,7 @@ public class RecipeEditorActivity extends AppCompatActivity {
                     binding.spDifficultyRecipeEditor.setSelection(0);
             }
 
-            // implement for category
+            binding.actvCategoryRecipeEditor.setText(recipeOrigin.getCategory());
         }
 
 
@@ -130,16 +140,6 @@ public class RecipeEditorActivity extends AppCompatActivity {
         rvStep.setLayoutManager(stepLM);
         rvStep.setAdapter(stepAdapter);
 
-        binding.btnNewCategoryRecipeEditor.setOnClickListener(v -> {
-            binding.llNewCategoryRecipeEditor.setVisibility(View.VISIBLE);
-            binding.etNewCategoryRecipeEditor.setText("");
-        });
-
-        binding.btnNewCategoryCancelRecipeEditor.setOnClickListener(v -> {
-            binding.llNewCategoryRecipeEditor.setVisibility(View.GONE);
-            binding.etNewCategoryRecipeEditor.setText("");
-        });
-
         binding.btnSaveNewRecipe.setOnClickListener(v -> {
             try {
                 nRecipe.setTitle(binding.etTitleRecipeEditor.getText().toString());
@@ -153,8 +153,8 @@ public class RecipeEditorActivity extends AppCompatActivity {
                 String username = ((GlobalModel) getApplication()).getAccountViewModel().getUsername();
                 nRecipe.setAuthorUsername(username);
 
-                String newCategory = binding.etNewCategoryRecipeEditor.getText().toString();
-                String category = newCategory.isEmpty() ? binding.spCategoryRecipeEditor.getSelectedItem().toString() : newCategory;
+
+                String category = binding.actvCategoryRecipeEditor.getText().toString();
                 nRecipe.setCategory(category);
 
                 String difficulty = binding.spDifficultyRecipeEditor.getSelectedItem().toString();
@@ -180,6 +180,7 @@ public class RecipeEditorActivity extends AppCompatActivity {
 
                 requestAPIRecipe();
             } catch (Exception e){
+                e.printStackTrace();
                 ToastUseCase.showMessage(binding.getRoot(), "[Error] " + e.getMessage());
             }
 //            ToastUseCase.showInDevelopment(binding.getRoot());
@@ -325,6 +326,7 @@ public class RecipeEditorActivity extends AppCompatActivity {
     }
 
     void requestPutRecipe(){
-        //TODO: Implement todo
+        Logger.SimpleLog("SelectedUri: " + selectedImageUri);
+
     }
 }

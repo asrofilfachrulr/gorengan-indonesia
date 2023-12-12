@@ -53,7 +53,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        String btnText = WordUtils.capitalizeFully(dataList.get(position).toString());
+        String btnText = dataList.get(position).toString();
         holder.btnCategory.setText(btnText);
 
         if(btnText.toLowerCase().contains("semua")){
