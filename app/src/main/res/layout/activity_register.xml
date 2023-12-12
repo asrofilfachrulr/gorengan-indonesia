@@ -52,34 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gorengansignup" />
 
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/ll_root_loading_register"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#9E020202"
-        android:gravity="center"
-        android:translationZ="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:fontFamily="@font/open_sans_semibold"
-            android:text="memuat..." />
-        <ProgressBar
-            android:layout_marginTop="14sp"
-            android:id="@+id/pb_register"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="370dp"
