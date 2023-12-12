@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F7FA"
+    android:background="#FFFFFFFF"
     tools:context=".Activity.RegisterActivity">
+
     <TextView
-        android:id="@+id/gorenganlogin"
+        android:id="@+id/gorengansignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -25,25 +26,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="19dp"
         android:fontFamily="@font/lato_extra_bold"
         android:text="Daftar"
         android:textColor="@color/black"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="79dp" />
+        app:layout_constraintBottom_toTopOf="@+id/buatakun"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gorengansignup" />
 
     <TextView
         android:id="@+id/buatakun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="86dp"
         android:fontFamily="@font/lato_regular"
         android:text="Buat akun dan mulai goreng-gorengan!"
         android:textColor="#5D5353"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="105dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gorengansignup" />
 
     <LinearLayout
         android:visibility="gone"
@@ -72,15 +79,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <androidx.cardview.widget.CardView
-        app:layout_constraintTop_toBottomOf="@id/buatakun"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cardBackgroundColor="#80F3EFE2"
+        android:id="@+id/cardView2"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:cardCornerRadius="7dp">
+        app:cardCornerRadius="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buatakun">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,14 +110,14 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:inputType="textPersonName"
                 android:background="@drawable/rounded_edittext_background"
-                android:hint="Masukkan nama anda"
                 android:fontFamily="@font/lato_light"
+                android:hint="Masukkan nama anda"
+                android:inputType="textPersonName"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -124,14 +132,14 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:inputType="text"
                 android:background="@drawable/rounded_edittext_background"
-                android:hint="Username pilihanmu~"
                 android:fontFamily="@font/lato_light"
+                android:hint="Username pilihanmu~"
+                android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -146,14 +154,14 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:inputType="textEmailAddress"
                 android:background="@drawable/rounded_edittext_background"
-                android:hint="Jangan lupa email ya!"
                 android:fontFamily="@font/lato_light"
+                android:hint="Jangan lupa email ya!"
+                android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -168,14 +176,14 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:inputType="textPassword"
                 android:background="@drawable/rounded_edittext_background"
-                android:hint="Minimal 8 karakter."
                 android:fontFamily="@font/lato_light"
+                android:hint="Minimal 8 karakter."
+                android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -190,14 +198,14 @@
                 android:id="@+id/et_password_repeat"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:inputType="textPassword"
                 android:background="@drawable/rounded_edittext_background"
-                android:hint="Konfirmasi kata sandi Anda"
                 android:fontFamily="@font/lato_light"
+                android:hint="Konfirmasi kata sandi Anda"
+                android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btn_register"
@@ -210,10 +218,10 @@
             <Button
                 android:id="@+id/btn_login"
                 style="@style/btn_transparent"
-                android:fontFamily="@font/lato_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:fontFamily="@font/lato_semibold"
                 android:text="Masuk"
                 android:textAllCaps="false" />
         </LinearLayout>
@@ -221,22 +229,27 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/lato_regular"
+        android:gravity="center"
         android:text="Dengan mengklik Daftar, Anda menyetujui"
         android:textColor="#A8A8A8"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="686dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="-15dp"
         android:fontFamily="@font/lato_regular"
+        android:gravity="center"
         android:text="Ketentuan dan Kebijakan Data kami."
         android:textColor="@color/note"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="705dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
