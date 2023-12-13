@@ -160,13 +160,11 @@ public class SummaryFragment extends Fragment {
             // Create an Intent with the ACTION_SEND action
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
-            shareIntent.setType("image/*");
+            shareIntent.setType("text/plain");
 
             String shareText = recipe.toString();
-            Uri imageUri = Uri.parse(recipe.getImgUrl());
 
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 
             shareIntent.setPackage("com.whatsapp");
 
