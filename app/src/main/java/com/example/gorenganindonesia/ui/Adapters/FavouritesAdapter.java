@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -68,7 +69,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
             .error(R.drawable.img_404_landscape)
             .into(holder.ivThumb);
 
-        View[] views = {holder.ivThumb, holder.llFavItem};
+        View[] views = {holder.ivThumb, holder.clFavItem};
 
         for(View view: views){
             view.setOnClickListener(v -> {
@@ -109,7 +110,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         TextView tvTitle, tvAuthor, tvDifficulty, tvMinuteDuration, tvPortion;
         ImageView ivThumb;
         ImageButton btnDelete;
-        LinearLayout llFavItem;
+        ConstraintLayout clFavItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,7 +125,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
 
             btnDelete = (ImageButton) itemView.findViewById(R.id.btn_fav_delete);
 
-            llFavItem = (LinearLayout) itemView.findViewById(R.id.ll_fav_item);
+            clFavItem = (ConstraintLayout) itemView.findViewById(R.id.cl_fav_item);
         }
     }
 }

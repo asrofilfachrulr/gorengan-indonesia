@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -80,7 +81,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
                     .show();
         });
 
-        View[] targetViews = {holder.llMyReceipt, holder.ivImage};
+        View[] targetViews = {holder.clMyReceipt, holder.ivImage};
 
         for(View _: targetViews)
             _.setOnClickListener(v -> {
@@ -111,7 +112,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
         ImageView ivImage;
         TextView tvTitle, tvDifficulty, tvPortion, tvMinuteDuration, tvAuthorUsername;
         ImageButton ibDelete;
-        LinearLayout llMyReceipt;
+        ConstraintLayout clMyReceipt;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -125,7 +126,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
 
             ibDelete = (ImageButton) itemView.findViewById(R.id.ib_delete_my_receipt);
 
-            llMyReceipt = (LinearLayout) itemView.findViewById(R.id.ll_my_receipt_item);
+            clMyReceipt = (ConstraintLayout) itemView.findViewById(R.id.cl_my_receipt_item);
         }
     }
 }

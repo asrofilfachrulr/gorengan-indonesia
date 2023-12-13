@@ -103,21 +103,25 @@
             android:layout_height="1dp"
             android:layout_marginTop="8sp"
             android:background="@drawable/divider" />
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_white_primary"
-            android:orientation="vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingTop="8sp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_receipt"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="1"
-                tools:listitem="@layout/recipe_item" />
-        </LinearLayout>
+                android:background="@color/bg_white_primary"
+                android:orientation="vertical"
+                android:paddingHorizontal="5dp"
+                android:paddingTop="8sp"
+                android:paddingBottom="40dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_receipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/recipe_item" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
