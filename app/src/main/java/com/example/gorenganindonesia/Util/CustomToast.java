@@ -34,7 +34,7 @@ public class CustomToast {
 
         Toast toast = new Toast(view.getContext());
 
-        if(isLong) toast.setDuration(Toast.LENGTH_SHORT);
+        if(isLong) toast.setDuration(Toast.LENGTH_LONG);
         else toast.setDuration(Toast.LENGTH_SHORT);
 
         toast.setView(layout);

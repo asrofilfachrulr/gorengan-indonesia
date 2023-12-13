@@ -15,13 +15,13 @@ Currently, updates on app will be released to this link. Not every commits are u
 ![snapshot](./snapshot.png)
 
 ## Main Features
-- [x] User Account *(partially)*
-- [ ] CRUD Recipe(s) by Logged Users *(only read for now)*
+- [x] User Account
+- [x] CRUD Recipe(s) by Logged Users
 - [x] CRUD Recipe's Rating by Logged Users
 - [x] Share Recipe (currently limited to plain text)
-- [ ] Save Recipe(s) Offline
 - [x] CRUD Recipe's Favourite
 - [x] Filter List Data with Search Keyword
+- [ ] Save Recipe(s) Offline
 
 ## TODO
 ~~1. change layout on detail activity: move kebab menu to the right of reciept title then replace the its place before with toggle add favourite button~~  
@@ -60,11 +60,15 @@ Currently, updates on app will be released to this link. Not every commits are u
 
 ~~18. persist and delete favourite recipes on db through api request~~  
 
-19. share via whatsapp using image and text
-20. implement logic on creating recipe
-21. persist created recipe on db through api request
-22. delete owned recipe through api request
-23. update owned recipe through api request
+~~19. share via whatsapp~~
+
+~~20. implement logic on creating recipe~~
+
+~~21. persist created recipe on db through api request~~
+
+~~23. delete owned recipe through api request~~
+
+~~24. update owned recipe through api request~~
     
 ~~24. implement logic on adding rating~~
 
@@ -83,7 +87,4 @@ Currently, updates on app will be released to this link. Not every commits are u
 ~~31. implement what user can do on account setting~~  
 
 32. save recieps locally => handling offline connection
-... 
-
-
--1. implement the design from figma
+33. share via whatsapp but with image

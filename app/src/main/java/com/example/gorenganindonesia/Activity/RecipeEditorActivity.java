@@ -17,9 +17,11 @@ import android.widget.ArrayAdapter;
 import com.bumptech.glide.Glide;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.Model.Adapters.RecipeToPostRecipeAdapter;
+import com.example.gorenganindonesia.Model.Adapters.RecipeToPutRecipeAdapter;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.api.Recipe.PostRecipeRequest;
+import com.example.gorenganindonesia.Model.api.Recipe.PutRecipeRequest;
 import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Model.data.Step.Step;
@@ -98,7 +100,9 @@ public class RecipeEditorActivity extends AppCompatActivity {
                 selectedImageUri = null;
             });
 
-            newIngredients = Arrays.asList(recipeOrigin.getIngredients());
+            newIngredients = new ArrayList<>();
+            for(Ingredient ingredient: recipeOrigin.getIngredients())
+                newIngredients.add(ingredient);
 
             String[] steps = recipeOrigin.getSteps();
             for(int i = 1; i < steps.length; i++){
@@ -327,6 +331,59 @@ public class RecipeEditorActivity extends AppCompatActivity {
 
     void requestPutRecipe(){
         Logger.SimpleLog("SelectedUri: " + selectedImageUri);
+        MultipartBody.Part imagePart;
 
+        try {
+            APIHandlerDTO dto = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
+
+            RecipeToPutRecipeAdapter adapter = new RecipeToPutRecipeAdapter(nRecipe);
+            PutRecipeRequest putModel = adapter.convert();
+
+            RecipeHandler handler = new RecipeHandler(dto);
+
+            dto.setCallback(() -> {
+                APIHandlerDTO dto1 = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
+                dto1.setCallback(() -> {
+                    ToastUseCase.showMessage(binding.getRoot(), "Berhasil memperbarui resep!");
+                    this.finish();
+                });
+
+                RecipeHandler handler1 = new RecipeHandler(dto1);
+                handler1.getAllRecipes();
+            });
+
+            handler.setDto(dto);
+
+            dto.setNegativeCallback(() -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder
+                        .setMessage("Kesalahan dalam memperbarui resep. Pastikan mengisi data dengan benar!")
+                        .setPositiveButton("OKE", (dialog, which) -> {dialog.dismiss();})
+                        .show();
+            });
+
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(putModel);
+            RequestBody jsonRequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonData);
+
+            if(selectedImageUri != null){
+                BitmapHelper bitmapHelper = new BitmapHelper(this);
+                Bitmap compressedBitmap = bitmapHelper.compressImage(selectedImageUri, getContentResolver());
+                if(compressedBitmap == null)
+                    throw new Exception("Gagal dalam memproses gambar");
+                imagePart = bitmapHelper.bitmapToMultipartBody(compressedBitmap, selectedImageUri);
+
+                handler.putRecipe(imagePart, jsonRequestBody, recipeOrigin.getId());
+            } else {
+                handler.putRecipe(null, jsonRequestBody, recipeOrigin.getId());
+            }
+
+
+
+        } catch (Exception e){
+            ToastUseCase.showMessage(binding.getRoot(), "[Error] " + e.getMessage());
+            Log.e("Error Post Recipe", e.getMessage());
+            Log.e("Error Post Recipe", e.toString());
+        }
     }
 }

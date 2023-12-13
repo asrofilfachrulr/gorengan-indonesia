@@ -12,6 +12,6 @@ public class ToastUseCase {
     }
 
     public static void showMessage(View view, String msg){
-        new CustomToast(msg, view, false).show();
+        new CustomToast(msg, view).show();
     }
 }

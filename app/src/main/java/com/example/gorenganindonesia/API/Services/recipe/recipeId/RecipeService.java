@@ -9,6 +9,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -25,5 +26,22 @@ public interface RecipeService {
             @Header("Authorization") String token,
             @Part MultipartBody.Part imageData,
             @Part("json") RequestBody jsonData
+    );
+
+    @Multipart
+    @PUT("/recipe/{recipe_id}")
+    Call<BasicResponse> putRecipe(
+            @Header("Authorization") String token,
+            @Part MultipartBody.Part imageData,
+            @Part("json") RequestBody jsonData,
+            @Path("recipe_id") String recipeId
+    );
+
+    @Multipart
+    @PUT("/recipe/{recipe_id}")
+    Call<BasicResponse> putRecipe(
+            @Header("Authorization") String token,
+            @Part("json") RequestBody jsonData,
+            @Path("recipe_id") String recipeId
     );
 }

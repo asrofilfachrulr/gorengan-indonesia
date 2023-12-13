@@ -190,7 +190,9 @@ public class Recipe implements Parcelable {
     public String toString() {
         String text = "Resep Gorengan Indonesia\n" + getTitle() + "\n⭐" + getStars() + " oleh @" + getAuthorUsername() + "\n";
         text += "Kategori: " + getCategory() + "\n";
-        text += "Kesulitan: " + getDifficulty() + "\n\n";
+        text += "Estimasi Waktu Membuat: " + String.valueOf(getMinuteDuration()) + " Menit\n";
+        text += "Kesulitan: " + getDifficulty() + "\n";
+        text += "Ukuran Sajian: " + getPortion() + "Porsi\n\n";
         text += "Bahan:";
 
         for(int i = 0; i < getIngredients().length; i++){

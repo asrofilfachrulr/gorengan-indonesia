@@ -155,6 +155,70 @@ public class RecipeHandler {
                 });
     }
 
+    public void putRecipe(MultipartBody.Part imageData, RequestBody jsonData, String recipeId){
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memperbarui Resep");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        RecipeService service = RetrofitClient.getInstance().create(RecipeService.class);
+
+        if(imageData != null){
+            service
+                    .putRecipe(token, imageData, jsonData, recipeId)
+                    .enqueue(new Callback<BasicResponse>() {
+                        @Override
+                        public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                            progressDialog.dismiss();
+                            if(response.isSuccessful()) {
+                                if (dto.callback != null)
+                                    dto.callback.run();
+                            } else {
+                                try {
+                                    ToastUseCase.showMessage(dto.view,"Gagal Memperbarui Resep: " + response.errorBody().string());
+                                    Log.e("Error", response.errorBody().string());
+                                } catch (IOException e) {
+                                    ToastUseCase.showMessage(dto.view,"Gagal Memperbarui Resep");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<BasicResponse> call, Throwable t) {
+                            progressDialog.dismiss();
+                            ToastUseCase.showMessage(dto.view,"Gagal Memperbarui Resep: Koneksi Gagal");
+                        }
+                    });
+        } else {
+            service
+                    .putRecipe(token, jsonData, recipeId)
+                    .enqueue(new Callback<BasicResponse>() {
+                        @Override
+                        public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                            progressDialog.dismiss();
+                            if(response.isSuccessful()) {
+                                if (dto.callback != null)
+                                    dto.callback.run();
+                            } else {
+                                try {
+                                    ToastUseCase.showMessage(dto.view,"Gagal Memperbarui Resep: " + response.errorBody().string());
+                                    Log.e("Error", response.errorBody().string());
+                                } catch (IOException e) {
+                                    ToastUseCase.showMessage(dto.view,"Gagal Memperbarui Resep");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<BasicResponse> call, Throwable t) {
+                            progressDialog.dismiss();
+                            ToastUseCase.showMessage(dto.view,"Gagal Memperbarui Resep: Koneksi Gagal");
+                        }
+                    });
+        }
+    }
+
     public void deleteRecipe(String recipeId){
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
         ProgressDialog progressDialog = dto.createProgressDialog();
