@@ -13,9 +13,9 @@ Currently, updates on app will be released to this link. Not every commits are u
 
 ## Snapshots
 
-![snapshot](./snapshot.png) ![snapshot](./snapshot-1.png)
+<img src="./snapshot.png" alt="snapshot" width="300"/> <img src="./snapshot-1.png" alt="snapshot" width="300"/>
 
-![snapshot](./snapshot-2.png) ![snapshot](./snapshot-3.png)
+<img src="./snapshot-2.png" alt="snapshot" width="300"/> <img src="./snapshot-3.png" alt="snapshot" width="300"/>
 
 
 ## Main Features
