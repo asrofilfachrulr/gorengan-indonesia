@@ -11,8 +11,12 @@ Currently, updates on app will be released to this link. Not every commits are u
 
 [Download Gorengan Indonesia Beta APK](https://github.com/asrofilfachrulr/gorengan-indonesia/releases/download/beta/app-debug.apk)
 
-## Snapshot
-![snapshot](./snapshot.png)
+## Snapshots
+
+![snapshot](./snapshot.png) ![snapshot](./snapshot-1.png)
+
+![snapshot](./snapshot-2.png) ![snapshot](./snapshot-3.png)
+
 
 ## Main Features
 - [x] User Account
