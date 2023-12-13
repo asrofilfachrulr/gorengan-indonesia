@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -183,6 +184,8 @@ public class SummaryFragment extends Fragment {
 
         ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
             Logger.SimpleLog("[Summary Fragment] Recipes Observer Triggered");
+            index = ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipePos(recipe.getId());
+
             Recipe updatedRecipe = updatedRecipes.get(index);
             if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
                 Logger.SimpleLog("updatedRecipe: " + updatedRecipe.toString());

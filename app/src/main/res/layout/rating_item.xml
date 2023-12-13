@@ -103,8 +103,8 @@
         android:layout_marginTop="14dp"
         android:fontFamily="@font/open_sans_regular"
 
-        android:minHeight="50dp"
-        android:text="@string/lorem_short"
+        android:minHeight="20dp"
+        android:text="lorem"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
