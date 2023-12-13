@@ -3,6 +3,7 @@ package com.example.gorenganindonesia.ui.Fragments.Detail;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -159,12 +160,17 @@ public class SummaryFragment extends Fragment {
             // Create an Intent with the ACTION_SEND action
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
-            shareIntent.setType("text/plain");
+            shareIntent.setType("image/*");
 
             String shareText = recipe.toString();
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+            Uri imageUri = Uri.parse(recipe.getImgUrl());
 
-            startActivity(Intent.createChooser(shareIntent, "Bagikan melalui"));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+
+            shareIntent.setPackage("com.whatsapp");
+
+            startActivity(shareIntent);
             bottomSheetDialog.dismiss();
         });
 
