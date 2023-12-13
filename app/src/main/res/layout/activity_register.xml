@@ -1,229 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFFFFFFF"
     tools:context=".Activity.RegisterActivity">
 
-    <TextView
-        android:id="@+id/gorengansignup"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/lato_extra_bold"
-        android:gravity="center_horizontal"
-        android:text="GorenganIndonesia."
-        android:textColor="@color/font_default"
-        android:textSize="28sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="19dp"
-        android:fontFamily="@font/lato_extra_bold"
-        android:text="Daftar"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/buatakun"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gorengansignup" />
-
-    <TextView
-        android:id="@+id/buatakun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="86dp"
-        android:fontFamily="@font/lato_regular"
-        android:text="Buat akun dan mulai goreng-gorengan!"
-        android:textColor="#5D5353"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gorengansignup" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:cardCornerRadius="7dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buatakun">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/gorengansignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/lato_extra_bold"
+            android:gravity="center_horizontal"
+            android:text="GorenganIndonesia."
+            android:textColor="@color/font_default"
+            android:textSize="28sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/lato_extra_bold"
+            android:text="Daftar"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/buatakun"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gorengansignup" />
+
+        <TextView
+            android:id="@+id/buatakun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+
+            android:fontFamily="@font/lato_regular"
+            android:text="Buat akun dan mulai goreng-gorengan!"
+            android:textColor="#5D5353"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gorengansignup" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="16dp">
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buatakun"
+            app:layout_constraintVertical_bias="1">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Nama Panjang"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="16dp">
 
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/rounded_edittext_background"
-                android:fontFamily="@font/lato_regular"
-                android:hint="Masukkan nama anda"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#80000000"
-                android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Nama Panjang"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Username"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Masukkan nama anda"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#80000000"
+                    android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_username"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/rounded_edittext_background"
-                android:fontFamily="@font/lato_regular"
-                android:hint="Username pilihanmu~"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#80000000"
-                android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Username"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Email"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Username pilihanmu~"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#80000000"
+                    android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/rounded_edittext_background"
-                android:fontFamily="@font/lato_regular"
-                android:hint="Jangan lupa email ya!"
-                android:inputType="textEmailAddress"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#80000000"
-                android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Email"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Kata Sandi"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Jangan lupa email ya!"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#80000000"
+                    android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/rounded_edittext_background"
-                android:fontFamily="@font/lato_regular"
-                android:hint="Minimal 8 karakter."
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#80000000"
-                android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Kata Sandi"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Ulangi Kata Sandi"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Minimal 8 karakter."
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#80000000"
+                    android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/et_password_repeat"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/rounded_edittext_background"
-                android:fontFamily="@font/lato_regular"
-                android:hint="Konfirmasi kata sandi Anda"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="#80000000"
-                android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Ulangi Kata Sandi"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/btn_register"
-                style="@style/loginButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="Daftar" />
+                <EditText
+                    android:id="@+id/et_password_repeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/rounded_edittext_background"
+                    android:fontFamily="@font/lato_regular"
+                    android:hint="Konfirmasi kata sandi Anda"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#80000000"
+                    android:textSize="14sp" />
 
-            <Button
-                android:id="@+id/btn_login"
-                style="@style/btn_transparent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lato_semibold"
-                android:text="Masuk"
-                android:textAllCaps="false" />
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btn_register"
+                    style="@style/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Daftar" />
 
-    </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/btn_login"
+                    style="@style/btn_transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/lato_semibold"
+                    android:text="Masuk"
+                    android:textAllCaps="false" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/lato_regular"
-        android:gravity="center"
-        android:text="Dengan mengklik Daftar, Anda menyetujui"
-        android:textColor="#A8A8A8"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="-15dp"
-        android:fontFamily="@font/lato_regular"
-        android:gravity="center"
-        android:text="Ketentuan dan Kebijakan Data kami."
-        android:textColor="@color/note"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="Dengan mengklik Daftar, Anda menyetujui"
+            android:textColor="#A8A8A8"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="Ketentuan dan Kebijakan Data kami."
+            android:textColor="@color/note"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    </LinearLayout>
+</ScrollView>
