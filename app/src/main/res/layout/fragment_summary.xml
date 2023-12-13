@@ -24,8 +24,8 @@
                 android:layout_height="wrap_content"
                 android:text="Bakwan Sahabat Kolesterol"
                 android:textColor="@color/black"
-
-                android:textSize="20sp" />
+                android:textFontWeight="500"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/ib_more_detail"
@@ -35,11 +35,33 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_kebab_menu_black" />
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/btn_accent_light"
+            android:paddingVertical="7dp"
+            android:layout_marginVertical="5dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_star_solid_yellow"/>
+            <TextView
+                android:id="@+id/tv_rating_star_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.5"
+                android:textSize="12sp"
+                android:textFontWeight="500"
+                android:textColor="@color/black"
+                android:textAlignment="center" />
+        </LinearLayout>
         <TextView
             android:id="@+id/tv_author_username_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:text="Resep oleh \@admin" />
 
         <TextView
@@ -50,7 +72,7 @@
             android:fontFamily="@font/open_sans_regular"
             android:text="Kategori Favorit Donatur Rumah Sakit"
             android:textColor="#787575"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="Mudah"
+                    android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -95,6 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="4 Porsi"
+                    android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -115,6 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="±40 Menit"
+                    android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
@@ -143,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="5 Bahan"
+                    android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -164,29 +190,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="7 Langkah"
+                    android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_rating_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <ImageView
-                    style="@style/ImageViewBgGrey"
-                    android:src="@drawable/ic_star_solid_dark" />
-
-                <TextView
-                    android:id="@+id/tv_rating_star_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
-                    android:text="4.5"
-                    android:textAlignment="center" />
-            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

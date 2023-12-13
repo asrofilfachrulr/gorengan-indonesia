@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="100dp"
+    android:minHeight="70dp"
     android:orientation="horizontal"
-    android:paddingVertical="22dp"
-    android:paddingHorizontal="20dp">
+    android:paddingVertical="15dp"
+    android:paddingHorizontal="20dp"
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/tv_qty_unit"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:gravity="center"
@@ -20,9 +21,9 @@
         android:id="@+id/tv_ingredient"
         android:textColor="@color/black"
         android:layout_marginStart="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:text="Telur" />
 </LinearLayout>
