@@ -108,10 +108,10 @@ public class HomeFragment extends Fragment {
         if(recipeViewModel.getAllRecipes().getValue().size() == 0){
             APIHandlerDTO tempDAO = recipeHandler.getDto();
             tempDAO.setCallback(() -> {
-                categoryHandler.getCategories();
                 favouriteHandler.getFavourites();
             });
             recipeHandler.setDto(tempDAO);
+            categoryHandler.getCategories();
             recipeHandler.getAllRecipes();
         }
 
