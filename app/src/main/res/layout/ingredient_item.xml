@@ -15,7 +15,8 @@
         android:layout_height="48dp"
         android:gravity="center"
         android:text="20 gram"
-        android:background="@drawable/rounded_grey"/>
+        android:textColor="@color/white"
+        android:background="@drawable/more_rounded_accent"/>
 
     <TextView
         android:id="@+id/tv_ingredient"
