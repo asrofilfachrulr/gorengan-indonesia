@@ -22,8 +22,10 @@ import com.example.gorenganindonesia.Activity.RatingActivity;
 import com.example.gorenganindonesia.Activity.RecipeEditorActivity;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
+import com.example.gorenganindonesia.Model.data.Ingredient.Ingredient;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.Logger;
 import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -78,15 +80,7 @@ public class SummaryFragment extends Fragment {
             return null;
         }
 
-        tvTitle.setText(recipe.getTitle().toString());
-        tvCategory.setText("Kategori " + recipe.getCategory().toString());
-        tvDifficulty.setText(recipe.getDifficulty().toString());
-        tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
-        tvTime.setText( "±" + String.valueOf(recipe.getMinuteDuration()) + " Menit");
-        tvStep.setText(String.valueOf(recipe.getSteps().length) + " Langkah");
-        tvIngridient.setText(String.valueOf(recipe.getIngredients().length) + " Bahan");
-        tvAuthorUsername.setText("Resep oleh @"+ recipe.getAuthorUsername().toString());
-        tvStarRating.setText(String.valueOf(recipe.getStars()));
+        setViewData();
 
         llSteps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,15 +182,33 @@ public class SummaryFragment extends Fragment {
         });
 
         ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
+            Logger.SimpleLog("[Summary Fragment] Recipes Observer Triggered");
             Recipe updatedRecipe = updatedRecipes.get(index);
             if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
                 recipe = updatedRecipe;
-                tvStep.setText(String.valueOf(updatedRecipe.getSteps().length) + " Langkah");
-                tvIngridient.setText(String.valueOf(updatedRecipe.getIngredients().length) + " Bahan");
-                tvStarRating.setText(String.valueOf(updatedRecipe.getStars()));
+            } else {
+                Ingredient[] ingredients = recipe.getIngredients();
+                String[] steps = recipe.getSteps();
+
+                recipe = updatedRecipe;
+                recipe.setIngredients(ingredients);
+                recipe.setSteps(steps);
             }
+            setViewData();
         });
 
         return view;
+    }
+
+    public void setViewData(){
+        tvTitle.setText(recipe.getTitle().toString());
+        tvCategory.setText("Kategori " + recipe.getCategory().toString());
+        tvDifficulty.setText(recipe.getDifficulty().toString());
+        tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
+        tvTime.setText( "±" + String.valueOf(recipe.getMinuteDuration()) + " Menit");
+        tvStep.setText(String.valueOf(recipe.getSteps().length) + " Langkah");
+        tvIngridient.setText(String.valueOf(recipe.getIngredients().length) + " Bahan");
+        tvAuthorUsername.setText("Resep oleh @"+ recipe.getAuthorUsername().toString());
+        tvStarRating.setText(String.valueOf(recipe.getStars()));
     }
 }
