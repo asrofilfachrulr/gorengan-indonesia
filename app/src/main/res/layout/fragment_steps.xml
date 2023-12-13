@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Langkah-Langkah"
             android:textColor="@color/black"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_steps"

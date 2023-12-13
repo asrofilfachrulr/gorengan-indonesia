@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.API.Handlers;
 
+import android.app.ProgressDialog;
 import android.view.View;
 
 import com.example.gorenganindonesia.API.RetrofitClient;
@@ -38,6 +39,11 @@ public class RecipeDetailHandler {
 
     public void getIngredients(String recipeId, int position) {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memuat Bahan-Bahan...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         RetrofitClient
                 .getInstance()
                 .create(IngredientsService.class)
@@ -45,6 +51,7 @@ public class RecipeDetailHandler {
                 .enqueue(new Callback<GetlIngredientsResponse>() {
                     @Override
                     public void onResponse(Call<GetlIngredientsResponse> call, Response<GetlIngredientsResponse> response) {
+                        progressDialog.dismiss();
                         if (response.isSuccessful()) {
                             IngredientData[] ingredientData = response.body().getIngredientData();
                             Ingredient[] ingredients = new Ingredient[ingredientData.length];
@@ -65,6 +72,7 @@ public class RecipeDetailHandler {
 
                     @Override
                     public void onFailure(Call<GetlIngredientsResponse> call, Throwable t) {
+                        progressDialog.dismiss();
                         new CustomToast("Error Memuat Bahan Resep: Koneksi Gagal", dto.view, false).show();
                     }
                 });
@@ -72,6 +80,10 @@ public class RecipeDetailHandler {
 
     public void getSteps(String recipeId, int position) {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+        ProgressDialog progressDialog = dto.createProgressDialog();
+        progressDialog.setMessage("Memuat Langkah-Langkah...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         RetrofitClient
                 .getInstance()
@@ -80,6 +92,7 @@ public class RecipeDetailHandler {
                 .enqueue(new Callback<GetStepsResponse>() {
                     @Override
                     public void onResponse(Call<GetStepsResponse> call, Response<GetStepsResponse> response) {
+                        progressDialog.dismiss();
                         if (response.isSuccessful()) {
                             String[] steps = new String[response.body().getStepData().length];
                             for (StepData stepData : response.body().getStepData()) {
@@ -98,6 +111,7 @@ public class RecipeDetailHandler {
 
                     @Override
                     public void onFailure(Call<GetStepsResponse> call, Throwable t) {
+                        progressDialog.dismiss();
                         new CustomToast("Gagal Memuat Langkah Resep: Koneksi Gagal", dto.view, false).show();
                     }
                 });

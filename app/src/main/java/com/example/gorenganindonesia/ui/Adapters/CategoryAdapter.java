@@ -53,7 +53,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        String btnText = dataList.get(position).toString();
+        String btnText = dataList.get(holder.getBindingAdapterPosition()).toString();
         holder.btnCategory.setText(btnText);
 
         if(btnText.toLowerCase().contains("semua")){
@@ -71,12 +71,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             stateCategory[0] = stateCategory[1];
             stateCategory[1] = holder.btnCategory;
 
-            stateCategory[0].setTextAppearance(R.style.btn_accent_outline_rounded);
-            stateCategory[0].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_outline, null));
+            // set to inactive style
+            stateCategory[0].setTextAppearance(R.style.btn_accent_inactive);
+            stateCategory[0].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_transparent, null));
 
-
+            // set to active style
             stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
             stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
+
             recipeAdapter.applyFilter(btnText, Constants.EMPTY_STRING);
         });
     }

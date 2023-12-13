@@ -9,8 +9,8 @@
     <color name="yellow">#F7B635</color>
 
     <!--  COLOR ACCENT/THEME BASED  -->
-    <color name="app_accent">#125C97</color>
-    <color name="app_accent_light">#A3C4DE</color>
+    <color name="app_accent">#F58D4E</color>
+    <color name="app_accent_light">#BFF8D7C3</color>
     <color name="danger">#B80101</color>
     <color name="background_color">#F8F7F4</color>
     <color name="gorengan">#F58D4E</color>

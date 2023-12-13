@@ -91,7 +91,7 @@ public class RecipeEditorActivity extends AppCompatActivity {
             mode = REQUEST_MODE_PUT;
             selectedImageUri = null;
 
-            Logger.SimpleLog(recipeOrigin.toString());
+            Logger.SimpleLog("recipeOrigin: " + recipeOrigin.toString());
 
 
             binding.btnResetImgNewReceipt.setVisibility(View.VISIBLE);
@@ -105,9 +105,13 @@ public class RecipeEditorActivity extends AppCompatActivity {
                 newIngredients.add(ingredient);
 
             String[] steps = recipeOrigin.getSteps();
-            for(int i = 1; i < steps.length; i++){
-                newSteps.add(new Step(steps[i], Integer.valueOf(i)));
+            for(int i = 0; i < steps.length; i++){
+                newSteps.add(new Step(steps[i], i+1));
             }
+
+            Logger.SimpleLog("newSteps: ");
+            for(Step step: newSteps)
+                Logger.SimpleLog(step.toString());
 
             setRecipeImage(recipeOrigin.getImgUrl());
             binding.etTitleRecipeEditor.setText(recipeOrigin.getTitle());

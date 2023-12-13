@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="80dp"
+    android:minHeight="60dp"
     android:paddingVertical="12dp"
     android:paddingHorizontal="20dp">
 
     <TextView
         android:id="@+id/tv_numbering"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/rounded_grey"
         android:gravity="center"
         android:text="1."
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/open_sans_semibold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -28,11 +27,10 @@
         android:gravity="center_vertical"
         android:text="Panaskan minyak, kemudian masukan beban diri, sifat arogan dan rasa gengsi"
         android:textColor="@color/black"
-        android:textFontWeight="500"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_numbering"
+        android:layout_marginStart="14sp"
         app:layout_constraintHorizontal_bias="0.805"
-        android:fontFamily="@font/open_sans_semibold"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

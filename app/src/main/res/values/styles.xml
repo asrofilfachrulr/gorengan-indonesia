@@ -16,6 +16,10 @@
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
+    <style name="btn_accent_inactive">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
     <style name="highlighted_pager_title">
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">sans-serif-medium</item>

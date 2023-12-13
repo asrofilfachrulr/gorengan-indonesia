@@ -9,12 +9,11 @@
 
     <TextView
         android:id="@+id/tv_qty_unit"
-        android:textSize="16sp"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:textSize="14sp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:gravity="center"
         android:text="20 gram"
-        android:fontFamily="@font/open_sans_semibold"
         android:background="@drawable/rounded_grey"/>
 
     <TextView
@@ -23,8 +22,7 @@
         android:layout_marginStart="16sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/open_sans_semibold"
         android:gravity="center_vertical"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:text="Telur" />
 </LinearLayout>

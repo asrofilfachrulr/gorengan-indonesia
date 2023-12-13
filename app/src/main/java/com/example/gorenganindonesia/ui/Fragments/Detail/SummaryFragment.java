@@ -185,6 +185,7 @@ public class SummaryFragment extends Fragment {
             Logger.SimpleLog("[Summary Fragment] Recipes Observer Triggered");
             Recipe updatedRecipe = updatedRecipes.get(index);
             if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
+                Logger.SimpleLog("updatedRecipe: " + updatedRecipe.toString());
                 recipe = updatedRecipe;
             } else {
                 Ingredient[] ingredients = recipe.getIngredients();

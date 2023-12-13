@@ -8,43 +8,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="24dp"
-        android:paddingHorizontal="20dp"
         android:background="@color/bg_white_secondary"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/tv_title_detail"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Bakwan Sahabat Kolesterol"
-            android:textColor="@color/black"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textSize="20sp" />
-        <ImageButton
-            android:id="@+id/ib_more_detail"
-            android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="24dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_kebab_menu_black"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_title_detail"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Bakwan Sahabat Kolesterol"
+                android:textColor="@color/black"
+
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/ib_more_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_kebab_menu_black" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_author_username_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Resep oleh \@admin"/>
+            android:text="Resep oleh \@admin" />
+
         <TextView
             android:id="@+id/tv_category_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3sp"
+            android:fontFamily="@font/open_sans_regular"
             android:text="Kategori Favorit Donatur Rumah Sakit"
             android:textColor="#787575"
-            android:fontFamily="@font/open_sans_regular"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -70,8 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="Mudah"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/open_sans_semibold" />
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,8 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="4 Porsi"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/open_sans_semibold" />
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -112,8 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="±40 Menit"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/open_sans_semibold" />
+                    android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
 
@@ -141,8 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="5 Bahan"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/open_sans_semibold"/>
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -163,9 +164,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="7 Langkah"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/open_sans_semibold"/>
+                    android:textAlignment="center" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_rating_star"
                 android:layout_width="wrap_content"
@@ -184,8 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7sp"
                     android:text="4.5"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/open_sans_semibold"/>
+                    android:textAlignment="center" />
             </LinearLayout>
 
         </LinearLayout>
