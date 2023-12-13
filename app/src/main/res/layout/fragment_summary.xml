@@ -88,15 +88,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    style="@style/ImageViewBgGrey"
+                    style="@style/ImageViewBgOrange"
                     android:src="@drawable/ic_martial_dark" />
 
                 <TextView
                     android:id="@+id/tv_difficulty_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
+                    android:layout_marginTop="2dp"
                     android:text="Mudah"
+                    android:textColor="@color/gorengan"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -109,15 +110,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    style="@style/ImageViewBgGrey"
+                    style="@style/ImageViewBgOrange"
                     android:src="@drawable/ic_portion_dark" />
 
                 <TextView
                     android:id="@+id/tv_portion_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
+                    android:layout_marginTop="2dp"
                     android:text="4 Porsi"
+                    android:textColor="@color/gorengan"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -130,14 +132,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    style="@style/ImageViewBgGrey"
+                    style="@style/ImageViewBgOrange"
                     android:src="@drawable/ic_time_dark" />
 
                 <TextView
                     android:id="@+id/tv_time_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/gorengan"
                     android:text="±40 Menit"
                     android:textSize="12sp"
                     android:textAlignment="center" />
@@ -159,15 +162,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    style="@style/ImageViewBgGrey"
+                    style="@style/ImageViewBgOrange"
                     android:src="@drawable/ic_cart_dark" />
 
                 <TextView
                     android:id="@+id/tv_ingredient_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
+                    android:layout_marginTop="2dp"
                     android:text="5 Bahan"
+                    android:textColor="@color/gorengan"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -181,15 +185,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    style="@style/ImageViewBgGrey"
+                    style="@style/ImageViewBgOrange"
                     android:src="@drawable/ic_list_dark" />
 
                 <TextView
                     android:id="@+id/tv_step_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7sp"
+                    android:layout_marginTop="2dp"
                     android:text="7 Langkah"
+                    android:textColor="@color/gorengan"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>

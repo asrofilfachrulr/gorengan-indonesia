@@ -69,6 +69,11 @@
         <item name="android:layout_height">64dp</item>
         <item name="android:background">@drawable/rounded_grey</item>
     </style>
+    <style name="ImageViewBgOrange">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/rounded_orange</item>
+    </style>
     <style name="BgRoundedAccent">
         <item name="android:layout_width">64dp</item>
         <item name="android:layout_height">64dp</item>
