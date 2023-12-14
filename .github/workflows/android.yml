@@ -41,5 +41,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: app/build/outputs/**/*.apk
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: v0.9
+        release_name: Release GorenganIndonesia
       env:
+        JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/18.0.2-101/x64
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
