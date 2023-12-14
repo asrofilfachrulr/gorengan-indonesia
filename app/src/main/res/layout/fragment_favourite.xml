@@ -58,14 +58,15 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_stop" />
+            android:src="@drawable/ic_stop_accent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:fontFamily="@font/open_sans_semibold"
-            android:text="Favorit Masih Kosong!" />
+            android:textAlignment="center"
+            android:text="Resep Favorit Kosong"
+            android:textColor="@color/app_accent_50"/>
     </LinearLayout>
 
     <ScrollView

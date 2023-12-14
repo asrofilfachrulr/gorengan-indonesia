@@ -24,7 +24,7 @@
     <Button
         android:visibility="gone"
         android:id="@+id/btn_debug_clear_data"
-        style="@style/BgRoundedAccent"
+        style="@style/BgBtnRoundedAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"

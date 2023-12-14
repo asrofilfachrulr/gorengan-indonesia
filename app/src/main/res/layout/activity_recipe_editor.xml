@@ -397,7 +397,7 @@
 
                             <Button
                                 android:id="@+id/btn_save_new_recipe"
-                                style="@style/btn_accent_solid_rounded"
+                                style="@style/BgBtnRoundedAccent"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="7dp"

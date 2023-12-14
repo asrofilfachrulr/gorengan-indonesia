@@ -7,6 +7,8 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:statusBarColor">#757575</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:scrollbarThumbHorizontal">@color/app_accent_light</item>
+        <item name="android:scrollbarThumbVertical">@color/app_accent_light</item>
     </style>
 
     <style name="Theme.GorenganIndonesia" parent="Base.Theme.GorenganIndonesia" >

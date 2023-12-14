@@ -4,11 +4,9 @@
         <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
     </style>
-
     <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/app_accent_50</item>
     </style>
-
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/app_accent</item>
     </style>
@@ -86,15 +84,25 @@
         <item name="android:layout_height">64dp</item>
         <item name="android:background">@drawable/rounded_orange</item>
     </style>
-    <style name="BgRoundedAccent">
+    <style name="BgBtnRoundedAccent">
         <item name="android:layout_width">64dp</item>
         <item name="android:layout_height">64dp</item>
-        <item name="android:background">@drawable/rounded_accent</item>
+        <item name="android:background">@drawable/full_rounded_accent</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    <style name="BgNotRoundedAccent">
+    <style name="BgBtnNotReallyRoundedAccent">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/more_rounded_accent</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="BgBtnNotRoundedAccent">
         <item name="android:layout_width">64dp</item>
         <item name="android:layout_height">64dp</item>
         <item name="android:background">@drawable/not_rounded_accent</item>

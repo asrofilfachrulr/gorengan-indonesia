@@ -54,7 +54,7 @@
 
             <Button
                 android:id="@+id/btn_close_app_info_account"
-                style="@style/btn_accent_solid_rounded"
+                style="@style/BgBtnRoundedAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginEnd="14dp"

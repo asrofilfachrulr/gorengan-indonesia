@@ -58,12 +58,12 @@
         android:src="@drawable/baseline_add_36_white"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/ll_empty_my_receipt_sign"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -73,13 +73,13 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_stop" />
+            android:src="@drawable/ic_stop_accent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:fontFamily="@font/open_sans_semibold"
+            android:textColor="@color/app_accent_50"
             android:text="Anda belum memiliki Resep!" />
     </LinearLayout>
 
