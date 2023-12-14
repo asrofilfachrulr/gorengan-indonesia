@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
+import com.example.gorenganindonesia.API.Handlers.RecipeDetailHandler;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
 import com.example.gorenganindonesia.Model.Adapters.RecipeToPostRecipeAdapter;
 import com.example.gorenganindonesia.Model.Adapters.RecipeToPutRecipeAdapter;
@@ -338,7 +339,9 @@ public class RecipeEditorActivity extends AppCompatActivity {
         MultipartBody.Part imagePart;
 
         try {
-            APIHandlerDTO dto = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
+            // WARNING: 4 Callbacks ahead (i know, but very lazy these days or just call it busy)
+            // PUT recipe -> GET recipes -> GET ingredients -> GET steps -> [finish activity]
+            APIHandlerDTO dto = new APIHandlerDTO(binding.getRoot(), this);
 
             RecipeToPutRecipeAdapter adapter = new RecipeToPutRecipeAdapter(nRecipe);
             PutRecipeRequest putModel = adapter.convert();
@@ -346,14 +349,27 @@ public class RecipeEditorActivity extends AppCompatActivity {
             RecipeHandler handler = new RecipeHandler(dto);
 
             dto.setCallback(() -> {
-                APIHandlerDTO dto1 = new APIHandlerDTO(binding.getRoot(), binding.llRootLoadingNewRecipe, binding.tvRootLoadingNewRecipe, this);
+                APIHandlerDTO dto1 = new APIHandlerDTO(binding.getRoot(), this);
                 dto1.setCallback(() -> {
                     ToastUseCase.showMessage(binding.getRoot(), "Berhasil memperbarui resep!");
-                    this.finish();
+
+                    APIHandlerDTO dto2 = new APIHandlerDTO(binding.getRoot(), this);
+
+                    dto2.setCallback(() -> {
+                        APIHandlerDTO dto3 = new APIHandlerDTO(binding.getRoot(), this, () -> {
+                            this.finish();
+                        });
+                        RecipeDetailHandler stepHandler = new RecipeDetailHandler(dto3);
+                        stepHandler.getSteps(recipeOrigin.getId());
+
+                    });
+
+                    RecipeDetailHandler ingredientHandler = new RecipeDetailHandler(dto2);
+                    ingredientHandler.getIngredients(recipeOrigin.getId());
                 });
 
-                RecipeHandler handler1 = new RecipeHandler(dto1);
-                handler1.getAllRecipes();
+                RecipeHandler recipesHandler = new RecipeHandler(dto1);
+                recipesHandler.getAllRecipes();
             });
 
             handler.setDto(dto);

@@ -37,7 +37,7 @@ public class RecipeDetailHandler {
     }
 
 
-    public void getIngredients(String recipeId, int position) {
+    public void getIngredients(String recipeId) {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
         ProgressDialog progressDialog = dto.createProgressDialog();
         progressDialog.setMessage("Memuat Bahan-Bahan...");
@@ -60,7 +60,10 @@ public class RecipeDetailHandler {
                                 ingredients[i] = new Ingredient(ingredientData[i].getQty(), ingredientData[i].getUnit(), ingredientData[i].getName());
                             }
 
-                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setIngredients(ingredients, position);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setIngredients(ingredients, recipeId);
+
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
                             try {
                                 new CustomToast("Error Memuat Bahan Resep: " + response.errorBody().string(), dto.view, false).show();
@@ -78,7 +81,7 @@ public class RecipeDetailHandler {
                 });
     }
 
-    public void getSteps(String recipeId, int position) {
+    public void getSteps(String recipeId) {
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
         ProgressDialog progressDialog = dto.createProgressDialog();
         progressDialog.setMessage("Memuat Langkah-Langkah...");
@@ -99,7 +102,10 @@ public class RecipeDetailHandler {
                                 steps[stepData.getNumber() - 1] = stepData.getStep();
                             }
 
-                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setSteps(steps, position);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setSteps(steps, recipeId);
+
+                            if(dto.callback != null)
+                                dto.callback.run();
                         } else {
                             try {
                                 new CustomToast("Error Memuat Langkah Resep: " + response.errorBody().string(), dto.view, false).show();

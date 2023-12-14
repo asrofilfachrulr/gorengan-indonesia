@@ -23,14 +23,14 @@ import java.util.List;
 public class StepsFragment extends Fragment {
     RecyclerView rvSteps;
     List<String> steps;
+    String recipeId;
 
     int index;
 
     public StepsFragment() {  }
 
-    public StepsFragment(String[] steps, int index) {
-        this.steps = new ArrayList<>(Arrays.asList(steps));
-        this.index = index;
+    public StepsFragment(String recipeId) {
+        this.recipeId = recipeId;
     }
 
     @Override
@@ -41,6 +41,11 @@ public class StepsFragment extends Fragment {
 
         rvSteps = (RecyclerView) view.findViewById(R.id.rv_steps);
 
+        steps = getSteps();
+
+        if(steps == null)
+            steps = new ArrayList<>();
+
         StepAdapter adapter = new StepAdapter(steps);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvSteps.setLayoutManager(layoutManager);
@@ -48,12 +53,16 @@ public class StepsFragment extends Fragment {
         rvSteps.addItemDecoration(new DividerItemDecoration(rvSteps.getContext(), DividerItemDecoration.VERTICAL));
 
         ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
-            String[] updatedSteps = updatedRecipes.get(index).getSteps();
+            List<String> updatedSteps = getSteps();
 
             if(updatedSteps != null)
-                adapter.updateData(Arrays.asList(updatedSteps));
+                adapter.updateData(updatedSteps);
         });
 
         return view;
+    }
+
+    private List<String> getSteps(){
+        return Arrays.asList(((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId).getSteps());
     }
 }

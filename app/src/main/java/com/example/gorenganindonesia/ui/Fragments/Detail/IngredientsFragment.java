@@ -24,15 +24,14 @@ import java.util.List;
 public class IngredientsFragment extends Fragment {
     RecyclerView rvIngridients;
     List<Ingredient> ingredients;
-    int index;
+    String recipeId;
 
     public IngredientsFragment() {
         // Required empty public constructor
     }
 
-    public IngredientsFragment(Ingredient[] ingredients, int index) {
-        this.ingredients = new ArrayList<>(Arrays.asList(ingredients));
-        this.index = index;
+    public IngredientsFragment(String recipeId) {
+        this.recipeId = recipeId;
     }
 
     @Override
@@ -42,6 +41,12 @@ public class IngredientsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
         rvIngridients = (RecyclerView) view.findViewById(R.id.rv_ingredients);
+
+        ingredients = getIngredients();
+
+        if(ingredients == null)
+            ingredients = new ArrayList<>();
+
         IngredientAdapter adapter = new IngredientAdapter(ingredients);
         RecyclerView.LayoutManager ingredientsLayoutManager = new LinearLayoutManager(getContext());
         rvIngridients.setLayoutManager(ingredientsLayoutManager);
@@ -50,12 +55,16 @@ public class IngredientsFragment extends Fragment {
         rvIngridients.addItemDecoration(dividerItemDecoration);
 
         ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
-            Ingredient[] updatedIngredients = updatedRecipes.get(index).getIngredients();
+            List<Ingredient> updatedIngredients = getIngredients();
 
             if(updatedIngredients != null)
-                adapter.updateData(Arrays.asList(updatedIngredients));
+                adapter.updateData(updatedIngredients);
         });
 
         return view;
+    }
+
+    public List<Ingredient> getIngredients(){
+        return Arrays.asList(((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId).getIngredients());
     }
 }

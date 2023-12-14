@@ -21,6 +21,7 @@ import com.example.gorenganindonesia.Model.data.Rating.Rating;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
+import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.example.gorenganindonesia.ui.Adapters.RatingAdapter;
 import com.example.gorenganindonesia.ui.Adapters.StarFilterAdapter;
 import com.example.gorenganindonesia.ui.Fragments.Rating.RatingEditorFragment;
@@ -39,7 +40,8 @@ public class RatingActivity extends AppCompatActivity {
     Map<Integer, Integer> starCountMap = new HashMap<>();
     LinearLayout llRootLoadingRating;
     Recipe recipe;
-    int index;
+    String recipeId;
+
     View view;
 
     List<Rating> ratings;
@@ -56,9 +58,13 @@ public class RatingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         recipe = intent.getParcelableExtra("recipe");
-        index = intent.getIntExtra("index", -1);
+        recipeId = intent.getStringExtra("recipeId");
 
-        if (index == -1) this.finish();
+        if (recipeId.isEmpty() || recipeId == null) {
+            ToastUseCase.showUnexpectedError(view);
+            this.finish();
+            return;
+        }
 
         username = ((GlobalModel) getApplication()).getAccountViewModel().getUsername();
 
@@ -132,18 +138,19 @@ public class RatingActivity extends AppCompatActivity {
 
 
         ((GlobalModel) getApplication()).getRecipeViewModel().getAllRecipes().observe(this, updatedData -> {
-            if (updatedData.get(index).getRatings() != null) {
-                ratingAdapter.updateData(Arrays.asList(updatedData.get(index).getRatings()));
-                tvRatingCount.setText("(" + String.valueOf(updatedData.get(index).getRatings().length) + " Ulasan)");
+            List<Rating> updatedRating = getRatings();
+            if (updatedRating != null) {
+                ratingAdapter.updateData(updatedRating);
+                tvRatingCount.setText("(" + String.valueOf(updatedRating.size()) + " Ulasan)");
 
                 initMapperPbRating();
 
-                updateStarCountMapper(updatedData.get(index).getRatings());
-                updatePbRating(updatedData.get(index).getRatings().length);
+                updateStarCountMapper(updatedRating);
+                updatePbRating(updatedRating.size());
 
                 ibAdd.setVisibility(View.VISIBLE);
 
-                for(Rating rating: updatedData.get(index).getRatings()){
+                for(Rating rating: updatedRating){
                     if(rating.getAuthorUsername().equals(username)){
                         ibAdd.setVisibility(View.GONE);
                         break;
@@ -170,7 +177,7 @@ public class RatingActivity extends AppCompatActivity {
     }
 
     // only invoked when ratings is populated
-    private void updateStarCountMapper(Rating[] ratings) {
+    private void updateStarCountMapper(List<Rating> ratings) {
         for(Rating rating: ratings){
             switch (rating.getStarCount()){
                 case 5:
@@ -212,6 +219,10 @@ public class RatingActivity extends AppCompatActivity {
         APIHandlerDTO dto = new APIHandlerDTO(view, llRootLoadingRating, tvLoading, this);
         RatingHandler ratingHandler = new RatingHandler(dto);
 
-        ratingHandler.getRatings(recipeId, queryOrder, index, this);
+        ratingHandler.getRatings(recipeId, queryOrder, this);
+    }
+
+    private List<Rating> getRatings(){
+        return Arrays.asList(((GlobalModel) getApplication()).getRecipeViewModel().getRecipeById(recipeId).getRatings());
     }
 }

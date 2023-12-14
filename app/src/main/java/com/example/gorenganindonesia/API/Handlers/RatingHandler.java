@@ -14,6 +14,7 @@ import com.example.gorenganindonesia.Model.api.Recipe.Ratings.PostRatingRequest;
 import com.example.gorenganindonesia.Model.api.Recipe.Ratings.PutRatingRequest;
 import com.example.gorenganindonesia.Model.api.Recipe.Ratings.RatingData;
 import com.example.gorenganindonesia.Model.data.Rating.Rating;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Util.CustomToast;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class RatingHandler {
         this.dto = dto;
     }
 
-    public void getRatings(String recipeId, String queryOrder, int index, RatingActivity activity){
+    public void getRatings(String recipeId, String queryOrder, RatingActivity activity){
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager()
                 .getJwtHeaderValue();
 
@@ -77,8 +78,11 @@ public class RatingHandler {
                             float starAvg = sz > 0 ? response.body().getExtra().getStarAvg() : 0;
                             activity.starAvg = starAvg;
 
-                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setRatings(ratings, index);
-                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setStars(starAvg, index);
+                            Recipe recipe = ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId);
+
+                            recipe.setRatings(ratings);
+                            recipe.setStars(starAvg);
+                            ((GlobalModel) dto.context.getApplicationContext()).getRecipeViewModel().setRecipe(recipe, recipeId);
                         } else {
                             try {
                                 new CustomToast("Gagal Mendapatkan Data Rating: " + response.errorBody().string(), dto.view, false).show();

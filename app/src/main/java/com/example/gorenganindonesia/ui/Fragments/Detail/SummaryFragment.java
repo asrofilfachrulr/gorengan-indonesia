@@ -39,13 +39,12 @@ public class SummaryFragment extends Fragment {
     LinearLayout llSteps, llIngridients;
     ViewPager vp;
     Recipe recipe;
-    int index;
+    String recipeId;
 
     public SummaryFragment() { }
 
-    public SummaryFragment(Recipe recipe, int index){
-        this.recipe = recipe;
-        this.index = index;
+    public SummaryFragment(String recipeId){
+        this.recipeId = recipeId;
     }
 
     @Override
@@ -76,11 +75,14 @@ public class SummaryFragment extends Fragment {
 
         ibMore = (ImageButton) view.findViewById(R.id.ib_more_detail);
 
-        if(recipe == null){
+        if(recipeId == null || recipeId.isEmpty()){
             ToastUseCase.showUnexpectedError(view);
             getActivity().finish();
             return null;
         }
+
+        recipe = ((GlobalModel) getContext().getApplicationContext())
+                .getRecipeViewModel().getRecipeById(recipeId);
 
         setViewData();
 
@@ -182,15 +184,16 @@ public class SummaryFragment extends Fragment {
             bottomSheetDialog.dismiss();
             Intent intent = new Intent(getContext(), RatingActivity.class);
             intent.putExtra("recipe", recipe);
-            intent.putExtra("index", index);
+            intent.putExtra("recipeId", recipe.getId());
             getContext().startActivity(intent);
         });
 
         ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
             Logger.SimpleLog("[Summary Fragment] Recipes Observer Triggered");
-            index = ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipePos(recipe.getId());
 
-            Recipe updatedRecipe = updatedRecipes.get(index);
+            Recipe updatedRecipe = ((GlobalModel) getContext().getApplicationContext())
+                    .getRecipeViewModel().getRecipeById(recipeId);
+
             if(updatedRecipe.getSteps() != null && updatedRecipe.getIngredients() != null){
                 Logger.SimpleLog("updatedRecipe: " + updatedRecipe.toString());
                 recipe = updatedRecipe;

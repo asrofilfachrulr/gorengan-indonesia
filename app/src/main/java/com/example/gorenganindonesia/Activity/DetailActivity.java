@@ -197,14 +197,15 @@ public class DetailActivity extends AppCompatActivity {
 
             String[] stepsEmpty = {};
             recipe.setSteps(stepsEmpty);
+            ((GlobalModel) getApplication()).getRecipeViewModel().setRecipe(recipe, recipe.getId());
 
-            recipeDetailHandler.getIngredients(recipe.getId(), position);
-            recipeDetailHandler.getSteps(recipe.getId(), position);
+            recipeDetailHandler.getIngredients(recipe.getId());
+            recipeDetailHandler.getSteps(recipe.getId());
         }
 
-        summaryFragment = new SummaryFragment(recipe, position);
-        ingredientsFragment = new IngredientsFragment(recipe.getIngredients(), position);
-        stepsFragment = new StepsFragment(recipe.getSteps(), position);
+        summaryFragment = new SummaryFragment(recipe.getId());
+        ingredientsFragment = new IngredientsFragment(recipe.getId());
+        stepsFragment = new StepsFragment(recipe.getId());
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(summaryFragment);
