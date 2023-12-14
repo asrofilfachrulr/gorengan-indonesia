@@ -6,12 +6,13 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:statusBarColor">#757575</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
     <style name="Theme.GorenganIndonesia" parent="Base.Theme.GorenganIndonesia" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:statusBarColor">#757575</item>
+        <item name="android:statusBarColor">@color/app_accent_not_really_dark</item>
     </style>
 </resources>

@@ -32,7 +32,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull StepAdapter.ViewHolder holder, int position) {
-        holder.tvNumbering.setText(String.valueOf(position+1));
+        holder.tvNumbering.setText(String.valueOf(position+1) + ".");
         holder.tvStep.setText(steps.get(position).toString());
     }
 

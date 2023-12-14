@@ -40,7 +40,7 @@
                 android:layout_height="48dp"
                 android:padding="16dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/outline_delete_24"
+                android:src="@drawable/outline_delete_24_accent"
                 />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_fav_item"
