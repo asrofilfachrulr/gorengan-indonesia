@@ -2,6 +2,7 @@ package com.example.gorenganindonesia.ui.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +24,43 @@ import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.CustomToast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ViewHolder> {
     List<Recipe> dataList;
+    List<Recipe> originalList;
     Context context;
     FavouriteHandler favouriteHandler;
 
     public FavouritesAdapter(Context context, List<Recipe> dataList, FavouriteHandler favouriteHandler){
         this.context = context;
         this.dataList = dataList;
+        this.originalList = dataList;
         this.favouriteHandler = favouriteHandler;
+    }
+
+    public void applyFiler(String target){
+        target = target.toLowerCase();
+        List<Recipe> filteredDataList = new ArrayList<>();
+
+        if(TextUtils.isEmpty(target)){
+            dataList = originalList;
+            notifyDataSetChanged();
+        } else {
+            for(Recipe recipe: originalList){
+                if(recipe.getTitle().toLowerCase().contains(target))
+                    filteredDataList.add(recipe);
+            }
+            dataList = filteredDataList;
+        }
+
+        notifyDataSetChanged();
     }
 
     public void  updateData(List<Recipe> updatedDataList){
         this.dataList = updatedDataList;
+        this.originalList = updatedDataList;
         notifyDataSetChanged();
     }
 

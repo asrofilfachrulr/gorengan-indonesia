@@ -7,35 +7,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.Fragments.Main.FavouriteFragment">
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/ll_root_loading_favourite"
+    <ImageView
+        android:id="@+id/iv_underlay_top_favourite"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#9E020202"
-        android:gravity="center"
-        android:translationZ="10dp">
-        <TextView
-            android:id="@+id/tv_root_loading_favourites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textAlignment="center"
-            android:text="memuat\nfavorit..." />
-        <ProgressBar
-            android:layout_marginTop="14sp"
-            android:id="@+id/pb_login"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_top_fav"
+        app:tint="#83000000"
+        android:tintMode="src_atop"/>
     <TextView
         android:id="@+id/tv_favourite_title"
         style="@style/MainFragmentTitle"
@@ -43,10 +25,58 @@
         android:layout_height="wrap_content"
         android:minHeight="50dp"
         android:paddingHorizontal="14sp"
-        android:text="Resep Favorit"
+        android:text="Resep\nFavorit Anda"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_marginTop="36dp"
+        android:id="@+id/ll_top_favourite"
+        app:layout_constraintTop_toBottomOf="@id/tv_favourite_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp">
+
+        <EditText
+            android:id="@+id/et_search_favourite"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableEnd="@drawable/ic_search_light"
+            android:paddingHorizontal="14dp"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_transparent_bordered"/>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_list_fav"
+        android:layout_marginTop="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_top_favourite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="50dp"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_favourites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/favourite_item" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/ll_empty_fav_sign"
@@ -68,33 +98,4 @@
             android:text="Resep Favorit Kosong"
             android:textColor="@color/app_accent_50"/>
     </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/sv_list_fav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_favourite_title">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_favourites"
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                tools:itemCount="5"
-                tools:listitem="@layout/favourite_item" />
-
-            <View
-                android:id="@+id/vw_empty_space"
-                android:layout_width="match_parent"
-                android:layout_height="70dp" />
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

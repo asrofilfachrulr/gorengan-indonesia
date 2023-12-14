@@ -7,90 +7,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.Fragments.Main.MyRecipeFragment">
-    <LinearLayout
-        android:id="@+id/ll_root_loading_my_recipe"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#74606077"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:translationZ="5dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/iv_underlay_top_my_recipe"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_root_loading_my_recipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans_semibold"
-            android:text="memuat..."
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <ProgressBar
-            android:id="@+id/pb_my_recipe"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14sp" />
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_top_my_recipe"
+        app:tint="#83000000"
+        android:tintMode="src_atop"/>
     <TextView
-        android:id="@+id/tv_my_receipt_title"
+        android:id="@+id/tv_my_recipe_title"
         style="@style/MainFragmentTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="50dp"
         android:paddingHorizontal="14sp"
-        android:text="Resep Saya"
+        android:text="Daftar\nResep Anda"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:translationZ="10dp"
-        android:id="@+id/ib_add_my_receipt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="14dp"
-        style="@style/btn_accent_solid_rounded_full"
-        android:src="@drawable/baseline_add_36_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <LinearLayout
-        android:id="@+id/ll_empty_my_receipt_sign"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:translationZ="10dp">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_stop_accent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/app_accent_50"
-            android:text="Anda belum memiliki Resep!" />
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/sv_list_my_receipt"
+        android:layout_marginTop="36dp"
+        android:id="@+id/ll_top_my_recipe"
+        app:layout_constraintTop_toBottomOf="@id/tv_my_recipe_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:paddingHorizontal="14dp">
+
+        <EditText
+            android:id="@+id/et_search_my_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableEnd="@drawable/ic_search_light"
+            android:paddingHorizontal="14dp"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_transparent_bordered"/>
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_marginTop="14dp"
+        android:id="@+id/nsv_list_my_receipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
         android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_my_receipt_title">
+        app:layout_constraintTop_toBottomOf="@id/ll_top_my_recipe">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,5 +78,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/ll_empty_my_receipt_sign"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:translationZ="10dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_stop_accent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/app_accent_50"
+            android:text="Anda belum memiliki Resep!" />
+    </LinearLayout>
+    <ImageButton
+        android:translationZ="10dp"
+        android:id="@+id/ib_add_my_receipt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        style="@style/btn_accent_solid_rounded_full"
+        android:src="@drawable/baseline_add_36_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

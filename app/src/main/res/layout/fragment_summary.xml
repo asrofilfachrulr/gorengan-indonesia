@@ -107,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="Mudah"
-                    android:textColor="@color/gorengan"
+                    android:textFontWeight="500"
+                    android:textColor="@color/app_accent"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -129,7 +130,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="4 Porsi"
-                    android:textColor="@color/gorengan"
+                    android:textFontWeight="500"
+                    android:textColor="@color/app_accent"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -150,8 +152,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/gorengan"
+                    android:textColor="@color/app_accent"
                     android:text="±40 Menit"
+                    android:textFontWeight="500"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -181,8 +184,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="5 Bahan"
-                    android:textColor="@color/gorengan"
+                    android:textColor="@color/app_accent"
                     android:textSize="12sp"
+                    android:textFontWeight="500"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -204,7 +208,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="7 Langkah"
-                    android:textColor="@color/gorengan"
+                    android:textColor="@color/app_accent"
+                    android:textFontWeight="500"
                     android:textSize="12sp"
                     android:textAlignment="center" />
             </LinearLayout>

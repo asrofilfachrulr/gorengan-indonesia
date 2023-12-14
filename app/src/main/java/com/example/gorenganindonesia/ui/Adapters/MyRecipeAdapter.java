@@ -3,12 +3,12 @@ package com.example.gorenganindonesia.ui.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,17 +22,19 @@ import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.Util.ToastUseCase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHolder> {
     List<Recipe> dataList;
+    List<Recipe> originalList;
     Context context;
     APIHandlerDTO dto;
 
     public MyRecipeAdapter(List<Recipe> recipes, Context context, APIHandlerDTO dto){
         this.dataList = recipes;
+        this.originalList = recipes;
         this.context = context;
         this.dto = dto;
     }
@@ -97,8 +99,28 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
             });
     }
 
+    public void applyFiler(String target){
+        target = target.toLowerCase();
+        List<Recipe> filteredDataList = new ArrayList<>();
+
+        if(TextUtils.isEmpty(target)){
+            dataList = originalList;
+            notifyDataSetChanged();
+        } else {
+            for(Recipe recipe: originalList){
+                if(recipe.getTitle().toLowerCase().contains(target))
+                    filteredDataList.add(recipe);
+            }
+            dataList = filteredDataList;
+        }
+
+        notifyDataSetChanged();
+    }
+
+
     public void updateData(List<Recipe> recipes){
         this.dataList = recipes;
+        this.originalList = recipes;
 
         notifyDataSetChanged();
     }
@@ -118,7 +140,7 @@ public class MyRecipeAdapter extends RecyclerView.Adapter<MyRecipeAdapter.ViewHo
 
             ivImage = (ImageView) itemView.findViewById(R.id.iv_my_receipt_image);
 
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_my_receipt_title);
+            tvTitle = (TextView) itemView.findViewById(R.id.tv_my_recipe_title);
             tvDifficulty = (TextView) itemView.findViewById(R.id.tv_my_receipt_difficulty);
             tvPortion = (TextView) itemView.findViewById(R.id.tv_my_receipt_portion);
             tvMinuteDuration = (TextView) itemView.findViewById(R.id.tv_my_receipt_duration);

@@ -38,9 +38,12 @@ public class FavouriteHandler {
     public void getFavourites(){
         String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
         ProgressDialog progressDialog = dto.createProgressDialog();
-        progressDialog.setMessage("Memuat Daftar Favorit...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+
+        if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE){
+            progressDialog.setMessage("Memuat Daftar Favorit...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
 
         RetrofitClient
             .getInstance()
@@ -49,7 +52,9 @@ public class FavouriteHandler {
             .enqueue(new Callback<GetFavouritesResponse>() {
                 @Override
                 public void onResponse(Call<GetFavouritesResponse> call, Response<GetFavouritesResponse> response) {
-                    progressDialog.dismiss();
+                    if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
+                        progressDialog.dismiss();
+
                     if(response.isSuccessful()){
                         String[] recipeids = response.body().getFavourites();
 
@@ -68,7 +73,9 @@ public class FavouriteHandler {
 
                 @Override
                 public void onFailure(Call<GetFavouritesResponse> call, Throwable t) {
-                    progressDialog.dismiss();
+                    if(dto.getDaemonMode() == APIHandlerDTO.SCREAMING_MODE)
+                        progressDialog.dismiss();
+
                     new CustomToast("Gagal Mendapatkan Daftar Favorit: Koneksi Gagal", dto.view, false).show();
                 }
             });
