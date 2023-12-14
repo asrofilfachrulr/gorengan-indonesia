@@ -59,6 +59,10 @@ public class DetailActivity extends AppCompatActivity {
 
         thisActivity = this;
 
+        Intent intent = getIntent();
+        Recipe recipe = intent.getParcelableExtra("recipe");
+
+
         tvTitleRingkasan = (TextView) findViewById(R.id.tv_title_ringkasan);
         tvTitleBahan = (TextView) findViewById(R.id.tv_title_bahan);
         tvTitleLangkah = (TextView) findViewById(R.id.tv_title_langkah);
@@ -88,12 +92,6 @@ public class DetailActivity extends AppCompatActivity {
         recipeDetailHandler = new RecipeDetailHandler(dto);
         favouriteHandler = new FavouriteHandler(dto);
 
-        Intent intent = getIntent();
-        Recipe recipe = intent.getParcelableExtra("recipe");
-        position = intent.getIntExtra("position", -1);
-
-        if (position == -1)
-            this.finish();
 
         Glide
                 .with(this)

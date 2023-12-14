@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,45 +20,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gorenganindonesia.API.Handlers.CategoryHandler;
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
-import com.example.gorenganindonesia.API.Services.RecipesService;
-import com.example.gorenganindonesia.API.RetrofitClient;
 import com.example.gorenganindonesia.Activity.LoginActivity;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
+import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Util.Constants;
-import com.example.gorenganindonesia.Util.CustomToast;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
-import com.example.gorenganindonesia.Model.api.Recipes.RecipeData;
-import com.example.gorenganindonesia.Model.api.Recipes.GetAllRecipesResponse;
-import com.example.gorenganindonesia.Model.data.Category.CategoryData;
-import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.R;
+import com.example.gorenganindonesia.Util.GreetingGenerator;
 import com.example.gorenganindonesia.Util.Logger;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
 import com.example.gorenganindonesia.Util.RegexHelper;
 import com.example.gorenganindonesia.databinding.FragmentHomeBinding;
+
 import com.example.gorenganindonesia.ui.Adapters.CategoryAdapter;
+import com.example.gorenganindonesia.ui.Adapters.MostViewedRecipeAdapter;
 import com.example.gorenganindonesia.ui.Adapters.RecipeAdapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class HomeFragment extends Fragment {
-    List<com.example.gorenganindonesia.Model.data.Recipe.Recipe> recipes = new ArrayList<>();
+    List<Recipe> recipes = new ArrayList<>();
+    List<Recipe> mostViewedRecipes = new ArrayList<>();
     List<String> categories = new ArrayList<>();
 
-    RecyclerView rvReceipt, rvCategory;
+    RecyclerView rvRecipe, rvCategory, rvMostViewedRecipe;
 
     CategoryAdapter categoryAdapter;
     RecipeAdapter recipeAdapter;
+
+    MostViewedRecipeAdapter mostViewedRecipeAdapter;
 
     LinearLayout llParentContent;
 
@@ -68,6 +59,8 @@ public class HomeFragment extends Fragment {
 
     RecipeViewModel recipeViewModel;
     private String token;
+    private String greeting;
+    private String userFullName;
 
     private View root;
 
@@ -91,15 +84,16 @@ public class HomeFragment extends Fragment {
 
         root = binding.getRoot();
 
+        userFullName = ((GlobalModel) getContext().getApplicationContext()).getAccountViewModel().getName();
+        greeting = GreetingGenerator.generateGreeting();
+
+        binding.tvGreetingHomeFragment.setText(greeting + ", ");
+        binding.tvUserFullNameHomeFragment.setText(userFullName);
+
         recipes = new ArrayList<>();
         categories = new ArrayList<>();
 
-        APIHandlerDTO dao = new APIHandlerDTO(
-                root,
-                binding.llRootLoadingHome,
-                binding.tvRootLoadingHome,
-                getContext()
-        );
+        APIHandlerDTO dao = new APIHandlerDTO(root,getContext());
 
         recipeHandler = new RecipeHandler(dao);
         favouriteHandler = new FavouriteHandler(dao);
@@ -117,17 +111,17 @@ public class HomeFragment extends Fragment {
 
         recipes = recipeViewModel.getAllRecipes().getValue();
 
-        int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.receipt_spacing);
-        rvReceipt = (RecyclerView) binding.rvReceipt;
-        recipeAdapter = new RecipeAdapter(recipes, rvReceipt);
+        int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.recipe_spacing);
+        rvRecipe = (RecyclerView) binding.rvReceipt;
+        recipeAdapter = new RecipeAdapter(recipes, rvRecipe);
         RecyclerView.LayoutManager receiptLayoutManager = new LinearLayoutManager(getContext());
-        rvReceipt.setLayoutManager(receiptLayoutManager);
-        rvReceipt.setAdapter(recipeAdapter);
-        rvReceipt.addItemDecoration(new RecyclerViewItemSpacing(getContext(), receiptSpacing));
+        rvRecipe.setLayoutManager(receiptLayoutManager);
+        rvRecipe.setAdapter(recipeAdapter);
+        rvRecipe.addItemDecoration(new RecyclerViewItemSpacing(getContext(), receiptSpacing));
 
         int categorySpacing = getResources().getDimensionPixelSize(R.dimen.category_spacing);
         rvCategory = (RecyclerView) binding.rvCategory;
-        categoryAdapter = new CategoryAdapter(categories, recipeAdapter, rvReceipt, rvCategory);
+        categoryAdapter = new CategoryAdapter(categories, recipeAdapter, rvRecipe, rvCategory);
         RecyclerView.LayoutManager categoryLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvCategory.setLayoutManager(categoryLayoutManager);
         rvCategory.setAdapter(categoryAdapter);
@@ -135,11 +129,29 @@ public class HomeFragment extends Fragment {
 
         recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
             recipeAdapter.updateData(updatedRecipes, categoryAdapter.getCurrentCategory());
+
+            // mocking implementation for get data most viewed recipes
+            List<Recipe> uMostViewedRecipes = new ArrayList<>();
+            int sz = updatedRecipes.size() > 5 ? 5 : updatedRecipes.size();
+            for(int i = 0; i < sz; i++)
+                uMostViewedRecipes.add(updatedRecipes.get(i));
+
+            mostViewedRecipeAdapter.updateData(uMostViewedRecipes);
         });
 
         recipeViewModel.getCategories().observe(getViewLifecycleOwner(), updatedCategories -> {
             categoryAdapter.updateData(updatedCategories);
         });
+
+
+        int mostViewedRecipeSpacing = getResources().getDimensionPixelSize(R.dimen.most_viewed_recipes_spacing);
+        rvMostViewedRecipe = (RecyclerView) binding.rvMostViewedRecipe;
+        mostViewedRecipeAdapter = new MostViewedRecipeAdapter(mostViewedRecipes, requireContext());
+        RecyclerView.LayoutManager mostViewedRecipeLM = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvMostViewedRecipe.setAdapter(mostViewedRecipeAdapter);
+        rvMostViewedRecipe.setLayoutManager(mostViewedRecipeLM);
+        rvMostViewedRecipe.addItemDecoration(new RecyclerViewItemSpacing(getContext(), mostViewedRecipeSpacing));
+
 
         llParentContent = (LinearLayout) binding.llParentContent;
         etSearch = (EditText) binding.etSearch;
@@ -187,68 +199,5 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void getAllRecipesRequest(String token){
-        RetrofitClient
-                .getInstance()
-                .create(RecipesService.class)
-                .getAllRecipes(token)
-                .enqueue(new Callback<GetAllRecipesResponse>() {
-                    @Override
-                    public void onResponse(Call<GetAllRecipesResponse> call, Response<GetAllRecipesResponse> response) {
-                        int statusCode = response.code();
-                        binding.llRootLoadingHome.setVisibility(View.GONE);
-
-                        if (response.isSuccessful()) {
-                            categories = CategoryData.generate();
-
-                            List<Recipe> tempRecipes = new ArrayList<>();
-
-                            for (RecipeData recipeData : response.body().getData()) {
-                                tempRecipes.add(new Recipe(
-                                        recipeData.getId(),
-                                        recipeData.getTitle(),
-                                        recipeData.getUsername(),
-                                        recipeData.getStars(),
-                                        recipeData.getCategory(),
-                                        recipeData.getMinuteDuration(),
-                                        recipeData.getImgUrl(),
-                                        recipeData.getDifficulty(),
-                                        recipeData.getPortion(),
-                                        null,
-                                        null,
-                                        null
-                                ));
-                            }
-
-                            recipeViewModel.setRecipesData(tempRecipes);
-                            //TODO: Automate category list from available recipes on backend or database!
-                            recipeViewModel.setCategoriesData(CategoryData.generate());
-                        } else {
-                            try {
-                                String errorBody = response.errorBody().string();
-                                Log.e("Status code: ", String.valueOf(statusCode));
-                                Log.e("Error Response Body", errorBody);
-
-                                JSONObject errorJson = new JSONObject(errorBody);
-                                String errorMessage = errorJson.optString("message");
-
-                                new CustomToast("Error: " + errorMessage, root.getRootView()).show();
-
-                            } catch (IOException | JSONException e) {
-                                Log.e("error", e.toString());
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetAllRecipesResponse> call, Throwable t) {
-                        binding.llRootLoadingHome.setVisibility(View.GONE);
-
-                        new CustomToast("Tidak dapat memuat data dari jaringan", root.getRootView(), false).show();
-                    }
-                });
     }
 }

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +29,7 @@ import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.FavouriteViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
+import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.databinding.FragmentFavouriteBinding;
 import com.example.gorenganindonesia.ui.Adapters.FavouritesAdapter;
 
@@ -95,6 +101,16 @@ public class FavouriteFragment extends Fragment {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             return false;
         });
+
+        int colorAccent = ContextCompat.getColor(requireContext(), R.color.app_accent);
+        int colorWhite = ContextCompat.getColor(requireContext(), R.color.white);
+
+        String fragmentTitle = "Resep\nFavorit Anda";
+        SpannableString spannableTitle = new SpannableString(fragmentTitle);
+        spannableTitle.setSpan(new ForegroundColorSpan(colorWhite), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableTitle.setSpan(new ForegroundColorSpan(colorAccent), 5, fragmentTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        binding.tvFavouriteTitle.setText(spannableTitle, TextView.BufferType.SPANNABLE);
 
         return root;
     }

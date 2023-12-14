@@ -4,13 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -20,6 +25,7 @@ import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.AccountViewModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
+import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.ToastUseCase;
 import com.example.gorenganindonesia.databinding.FragmentMyRecipeBinding;
 import com.example.gorenganindonesia.ui.Adapters.MyRecipeAdapter;
@@ -94,6 +100,16 @@ public class MyRecipeFragment extends Fragment {
                 adapter.applyFiler(str);
             }
         });
+
+        int colorAccent = ContextCompat.getColor(requireContext(), R.color.app_accent);
+        int colorWhite = ContextCompat.getColor(requireContext(), R.color.white);
+
+        String fragmentTitle = "Daftar\nResep Anda";
+        SpannableString spannableTitle = new SpannableString(fragmentTitle);
+        spannableTitle.setSpan(new ForegroundColorSpan(colorWhite), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableTitle.setSpan(new ForegroundColorSpan(colorAccent), 6, fragmentTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        binding.tvMyRecipeTitle.setText(spannableTitle, TextView.BufferType.SPANNABLE);
 
         return root;
     }

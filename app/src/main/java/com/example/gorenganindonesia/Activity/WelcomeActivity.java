@@ -63,12 +63,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 toLoginPage(true);
             }
         }
-        int colorGorengan = ContextCompat.getColor(this, R.color.gorengan);
+        int colorAccent = ContextCompat.getColor(this, R.color.app_accent);
         int colorBlack = ContextCompat.getColor(this, R.color.black);
 
         TextView colorText2 = (TextView)findViewById(R.id.judulapp);
         SpannableString text2 = new SpannableString("GorenganIndonesia.");
-        text2.setSpan(new ForegroundColorSpan(colorGorengan), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        text2.setSpan(new ForegroundColorSpan(colorAccent), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text2.setSpan(new ForegroundColorSpan(colorBlack), 8, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 //        colorText2.setText(text2);
         colorText2.setText(text2, TextView.BufferType.SPANNABLE);
