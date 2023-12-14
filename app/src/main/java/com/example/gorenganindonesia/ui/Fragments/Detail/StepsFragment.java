@@ -63,6 +63,8 @@ public class StepsFragment extends Fragment {
     }
 
     private List<String> getSteps(){
-        return Arrays.asList(((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId).getSteps());
+        String[] steps = ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId).getSteps();
+
+        return steps == null ? new ArrayList<>() : Arrays.asList(steps);
     }
 }

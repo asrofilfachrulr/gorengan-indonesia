@@ -65,6 +65,8 @@ public class IngredientsFragment extends Fragment {
     }
 
     public List<Ingredient> getIngredients(){
-        return Arrays.asList(((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId).getIngredients());
+        Ingredient[] ingredients = ((GlobalModel) getContext().getApplicationContext()).getRecipeViewModel().getRecipeById(recipeId).getIngredients();
+
+        return ingredients == null ? new ArrayList<>() : Arrays.asList(ingredients);
     }
 }

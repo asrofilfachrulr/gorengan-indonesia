@@ -223,6 +223,8 @@ public class RatingActivity extends AppCompatActivity {
     }
 
     private List<Rating> getRatings(){
-        return Arrays.asList(((GlobalModel) getApplication()).getRecipeViewModel().getRecipeById(recipeId).getRatings());
+        Rating[] ratings = ((GlobalModel) getApplication()).getRecipeViewModel().getRecipeById(recipeId).getRatings();
+
+        return ratings == null ? new ArrayList<>(): Arrays.asList(ratings);
     }
 }
