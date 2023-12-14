@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.example.gorenganindonesia.Activity.CongratsActivity;
 import com.example.gorenganindonesia.Activity.LoginActivity;
 import com.example.gorenganindonesia.Activity.MainActivity;
 import com.example.gorenganindonesia.Model.data.Account.Account;
@@ -30,13 +31,19 @@ public class SessionManager {
         this.token = token;
     }
 
-    public void login(Context context, Activity activity, String token, Account account, String msg){
+    public void login(Context context, Activity activity, String token, Account account, String msg, boolean isFromRegister){
         setToken(token);
         saveLoginInfo();
 
         saveAccountInfo(account);
 
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent;
+
+        if(isFromRegister)
+            intent = new Intent(context, CongratsActivity.class);
+        else
+            intent = new Intent(context, MainActivity.class);
+
         intent.putExtra("TOAST_MSG", msg);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);

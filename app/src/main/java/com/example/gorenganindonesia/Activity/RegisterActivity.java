@@ -117,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     if(response.isSuccessful()){
                                         new CustomToast("Registrasi selesai, silahkan masuk", v).show();
+                                        intent.putExtra("isFromRegister", true);
                                         startActivity(intent);
                                         finish();
                                     } else {

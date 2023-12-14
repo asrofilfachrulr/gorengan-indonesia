@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                 ).show();
         }
 
+        boolean isFromRegister = intent.getBooleanExtra("isFromRegister", false);
+
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
 
 
@@ -137,7 +139,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     thisActivity,
                                                     response.body().getToken(),
                                                     account,
-                                                    "login sukses!"
+                                                    "login sukses!",
+                                                    isFromRegister
                                             );
                                 } else {
                                     try {
