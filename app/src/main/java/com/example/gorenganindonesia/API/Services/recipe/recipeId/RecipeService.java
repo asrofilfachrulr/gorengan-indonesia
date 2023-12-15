@@ -44,4 +44,10 @@ public interface RecipeService {
             @Part("json") RequestBody jsonData,
             @Path("recipe_id") String recipeId
     );
+
+    @PUT("/recipe/{recipe_id}/view_count")
+    Call<BasicResponse> putViewCount(
+            @Header("Authorization") String token,
+            @Path("recipe_id") String recipeId
+    );
 }

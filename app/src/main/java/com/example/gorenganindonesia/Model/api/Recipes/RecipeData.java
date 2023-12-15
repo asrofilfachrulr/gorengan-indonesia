@@ -15,6 +15,16 @@ public class RecipeData {
     private int minuteDuration;
     @SerializedName("stars")
     private float stars;
+    @SerializedName("view_count")
+    private int viewCount;
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
 
     public String getId() {
         return id;

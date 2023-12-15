@@ -77,6 +77,7 @@ public class RecipeHandler {
                                         recipeData.getImgUrl(),
                                         WordUtils.capitalizeFully(recipeData.getDifficulty()),
                                         recipeData.getPortion(),
+                                        recipeData.getViewCount(),
                                         null,
                                         null,
                                         null
@@ -249,6 +250,26 @@ public class RecipeHandler {
                     public void onFailure(Call<BasicResponse> call, Throwable t) {
                         progressDialog.dismiss();
                         ToastUseCase.showMessage(dto.view,"Gagal Membuat Resep: Koneksi Gagal");
+                    }
+                });
+    }
+
+    public void addViewCount(String recipeId){
+        String token = ((GlobalModel) dto.context.getApplicationContext()).getSessionManager().getJwtHeaderValue();
+
+        RetrofitClient
+                .getInstance()
+                .create(RecipeService.class)
+                .putViewCount(token, recipeId)
+                .enqueue(new Callback<BasicResponse>() {
+                    @Override
+                    public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicResponse> call, Throwable t) {
+
                     }
                 });
     }

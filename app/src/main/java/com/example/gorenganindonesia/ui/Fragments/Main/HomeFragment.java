@@ -67,6 +67,8 @@ public class HomeFragment extends Fragment {
     CategoryHandler categoryHandler;
 
     private final int LIST_RECIPES_SIZE = 3;
+    private final int LIST_TOP_RECIPES_SIZE = 5;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -109,10 +111,11 @@ public class HomeFragment extends Fragment {
         }
 
         someRecipes = getSomeRecipes();
+        mostViewedRecipes = getTopRecipes();
 
         int recipeSpacing = getResources().getDimensionPixelSize(R.dimen.recipe_spacing);
         rvRecipe = (RecyclerView) binding.rvReceipt;
-        recipeAdapter = new RecipeAdapter(someRecipes);
+        recipeAdapter = new RecipeAdapter(someRecipes, requireContext());
         RecyclerView.LayoutManager receiptLayoutManager = new LinearLayoutManager(getContext());
         rvRecipe.setLayoutManager(receiptLayoutManager);
         rvRecipe.setAdapter(recipeAdapter);
@@ -122,12 +125,7 @@ public class HomeFragment extends Fragment {
             List<Recipe> someRecipesUpdated = getSomeRecipes();
             recipeAdapter.updateData(someRecipesUpdated);
 
-            // mocking implementation for get data most viewed recipes
-            List<Recipe> uMostViewedRecipes = new ArrayList<>();
-            int sz = updatedRecipes.size() > 5 ? 5 : updatedRecipes.size();
-            for(int i = 0; i < sz; i++)
-                uMostViewedRecipes.add(updatedRecipes.get(i));
-
+            List<Recipe> uMostViewedRecipes = getTopRecipes();
             mostViewedRecipeAdapter.updateData(uMostViewedRecipes);
         });
 
@@ -175,4 +173,12 @@ public class HomeFragment extends Fragment {
             return new ArrayList<>();
         return recipeViewModel.getRecipesBy(LIST_RECIPES_SIZE);
     }
+
+    private List<Recipe> getTopRecipes(){
+        if(recipeViewModel == null)
+            return new ArrayList<>();
+        return recipeViewModel.findTopNRecipes(LIST_TOP_RECIPES_SIZE);
+    }
+
+
 }

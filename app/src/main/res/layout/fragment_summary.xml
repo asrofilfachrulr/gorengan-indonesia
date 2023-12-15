@@ -68,12 +68,17 @@
                 android:src="@drawable/ic_kebab_menu_black" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
+            android:id="@+id/tv_view_count_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Dilihat 12 kali"/>
+        <TextView
             android:id="@+id/tv_author_username_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="Resep oleh \@admin" />
-
         <TextView
             android:id="@+id/tv_category_detail"
             android:layout_width="match_parent"

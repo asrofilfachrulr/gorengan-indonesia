@@ -9,6 +9,7 @@ import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
 import com.example.gorenganindonesia.Model.data.Recipe.RecipeData;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,15 @@ public class RecipeViewModel extends ViewModel {
                 return recipe;
 
         return new Recipe();
+    }
+
+    public List<Recipe> findTopNRecipes(int n) {
+        List<Recipe> topRecipes = new ArrayList<>(mRecipes.getValue());
+        // Sort the recipes based on viewCount in descending order
+        topRecipes.sort(Comparator.comparingInt(Recipe::getViewCount).reversed());
+
+        // Return the top N topRecipes
+        return topRecipes.subList(0, Math.min(n, topRecipes.size()));
     }
 
     public List<Recipe> getRecipesByIds(String[] recipeIds) {

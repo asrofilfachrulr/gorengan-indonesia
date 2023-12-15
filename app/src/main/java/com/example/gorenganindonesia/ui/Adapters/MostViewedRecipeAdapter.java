@@ -52,7 +52,7 @@ public class MostViewedRecipeAdapter extends RecyclerView.Adapter<MostViewedReci
         holder.tvTitle.setText(recipe.getTitle());
 
         // mock implementation
-        holder.tvViewCount.setText(String.valueOf(getRandomInt()) + " kali dilihat");
+        holder.tvViewCount.setText(String.valueOf(recipe.getViewCount()) + " kali dilihat");
 
         Glide
                 .with(holder.itemView.getContext())
@@ -60,11 +60,6 @@ public class MostViewedRecipeAdapter extends RecyclerView.Adapter<MostViewedReci
                 .placeholder(R.drawable.solid_grey_landscape)
                 .error(R.drawable.img_404_landscape)
                 .into(holder.ivRecipe);
-    }
-
-    int getRandomInt(){
-        Random random = new Random();
-        return random.nextInt(21) + 1;
     }
 
     public void updateData(List<Recipe> updatedDataList){

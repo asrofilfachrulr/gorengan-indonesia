@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -33,7 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 public class SummaryFragment extends Fragment {
-    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient, tvAuthorUsername, tvStarRating;
+    TextView tvTitle, tvCategory, tvDifficulty, tvTime, tvPortion, tvStep, tvIngridient, tvAuthorUsername, tvStarRating, tvViewCount;
     ImageButton ibMore;
     Button btnShare, btnSaveOffline, btnSeeUserRating, btnEdit, btnDelete;
     LinearLayout llSteps, llIngridients;
@@ -69,6 +70,7 @@ public class SummaryFragment extends Fragment {
         tvIngridient = (TextView) view.findViewById(R.id.tv_ingredient_detail);
         tvAuthorUsername = (TextView) view.findViewById(R.id.tv_author_username_detail);
         tvStarRating = (TextView) view.findViewById(R.id.tv_rating_star_detail);
+        tvViewCount = (TextView) view.findViewById(R.id.tv_view_count_detail);
 
         llSteps = (LinearLayout) view.findViewById(R.id.ll_steps_detail);
         llIngridients = (LinearLayout) view.findViewById(R.id.ll_ingredients_detail);
@@ -210,6 +212,15 @@ public class SummaryFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(recipe.getTitle() != null){
+            addViewCount(view);
+        }
+    }
+
     public void setViewData(){
         if(recipe.getTitle() == null)
             return;
@@ -222,5 +233,13 @@ public class SummaryFragment extends Fragment {
         tvIngridient.setText(String.valueOf(recipe.getIngredients().length) + " Bahan");
         tvAuthorUsername.setText("Resep oleh @"+ recipe.getAuthorUsername().toString());
         tvStarRating.setText(String.valueOf(recipe.getStars()));
+        tvViewCount.setText("Dilihat " + String.valueOf(recipe.getViewCount()) + " kali");
+    }
+
+    private void addViewCount(View view){
+        APIHandlerDTO dto = new APIHandlerDTO(view, requireContext());
+        RecipeHandler handler = new RecipeHandler(dto);
+
+        handler.addViewCount(recipe.getId());
     }
 }

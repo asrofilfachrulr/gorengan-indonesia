@@ -17,6 +17,7 @@ public class Recipe implements Parcelable {
     private String imgUrl;
     private String difficulty;
     private int portion;
+    private int viewCount;
     private float stars;
     private Ingredient[] ingredients;
 
@@ -25,7 +26,7 @@ public class Recipe implements Parcelable {
 
     public Recipe(){}
 
-    public Recipe(String id, String title, String authorUsername, float stars, String category, int minuteDuration, String imgUrl, String difficulty, int portion, String[] steps, Ingredient[] ingredients, Rating[] ratings) {
+    public Recipe(String id, String title, String authorUsername, float stars, String category, int minuteDuration, String imgUrl, String difficulty, int portion, int viewCount, String[] steps, Ingredient[] ingredients, Rating[] ratings) {
         this.id = id;
         this.title = title;
         this.authorUsername = authorUsername;
@@ -35,9 +36,18 @@ public class Recipe implements Parcelable {
         this.imgUrl = imgUrl;
         this.difficulty = difficulty;
         this.portion = portion;
+        this.viewCount = viewCount;
         this.steps = steps;
         this.ingredients = ingredients;
         this.ratings = ratings;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 
     public String getId() {
@@ -159,6 +169,7 @@ public class Recipe implements Parcelable {
         imgUrl = in.readString();
         difficulty = in.readString();
         portion = in.readInt();
+        viewCount = in.readInt();
         steps = in.createStringArray();
         ingredients = in.createTypedArray(Ingredient.CREATOR);
         ratings = in.createTypedArray(Rating.CREATOR);
@@ -175,6 +186,7 @@ public class Recipe implements Parcelable {
         parcel.writeString(imgUrl);
         parcel.writeString(difficulty);
         parcel.writeInt(portion);
+        parcel.writeInt(viewCount);
         parcel.writeStringArray(steps);
         parcel.writeTypedArray(ingredients, flags);
         parcel.writeTypedArray(ratings, flags);
