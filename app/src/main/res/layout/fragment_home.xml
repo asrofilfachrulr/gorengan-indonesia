@@ -71,21 +71,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14sp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:itemCount="7"
-                    tools:listitem="@layout/category_item" />
-            </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -113,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    tools:itemCount="3"
+                    tools:itemCount="1"
                     tools:listitem="@layout/most_viewed_recipe_item" />
 
                 <TextView
@@ -136,7 +121,7 @@
                         android:orientation="vertical"
                         android:paddingHorizontal="5dp"
                         android:paddingTop="8sp"
-                        android:paddingBottom="40dp">
+                        android:paddingBottom="10dp">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_receipt"
@@ -146,6 +131,18 @@
                             tools:listitem="@layout/recipe_item" />
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
+                <Button
+                    android:id="@+id/btn_more_recipe_home_fragment"
+                    android:layout_marginBottom="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_transparent"
+                    android:textColor="@color/app_accent"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/lato_bold"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="14dp"
+                    android:text="Lihat Semua"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

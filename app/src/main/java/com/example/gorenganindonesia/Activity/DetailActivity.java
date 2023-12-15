@@ -42,8 +42,6 @@ public class DetailActivity extends AppCompatActivity {
 
     Fragment summaryFragment, ingredientsFragment, stepsFragment;
 
-    int position;
-
     View summaryView;
     View view;
 

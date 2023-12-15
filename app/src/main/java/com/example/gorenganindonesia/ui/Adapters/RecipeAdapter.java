@@ -25,98 +25,14 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
     List<Recipe> dataList;
-    List<Recipe> originalList;
-    String category;
-    String title;
-    String empty = Constants.EMPTY_STRING;
-    RecyclerView recipeRecylerView;
 
-    public RecipeAdapter(List<Recipe> dataList, RecyclerView recipeRecylerView) {
+    public RecipeAdapter(List<Recipe> dataList) {
         this.dataList = dataList;
-        this.originalList = dataList;
-        this.recipeRecylerView = recipeRecylerView;
-        category = "semua";
-        title = Constants.EMPTY_STRING;
     }
 
-    public void clearTitle(){
-        title = Constants.EMPTY_STRING;
-    }
-
-    public void applyFilter(String categoryInput, String titleInput, boolean resetScroll){
-        List<Recipe> filteredList;
-        String categoryTarget, titleTarget;
-
-        categoryTarget = categoryInput.equals(empty) ? category : categoryInput;
-        titleTarget = titleInput.equals(empty) ? title : titleInput;
-
-        filteredList = filterCategory(categoryTarget, originalList);
-        filteredList = filterTitle(titleTarget, filteredList);
-
-        this.dataList = filteredList;
-
+    public void updateData(List<Recipe> recipes){
+        this.dataList = recipes;
         notifyDataSetChanged();
-
-        if(resetScroll) {
-            recipeRecylerView.scrollToPosition(0);
-        }
-    }
-
-    public void applyFilter(String categoryInput, String titleInput){
-        applyFilter(categoryInput, titleInput, true);
-    }
-
-    public List<Recipe> filterCategory(String categoryTarget, List<Recipe> targetList){
-        categoryTarget = categoryTarget.toLowerCase();
-        category = categoryTarget.equals(empty) ? "semua" : categoryTarget;
-
-        if(categoryTarget.contains("semua"))
-            return  originalList;
-
-
-        List<Recipe> filteredList = new ArrayList<>();
-
-        for(Recipe recipe : targetList){
-            if(recipe.getCategory().toLowerCase().contains(category)){
-                filteredList.add(recipe);
-            }
-        }
-
-        return filteredList;
-    }
-
-    public List<Recipe> filterTitle(String titleTarget, List<Recipe> targetList){
-        Logger.SimpleLog("titleTarget: " + titleTarget);
-        titleTarget = titleTarget.toLowerCase();
-        RegexHelper regexHelper = new RegexHelper(titleTarget);
-
-        if(regexHelper.isBlank()){
-            title = empty;
-            Logger.SimpleLog("reset title");
-            return targetList;
-        }
-
-        title = titleTarget;
-
-        List<Recipe> filteredList = new ArrayList<>();
-
-        for(Recipe recipe : targetList){
-            if(recipe.getTitle().toLowerCase().contains(titleTarget)){
-                filteredList.add(recipe);
-            }
-        }
-
-        return filteredList;
-    }
-
-    public void updateData(List<Recipe> recipes, String currentCategory){
-        this.originalList = recipes;
-
-        if(currentCategory.isEmpty() || currentCategory.toLowerCase().contains("semua")){
-            applyFilter("semua", Constants.EMPTY_STRING, false);
-        } else {
-            applyFilter(currentCategory, Constants.EMPTY_STRING, false);
-        }
     }
 
     @NonNull
@@ -150,16 +66,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
             intent.putExtra("recipe", recipe);
 
-            int pos = ((GlobalModel) view.getContext().getApplicationContext())
-                    .getRecipeViewModel()
-                    .getRecipePos(recipe.getId());
-
-            intent.putExtra("position", pos);
-
-            if(pos != -1)
-                view.getContext().startActivity(intent);
-            else
-                new CustomToast("Error mencari resep pada data!", view, false).show();
         });
     }
 

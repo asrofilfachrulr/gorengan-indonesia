@@ -159,6 +159,8 @@ public class RatingActivity extends AppCompatActivity {
 
                 if(starAvg != 0)
                     tvStar.setText(String.valueOf(starAvg) + "/5.0");
+                else
+                    tvStar.setText("0/5.0");
 
                 rvRating.scrollToPosition(0);
                 view.scrollTo(0,0);
@@ -200,15 +202,13 @@ public class RatingActivity extends AppCompatActivity {
     }
 
     private void updatePbRating(int total){
-        if(total == 0) return;
-
         starCountMap.forEach((key, value) -> System.out.println(key + " " + value));
 
-        pb5.setProgress(Math.round((100 * starCountMap.get(5)) / total));
-        pb4.setProgress(Math.round((100 * starCountMap.get(4)) / total));
-        pb3.setProgress(Math.round((100 * starCountMap.get(3)) / total));
-        pb2.setProgress(Math.round((100 * starCountMap.get(2)) / total));
-        pb1.setProgress(Math.round((100 * starCountMap.get(1)) / total));
+        pb5.setProgress(total == 0 ? 0 : Math.round((100 * starCountMap.get(5)) / total));
+        pb4.setProgress(total == 0 ? 0 : Math.round((100 * starCountMap.get(4)) / total));
+        pb3.setProgress(total == 0 ? 0 : Math.round((100 * starCountMap.get(3)) / total));
+        pb2.setProgress(total == 0 ? 0 : Math.round((100 * starCountMap.get(2)) / total));
+        pb1.setProgress(total == 0 ? 0 : Math.round((100 * starCountMap.get(1)) / total));
     }
 
     private void getRatings(String recipeId) {

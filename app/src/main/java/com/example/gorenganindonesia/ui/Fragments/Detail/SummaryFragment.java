@@ -130,11 +130,10 @@ public class SummaryFragment extends Fragment {
                             dto.setCallback(() -> {
                                 APIHandlerDTO getDTO = dto;
                                 getDTO.setCallback(() -> {
-                                    getActivity().finish();
+                                    requireActivity().finish();
                                 });
                                 RecipeHandler getHandler = new RecipeHandler(getDTO);
                                 getHandler.getAllRecipes();
-
                                 dialog.dismiss();
                             });
                             RecipeHandler deleteHandler = new RecipeHandler(dto);
@@ -212,6 +211,8 @@ public class SummaryFragment extends Fragment {
     }
 
     public void setViewData(){
+        if(recipe.getTitle() == null)
+            return;
         tvTitle.setText(recipe.getTitle().toString());
         tvCategory.setText("Kategori " + recipe.getCategory().toString());
         tvDifficulty.setText(recipe.getDifficulty().toString());

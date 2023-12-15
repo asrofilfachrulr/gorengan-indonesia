@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gorenganindonesia.API.Handlers.CategoryHandler;
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
+import com.example.gorenganindonesia.Activity.ListRecipeActivity;
 import com.example.gorenganindonesia.Activity.LoginActivity;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
@@ -41,20 +43,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    List<Recipe> recipes = new ArrayList<>();
+    List<Recipe> someRecipes = new ArrayList<>();
     List<Recipe> mostViewedRecipes = new ArrayList<>();
-    List<String> categories = new ArrayList<>();
 
-    RecyclerView rvRecipe, rvCategory, rvMostViewedRecipe;
+    RecyclerView rvRecipe, rvMostViewedRecipe;
 
-    CategoryAdapter categoryAdapter;
     RecipeAdapter recipeAdapter;
 
     MostViewedRecipeAdapter mostViewedRecipeAdapter;
 
-    LinearLayout llParentContent;
 
-    EditText etSearch;
     private FragmentHomeBinding binding;
 
     RecipeViewModel recipeViewModel;
@@ -67,6 +65,8 @@ public class HomeFragment extends Fragment {
     RecipeHandler recipeHandler;
     FavouriteHandler favouriteHandler;
     CategoryHandler categoryHandler;
+
+    private final int LIST_RECIPES_SIZE = 3;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -90,8 +90,7 @@ public class HomeFragment extends Fragment {
         binding.tvGreetingHomeFragment.setText(greeting + ", ");
         binding.tvUserFullNameHomeFragment.setText(userFullName);
 
-        recipes = new ArrayList<>();
-        categories = new ArrayList<>();
+        someRecipes = new ArrayList<>();
 
         APIHandlerDTO dao = new APIHandlerDTO(root,getContext());
 
@@ -109,26 +108,19 @@ public class HomeFragment extends Fragment {
             recipeHandler.getAllRecipes();
         }
 
-        recipes = recipeViewModel.getAllRecipes().getValue();
+        someRecipes = getSomeRecipes();
 
-        int receiptSpacing = getResources().getDimensionPixelSize(R.dimen.recipe_spacing);
+        int recipeSpacing = getResources().getDimensionPixelSize(R.dimen.recipe_spacing);
         rvRecipe = (RecyclerView) binding.rvReceipt;
-        recipeAdapter = new RecipeAdapter(recipes, rvRecipe);
+        recipeAdapter = new RecipeAdapter(someRecipes);
         RecyclerView.LayoutManager receiptLayoutManager = new LinearLayoutManager(getContext());
         rvRecipe.setLayoutManager(receiptLayoutManager);
         rvRecipe.setAdapter(recipeAdapter);
-        rvRecipe.addItemDecoration(new RecyclerViewItemSpacing(getContext(), receiptSpacing));
-
-        int categorySpacing = getResources().getDimensionPixelSize(R.dimen.category_spacing);
-        rvCategory = (RecyclerView) binding.rvCategory;
-        categoryAdapter = new CategoryAdapter(categories, recipeAdapter, rvRecipe, rvCategory);
-        RecyclerView.LayoutManager categoryLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvCategory.setLayoutManager(categoryLayoutManager);
-        rvCategory.setAdapter(categoryAdapter);
-        rvCategory.addItemDecoration(new RecyclerViewItemSpacing(getContext(), categorySpacing));
+        rvRecipe.addItemDecoration(new RecyclerViewItemSpacing(getContext(), recipeSpacing));
 
         recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), updatedRecipes -> {
-            recipeAdapter.updateData(updatedRecipes, categoryAdapter.getCurrentCategory());
+            List<Recipe> someRecipesUpdated = getSomeRecipes();
+            recipeAdapter.updateData(someRecipesUpdated);
 
             // mocking implementation for get data most viewed recipes
             List<Recipe> uMostViewedRecipes = new ArrayList<>();
@@ -137,10 +129,6 @@ public class HomeFragment extends Fragment {
                 uMostViewedRecipes.add(updatedRecipes.get(i));
 
             mostViewedRecipeAdapter.updateData(uMostViewedRecipes);
-        });
-
-        recipeViewModel.getCategories().observe(getViewLifecycleOwner(), updatedCategories -> {
-            categoryAdapter.updateData(updatedCategories);
         });
 
 
@@ -152,36 +140,19 @@ public class HomeFragment extends Fragment {
         rvMostViewedRecipe.setLayoutManager(mostViewedRecipeLM);
         rvMostViewedRecipe.addItemDecoration(new RecyclerViewItemSpacing(getContext(), mostViewedRecipeSpacing));
 
-
-        llParentContent = (LinearLayout) binding.llParentContent;
-        etSearch = (EditText) binding.etSearch;
-
-        llParentContent.setOnTouchListener((v, event) -> {
-            etSearch.clearFocus();
-            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            return false;
+        binding.etSearch.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Intent intent = new Intent(getActivity(), ListRecipeActivity.class);
+                intent.putExtra("isSearchClicked", true);
+                getActivity().startActivity(intent);
+                return true;  // Consume the event to prevent further propagation
+            }
+            return false;  // Allow other touch events to be handled
         });
 
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Logger.SimpleLog("Search Input String: " + s.toString());
-
-                RegexHelper regexHelper = new RegexHelper();
-                if(regexHelper.create(s.toString()).isBlank())
-                    recipeAdapter.clearTitle();
-
-                recipeAdapter.applyFilter(Constants.EMPTY_STRING, s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
+        binding.btnMoreRecipeHomeFragment.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ListRecipeActivity.class);
+            getActivity().startActivity(intent);
         });
 
         return root;
@@ -191,13 +162,17 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-//        new CustomToast("Current Category: " + categoryAdapter.getCurrentCategory(), getView().getRootView(), false).show();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private List<Recipe> getSomeRecipes(){
+        if(recipeViewModel == null)
+            return new ArrayList<>();
+        return recipeViewModel.getRecipesBy(LIST_RECIPES_SIZE);
     }
 }

@@ -44,6 +44,20 @@ public class RecipeViewModel extends ViewModel {
         return myRecipes;
     }
 
+    public List<Recipe> getRecipesBy(int size){
+        List<Recipe> someRecipes = new ArrayList<>();
+        List<Recipe> allRecipes = mRecipes.getValue();
+
+        if(size < 0) return someRecipes;
+        if(allRecipes.size() == 0) return  someRecipes;
+
+
+        for(int i = 0; i < size; i++)
+            someRecipes.add(allRecipes.get(i));
+
+        return someRecipes;
+    }
+
     public int getRecipePos(String recipeId) {
         List<Recipe> recipes = mRecipes.getValue();
 
@@ -65,7 +79,7 @@ public class RecipeViewModel extends ViewModel {
             if (recipe.getId().equals(recipeId))
                 return recipe;
 
-        return null;
+        return new Recipe();
     }
 
     public List<Recipe> getRecipesByIds(String[] recipeIds) {

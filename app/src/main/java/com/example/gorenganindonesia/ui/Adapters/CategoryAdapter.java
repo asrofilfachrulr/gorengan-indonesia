@@ -1,5 +1,6 @@
 package com.example.gorenganindonesia.ui.Adapters;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.Activity.ListRecipeActivity;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.Constants;
 
@@ -18,23 +20,11 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     List<String> dataList;
-    RecipeAdapter recipeAdapter;
+    Context context;
 
-    RecyclerView receiptRv, categoryRv;
-
-    final Button[] stateCategory = {null, null}; // {previous, current}
-
-    public String getCurrentCategory(){
-        if(stateCategory[1] != null)
-            return stateCategory[1].getText().toString();
-        return "";
-    }
-
-    public CategoryAdapter(List<String> dataList, RecipeAdapter recipeAdapter, RecyclerView receiptRv, RecyclerView categoryRv) {
+    public CategoryAdapter(List<String> dataList, Context context) {
         this.dataList = dataList;
-        this.recipeAdapter = recipeAdapter;
-        this.receiptRv = receiptRv;
-        this.categoryRv = categoryRv;
+        this.context = context;
     }
 
     public void updateData(List<String> updatedCategory){
@@ -57,29 +47,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.btnCategory.setText(btnText);
 
         if(btnText.toLowerCase().contains("semua")){
-            stateCategory[0] = holder.btnCategory;
-            stateCategory[1] = holder.btnCategory;
-
-            stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
-            stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
-            recipeAdapter.applyFilter(Constants.EMPTY_STRING, Constants.EMPTY_STRING);
+            holder.btnCategory.setTextAppearance(R.style.btn_accent_light_rounded);
+            holder.btnCategory.setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
         }
 
         holder.btnCategory.setOnClickListener(view -> {
-            receiptRv.scrollToPosition(0);
-
-            stateCategory[0] = stateCategory[1];
-            stateCategory[1] = holder.btnCategory;
-
-            // set to inactive style
-            stateCategory[0].setTextAppearance(R.style.btn_accent_inactive);
-            stateCategory[0].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_transparent, null));
-
-            // set to active style
-            stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
-            stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
-
-            recipeAdapter.applyFilter(btnText, Constants.EMPTY_STRING);
+            Intent intent = new Intent(context, ListRecipeActivity.class);
+            intent.putExtra("categoryInput", btnText.toLowerCase());
+            context.startActivity(intent);
         });
     }
 

@@ -90,7 +90,6 @@ public class RecipeHandler {
                             if(dto.callback != null)
                                 dto.callback.run();
                         } else {
-                            progressDialog.dismiss();
                             try {
                                 String errorBody = response.errorBody().string();
                                 Log.e("Status code: ", String.valueOf(statusCode));
