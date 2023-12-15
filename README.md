@@ -13,9 +13,9 @@ Currently, updates on app will be released to this link. Not every commits are u
 
 ## Snapshots
 
-<img src="./snapshot.png" alt="snapshot" width="300"/> <img src="./snapshot-1.png" alt="snapshot" width="300"/>
+<img src="./" alt="snapshot-home" width="300"/> <img src="./snapshot-your-recipe.png" alt="snapshot" width="300"/>
 
-<img src="./snapshot-2.png" alt="snapshot" width="300"/> <img src="./snapshot-3.png" alt="snapshot" width="300"/>
+<img src="./snapshot-favourites.png" alt="snapshot" width="300"/> <img src="./snapshot-detail-recipe.png" alt="snapshot" width="300"/>
 
 
 ## Main Features
