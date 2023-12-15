@@ -1,7 +1,7 @@
 # Gorengan Indonesia
 ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white) ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
-Simple Android App that provides numerous recipes of Indonesian fritters. This project is done to fulfill College Subject (Mobile Programming) Final Assignment. [Backend](https://github.com/asrofilfachrulr/API-Gorengan-Indonesia) of the app is hosted as Express.js serverless app on PaaS Vercel and use Database Hosting also Storage Hosting at [Supabase](https://supabase.com/).
+**Very** Simple Android App that provides numerous recipes of Indonesian fritters. This project is done to fulfill College Subject (Mobile Programming) Final Assignment. [Backend](https://github.com/asrofilfachrulr/API-Gorengan-Indonesia) of the app is hosted as Express.js serverless app on PaaS Vercel and use Database Hosting also Storage Hosting at [Supabase](https://supabase.com/).
 
 ## APK Download  
 Go to [release page](https://github.com/asrofilfachrulr/gorengan-indonesia/tags) of this repo to see what available options. 
