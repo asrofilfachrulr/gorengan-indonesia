@@ -34,8 +34,7 @@ jobs:
     - name: Create GitHub Release
       uses: ncipollo/release-action@v1.13.0
       with:
-        tag_name: ${{ github.sha }}
-        prerelease: ${{ startsWith(github.ref, 'refs/heads/v') }}
-        commit_sha: ${{ github.sha }}
+        tag: ${{ github.sha }}
+        prerelease: false
         assets: |
           build/outputs/apk/release/*.apk
