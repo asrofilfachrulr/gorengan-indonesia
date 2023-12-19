@@ -1,0 +1,41 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '18'
+
+    - name: Install Gradle
+      uses: gradle/gradle-action@v1
+
+    - name: Build APK
+      run: gradle assembleRelease
+      
+    # - name: Generate release notes
+    #   if: github.event.head_commit.message != 'skip notes'
+    #   run: |
+    #     # Your script to generate release notes based on commit messages
+    #     # Save output to a file (e.g., CHANGELOG.md)
+
+    - name: Create GitHub Release
+      uses: ncipollo/release-action@v3
+      with:
+        tag_name: ${{ github.sha }}
+        prerelease: ${{ startsWith(github.ref, 'refs/heads/v') }}
+        commit_sha: ${{ github.sha }}
+        assets: |
+          build/outputs/apk/release/*.apk
