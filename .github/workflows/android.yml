@@ -20,7 +20,7 @@ jobs:
         java-version: '18'
 
     - name: Install Gradle
-      uses: gradle/gradle-action@v1
+      uses: gradle/gradle-build-action@v2.11.0
 
     - name: Build APK
       run: gradle assembleRelease
@@ -32,7 +32,7 @@ jobs:
     #     # Save output to a file (e.g., CHANGELOG.md)
 
     - name: Create GitHub Release
-      uses: ncipollo/release-action@v3
+      uses: ncipollo/release-action@v1.13.0
       with:
         tag_name: ${{ github.sha }}
         prerelease: ${{ startsWith(github.ref, 'refs/heads/v') }}
