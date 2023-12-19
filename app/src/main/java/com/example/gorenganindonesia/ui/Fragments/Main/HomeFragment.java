@@ -1,17 +1,11 @@
 package com.example.gorenganindonesia.ui.Fragments.Main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,21 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gorenganindonesia.API.Handlers.CategoryHandler;
 import com.example.gorenganindonesia.API.Handlers.FavouriteHandler;
 import com.example.gorenganindonesia.API.Handlers.RecipeHandler;
-import com.example.gorenganindonesia.Activity.ListRecipeActivity;
+import com.example.gorenganindonesia.Activity.ListRecipeActivityRVG;
 import com.example.gorenganindonesia.Activity.LoginActivity;
 import com.example.gorenganindonesia.Model.DTO.APIHandlerDTO;
 import com.example.gorenganindonesia.Model.data.Recipe.Recipe;
-import com.example.gorenganindonesia.Util.Constants;
 import com.example.gorenganindonesia.Model.GlobalModel;
 import com.example.gorenganindonesia.Model.ViewModel.RecipeViewModel;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.GreetingGenerator;
-import com.example.gorenganindonesia.Util.Logger;
 import com.example.gorenganindonesia.Util.RecyclerViewItemSpacing;
-import com.example.gorenganindonesia.Util.RegexHelper;
-import com.example.gorenganindonesia.databinding.FragmentHomeBinding;
 
-import com.example.gorenganindonesia.ui.Adapters.CategoryAdapter;
+import com.example.gorenganindonesia.databinding.FragmentHomeBinding;
 import com.example.gorenganindonesia.ui.Adapters.MostViewedRecipeAdapter;
 import com.example.gorenganindonesia.ui.Adapters.RecipeAdapter;
 
@@ -140,7 +130,7 @@ public class HomeFragment extends Fragment {
 
         binding.etSearch.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Intent intent = new Intent(getActivity(), ListRecipeActivity.class);
+                Intent intent = new Intent(getActivity(), ListRecipeActivityRVG.class);
                 intent.putExtra("isSearchClicked", true);
                 getActivity().startActivity(intent);
                 return true;  // Consume the event to prevent further propagation
@@ -149,7 +139,7 @@ public class HomeFragment extends Fragment {
         });
 
         binding.btnMoreRecipeHomeFragment.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ListRecipeActivity.class);
+            Intent intent = new Intent(getActivity(), ListRecipeActivityRVG.class);
             getActivity().startActivity(intent);
         });
 

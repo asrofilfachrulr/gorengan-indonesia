@@ -1,13 +1,16 @@
 package com.example.gorenganindonesia.ui.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +27,7 @@ import com.example.gorenganindonesia.Util.RegexHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListRecipeAdapter extends RecyclerView.Adapter<ListRecipeAdapter.ViewHolder> {
+public class RecipeListRVGAdapter extends RecyclerView.Adapter<RecipeListRVGAdapter.ViewHolder> {
     List<Recipe> dataList;
     List<Recipe> originalList;
     String category;
@@ -32,7 +35,7 @@ public class ListRecipeAdapter extends RecyclerView.Adapter<ListRecipeAdapter.Vi
     String empty = Constants.EMPTY_STRING;
     RecyclerView recipeRecylerView;
 
-    public ListRecipeAdapter(List<Recipe> dataList, RecyclerView recipeRecylerView) {
+    public RecipeListRVGAdapter(List<Recipe> dataList, RecyclerView recipeRecylerView) {
         this.dataList = dataList;
         this.originalList = dataList;
         this.recipeRecylerView = recipeRecylerView;
@@ -120,16 +123,18 @@ public class ListRecipeAdapter extends RecyclerView.Adapter<ListRecipeAdapter.Vi
         }
     }
 
+
     @NonNull
     @Override
-    public ListRecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_item, parent, false);
-        ListRecipeAdapter.ViewHolder viewHolder = new ListRecipeAdapter.ViewHolder(view);
+    public RecipeListRVGAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gv_recipe_item, parent, false);
+
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListRecipeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecipeListRVGAdapter.ViewHolder holder, int position) {
         Recipe recipe = dataList.get(position);
 
         Glide
@@ -137,16 +142,13 @@ public class ListRecipeAdapter extends RecyclerView.Adapter<ListRecipeAdapter.Vi
                 .load(recipe.getImgUrl())
                 .placeholder(R.drawable.solid_grey_landscape)
                 .error(R.drawable.img_404_landscape)
-                .into(holder.ivReceiptThumb);
+                .into(holder.ivRecipe);
 
-        holder.tvReceiptTitle.setText(recipe.getTitle().toString());
-        holder.tvDifficulty.setText(recipe.getDifficulty().toString());
-        holder.tvPortion.setText(String.valueOf(recipe.getPortion()) + " Porsi");
-        holder.tvDuration.setText(String.valueOf(recipe.getMinuteDuration()) + "mnt");
-        holder.tvAuthorUsername.setText("@" + recipe.getAuthorUsername().toString());
-        holder.tvRatingStar.setText(String.valueOf(recipe.getStars()));
+        holder.tvTitle.setText(recipe.getTitle());
+        holder.tvAuthorName.setText("@"+recipe.getAuthorUsername());
+        holder.tvStars.setText(String.valueOf(recipe.getStars()));
 
-        holder.cvReceipt.setOnClickListener(view -> {
+        holder.cvItem.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), DetailActivity.class);
 
             intent.putExtra("recipe", recipe);
@@ -170,21 +172,20 @@ public class ListRecipeAdapter extends RecyclerView.Adapter<ListRecipeAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cvReceipt;
-        ImageView ivReceiptThumb;
-        TextView tvReceiptTitle, tvDifficulty, tvPortion, tvDuration, tvAuthorUsername, tvRatingStar;
-
+        ImageView ivRecipe;
+        TextView tvTitle;
+        TextView tvAuthorName;
+        TextView tvStars;
+        CardView cvItem;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            cvReceipt = itemView.findViewById(R.id.cv_receipt);
-            ivReceiptThumb = itemView.findViewById(R.id.iv_receipt_thumb);
-            tvReceiptTitle = itemView.findViewById(R.id.tv_receipt_title);
-            tvDifficulty = itemView.findViewById(R.id.tv_difficulty);
-            tvPortion = itemView.findViewById(R.id.tv_portion);
-            tvDuration = itemView.findViewById(R.id.tv_duration);
-            tvAuthorUsername = itemView.findViewById(R.id.tv_author_username);
-            tvRatingStar = itemView.findViewById(R.id.tv_star_rating);
+            cvItem = itemView.findViewById(R.id.cv_grid_recipe_item);
+
+            ivRecipe = itemView.findViewById(R.id.iv_recipe_thumb_gv);
+            tvTitle = itemView.findViewById(R.id.tv_title_list_recipe_gv);
+            tvAuthorName = itemView.findViewById(R.id.tv_author_username_gv);
+            tvStars = itemView.findViewById(R.id.tv_star_rating_gv);
         }
     }
 }

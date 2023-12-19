@@ -20,6 +20,9 @@
             android:name=".Activity.ListRecipeActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.ListRecipeActivityRVG"
+            android:exported="false" />
+        <activity
             android:name=".Activity.CongratsActivity"
             android:exported="false" />
         <activity

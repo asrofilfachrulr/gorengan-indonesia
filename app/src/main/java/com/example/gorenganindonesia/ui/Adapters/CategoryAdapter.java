@@ -10,11 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gorenganindonesia.Activity.ListRecipeActivity;
+import com.example.gorenganindonesia.Activity.ListRecipeActivityRVG;
 import com.example.gorenganindonesia.R;
-import com.example.gorenganindonesia.Util.Constants;
-
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         holder.btnCategory.setOnClickListener(view -> {
-            Intent intent = new Intent(context, ListRecipeActivity.class);
+            Intent intent = new Intent(context, ListRecipeActivityRVG.class);
             intent.putExtra("categoryInput", btnText.toLowerCase());
             context.startActivity(intent);
         });

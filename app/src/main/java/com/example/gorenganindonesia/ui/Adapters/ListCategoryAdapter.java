@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gorenganindonesia.Activity.ListRecipeActivityRVG;
 import com.example.gorenganindonesia.R;
 import com.example.gorenganindonesia.Util.Constants;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapter.ViewHolder> {
     List<String> dataList;
-    ListRecipeAdapter listRecipeAdapter;
+    RecipeListRVGAdapter recipeListRVGAdapter;
 
     RecyclerView recipeRv, categoryRv;
 
@@ -28,9 +29,9 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
         return "";
     }
 
-    public ListCategoryAdapter(List<String> dataList, ListRecipeAdapter listRecipeAdapter, RecyclerView recipeRv, RecyclerView categoryRv) {
+    public ListCategoryAdapter(List<String> dataList, RecipeListRVGAdapter recipeListRVGAdapter, RecyclerView recipeRv, RecyclerView categoryRv) {
         this.dataList = dataList;
-        this.listRecipeAdapter = listRecipeAdapter;
+        this.recipeListRVGAdapter = recipeListRVGAdapter;
         this.recipeRv = recipeRv;
         this.categoryRv = categoryRv;
     }
@@ -60,7 +61,9 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
 
             stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
             stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
-            listRecipeAdapter.applyFilter(Constants.EMPTY_STRING, Constants.EMPTY_STRING);
+
+            if(recipeListRVGAdapter != null)
+                recipeListRVGAdapter.applyFilter(Constants.EMPTY_STRING, Constants.EMPTY_STRING);
         }
 
         holder.btnCategory.setOnClickListener(view -> {
@@ -77,7 +80,8 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
             stateCategory[1].setTextAppearance(R.style.btn_accent_light_rounded);
             stateCategory[1].setBackground(ResourcesCompat.getDrawable(holder.context.getResources(), R.drawable.btn_accent_light, null));
 
-            listRecipeAdapter.applyFilter(btnText, Constants.EMPTY_STRING);
+            if(recipeListRVGAdapter != null)
+                recipeListRVGAdapter.applyFilter(btnText, Constants.EMPTY_STRING);
         });
     }
 
